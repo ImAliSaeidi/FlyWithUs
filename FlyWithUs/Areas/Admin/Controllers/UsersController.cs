@@ -2,6 +2,7 @@
 using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,23 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddUser()
         {
+            var countries = countryService.GetAllCountryForAddUser();
+            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
+
+            var genders = new List<SelectListItem>();
+            SelectListItem item1 = new SelectListItem
+            {
+                Text = "مرد",
+                Value = "مرد"
+            };
+            SelectListItem item2 = new SelectListItem
+            {
+                Text = "زن",
+                Value = "زن"
+            };
+            genders.Add(item1);
+            genders.Add(item2);
+            ViewData["Genders"] = new SelectList(genders, "Value", "Text");
             return View();
         }
 

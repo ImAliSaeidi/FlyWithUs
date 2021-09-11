@@ -46,7 +46,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             {
                 PhoneNumber = user.PhoneNumber,
                 Email = user.Email,
-                Nationality = user.Nationality,
+                NationalityId = user.NationalityId,
                 FirstNamePersian = user.FirstNamePersian,
                 LastNamePersian = user.LastNamePersian,
                 FirstNameEnglish = user.FirstNameEnglish,
@@ -65,7 +65,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 PhoneNumber = dto.PhoneNumber,
                 Email = dto.Email,
                 Password = PasswordHelper.EncodePasswordSHA3(dto.Password),
-                Nationality = dto.Nationality,
+                NationalityId = dto.NtionalityId,
                 FirstNamePersian = dto.FirstNamePersian,
                 LastNamePersian = dto.LastNamePersian,
                 FirstNameEnglish = dto.FirstNameEnglish,

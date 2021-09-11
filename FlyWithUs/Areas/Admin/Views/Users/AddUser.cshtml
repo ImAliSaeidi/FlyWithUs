@@ -67,9 +67,9 @@
                  <span class="text-danger"  asp-validation-for="NationalityCode"></span>
             </div>
             <div class="col-xs-2">
-                <label asp-for="Nationality">ملیت</label>
-                <input type="text" class="form-control" asp-for="Nationality" placeholder="ملیت">
-                 <span class="text-danger" asp-validation-for="Nationality"></span>
+                <label asp-for="NtionalityId">ملیت</label>
+                <select class="form-control" asp-for="NtionalityId" asp-items="@(ViewData["Countries"] as SelectList)"></select>
+                <span class="text-danger" asp-validation-for="NtionalityId"></span>
             </div>
             <div class="col-xs-2">
                 <label asp-for="BirthdateAD">تاریخ تولد</label>
@@ -78,8 +78,8 @@
             </div>
             <div class="col-xs-2">
                 <label asp-for="Gender">جنسیت</label>
-                <input type="text" class="form-control" asp-for="Gender" placeholder="جنسیت">
-                 <span class="text-danger" asp-validation-for="Gender"></span>
+                <select class="form-control" asp-for="Gender" asp-items="@(ViewData["Genders"] as SelectList)"></select>
+                <span class="text-danger" asp-validation-for="Gender"></span>
             </div>
         </div>
         <br />

@@ -33,9 +33,8 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
 
 
-        [Required(ErrorMessage = "لطفا ملیت را وارد کنید")]
-        [StringLength(32, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        public string Nationality { get; set; }
+        [Required(ErrorMessage = "لطفا ملیت را انتخاب کنید")]
+        public int NtionalityId { get; set; }
 
 
         [Required(ErrorMessage = "لطفا نام فارسی را وارد کنید")]

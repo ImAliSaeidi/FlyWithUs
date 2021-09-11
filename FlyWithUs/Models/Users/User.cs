@@ -32,8 +32,7 @@ namespace FlyWithUs.Hosted.Service.Models.Users
 
 
         [Required]
-        [StringLength(32)]
-        public string Nationality { get; set; }
+        public int NationalityId { get; set; }
 
 
         [Required]

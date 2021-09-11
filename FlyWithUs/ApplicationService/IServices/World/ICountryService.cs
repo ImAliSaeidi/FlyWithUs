@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs.Countries;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 {
     interface ICountryService
     {
-        List<CountryDTO> GetAllCountry();
+        List<SelectListItem> GetAllCountryForAddUser();
     }
 }

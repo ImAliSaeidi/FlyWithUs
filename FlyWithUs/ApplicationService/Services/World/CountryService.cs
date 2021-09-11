@@ -2,6 +2,7 @@
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,22 +18,21 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             repository = new CountryRepository();
         }
 
-        public List<CountryDTO> GetAllCountry()
+        public List<SelectListItem> GetAllCountryForAddUser()
         {
-            List<CountryDTO> dtos = new List<CountryDTO>();
-            List<Country> countries = repository.GetAllCountry();
-            foreach (var item in countries)
-            {
-                dtos.Add(Map(item));
-            }
-            return dtos;
+            return repository.GetAllCountry()
+                .Select(c => new SelectListItem()
+                {
+                    Text = c.NiceName,
+                    Value = c.Id.ToString()
+                }).ToList();
         }
 
         private CountryDTO Map(Country country)
         {
             return new CountryDTO
             {
-                Id=country.Id,
+                Id = country.Id,
                 NiceName = country.NiceName
             };
         }
