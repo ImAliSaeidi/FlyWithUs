@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class UsersController : Controller
     {
         private readonly UserService userService;

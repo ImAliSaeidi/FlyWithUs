@@ -1,7 +1,40 @@
-﻿@model UserDTO
+﻿
 @{
     ViewData["Title"] = "GetAllUser";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<h1>GetAllUser</h1>
-
+<h1>لیست کاربران</h1>
+<br />
+<hr />
+<div class="table-margin">
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
