@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20210911174938_Mig-Update-Country")]
+    partial class MigUpdateCountry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -491,11 +493,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<short?>("NumCode")
+                    b.Property<short>("NumCode")
                         .HasMaxLength(6)
                         .HasColumnType("smallint");
 
-                    b.Property<short?>("PhoneCode")
+                    b.Property<short>("PhoneCode")
                         .HasMaxLength(5)
                         .HasColumnType("smallint");
 

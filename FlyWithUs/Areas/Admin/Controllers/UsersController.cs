@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.Services;
+﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,9 +13,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     public class UsersController : Controller
     {
         private readonly UserService userService;
+        private readonly CountryService countryService;
         public UsersController()
         {
             userService = new UserService();
+            countryService = new CountryService();
         }
         public IActionResult GetAllUser()
         {
@@ -32,9 +35,15 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult AddUser([FromForm] UserAddDTO dto)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                userService.AddUser(dto);
+                return Redirect("/Admin/Users/GetAllUser");
+            }
+            else
+            {
+                return View(dto);
+            }
         }
-
-
     }
 }

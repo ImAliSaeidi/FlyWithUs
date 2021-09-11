@@ -1,12 +1,12 @@
 ﻿using FlyWithUs.Hosted.Service.Infrastructure.Context;
-using FlyWithUs.Hosted.Service.Infrastructure.IRepositories;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
 using FlyWithUs.Hosted.Service.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories
+namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
 {
     public class UserRepository : IUserRepository
     {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlyWithUs.Hosted.Service.DTOs.Countries;
+using FlyWithUs.Hosted.Service.Models.World;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,14 +10,14 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class UserAddDTO
     {
-        [Required(ErrorMessage ="لطفا شماره موبایل را وارد کنید")]
-        [StringLength(11,ErrorMessage ="طول مقدار ورودی مجاز نیست")]
+        [Required(ErrorMessage = "لطفا شماره موبایل را وارد کنید")]
+        [StringLength(11, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
         public string PhoneNumber { get; set; }
 
 
         [Required(ErrorMessage = "لطفا ایمیل را وارد کنید")]
         [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [EmailAddress(ErrorMessage ="ایمیل وارد شده معتبر نیست")]
+        [EmailAddress(ErrorMessage = "ایمیل وارد شده معتبر نیست")]
         public string Email { get; set; }
 
 
@@ -26,7 +28,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         [Required(ErrorMessage = "لطفا تکرار رمزعبور را وارد کنید")]
         [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [Compare("Password",ErrorMessage ="رمز عبور و تکرار آن یکسان نیست")]
+        [Compare("Password", ErrorMessage = "رمز عبور و تکرار آن یکسان نیست")]
         public string RePassword { get; set; }
 
 
