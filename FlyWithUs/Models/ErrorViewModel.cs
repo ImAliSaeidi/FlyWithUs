@@ -1,6 +1,6 @@
 using System;
 
-namespace FlyWithUs.Models
+namespace FlyWithUs.Hosted.Service.Models
 {
     public class ErrorViewModel
     {

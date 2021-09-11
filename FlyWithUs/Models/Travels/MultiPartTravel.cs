@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlyWithUs.Models.Travels
+namespace FlyWithUs.Hosted.Service.Models.Travels
 {
     public class MultiPartTravel : BaseEntity
     {

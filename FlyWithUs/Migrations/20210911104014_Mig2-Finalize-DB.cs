@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FlyWithUs.Migrations
+namespace FlyWithUs.Hosted.Service.Migrations
 {
     public partial class Mig2FinalizeDB : Migration
     {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlyWithUs.Models.Airplanes
+namespace FlyWithUs.Hosted.Service.Models.Airplanes
 {
     public class Agancy : BaseEntity
     {

@@ -1,15 +1,15 @@
-﻿using FlyWithUs.Models.Airplanes;
-using FlyWithUs.Models.Tickets;
-using FlyWithUs.Models.Travels;
-using FlyWithUs.Models.Users;
-using FlyWithUs.Models.World;
+﻿using FlyWithUs.Hosted.Service.Models.Airplanes;
+using FlyWithUs.Hosted.Service.Models.Tickets;
+using FlyWithUs.Hosted.Service.Models.Travels;
+using FlyWithUs.Hosted.Service.Models.Users;
+using FlyWithUs.Hosted.Service.Models.World;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlyWithUs.Infrastructure.Context
+namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 {
     public class FlyWithUsContext : DbContext
     {

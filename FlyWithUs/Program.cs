@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlyWithUs
+namespace FlyWithUs.Hosted.Service
 {
     public class Program
     {

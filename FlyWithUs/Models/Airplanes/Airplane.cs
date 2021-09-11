@@ -1,11 +1,11 @@
-﻿using FlyWithUs.Models.Travels;
+﻿using FlyWithUs.Hosted.Service.Models.Travels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlyWithUs.Models.Airplanes
+namespace FlyWithUs.Hosted.Service.Models.Airplanes
 {
     public class Airplane : BaseEntity
     {

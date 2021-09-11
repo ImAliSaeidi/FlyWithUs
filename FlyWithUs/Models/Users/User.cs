@@ -1,11 +1,11 @@
-﻿using FlyWithUs.Models.Tickets;
+﻿using FlyWithUs.Hosted.Service.Models.Tickets;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlyWithUs.Models.Users
+namespace FlyWithUs.Hosted.Service.Models.Users
 {
     public class User : BaseEntity
     {
