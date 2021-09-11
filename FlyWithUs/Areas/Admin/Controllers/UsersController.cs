@@ -23,6 +23,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult AddUser([FromForm] UserAddDTO dto)
         {
             return View();
