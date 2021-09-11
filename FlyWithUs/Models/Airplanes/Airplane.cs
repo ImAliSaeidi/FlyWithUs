@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FlyWithUs.Models.Travels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,20 +9,27 @@ namespace FlyWithUs.Models.Airplanes
 {
     public class Airplane : BaseEntity
     {
-        #region Properties
+        public Airplane()
+        {
+            Traveldetails = new HashSet<TravelDetail>();
+        }
+
+        [Required]
+        [StringLength(128)]
         public string Name { get; set; }
 
+
+        [Required]
+        [StringLength(128)]
         public string Brand { get; set; }
 
-        public string Class { get; set; }
 
+        [Required]
         public int MaxCapacity { get; set; }
-        #endregion
 
-
-        #region Relations
         public Agancy Agancy { get; set; }
 
-        #endregion
+        public ICollection<TravelDetail> Traveldetails { get; set; }
+
     }
 }

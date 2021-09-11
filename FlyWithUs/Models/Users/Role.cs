@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,14 +8,17 @@ namespace FlyWithUs.Models.Users
 {
     public class Role : BaseEntity
     {
-        #region Properties
+        public Role()
+        {
+            UserRoles = new HashSet<UserRole>();
+        }
+
+
+        [Required]
+        [StringLength(128)]
         public string Name { get; set; }
-        #endregion
 
-
-        #region Relations
         public ICollection<UserRole> UserRoles { get; set; }
 
-        #endregion
     }
 }

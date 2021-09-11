@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyWithUs.Models.Tickets;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,11 @@ namespace FlyWithUs.Models.Users
 {
     public class User : BaseEntity
     {
+        public User()
+        {
+            UserRoles = new HashSet<UserRole>();
+            Usertickets = new HashSet<UserTicket>();
+        }
 
         #region Properties
         [Required]
@@ -78,6 +84,8 @@ namespace FlyWithUs.Models.Users
 
         #region Relations
         public ICollection<UserRole> UserRoles { get; set; }
+
+        public ICollection<UserTicket> Usertickets { get; set; }
 
         #endregion
 

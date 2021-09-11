@@ -4,20 +4,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FlyWithUs.Models.Airplanes
+namespace FlyWithUs.Models.World
 {
-    public class Agancy : BaseEntity
+    public class Country : BaseEntity
     {
-        public Agancy()
+        public Country()
         {
-            Airplanes = new HashSet<Airplane>();
+            Cities = new HashSet<City>();
         }
+
 
         [Required]
         [StringLength(128)]
         public string Name { get; set; }
 
-        public ICollection<Airplane> Airplanes { get; set; }
-
+        public ICollection<City> Cities { get; set; }
     }
 }
