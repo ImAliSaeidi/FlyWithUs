@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlyWithUs.Hosted.Service.Security
+namespace FlyWithUs.Hosted.Service.Tools.Security
 {
     public class PasswordHelper
     {

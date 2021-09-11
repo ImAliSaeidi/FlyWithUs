@@ -15,5 +15,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories
         int DeleteUser(int userid);
 
         User GetUserById(int userid);
+
+        int Save();
+
+        List<User> GetAllUser();
     }
 }
