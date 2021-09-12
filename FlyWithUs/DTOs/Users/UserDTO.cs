@@ -27,5 +27,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
         public string Birthdate { get; set; }
 
         public string Gender { get; set; }
+
+        public DateTime CreateDate { get; set; }
     }
 }

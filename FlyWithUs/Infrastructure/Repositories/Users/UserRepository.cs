@@ -39,6 +39,16 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return context.User.Find(userid);
         }
 
+        public bool IsEmailExist(string email)
+        {
+            return context.User.Any(u => u.Email == email);
+        }
+
+        public bool IsPhoneNumberExist(string phonenumber)
+        {
+            return context.User.Any(u => u.PhoneNumber == phonenumber);
+        }
+
         public int Save()
         {
             return context.SaveChanges();

@@ -11,5 +11,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
         bool AddUser(UserAddDTO dto);
 
         List<UserDTO> GetAllUser();
+
+        bool IsPhoneNumberExist(string phonenumber);
+
+        bool IsEmailExist(string email);
     }
 }

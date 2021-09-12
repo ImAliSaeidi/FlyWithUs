@@ -19,5 +19,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
         int Save();
 
         List<User> GetAllUser();
+
+        bool IsPhoneNumberExist(string phonenumber);
+
+        bool IsEmailExist(string email);
     }
 }

@@ -40,6 +40,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return dtos;
         }
 
+        public bool IsEmailExist(string email)
+        {
+            return repository.IsEmailExist(email);
+        }
+
+        public bool IsPhoneNumberExist(string phonenumber)
+        {
+            return repository.IsPhoneNumberExist(phonenumber);
+        }
+
         private UserDTO Map(User user)
         {
             return new UserDTO
@@ -53,7 +63,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 LastNameEnglish = user.LastNameEnglish,
                 NationalityCode = user.NationalityCode,
                 Birthdate = user.Birthdate.ToString(),
-                Gender = user.Gender
+                Gender = user.Gender,
+                CreateDate = user.CreateDate
             };
         }
 

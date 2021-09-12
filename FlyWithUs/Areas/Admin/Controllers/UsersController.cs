@@ -30,23 +30,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddUser()
         {
-            var countries = countryService.GetAllCountryForAddUser();
-            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
-
-            var genders = new List<SelectListItem>();
-            SelectListItem item1 = new SelectListItem
-            {
-                Text = "مرد",
-                Value = "مرد"
-            };
-            SelectListItem item2 = new SelectListItem
-            {
-                Text = "زن",
-                Value = "زن"
-            };
-            genders.Add(item1);
-            genders.Add(item2);
-            ViewData["Genders"] = new SelectList(genders, "Value", "Text");
+            FillViewData();
             return View();
         }
 
@@ -55,13 +39,55 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                userService.AddUser(dto);
-                return Redirect("/Admin/Users/GetAllUser");
+                if (userService.IsPhoneNumberExist(dto.PhoneNumber) == true)
+                {
+                    ModelState.AddModelError("PhoneNumber", "شماره تلفن وارد شده معتبر نیست");
+                    FillViewData();
+                    return View(dto);
+                }
+                else if (userService.IsEmailExist(dto.Email) == true)
+                {
+                    ModelState.AddModelError("Email", "ایمیل وارد شده معتبر نیست");
+                    FillViewData();
+                    return View(dto);
+                }
+                else
+                {
+                    if (userService.AddUser(dto) == true)
+                    {
+                        return Redirect("/Admin/Users/GetAllUser");
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
             }
             else
             {
+                FillViewData();
                 return View(dto);
             }
+        }
+
+        private void FillViewData()
+        {
+            var countries = countryService.GetAllCountryForAddUser();
+            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
+
+            var genders = new List<SelectListItem>() {
+                new SelectListItem
+                {
+                Text = "مرد",
+                Value = "مرد"
+                },
+                new SelectListItem
+                {
+                Text = "زن",
+                Value = "زن"
+                }
+            };
+            ViewData["Genders"] = new SelectList(genders, "Value", "Text");
         }
     }
 }
