@@ -5,9 +5,9 @@
 }
 
 <h1 class="box-header with-border">
-    افزودن نقش |
-    <a href="/Admin/Agancies/GetAllAgancy" class="btn bg-navy fa fa-backward"> بازگشت </a>
-    <a href="/Admin/Agancies/DeleteAgancy/@Model.Id" class="btn btn-danger fa fa-trash"> حذف </a>
+    ویرایش آژانس |
+    <a href="/Admin/Agancies/GetAllAgancy" class="btn bg-navy"> <i class=" fa fa-backward"></i> بازگشت </a>
+    <a href="/Admin/Agancies/DeleteAgancy/@Model.Id" class="btn btn-danger"> <i class=" fa fa-trash"></i> حذف </a>
 </h1>
 
 <form method="post" class="box-body">
@@ -17,6 +17,6 @@
         <input type="text" class="form-control" asp-for="Name" placeholder="نام">
         <span class="text-danger" asp-validation-for="Name"></span>
         <br />
-        <button type="submit" class=" btn btn-success btn-lg btn-block  fa fa-check"> ثبت </button>
+        <button type="submit" class=" btn btn-success btn-lg btn-block"> <i class="  fa fa-check"></i> ثبت </button>
     </div>
 </form>
