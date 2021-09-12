@@ -33,7 +33,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (roleService.IsRoleExistForAdd(dto.Name) == true)
+                if (roleService.IsRoleExist(dto.Name,null) == true)
                 {
                     ModelState.AddModelError("Name", "نام نقش معتبر نیست");
                     return View(dto);
@@ -74,7 +74,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (roleService.IsRoleExistForUpdate(dto) == true)
+                if (roleService.IsRoleExist(dto.Name,dto.Id) == true)
                 {
                     ModelState.AddModelError("Name", "نام وارد شده معتبر نیست");
                     return View(dto);

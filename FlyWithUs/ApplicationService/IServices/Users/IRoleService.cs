@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 {
-   public interface IRoleService
+    public interface IRoleService
     {
         List<RoleDTO> GetAllRole();
         bool AddRole(RoleAddDTO dto);
-        bool IsRoleExistForUpdate(RoleUpdateDTO dto);
-        bool IsRoleExistForAdd(string  name);
+        bool IsRoleExist(string name, int? roleid);
         bool DeleteRole(int roleid);
         bool UpdateRole(RoleUpdateDTO dto);
-        RoleDTO GetRoleById(int roleid);
         RoleUpdateDTO GetRoleForUpdate(int roleid);
 
     }

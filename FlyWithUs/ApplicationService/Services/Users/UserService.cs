@@ -100,16 +100,42 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return repository.GetUserNationality(nationalityid);
         }
 
-        public bool IsEmailExistForAdd(string email)
+        public bool IsEmailExist(string email, int? userid)
         {
-            return repository.IsEmailExist(email);
+            if (userid != null)
+            {
+                bool result = false;
+                var user = repository.GetUserById(userid.Value);
+                if (repository.IsEmailExist(email) == true && user.Email != email)
+                {
+                    result = true;
+                }
+                return result;
+            }
+            else
+            {
+                return repository.IsEmailExist(email);
+            }
         }
 
-        public bool IsPhoneNumberExistForAdd(string phonenumber)
+        public bool IsPhoneNumberExist(string phonenumber, int? userid)
         {
-            return repository.IsPhoneNumberExist(phonenumber);
-        }
+            if (userid != null)
+            {
+                bool result = false;
+                var user = repository.GetUserById(userid.Value);
+                if (repository.IsPhoneNumberExist(phonenumber) == true && user.PhoneNumber != phonenumber)
+                {
+                    result = true;
+                }
+                return result;
+            }
+            else
+            {
+                return repository.IsPhoneNumberExist(phonenumber);
+            }
 
+        }
         private UserDTO Map(User user)
         {
             return new UserDTO
@@ -190,28 +216,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 dto.PassportExpirationDate = Convert.ToDateTime(user.PassportExpirationDate);
             }
             return dto;
-        }
-
-        public bool IsPhoneNumberExistForUpdate(UserUpdateDTO dto)
-        {
-            bool result = false;
-            var user = repository.GetUserById(dto.Id);
-            if (repository.IsPhoneNumberExist(dto.PhoneNumber) == true && user.PhoneNumber != dto.PhoneNumber)
-            {
-                result = true;
-            }
-            return result;
-        }
-
-        public bool IsEmailExistForUpdate(UserUpdateDTO dto)
-        {
-            bool result = false;
-            var user = repository.GetUserById(dto.Id);
-            if (repository.IsEmailExist(dto.Email) == true && user.Email != dto.Email)
-            {
-                result = true;
-            }
-            return result;
         }
     }
 }

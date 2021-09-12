@@ -12,13 +12,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         List<UserDTO> GetAllUser();
 
-        bool IsPhoneNumberExistForAdd(string phonenumber);
+        bool IsPhoneNumberExist(string phonenumber, int? userid);
 
-        bool IsEmailExistForAdd(string email);
-
-        bool IsPhoneNumberExistForUpdate(UserUpdateDTO dto);
-
-        bool IsEmailExistForUpdate(UserUpdateDTO dto);
+        bool IsEmailExist(string email, int? userid);
 
         UserDTO GetUserById(int userid);
 

@@ -32,7 +32,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         {
             return new Role
             {
-                Name = dto.Name
+                Name = dto.Name.ToLower().Trim()
             };
         }
         public List<RoleDTO> GetAllRole()
@@ -55,20 +55,22 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             };
         }
 
-        public bool IsRoleExistForUpdate(RoleUpdateDTO dto)
+        public bool IsRoleExist(string name, int? roleid)
         {
-            bool result = false;
-            var role = repository.GetRoleById(dto.Id);
-            if (repository.IsRoleExist(dto.Name) == true && role.Name != dto.Name)
+            if (roleid != null)
             {
-                result = true;
+                bool result = false;
+                var role = repository.GetRoleById(roleid.Value);
+                if (repository.IsRoleExist(name) == true && role.Name != name)
+                {
+                    result = true;
+                }
+                return result;
             }
-            return result;
-        }
-
-        public bool IsRoleExistForAdd(string name)
-        {
-            return repository.IsRoleExist(name);
+            else
+            {
+                return repository.IsRoleExist(name);
+            }
         }
 
         public bool DeleteRole(int roleid)
@@ -99,12 +101,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             role.Name = dto.Name;
             return role;
         }
-
-        public RoleDTO GetRoleById(int roleid)
-        {
-            return Map(repository.GetRoleById(roleid));
-        }
-
         public RoleUpdateDTO GetRoleForUpdate(int roleid)
         {
             Role role = repository.GetRoleById(roleid);

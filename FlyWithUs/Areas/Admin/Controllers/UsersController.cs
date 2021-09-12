@@ -38,13 +38,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userService.IsPhoneNumberExistForAdd(dto.PhoneNumber) == true)
+                if (userService.IsPhoneNumberExist(dto.PhoneNumber,null) == true)
                 {
                     ModelState.AddModelError("PhoneNumber", "شماره تلفن وارد شده معتبر نیست");
                     FillViewData();
                     return View(dto);
                 }
-                else if (userService.IsEmailExistForAdd(dto.Email) == true)
+                else if (userService.IsEmailExist(dto.Email,null) == true)
                 {
                     ModelState.AddModelError("Email", "ایمیل وارد شده معتبر نیست");
                     FillViewData();
@@ -123,13 +123,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userService.IsPhoneNumberExistForUpdate(dto) == true)
+                if (userService.IsPhoneNumberExist(dto.PhoneNumber,dto.Id) == true)
                 {
                     ModelState.AddModelError("PhoneNumber", "شماره تلفن وارد شده معتبر نیست");
                     FillViewData();
                     return View(dto);
                 }
-                else if (userService.IsEmailExistForUpdate(dto) == true)
+                else if (userService.IsEmailExist(dto.Email,dto.Id) == true)
                 {
                     ModelState.AddModelError("Email", "ایمیل وارد شده معتبر نیست");
                     FillViewData();
