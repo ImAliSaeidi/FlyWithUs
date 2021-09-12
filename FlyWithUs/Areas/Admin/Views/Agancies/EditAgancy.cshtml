@@ -1,0 +1,22 @@
+﻿@model AgancyUpdateDTO
+@{
+    ViewData["Title"] = "EditAgancy";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">
+    افزودن نقش |
+    <a href="/Admin/Agancies/GetAllAgancy" class="btn bg-navy fa fa-backward"> بازگشت </a>
+    <a href="/Admin/Agancies/DeleteAgancy/@Model.Id" class="btn btn-danger fa fa-trash"> حذف </a>
+</h1>
+
+<form method="post" class="box-body">
+    <input type="hidden" asp-for="Id" />
+    <div class="col-xs-4">
+        <label asp-for="Name">نام آژانس</label>
+        <input type="text" class="form-control" asp-for="Name" placeholder="نام">
+        <span class="text-danger" asp-validation-for="Name"></span>
+        <br />
+        <button type="submit" class=" btn btn-success btn-lg btn-block  fa fa-check"> ثبت </button>
+    </div>
+</form>
