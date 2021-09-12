@@ -85,8 +85,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             user.Birthdate = Convert.ToDateTime(dto.BirthdateAD.ToShamsi());
             user.Gender = dto.Gender;
             user.PassportNumber = dto.PassportNumber;
-            user.PassportIssunaceDate = dto.PassportIssunaceDate.Value.ToShortDateString();
-            user.PassportExpirationDate = dto.PassportExpirationDate.Value.ToShortDateString();
+            if (dto.PassportIssunaceDate != null)
+            {
+                user.PassportIssunaceDate = dto.PassportIssunaceDate.Value.ToShortDateString();
+            }
+            if (dto.PassportExpirationDate != null)
+            {
+                user.PassportExpirationDate = dto.PassportExpirationDate.Value.ToShortDateString();
+            }
             return user;
         }
         public string GetUserNationality(int nationalityid)
