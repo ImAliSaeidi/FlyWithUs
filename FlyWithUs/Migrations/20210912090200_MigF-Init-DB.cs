@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
-    public partial class Mig1InitDB : Migration
+    public partial class MigFInitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ISO2 = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    NiceName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    ISO3 = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
+                    NumCode = table.Column<short>(type: "smallint", maxLength: 6, nullable: true),
+                    PhoneCode = table.Column<short>(type: "smallint", maxLength: 5, nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -53,22 +58,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Travels",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    MaxCapacity = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Travels", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -77,18 +66,18 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     PhoneNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Nationality = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    NationalityId = table.Column<int>(type: "int", nullable: false),
                     FirstNamePersian = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     LastNamePersian = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     FirstNameEnglish = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     LastNameEnglish = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     NationalityCode = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
-                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BirthdateAD = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Birthdate = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    BirthdateAD = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PassportNumber = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
-                    PassportIssunaceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PassportExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PassportIssunaceDate = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    PassportExpirationDate = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -118,7 +107,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         column: x => x.AgancyId,
                         principalTable: "Agancies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,29 +129,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         column: x => x.CountryId,
                         principalTable: "Countries",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tickets",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
-                    TravelId = table.Column<int>(type: "int", nullable: true),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Travels_TravelId",
-                        column: x => x.TravelId,
-                        principalTable: "Travels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -184,13 +151,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         column: x => x.RoleId,
                         principalTable: "Role",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UserRoles_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -212,35 +179,82 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         column: x => x.CityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserTickets",
+                name: "Travels",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: true),
-                    TicketId = table.Column<int>(type: "int", nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    MaxCapacity = table.Column<int>(type: "int", nullable: false),
+                    OriginCityId = table.Column<int>(type: "int", nullable: true),
+                    DestinationCityId = table.Column<int>(type: "int", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserTickets", x => x.Id);
+                    table.PrimaryKey("PK_Travels", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserTickets_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
+                        name: "FK_Travels_Cities_DestinationCityId",
+                        column: x => x.DestinationCityId,
+                        principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_UserTickets_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
+                        name: "FK_Travels_Cities_OriginCityId",
+                        column: x => x.OriginCityId,
+                        principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MultiPartTravels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Origin = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Destination = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    TravelId = table.Column<int>(type: "int", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MultiPartTravels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MultiPartTravels_Travels_TravelId",
+                        column: x => x.TravelId,
+                        principalTable: "Travels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    TravelId = table.Column<int>(type: "int", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Travels_TravelId",
+                        column: x => x.TravelId,
+                        principalTable: "Travels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -270,25 +284,53 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         column: x => x.AirplaneId,
                         principalTable: "Airplanes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_TravelDetails_Airports_DestinationAirportId",
                         column: x => x.DestinationAirportId,
                         principalTable: "Airports",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_TravelDetails_Airports_OriginAirportId",
                         column: x => x.OriginAirportId,
                         principalTable: "Airports",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_TravelDetails_Travels_TravelId",
                         column: x => x.TravelId,
                         principalTable: "Travels",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTickets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    TicketId = table.Column<int>(type: "int", nullable: true),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTickets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserTickets_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_UserTickets_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -305,6 +347,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "IX_Cities_CountryId",
                 table: "Cities",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MultiPartTravels_TravelId",
+                table: "MultiPartTravels",
+                column: "TravelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_TravelId",
@@ -332,6 +379,16 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 column: "TravelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Travels_DestinationCityId",
+                table: "Travels",
+                column: "DestinationCityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Travels_OriginCityId",
+                table: "Travels",
+                column: "OriginCityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
                 column: "RoleId");
@@ -354,6 +411,9 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "MultiPartTravels");
+
             migrationBuilder.DropTable(
                 name: "TravelDetails");
 
@@ -382,10 +442,10 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Agancies");
 
             migrationBuilder.DropTable(
-                name: "Cities");
+                name: "Travels");
 
             migrationBuilder.DropTable(
-                name: "Travels");
+                name: "Cities");
 
             migrationBuilder.DropTable(
                 name: "Countries");

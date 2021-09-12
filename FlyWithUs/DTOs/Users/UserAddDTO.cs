@@ -12,6 +12,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
     {
         [Required(ErrorMessage = "لطفا شماره موبایل را وارد کنید")]
         [StringLength(11, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
+        [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}",ErrorMessage ="شماره وارد شده معتبر نیست")]
         public string PhoneNumber { get; set; }
 
 
@@ -59,6 +60,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         [Required(ErrorMessage = "لطفا کدملی را وارد کنید")]
         [StringLength(32, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
+        [RegularExpression("^[0-9]{10}$",ErrorMessage ="کدملی وارد شده معتبر نیست")]
         public string NationalityCode { get; set; }
 
 
@@ -68,6 +70,17 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         [Required(ErrorMessage = "لطفا جنسیت را انتخاب کنید")]
         public string Gender { get; set; }
+
+
+        [StringLength(32, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
+        [RegularExpression("[A-Z|a-z][0-9]{8}$", ErrorMessage = "شماره وارد شده معتبر نیست")]
+        public string PassportNumber { get; set; }
+
+
+        public DateTime? PassportIssunaceDate { get; set; }
+
+
+        public DateTime? PassportExpirationDate { get; set; }
 
     }
 }

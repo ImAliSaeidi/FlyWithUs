@@ -26,7 +26,6 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             return View(dtos);
         }
 
-
         [HttpGet]
         public IActionResult AddUser()
         {
@@ -88,6 +87,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 }
             };
             ViewData["Genders"] = new SelectList(genders, "Value", "Text");
+        }
+
+        public IActionResult GetUser(int userid)
+        {
+            return View();
         }
     }
 }

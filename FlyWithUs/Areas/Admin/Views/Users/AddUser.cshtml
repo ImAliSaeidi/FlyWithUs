@@ -6,85 +6,106 @@
 
 
 <h1 class="box-header with-border">افزودن کاربر</h1>
-<div class="box-body">
-    <form method="post">
-        <div class="row">
-            <div class="col-xs-4">
-                <label asp-for="PhoneNumber">شماره موبایل</label>
-                <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="شماره موبایل">
-                 <span class="text-danger" asp-validation-for="PhoneNumber"></span>
-            </div>
-            <div class="col-xs-4">
-                <label asp-for="Email">ایمیل</label>
-                <input type="email" class="form-control" asp-for="Email" placeholder="ایمیل">
-                 <span class="text-danger" asp-validation-for="Email"></span>
-            </div>
+
+<form method="post" class="col-8 box-body">
+    <div class="row">
+        <div class="col-xs-4">
+            <label asp-for="PhoneNumber">شماره موبایل</label>
+            <input type="text" class="form-control" asp-for="PhoneNumber" placeholder="شماره موبایل">
+            <span class="text-danger" asp-validation-for="PhoneNumber"></span>
         </div>
-        <br />
-        <div class=" row">
-            <div class="col-xs-4">
-                <label asp-for="Password">رمز عبور</label>
-                <input type="text" class="form-control" asp-for="Password" placeholder="رمز عبور">
-                 <span class="text-danger" asp-validation-for="Password"></span>
-            </div>
-            <div class="col-xs-4">
-                <label asp-for="RePassword">تکرار رمز عبور</label>
-                <input type="text" class="form-control" asp-for="RePassword" placeholder="تکرار رمز عبور">
-                 <span class="text-danger" asp-validation-for="RePassword"></span>
-            </div>
+        <div class="col-xs-4">
+            <label asp-for="Email">ایمیل</label>
+            <input type="email" class="form-control" asp-for="Email" placeholder="ایمیل">
+            <span class="text-danger" asp-validation-for="Email"></span>
         </div>
-        <br />
-        <div class="row">
-            <div class="col-xs-4">
-                <label asp-for="FirstNamePersian">نام فارسی</label>
-                <input type="text" class="form-control" asp-for="FirstNamePersian" placeholder="نام فارسی">
-                 <span class="text-danger" asp-validation-for="FirstNamePersian"></span>
-            </div>
-            <div class="col-xs-4">
-                <label asp-for="LastNamePersian">نام خانوادگی فارسی</label>
-                <input type="text" class="form-control" asp-for="LastNamePersian" placeholder="نام خانوادگی فارسی">
-                 <span class="text-danger" asp-validation-for="LastNamePersian"></span>
-            </div>
+    </div>
+    <br />
+    <div class=" row">
+        <div class="col-xs-4">
+            <label asp-for="Password">رمز عبور</label>
+            <input type="text" class="form-control" asp-for="Password" placeholder="رمز عبور">
+            <span class="text-danger" asp-validation-for="Password"></span>
         </div>
-        <br />
-        <div class="row">
-            <div class="col-xs-4">
-                <label asp-for="FirstNameEnglish">نام انگلیسی</label>
-                <input type="text" class="form-control" asp-for="FirstNameEnglish" placeholder="نام انگلیسی">
-                 <span class="text-danger" asp-validation-for="FirstNameEnglish"></span>
-            </div>
-            <div class="col-xs-4">
-                <label asp-for="LastNameEnglish">نام خانوادگی انگلیسی</label>
-                <input type="text" class="form-control" asp-for="LastNameEnglish" placeholder="نام خانوادگی انگلیسی">
-                 <span class="text-danger" asp-validation-for="LastNameEnglish"></span>
-            </div>
+        <div class="col-xs-4">
+            <label asp-for="RePassword">تکرار رمز عبور</label>
+            <input type="text" class="form-control" asp-for="RePassword" placeholder="تکرار رمز عبور">
+            <span class="text-danger" asp-validation-for="RePassword"></span>
         </div>
-        <br />
-        <div class="row">
-            <div class="col-xs-2">
-                <label asp-for="NationalityCode">کد ملی</label>
-                <input type="number" class="form-control" asp-for="NationalityCode" placeholder="کد ملی">
-                 <span class="text-danger"  asp-validation-for="NationalityCode"></span>
-            </div>
-            <div class="col-xs-2">
-                <label asp-for="NtionalityId">ملیت</label>
-                <select class="form-control" asp-for="NtionalityId" asp-items="@(ViewData["Countries"] as SelectList)"></select>
-                <span class="text-danger" asp-validation-for="NtionalityId"></span>
-            </div>
-            <div class="col-xs-2">
-                <label asp-for="BirthdateAD">تاریخ تولد</label>
-                <input type="date" class="form-control" asp-for="BirthdateAD" placeholder="تاریخ تولد">
-                 <span class="text-danger" asp-validation-for="BirthdateAD"></span>
-            </div>
-            <div class="col-xs-2">
-                <label asp-for="Gender">جنسیت</label>
-                <select class="form-control" asp-for="Gender" asp-items="@(ViewData["Genders"] as SelectList)"></select>
-                <span class="text-danger" asp-validation-for="Gender"></span>
-            </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-4">
+            <label asp-for="FirstNamePersian">نام فارسی</label>
+            <input type="text" class="form-control" asp-for="FirstNamePersian" placeholder="نام فارسی">
+            <span class="text-danger" asp-validation-for="FirstNamePersian"></span>
         </div>
-        <br />
-        <div class="box-footer">
-            <button type="submit" class="btn btn-success btn-lg btn-block">ارسال</button>
+        <div class="col-xs-4">
+            <label asp-for="LastNamePersian">نام خانوادگی فارسی</label>
+            <input type="text" class="form-control" asp-for="LastNamePersian" placeholder="نام خانوادگی فارسی">
+            <span class="text-danger" asp-validation-for="LastNamePersian"></span>
         </div>
-    </form>
-</div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-4">
+            <label asp-for="FirstNameEnglish">نام انگلیسی</label>
+            <input type="text" class="form-control" asp-for="FirstNameEnglish" placeholder="نام انگلیسی">
+            <span class="text-danger" asp-validation-for="FirstNameEnglish"></span>
+        </div>
+        <div class="col-xs-4">
+            <label asp-for="LastNameEnglish">نام خانوادگی انگلیسی</label>
+            <input type="text" class="form-control" asp-for="LastNameEnglish" placeholder="نام خانوادگی انگلیسی">
+            <span class="text-danger" asp-validation-for="LastNameEnglish"></span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-2">
+            <label asp-for="PassportNumber">شماره پاسپورت</label>
+            <input type="text" class="form-control" asp-for="PassportNumber" placeholder="شماره پاسپورت">
+            <label class="text text-muted">اختیاری</label>
+            <span class="text-danger" asp-validation-for="PassportNumber"></span>
+        </div>
+        <div class="col-xs-3">
+            <label asp-for="PassportIssunaceDate">تاریخ صدور پاسپورت</label>
+            <input type="date" class="form-control" asp-for="PassportIssunaceDate">
+            <label class="text text-muted">اختیاری</label>
+            <span class="text-danger" asp-validation-for="PassportIssunaceDate"></span>
+        </div>
+        <div class="col-xs-3">
+            <label asp-for="PassportExpirationDate">تاریخ انقضای پاسپورت</label>
+            <input type="date" class="form-control" asp-for="PassportExpirationDate">
+            <label class="text text-muted">اختیاری</label>
+            <span class="text-danger" asp-validation-for="PassportExpirationDate"></span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-2">
+            <label asp-for="NationalityCode">کد ملی</label>
+            <input type="number" class="form-control" asp-for="NationalityCode" placeholder="کد ملی">
+            <span class="text-danger" asp-validation-for="NationalityCode"></span>
+        </div>
+        <div class="col-xs-2">
+            <label asp-for="NtionalityId">ملیت</label>
+            <select class="form-control" asp-for="NtionalityId" asp-items="@(ViewData["Countries"] as SelectList)"></select>
+            <span class="text-danger" asp-validation-for="NtionalityId"></span>
+        </div>
+        <div class="col-xs-2">
+            <label asp-for="BirthdateAD">تاریخ تولد</label>
+            <input type="date" class="form-control" asp-for="BirthdateAD" placeholder="تاریخ تولد">
+            <span class="text-danger" asp-validation-for="BirthdateAD"></span>
+        </div>
+        <div class="col-xs-2">
+            <label asp-for="Gender">جنسیت</label>
+            <select class="form-control" asp-for="Gender" asp-items="@(ViewData["Genders"] as SelectList)"></select>
+            <span class="text-danger" asp-validation-for="Gender"></span>
+        </div>
+    </div>
+    <br />
+    <div class="col-xs-8 box-footer">
+        <button type="submit" class=" btn btn-success btn-lg btn-block">ارسال</button>
+    </div>
+</form>
+

@@ -29,5 +29,11 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
         public string Gender { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public string PassportNumber { get; set; }
+
+        public string PassportIssunaceDate { get; set; }
+
+        public string PassportExpirationDate { get; set; }
     }
 }

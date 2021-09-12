@@ -60,5 +60,49 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer("Data Source =LAPTOP-VIV37RCJ\\SQL2019;Initial Catalog=FlyWithUsDB;Integrated Security=true");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Airplane>()
+               .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Agancy>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Ticket>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<UserTicket>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<MultiPartTravel>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Travel>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<TravelDetail>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Role>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<User>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<UserRole>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Airport>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<City>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Country>()
+             .HasQueryFilter(u => !u.IsDeleted);
+        }
     }
 }

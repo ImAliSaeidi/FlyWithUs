@@ -1,0 +1,50 @@
+﻿@model UserDTO
+@{
+    ViewData["Title"] = "GetUser";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">لیست کاربران | <a href="AddUser" class="btn btn-success btn-lg">افزودن کاربر</a></h1>
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-bordered" style="table-layout:auto;width:100%">
+            <thead>
+                <tr>
+                    <th>نام</th>
+                    <th>نام خانوادگی</th>
+                    <th>شماره تلفن</th>
+                    <th>ایمیل</th>
+                    <th>تاریخ عضویت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>@Model.FirstNamePersian</td>
+                    <td>@Model.LastNamePersian</td>
+                    <td>@Model.PhoneNumber</td>
+                    <td>@Model.Email</td>
+                    <td>@Model.CreateDate.ToShamsi()</td>
+                    <td>
+                        <button class="btn btn-info btn-sm">جزئیات</button> |
+                        <button class="btn btn-danger btn-sm">حذف</button>|
+                        <button class="btn btn-warning btn-sm">ویرایش</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>
+
