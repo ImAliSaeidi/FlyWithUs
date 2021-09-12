@@ -21,5 +21,32 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             List<AgancyDTO> dto = agancyService.GetAllAgancy();
             return View(dto);
         }
+
+        [HttpGet]
+        public IActionResult AddAgancy()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddAgancy([FromForm]AgancyAddDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (agancyService.IsAgancyExist(dto.Name, null)==true)
+                {
+                    ModelState.AddModelError("Name", "نام وارد شده معتبر نیست");
+                    return View(dto);
+                }
+                else
+                {
+                    agancyService.AddAgancy(dto);
+                    return Redirect("/Admin/Agancies/GetAllAgancy");
+                }
+            }
+            else
+            {
+                return View(dto);
+            }
+        }
     }
 }

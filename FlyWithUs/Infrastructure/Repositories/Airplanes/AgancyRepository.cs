@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
 {
-    public class AgancyRepository: IAgancyRepository
+    public class AgancyRepository : IAgancyRepository
     {
         private readonly FlyWithUsContext context;
         public AgancyRepository()
@@ -37,6 +37,11 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
         public List<Agancy> GetAllAgancy()
         {
             return context.Agancies.ToList();
+        }
+
+        public bool IsAgancyExist(string name)
+        {
+            return context.Agancies.Any(a => a.Name == name);
         }
 
         public int Save()

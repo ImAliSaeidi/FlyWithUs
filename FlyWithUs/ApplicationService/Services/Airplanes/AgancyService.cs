@@ -18,6 +18,25 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             repository = new AgancyRepository();
         }
 
+        public bool AddAgancy(AgancyAddDTO dto)
+        {
+            bool result = false;
+            int count = repository.AddAgancy(Map(dto));
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        private Agancy Map(AgancyAddDTO dto)
+        {
+            return new Agancy
+            {
+                Name = dto.Name.ToLower().Trim()
+            };
+        }
+
         public List<AgancyDTO> GetAllAgancy()
         {
             List<AgancyDTO> dtos = new List<AgancyDTO>();
@@ -36,6 +55,24 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Name = agancy.Name,
                 CreateDate = agancy.CreateDate.ToShamsi()
             };
+        }
+
+        public bool IsAgancyExist(string name, int? agancyid)
+        {
+            if (agancyid != null)
+            {
+                bool result = false;
+                var agancy = repository.GetAgancyById(agancyid.Value);
+                if (repository.IsAgancyExist(name) == true && agancy.Name != name)
+                {
+                    result = true;
+                }
+                return result;
+            }
+            else
+            {
+                return repository.IsAgancyExist(name);
+            }
         }
     }
 }

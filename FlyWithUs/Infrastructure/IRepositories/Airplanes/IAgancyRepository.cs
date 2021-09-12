@@ -19,5 +19,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes
         List<Agancy> GetAllAgancy();
 
         int Save();
+
+        bool IsAgancyExist(string name);
     }
 }

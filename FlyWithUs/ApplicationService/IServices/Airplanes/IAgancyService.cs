@@ -11,5 +11,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
         List<AgancyDTO> GetAllAgancy();
 
         bool AddAgancy(AgancyAddDTO dto);
+
+        bool IsAgancyExist(string name, int? agancyid);
     }
 }
