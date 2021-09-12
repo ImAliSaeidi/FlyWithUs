@@ -108,5 +108,29 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+
+
+        [HttpGet]
+        public IActionResult EditUser(int id)
+        {
+            var userupdatedto = userService.GetUserForUpdate(id);
+            FillViewData();
+            return View(userupdatedto);
+        }
+
+        [HttpPost]
+        public IActionResult EditUser([FromForm] UserUpdateDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                userService.UpdateUser(dto);
+                return Redirect("/Admin/Users/GetAllUser");
+            }
+            else
+            {
+                FillViewData();
+                return View(dto);
+            }
+        }
     }
 }

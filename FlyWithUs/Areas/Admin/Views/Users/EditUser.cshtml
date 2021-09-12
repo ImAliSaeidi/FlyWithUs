@@ -1,13 +1,17 @@
-﻿@model UserAddDTO
+﻿@model UserUpdateDTO
 @{
-    ViewData["Title"] = "AddUser";
+    ViewData["Title"] = "EditUser";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 
-<h1 class="box-header with-border">افزودن کاربر</h1>
+<h1 class="box-header with-border">
+    ویرایش کاربر |
+    <a href="/Admin/Users/GetAllUser" class="btn bg-navy">بازگشت</a>
+</h1>
 
 <form method="post" class="col-8 box-body">
+    <input type="hidden" asp-for="Id" />
     <div class="row">
         <div class="col-xs-4">
             <label asp-for="PhoneNumber">شماره موبایل</label>
@@ -23,12 +27,13 @@
     <br />
     <div class=" row">
         <div class="col-xs-4">
-            <label asp-for="Password">رمز عبور</label>
+            <label asp-for="Password">رمز عبور جدید</label>
             <input type="text" class="form-control" asp-for="Password" placeholder="رمز عبور">
             <span class="text-danger" asp-validation-for="Password"></span>
+            <label class="text text-muted">جهت عدم تغییر،خالی بگذارید</label>
         </div>
         <div class="col-xs-4">
-            <label asp-for="RePassword">تکرار رمز عبور</label>
+            <label asp-for="RePassword">تکرار رمز عبور جدید</label>
             <input type="text" class="form-control" asp-for="RePassword" placeholder="تکرار رمز عبور">
             <span class="text-danger" asp-validation-for="RePassword"></span>
         </div>
