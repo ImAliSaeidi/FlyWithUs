@@ -19,5 +19,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
         UserDTO GetUserById(int userid);
 
         string GetUserNationality(int nationalityid);
+
+        bool DeleteUser(int userid);
     }
 }

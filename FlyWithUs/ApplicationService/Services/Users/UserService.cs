@@ -30,6 +30,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
+        public bool DeleteUser(int userid)
+        {
+            bool result = false;
+            int count = repository.DeleteUser(userid);
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+
         public List<UserDTO> GetAllUser()
         {
             List<UserDTO> dtos = new List<UserDTO>();

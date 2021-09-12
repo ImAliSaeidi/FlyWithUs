@@ -94,5 +94,19 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             var user = userService.GetUserById(id);
             return View(user);
         }
+
+
+        public IActionResult DeleteUser(int id)
+        {
+            var result = userService.DeleteUser(id);
+            if (result == true)
+            {
+                return Redirect("/Admin/Users/GetAllUser");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
