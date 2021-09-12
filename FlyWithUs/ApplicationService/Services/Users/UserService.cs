@@ -100,12 +100,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return repository.GetUserNationality(nationalityid);
         }
 
-        public bool IsEmailExist(string email)
+        public bool IsEmailExistForAdd(string email)
         {
             return repository.IsEmailExist(email);
         }
 
-        public bool IsPhoneNumberExist(string phonenumber)
+        public bool IsPhoneNumberExistForAdd(string phonenumber)
         {
             return repository.IsPhoneNumberExist(phonenumber);
         }
@@ -192,5 +192,26 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return dto;
         }
 
+        public bool IsPhoneNumberExistForUpdate(UserUpdateDTO dto)
+        {
+            bool result = false;
+            var user = repository.GetUserById(dto.Id);
+            if (repository.IsPhoneNumberExist(dto.PhoneNumber) == true && user.PhoneNumber != dto.PhoneNumber)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool IsEmailExistForUpdate(UserUpdateDTO dto)
+        {
+            bool result = false;
+            var user = repository.GetUserById(dto.Id);
+            if (repository.IsEmailExist(dto.Email) == true && user.Email != dto.Email)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }
