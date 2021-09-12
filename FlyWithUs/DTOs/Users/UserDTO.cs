@@ -7,12 +7,13 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class UserDTO
     {
+        public int Id { get; set; }
 
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
 
-        public int NationalityId { get; set; }
+        public string Nationality { get; set; }
 
         public string FirstNamePersian { get; set; }
 
@@ -24,7 +25,9 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         public string NationalityCode { get; set; }
 
-        public string Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
+
+        public DateTime BirthdateAD { get; set; }
 
         public string Gender { get; set; }
 

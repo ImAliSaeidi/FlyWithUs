@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20210912103647_Mig-Update-UserDates")]
+    partial class MigUpdateUserDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -344,11 +346,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<int>("NationalityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PassportExpirationDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("PassportExpirationDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("PassportIssunaceDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("PassportIssunaceDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PassportNumber")
                         .HasMaxLength(32)

@@ -61,12 +61,10 @@ namespace FlyWithUs.Hosted.Service.Models.Users
 
 
         [Required]
-        [StringLength(10)]
-        public string Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
 
-
-        [StringLength(10)]
-        public string BirthdateAD { get; set; }
+        [Required]
+        public DateTime BirthdateAD { get; set; }
 
 
         [Required]
@@ -77,11 +75,9 @@ namespace FlyWithUs.Hosted.Service.Models.Users
         public string PassportNumber { get; set; }
 
 
-        [StringLength(10)]
         public string PassportIssunaceDate { get; set; }
 
 
-        [StringLength(10)]
         public string PassportExpirationDate { get; set; }
         #endregion
 

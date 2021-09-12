@@ -23,5 +23,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
         bool IsPhoneNumberExist(string phonenumber);
 
         bool IsEmailExist(string email);
+
+        string GetUserNationality(int nationalityid);
     }
 }

@@ -15,5 +15,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
         bool IsPhoneNumberExist(string phonenumber);
 
         bool IsEmailExist(string email);
+
+        UserDTO GetUserById(int userid);
+
+        string GetUserNationality(int nationalityid);
     }
 }

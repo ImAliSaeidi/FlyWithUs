@@ -89,9 +89,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             ViewData["Genders"] = new SelectList(genders, "Value", "Text");
         }
 
-        public IActionResult GetUser(int userid)
+        public IActionResult GetUser(int id)
         {
-            return View();
+            var user = userService.GetUserById(id);
+            return View(user);
         }
     }
 }

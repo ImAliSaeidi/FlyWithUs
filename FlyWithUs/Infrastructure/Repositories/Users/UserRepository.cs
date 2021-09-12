@@ -39,6 +39,11 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return context.User.Find(userid);
         }
 
+        public string GetUserNationality(int nationalityid)
+        {
+            return context.Countries.Find(nationalityid).NiceName;
+        }
+
         public bool IsEmailExist(string email)
         {
             return context.User.Any(u => u.Email == email);

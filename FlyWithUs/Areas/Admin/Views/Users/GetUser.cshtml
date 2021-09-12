@@ -4,47 +4,96 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="box-header with-border">لیست کاربران | <a href="AddUser" class="btn btn-success btn-lg">افزودن کاربر</a></h1>
+<h1 class="box-header with-border">
+    اطلاعات کاربر |
+    <a class="btn btn-info">ویرایش</a> |
+    <a class="btn btn-danger">حذف</a> |
+    <a href="/Admin/Users/GetAllUser" class="btn bg-navy">بازگشت</a>
+</h1>
 
 <div class="box">
     <div class="box-body">
-        <table class="table table-bordered" style="table-layout:auto;width:100%">
-            <thead>
-                <tr>
-                    <th>نام</th>
-                    <th>نام خانوادگی</th>
-                    <th>شماره تلفن</th>
-                    <th>ایمیل</th>
-                    <th>تاریخ عضویت</th>
-                    <th>عملیات</th>
-                </tr>
-            </thead>
+        <table class="table table-bordered">
             <tbody>
-
                 <tr>
-                    <td>@Model.FirstNamePersian</td>
-                    <td>@Model.LastNamePersian</td>
+                    <th>شماره تلفن</th>
                     <td>@Model.PhoneNumber</td>
+                </tr>
+                <tr>
+                    <th>ایمیل</th>
                     <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <th>نام فارسی</th>
+                    <td>@Model.FirstNamePersian</td>
+                    <th>نام خانوادگی فارسی</th>
+                    <td>@Model.LastNamePersian</td>
+                </tr>
+                <tr>
+                    <th>نام انگلیسی</th>
+                    <td>@Model.FirstNameEnglish</td>
+                    <th>نام خانوادگی انگلیسی</th>
+                    <td>@Model.LastNameEnglish</td>
+                </tr>
+                <tr>
+                    <th>ملیت</th>
+                    <td>@Model.Nationality</td>
+                    <th>کد ملی</th>
+                    <td>@Model.NationalityCode</td>
+                </tr>
+                <tr>
+                    <th>تاریخ تولد(شمسی)</th>
+                    <td>@Model.BirthdateAD.ToShamsi()</td>
+                    <th>تاریخ تولد(میلادی)</th>
+                    <td>@Model.BirthdateAD.ToString().Substring(0, 10)</td>
+                </tr>
+                <tr>
+                    <th>جنسیت</th>
+                    <td>@Model.Gender</td>
+                </tr>
+                <tr>
+                    <th>شماره پاسپورت</th>
+                    @if (Model.PassportNumber == null)
+                    {
+                        <td class="text text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.PassportNumber</td>
+                    }
+                </tr>
+                <tr>
+                    <th>تاریخ صدور پاسپورت</th>
+                    @if (Model.PassportIssunaceDate == null)
+                    {
+                        <td class="text text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.PassportIssunaceDate</td>
+                    }
+                </tr>
+                <tr>
+                    <th>تاریخ انقضای پاسپورت</th>
+                    @if (Model.PassportExpirationDate == null)
+                    {
+                        <td class="text text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.PassportExpirationDate</td>
+                    }
+                </tr>
+                <tr>
+                    <th>تاریخ عضویت</th>
                     <td>@Model.CreateDate.ToShamsi()</td>
-                    <td>
-                        <button class="btn btn-info btn-sm">جزئیات</button> |
-                        <button class="btn btn-danger btn-sm">حذف</button>|
-                        <button class="btn btn-warning btn-sm">ویرایش</button>
-                    </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <!-- /.box-body -->
-    <div class="box-footer clearfix">
-        <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
-        </ul>
+        <br />
+        <div class="col-xs-6">
+
+        </div>
     </div>
 </div>
 

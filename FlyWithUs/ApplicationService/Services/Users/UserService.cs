@@ -40,6 +40,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return dtos;
         }
 
+        public UserDTO GetUserById(int userid)
+        {
+            return Map(repository.GetUserById(userid));
+        }
+
+        public string GetUserNationality(int nationalityid)
+        {
+            return repository.GetUserNationality(nationalityid);
+        }
+
         public bool IsEmailExist(string email)
         {
             return repository.IsEmailExist(email);
@@ -54,17 +64,22 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         {
             return new UserDTO
             {
+                Id = user.Id,
                 PhoneNumber = user.PhoneNumber,
                 Email = user.Email,
-                NationalityId = user.NationalityId,
+                Nationality = GetUserNationality(user.NationalityId),
                 FirstNamePersian = user.FirstNamePersian,
                 LastNamePersian = user.LastNamePersian,
                 FirstNameEnglish = user.FirstNameEnglish,
                 LastNameEnglish = user.LastNameEnglish,
                 NationalityCode = user.NationalityCode,
-                Birthdate = user.Birthdate.ToString(),
+                Birthdate = user.Birthdate,
+                BirthdateAD = user.BirthdateAD,
                 Gender = user.Gender,
-                CreateDate = user.CreateDate
+                CreateDate = user.CreateDate,
+                PassportNumber = user.PassportNumber,
+                PassportIssunaceDate = user.PassportIssunaceDate,
+                PassportExpirationDate = user.PassportExpirationDate
             };
         }
 
@@ -82,8 +97,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 FirstNameEnglish = dto.FirstNameEnglish,
                 LastNameEnglish = dto.LastNameEnglish,
                 NationalityCode = dto.NationalityCode,
-                BirthdateAD = dto.BirthdateAD.ToShortDateString(),
-                Birthdate = Convert.ToDateTime(dto.BirthdateAD.ToShamsi()).ToShortDateString(),
+                BirthdateAD = dto.BirthdateAD,
+                Birthdate = Convert.ToDateTime(dto.BirthdateAD.ToShamsi()),
                 Gender = dto.Gender,
                 PassportNumber = dto.PassportNumber
             };
