@@ -48,5 +48,17 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+
+        public IActionResult DeleteAgancy(int id)
+        {
+            if (agancyService.DeleteAgancy(id) == true)
+            {
+                return Redirect("/Admin/Agancies/GetAllAgancy");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

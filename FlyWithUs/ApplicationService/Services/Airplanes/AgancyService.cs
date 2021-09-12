@@ -74,5 +74,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 return repository.IsAgancyExist(name);
             }
         }
+
+        public bool DeleteAgancy(int agancyid)
+        {
+            bool result = false;
+            int count = repository.DeleteAgancy(agancyid);
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }

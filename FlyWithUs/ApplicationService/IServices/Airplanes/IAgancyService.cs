@@ -13,5 +13,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
         bool AddAgancy(AgancyAddDTO dto);
 
         bool IsAgancyExist(string name, int? agancyid);
+
+        bool DeleteAgancy(int agancyid);
     }
 }
