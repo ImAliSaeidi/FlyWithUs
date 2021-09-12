@@ -55,9 +55,20 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             };
         }
 
-        public bool IsRoleExist(string name)
+        public bool IsRoleExistForUpdate(RoleUpdateDTO dto)
         {
-            return repository.IsRoleExist(name.Trim().Replace(" ", ""));
+            bool result = false;
+            var role = repository.GetRoleById(dto.Id);
+            if (repository.IsRoleExist(dto.Name) == true && role.Name != dto.Name)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public bool IsRoleExistForAdd(string name)
+        {
+            return repository.IsRoleExist(name);
         }
 
         public bool DeleteRole(int roleid)
@@ -69,6 +80,39 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 result = true;
             }
             return result;
+        }
+
+        public bool UpdateRole(RoleUpdateDTO dto)
+        {
+            bool result = false;
+            int count = repository.UpdateRole(Map(dto));
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        private Role Map(RoleUpdateDTO dto)
+        {
+            Role role = repository.GetRoleById(dto.Id);
+            role.Name = dto.Name;
+            return role;
+        }
+
+        public RoleDTO GetRoleById(int roleid)
+        {
+            return Map(repository.GetRoleById(roleid));
+        }
+
+        public RoleUpdateDTO GetRoleForUpdate(int roleid)
+        {
+            Role role = repository.GetRoleById(roleid);
+            return new RoleUpdateDTO
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
         }
     }
 }

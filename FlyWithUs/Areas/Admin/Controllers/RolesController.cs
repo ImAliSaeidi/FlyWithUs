@@ -33,7 +33,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (roleService.IsRoleExist(dto.Name) == true)
+                if (roleService.IsRoleExistForAdd(dto.Name) == true)
                 {
                     ModelState.AddModelError("Name", "نام نقش معتبر نیست");
                     return View(dto);
@@ -60,6 +60,34 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             else
             {
                 return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult EditRole(int id)
+        {
+            RoleUpdateDTO dto = roleService.GetRoleForUpdate(id);
+            return View(dto);
+        }
+        [HttpPost]
+        public IActionResult EditRole([FromForm] RoleUpdateDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (roleService.IsRoleExistForUpdate(dto) == true)
+                {
+                    ModelState.AddModelError("Name", "نام وارد شده معتبر نیست");
+                    return View(dto);
+                }
+                else
+                {
+                    roleService.UpdateRole(dto);
+                    return Redirect("/Admin/Roles/GetAllRole");
+                }
+            }
+            else
+            {
+                return View(dto);
             }
         }
     }

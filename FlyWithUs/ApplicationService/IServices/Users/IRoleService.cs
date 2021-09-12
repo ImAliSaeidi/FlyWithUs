@@ -10,8 +10,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
     {
         List<RoleDTO> GetAllRole();
         bool AddRole(RoleAddDTO dto);
-        bool IsRoleExist(string name);
+        bool IsRoleExistForUpdate(RoleUpdateDTO dto);
+        bool IsRoleExistForAdd(string  name);
         bool DeleteRole(int roleid);
+        bool UpdateRole(RoleUpdateDTO dto);
+        RoleDTO GetRoleById(int roleid);
+        RoleUpdateDTO GetRoleForUpdate(int roleid);
 
     }
 }
