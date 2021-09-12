@@ -85,5 +85,32 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             }
             return result;
         }
+
+        public AgancyUpdateDTO GetAgancyForUpdate(int agancyid)
+        {
+            var agancy = repository.GetAgancyById(agancyid);
+            return new AgancyUpdateDTO
+            {
+                Id = agancy.Id,
+                Name = agancy.Name
+            };
+        }
+
+        public bool UpdateAgancy(AgancyUpdateDTO dto)
+        {
+            bool result = false;
+            int count = repository.UpdateAgancy(Map(dto));
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+        private Agancy Map(AgancyUpdateDTO dto)
+        {
+            var agancy = repository.GetAgancyById(dto.Id);
+            agancy.Name = dto.Name.ToLower().Trim();
+            return agancy;
+        }
     }
 }

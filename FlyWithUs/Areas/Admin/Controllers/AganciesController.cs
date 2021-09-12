@@ -28,11 +28,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddAgancy([FromForm]AgancyAddDTO dto)
+        public IActionResult AddAgancy([FromForm] AgancyAddDTO dto)
         {
             if (ModelState.IsValid)
             {
-                if (agancyService.IsAgancyExist(dto.Name, null)==true)
+                if (agancyService.IsAgancyExist(dto.Name, null) == true)
                 {
                     ModelState.AddModelError("Name", "نام وارد شده معتبر نیست");
                     return View(dto);
@@ -58,6 +58,35 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             else
             {
                 return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        public IActionResult EditAgancy(int id)
+        {
+            var dto = agancyService.GetAgancyForUpdate(id);
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult EditAgancy([FromForm] AgancyUpdateDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (agancyService.IsAgancyExist(dto.Name, dto.Id) == true)
+                {
+                    ModelState.AddModelError("Name", "نام وارد شده معتبر نیست");
+                    return View(dto);
+                }
+                else
+                {
+                    agancyService.UpdateAgancy(dto);
+                    return Redirect("/Admin/Agancies/GetAllAgancy");
+                }
+            }
+            else
+            {
+                return View(dto);
             }
         }
     }
