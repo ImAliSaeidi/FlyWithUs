@@ -11,5 +11,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
         List<RoleDTO> GetAllRole();
         bool AddRole(RoleAddDTO dto);
         bool IsRoleExist(string name);
+        bool DeleteRole(int roleid);
+
     }
 }

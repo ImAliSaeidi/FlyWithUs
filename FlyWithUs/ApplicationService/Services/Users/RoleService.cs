@@ -59,5 +59,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         {
             return repository.IsRoleExist(name.Trim().Replace(" ", ""));
         }
+
+        public bool DeleteRole(int roleid)
+        {
+            bool result = false;
+            int count = repository.DeleteRole(roleid);
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }

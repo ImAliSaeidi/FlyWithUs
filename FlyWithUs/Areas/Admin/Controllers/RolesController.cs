@@ -49,5 +49,18 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+
+        public IActionResult DeleteRole(int id)
+        {
+            bool result = roleService.DeleteRole(id);
+            if (result == true)
+            {
+                return Redirect("/Admin/Roles/GetAllRole");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
