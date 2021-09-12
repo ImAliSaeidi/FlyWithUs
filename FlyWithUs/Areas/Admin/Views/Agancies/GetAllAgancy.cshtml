@@ -1,0 +1,53 @@
+﻿@model List<AgancyDTO>
+@{
+    ViewData["Title"] = "GetAllAgancy";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">لیست آژانس های هواپیمایی |
+    <a href="AddAgancy" class="btn btn-success btn-lg fa fa-plus"> افزودن آژانس </a></h1>
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-bordered" style="table-layout:auto;width:100%">
+            <thead>
+                <tr>
+                    <th style="width: 10px">ردیف</th>
+                    <th>نام آژانس</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count = 1;
+                }
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Name</td>
+                        <td>@item.CreateDate</td>
+                        <td>
+                            <a href="DeleteRole/@item.Id" class="btn btn-danger btn-sm">حذف</a>|
+                            <a href="EditRole/@item.Id" class="btn btn-warning btn-sm">ویرایش</a>
+                        </td>
+                    </tr>
+                    count++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>
+
