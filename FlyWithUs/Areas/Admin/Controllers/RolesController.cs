@@ -21,5 +21,33 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             List<RoleDTO> dtos = roleService.GetAllRole();
             return View(dtos);
         }
+
+        [HttpGet]
+        public IActionResult AddRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddRole([FromForm] RoleAddDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (roleService.IsRoleExist(dto.Name) == true)
+                {
+                    ModelState.AddModelError("Name", "نام نقش معتبر نیست");
+                    return View(dto);
+                }
+                else
+                {
+                    roleService.AddRole(dto);
+                    return Redirect("/Admin/Roles/GetAllRole");
+                }
+            }
+            else
+            {
+                return View(dto);
+            }
+        }
     }
 }

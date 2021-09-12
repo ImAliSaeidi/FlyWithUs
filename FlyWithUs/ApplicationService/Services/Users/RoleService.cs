@@ -18,6 +18,23 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             repository = new RoleRepository();
         }
 
+        public bool AddRole(RoleAddDTO dto)
+        {
+            bool result = false;
+            int count = repository.AddRole(Map(dto));
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+        private Role Map(RoleAddDTO dto)
+        {
+            return new Role
+            {
+                Name = dto.Name
+            };
+        }
         public List<RoleDTO> GetAllRole()
         {
             List<RoleDTO> dtos = new List<RoleDTO>();
@@ -36,6 +53,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 Name = role.Name,
                 CreateDate = role.CreateDate.ToShamsi()
             };
+        }
+
+        public bool IsRoleExist(string name)
+        {
+            return repository.IsRoleExist(name.Trim().Replace(" ", ""));
         }
     }
 }

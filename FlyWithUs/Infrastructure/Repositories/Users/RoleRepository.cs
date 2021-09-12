@@ -39,6 +39,11 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return context.Role.Find(roleid);
         }
 
+        public bool IsRoleExist(string name)
+        {
+            return context.Role.Any(r => r.Name == name);
+        }
+
         public int Save()
         {
             return context.SaveChanges();

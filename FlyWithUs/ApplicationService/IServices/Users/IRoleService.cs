@@ -9,5 +9,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
    public interface IRoleService
     {
         List<RoleDTO> GetAllRole();
+        bool AddRole(RoleAddDTO dto);
+        bool IsRoleExist(string name);
     }
 }

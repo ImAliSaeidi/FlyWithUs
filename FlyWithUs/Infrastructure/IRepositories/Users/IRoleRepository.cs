@@ -19,5 +19,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
         List<Role> GetAllRole();
 
         int Save();
+
+        bool IsRoleExist(string name);
     }
 }
