@@ -89,5 +89,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+
+        public IActionResult GetAirplaneForAgancy(int id)
+        {
+            return View();
+        }
     }
 }
