@@ -29,6 +29,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             }
             return result;
         }
+
         private Airplane Map(AirplaneAddDTO dto)
         {
             return new Airplane
@@ -37,9 +38,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Brand = dto.Brand.ToLower().Trim(),
                 MaxCapacity = dto.MaxCapacity,
                 AgancyId = dto.AgancyId,
-                Count=dto.Count
+                Count = dto.Count
             };
         }
+
         public bool DeleteAirplane(int airplaneid)
         {
             bool result = false;
@@ -61,6 +63,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             }
             return dtos;
         }
+
         private AirplaneDTO Map(Airplane airplane)
         {
             return new AirplaneDTO
@@ -70,9 +73,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Brand = airplane.Brand,
                 MaxCapacity = airplane.MaxCapacity,
                 AgancyName = agancyService.GetAgancyById(airplane.AgancyId).Name,
-                Count=airplane.Count
+                Count = airplane.Count
             };
         }
+
         public List<AirplaneDTO> GetAllAirplaneByAgancy(int agancyid)
         {
             List<AirplaneDTO> dtos = new List<AirplaneDTO>();
@@ -102,6 +106,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             airplane.Brand = dto.Brand;
             airplane.MaxCapacity = dto.MaxCapacity;
             airplane.AgancyId = dto.AgancyId;
+            airplane.Count = dto.Count;
             return airplane;
         }
 
@@ -114,7 +119,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Name = airplane.Name,
                 Brand = airplane.Brand,
                 MaxCapacity = airplane.MaxCapacity,
-                AgancyId = airplane.AgancyId
+                AgancyId = airplane.AgancyId,
+                Count = airplane.Count
             };
         }
 
@@ -124,13 +130,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             {
                 bool result = false;
                 Airplane airplane = repository.GetAirplaneById(airplaneid.Value);
-                if (repository.IsAirplaneExist(name, brand, maxcapacity, agancyid) == true &&
-                    airplane.Name != name &&
-                    airplane.Brand != brand &&
-                    airplane.MaxCapacity != maxcapacity &&
-                    airplane.AgancyId != agancyid)
+                if (repository.IsAirplaneExist(name, brand, maxcapacity, agancyid) == true)
                 {
-                    result = true;
+                    if (airplane.Name == name && airplane.Brand == brand && airplane.MaxCapacity == maxcapacity &&
+                    airplane.AgancyId == agancyid)
+                    {
+                        result = false;
+                    }
+                    else
+                    {
+                        result = true;
+                    }
                 }
                 return result;
             }

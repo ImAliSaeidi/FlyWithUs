@@ -73,5 +73,36 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        public IActionResult EditAirplane(int id)
+        {
+            AirplaneUpdateDTO dto = airplaneService.GetAirplaneForUpdate(id);
+            FillViewData();
+            return View(dto);
+        }
+        [HttpPost]
+        public IActionResult EditAirplane([FromForm] AirplaneUpdateDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (airplaneService.IsAirplaneExist(dto.Name, dto.Brand, dto.MaxCapacity, dto.AgancyId, dto.Id) == true)
+                {
+                    ModelState.AddModelError("Name", "مشخصات وارد شده تکراری است");
+                    FillViewData();
+                    return View(dto);
+                }
+                else
+                {
+                    airplaneService.UpdateAirplane(dto);
+                    return Redirect("/Admin/Airplanes/GetAllAirplane");
+                }
+            }
+            else
+            {
+                return View(dto);
+            }
+        }
+
     }
 }
