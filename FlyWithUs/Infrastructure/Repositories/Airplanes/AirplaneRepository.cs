@@ -20,7 +20,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
         public int AddAirplane(Airplane airplane)
         {
             context.Airplanes.Add(airplane);
-            return Save();
+            Save();
+            int id = airplane.Id;
+            return id;
         }
 
         public int DeleteAirplane(int airplaneid)
@@ -38,17 +40,17 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
 
         public Airplane GetAirplaneById(int airplaneid)
         {
-            return context.Airplanes.Find(airplaneid);
+            return context.Airplanes.AsNoTracking().Include(a => a.Agancy).First(a => a.Id == airplaneid);
         }
 
         public List<Airplane> GetAllAirplane()
         {
-            return context.Airplanes.ToList();
+            return context.Airplanes.Include(a => a.Agancy).ToList();
         }
 
         public List<Airplane> GetAllAirplaneByAgancy(int agancyid)
         {
-            return context.Airplanes.Where(a => a.AgancyId == agancyid).ToList();
+            return context.Airplanes.Include(a => a.Agancy).Where(a => a.Agancy.Id == agancyid).ToList();
         }
 
         public int Save()
@@ -58,11 +60,11 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
 
         public bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid)
         {
-            return context.Airplanes.Any(a =>
-            a.Name == name
-            && a.Brand == brand
-            && a.MaxCapacity == maxcapacity
-            && a.AgancyId == agancyid);
+            return context.Airplanes.Include(a => a.Agancy).Any(a =>
+              a.Name == name
+              && a.Brand == brand
+              && a.MaxCapacity == maxcapacity
+              && a.Agancy.Id == agancyid);
         }
     }
 }

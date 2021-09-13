@@ -20,11 +20,6 @@ namespace FlyWithUs.Hosted.Service.Models.Airplanes
 
 
         [Required]
-        public int AgancyId { get; set; }
-
-
-
-        [Required]
         [StringLength(128)]
         public string Brand { get; set; }
 
@@ -35,6 +30,8 @@ namespace FlyWithUs.Hosted.Service.Models.Airplanes
 
         [Required]
         public int Count { get; set; }
+
+        public Agancy Agancy { get; set; }
 
         public ICollection<TravelDetail> Traveldetails { get; set; }
 
