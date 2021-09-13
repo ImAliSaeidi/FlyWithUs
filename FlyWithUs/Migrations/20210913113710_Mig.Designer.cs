@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20210913113710_Mig")]
+    partial class Mig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,6 +77,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("nvarchar(128)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AgancyId");
 
                     b.ToTable("Airplanes");
                 });
@@ -498,6 +502,17 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Airplane", b =>
+                {
+                    b.HasOne("FlyWithUs.Hosted.Service.Models.Airplanes.Agancy", "Agancy")
+                        .WithMany("Airplanes")
+                        .HasForeignKey("AgancyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Agancy");
+                });
+
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.Ticket", b =>
                 {
                     b.HasOne("FlyWithUs.Hosted.Service.Models.Travels.Travel", "Travel")
@@ -604,6 +619,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("CountryId");
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Agancy", b =>
+                {
+                    b.Navigation("Airplanes");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Airplane", b =>

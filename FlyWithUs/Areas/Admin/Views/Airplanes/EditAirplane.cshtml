@@ -1,0 +1,40 @@
+﻿@model AirplaneUpdateDTO
+@{
+    ViewData["Title"] = "EditAirplane";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">
+    ویرایش هواپیما |
+    <a href="/Admin/Airplanes/GetAllAirplane" class="btn bg-navy"> <i class="fa fa-backward"></i> بازگشت </a>
+</h1>
+
+<form method="post" class="box-body">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-xs-4">
+            <label asp-for="Name">نام</label>
+            <input type="text" class="form-control" asp-for="Name" placeholder="نام">
+            <span class="text-danger" asp-validation-for="Name"></span>
+            <br />
+            <label asp-for="Brand">برند</label>
+            <input type="text" class="form-control" asp-for="Brand" placeholder="برند">
+            <span class="text-danger" asp-validation-for="Brand"></span>
+            <br />
+            <label asp-for="MaxCapacity">ظرفیت</label>
+            <input type="number" class="form-control" asp-for="MaxCapacity" placeholder="ظرفیت">
+            <span class="text-danger" asp-validation-for="MaxCapacity"></span>
+            <br />
+            <label asp-for="Count">تعداد</label>
+            <input type="number" class="form-control" asp-for="Count" placeholder="تعداد">
+            <span class="text-danger" asp-validation-for="Count"></span>
+            <br />
+            <label asp-for="AgancyId">آژانس هواپیمایی</label>
+            <select class="form-control" asp-for="AgancyId" asp-items="@(ViewData["Agancies"] as SelectList)"></select>
+            <span class="text-danger" asp-validation-for="AgancyId"></span>
+            <br />
+            <button type="submit" class=" btn btn-success btn-lg btn-block"> <i class="fa fa-check"></i> ثبت </button>
+        </div>
+    </div>
+</form>
+

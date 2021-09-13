@@ -3,6 +3,7 @@ using FlyWithUs.Hosted.Service.DTOs.Agancies;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,6 +112,21 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             var agancy = repository.GetAgancyById(dto.Id);
             agancy.Name = dto.Name.ToLower().Trim();
             return agancy;
+        }
+
+        public List<SelectListItem> GetAllAgancyForAddAirplane()
+        {
+            return repository.GetAllAgancy()
+                .Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                }).ToList();
+        }
+
+        public Agancy GetAgancyById(int agancyid)
+        {
+            return repository.GetAgancyById(agancyid);
         }
     }
 }

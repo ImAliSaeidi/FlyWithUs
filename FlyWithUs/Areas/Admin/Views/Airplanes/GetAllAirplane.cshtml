@@ -1,0 +1,61 @@
+﻿@model List<AirplaneDTO>
+@{
+    ViewData["Title"] = "GetAllAirplane";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">
+    لیست هواپیما ها |
+    <a href="AddAirplane" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن هواپیما </a>
+</h1>
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-bordered" style="table-layout:auto;width:100%">
+            <thead>
+                <tr>
+                    <th style="width: 10px">ردیف</th>
+                    <th>نام</th>
+                    <th>برند</th>
+                    <th>ظرفیت</th>
+                    <th>تعداد</th>
+                    <th>آژانس هواپیمایی</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count = 1;
+                }
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Name</td>
+                        <td>@item.Brand</td>
+                        <td>@item.MaxCapacity</td>
+                        <td>@item.Count</td>
+                        <td>@item.AgancyName</td>
+                        <td>
+                            <a href="DeleteAirplane/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|
+                            <a href="EditAirplane/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pencil"></i> ویرایش </a>
+                        </td>
+                    </tr>
+                    count++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>
+
