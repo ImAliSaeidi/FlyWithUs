@@ -112,10 +112,12 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         #endregion
 
 
+        #region Fill View Data Method
         private void FillViewData()
         {
             var agancies = agancyService.GetAllAgancyForAddAirplane();
             ViewData["Agancies"] = new SelectList(agancies, "Value", "Text");
         }
+        #endregion
     }
 }
