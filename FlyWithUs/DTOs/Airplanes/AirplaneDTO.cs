@@ -15,6 +15,8 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
 
         public int MaxCapacity { get; set; }
 
+        public int Count { get; set; }
+
         public string AgancyName { get; set; }
     }
 }

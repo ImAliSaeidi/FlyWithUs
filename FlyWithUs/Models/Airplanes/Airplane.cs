@@ -27,6 +27,12 @@ namespace FlyWithUs.Hosted.Service.Models.Airplanes
         [Required]
         public int MaxCapacity { get; set; }
 
+
+        [Required]
+        public int Count { get; set; }
+
+
+
         public Agancy Agancy { get; set; }
 
         public ICollection<TravelDetail> Traveldetails { get; set; }

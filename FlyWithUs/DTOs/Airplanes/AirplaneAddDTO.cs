@@ -23,6 +23,10 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
         public int MaxCapacity { get; set; }
 
 
+        [Required(ErrorMessage = "لطفا تعداد هواپیما را وارد کنید")]
+        public int Count { get; set; }
+
+
         [Required(ErrorMessage = "لطفا آژانس هواپیمایی را انتخاب کنید")]
         public Agancy Agancy { get; set; }
     }
