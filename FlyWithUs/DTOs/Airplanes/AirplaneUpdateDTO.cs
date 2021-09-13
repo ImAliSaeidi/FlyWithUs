@@ -32,6 +32,6 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
 
 
         [Required(ErrorMessage = "لطفا آژانس هواپیمایی را انتخاب کنید")]
-        public Agancy Agancy { get; set; }
+        public int AgancyId { get; set; }
     }
 }

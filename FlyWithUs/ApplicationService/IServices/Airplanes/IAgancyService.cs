@@ -1,4 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs.Agancies;
+using FlyWithUs.Hosted.Service.Models.Airplanes;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +21,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
         AgancyUpdateDTO GetAgancyForUpdate(int agancyid);
 
         bool UpdateAgancy(AgancyUpdateDTO dto);
+
+        List<SelectListItem> GetAllAgancyForAddAirplane();
+
+        Agancy GetAgancyById(int agancyid);
     }
 }

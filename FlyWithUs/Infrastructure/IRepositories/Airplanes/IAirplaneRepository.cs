@@ -21,5 +21,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes
         List<Airplane> GetAllAirplaneByAgancy(int agancyid);
 
         int Save();
+
+        bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid);
     }
 }

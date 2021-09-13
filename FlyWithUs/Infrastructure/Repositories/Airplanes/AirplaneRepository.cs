@@ -43,17 +43,26 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
 
         public List<Airplane> GetAllAirplane()
         {
-            return context.Airplanes.Include(a => a.Agancy).ToList();
+            return context.Airplanes.ToList();
         }
 
         public List<Airplane> GetAllAirplaneByAgancy(int agancyid)
         {
-            return context.Airplanes.Where(a => a.Agancy.Id == agancyid).ToList();
+            return context.Airplanes.Where(a => a.AgancyId == agancyid).ToList();
         }
 
         public int Save()
         {
             return context.SaveChanges();
+        }
+
+        public bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid)
+        {
+            return context.Airplanes.Any(a =>
+            a.Name == name
+            && a.Brand == brand
+            && a.MaxCapacity == maxcapacity
+            && a.AgancyId == agancyid);
         }
     }
 }

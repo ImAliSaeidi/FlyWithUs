@@ -12,9 +12,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
     public class AirplaneService : IAirplaneService
     {
         private readonly AirplaneRepository repository;
+        private readonly AgancyService agancyService;
         public AirplaneService()
         {
             repository = new AirplaneRepository();
+            agancyService = new AgancyService();
         }
 
         public bool AddAirplane(AirplaneAddDTO dto)
@@ -31,10 +33,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
         {
             return new Airplane
             {
-                Name = dto.Name,
-                Brand = dto.Brand,
+                Name = dto.Name.ToLower().Trim(),
+                Brand = dto.Brand.ToLower().Trim(),
                 MaxCapacity = dto.MaxCapacity,
-                Agancy = dto.Agancy
+                AgancyId = dto.AgancyId,
+                Count=dto.Count
             };
         }
         public bool DeleteAirplane(int airplaneid)
@@ -66,7 +69,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Name = airplane.Name,
                 Brand = airplane.Brand,
                 MaxCapacity = airplane.MaxCapacity,
-                AgancyName = airplane.Agancy.Name
+                AgancyName = agancyService.GetAgancyById(airplane.AgancyId).Name,
+                Count=airplane.Count
             };
         }
         public List<AirplaneDTO> GetAllAirplaneByAgancy(int agancyid)
@@ -97,7 +101,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             airplane.Name = dto.Name;
             airplane.Brand = dto.Brand;
             airplane.MaxCapacity = dto.MaxCapacity;
-            airplane.Agancy = dto.Agancy;
+            airplane.AgancyId = dto.AgancyId;
             return airplane;
         }
 
@@ -110,8 +114,30 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Name = airplane.Name,
                 Brand = airplane.Brand,
                 MaxCapacity = airplane.MaxCapacity,
-                Agancy = airplane.Agancy
+                AgancyId = airplane.AgancyId
             };
+        }
+
+        public bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid, int? airplaneid)
+        {
+            if (airplaneid != null)
+            {
+                bool result = false;
+                Airplane airplane = repository.GetAirplaneById(airplaneid.Value);
+                if (repository.IsAirplaneExist(name, brand, maxcapacity, agancyid) == true &&
+                    airplane.Name != name &&
+                    airplane.Brand != brand &&
+                    airplane.MaxCapacity != maxcapacity &&
+                    airplane.AgancyId != agancyid)
+                {
+                    result = true;
+                }
+                return result;
+            }
+            else
+            {
+                return repository.IsAirplaneExist(name, brand, maxcapacity, agancyid);
+            }
         }
     }
 }

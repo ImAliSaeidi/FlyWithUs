@@ -19,5 +19,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
         List<AirplaneDTO> GetAllAirplaneByAgancy(int agancyid);
 
         AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneid);
+
+        bool IsAirplaneExist(string name,string brand,int maxcapacity,int agancyid,int? airplaneid);
     }
 }
