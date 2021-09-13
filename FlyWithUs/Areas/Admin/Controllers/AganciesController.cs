@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
 using FlyWithUs.Hosted.Service.DTOs.Agancies;
+using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     public class AganciesController : Controller
     {
         private readonly AgancyService agancyService;
+        private readonly AirplaneService airplaneService;
         public AganciesController()
         {
             agancyService = new AgancyService();
+            airplaneService = new AirplaneService();
         }
         public IActionResult GetAllAgancy()
         {
@@ -88,6 +91,12 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             {
                 return View(dto);
             }
+        }
+
+        public IActionResult GetAirplaneForAgancy(int id)
+        {
+            List<AirplaneDTO> dto = airplaneService.GetAllAirplaneByAgancy(id);
+            return View(dto);
         }
     }
 }
