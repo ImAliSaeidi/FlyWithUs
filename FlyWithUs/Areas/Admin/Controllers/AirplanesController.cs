@@ -20,12 +20,17 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             airplaneService = new AirplaneService();
             agancyService = new AgancyService();
         }
+
+
+        #region Get All Airplane
         public IActionResult GetAllAirplane()
         {
             List<AirplaneDTO> dtos = airplaneService.GetAllAirplane();
             return View(dtos);
         }
+        #endregion
 
+        #region Add Airplane
         [HttpGet]
         public IActionResult AddAirplane()
         {
@@ -55,12 +60,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        private void FillViewData()
-        {
-            var agancies = agancyService.GetAllAgancyForAddAirplane();
-            ViewData["Agancies"] = new SelectList(agancies, "Value", "Text");
-        }
+        #endregion
 
+
+        #region Delete Airplane
         public IActionResult DeleteAirplane(int id)
         {
             var result = airplaneService.DeleteAirplane(id);
@@ -73,7 +76,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
+
+        #region Edit Airplane
         [HttpGet]
         public IActionResult EditAirplane(int id)
         {
@@ -103,6 +109,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
 
+
+        private void FillViewData()
+        {
+            var agancies = agancyService.GetAllAgancyForAddAirplane();
+            ViewData["Agancies"] = new SelectList(agancies, "Value", "Text");
+        }
     }
 }
