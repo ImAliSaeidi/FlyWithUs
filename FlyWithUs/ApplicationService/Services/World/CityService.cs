@@ -2,7 +2,9 @@
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 {
@@ -143,5 +145,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         }
         #endregion
 
+
+        public List<SelectListItem> GetAllCityAsSelectList()
+        {
+            return repository.GetAllCity()
+                .Select(c => new SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                }).ToList();
+        }
     }
 }
