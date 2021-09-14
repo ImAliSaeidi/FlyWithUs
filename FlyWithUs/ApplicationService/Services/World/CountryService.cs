@@ -76,7 +76,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 var country = repository.GetCountryById(countryid.Value);
                 if (repository.IsExistCountry(name, numcode, phonecode) == true)
                 {
-                    if (country.Name == name && country.NumCode == numcode && country.PhoneCode == phonecode)
+                    if (country.NiceName == name && country.NumCode == numcode && country.PhoneCode == phonecode)
                     {
                         result = false;
                     }
@@ -106,10 +106,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         private Country Map(CountryUpdateDTO dto)
         {
             var country = repository.GetCountryById(dto.Id);
-            country.ISO2 = dto.NiceName.Substring(0, 2).ToUpper();
-            country.Name = dto.NiceName.ToUpper();
+            country.ISO2 = dto.EnglishName.Substring(0, 2).ToUpper();
+            country.Name = dto.EnglishName.ToUpper();
             country.NiceName = dto.NiceName;
-            country.ISO3 = dto.NiceName.Substring(0, 3).ToUpper();
+            country.ISO3 = dto.EnglishName.Substring(0, 3).ToUpper();
             country.NumCode = dto.NumCode;
             country.PhoneCode = dto.PhoneCode;
             return country;
@@ -132,6 +132,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             {
                 Id = country.Id,
                 NiceName = country.NiceName,
+                EnglishName = country.Name,
                 NumCode = country.NumCode,
                 PhoneCode = country.PhoneCode
             };

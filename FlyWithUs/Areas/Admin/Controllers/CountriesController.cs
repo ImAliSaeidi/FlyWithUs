@@ -61,5 +61,33 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        public IActionResult EditCountry(int id)
+        {
+            CountryUpdateDTO dto = countryService.GetCountryForUpdate(id);
+            return View(dto);
+        }
+        [HttpPost]
+        public IActionResult EditCountry([FromForm] CountryUpdateDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (countryService.IsExistCountry(dto.NiceName, dto.NumCode, dto.PhoneCode, dto.Id) == true)
+                {
+                    ModelState.AddModelError("NiceName", "مشخصات وارد شده تکراری است");
+                    return View(dto);
+                }
+                else
+                {
+                    countryService.UpdateCountry(dto);
+                    return Redirect("/Admin/Countries/GetAllCountry");
+                }
+            }
+            else
+            {
+                return View(dto);
+            }
+        }
     }
 }
