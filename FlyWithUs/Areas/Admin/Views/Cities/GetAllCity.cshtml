@@ -1,0 +1,51 @@
+﻿@model List<CityDTO>
+@{
+    ViewData["Title"] = "GetAllCity";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">لیست شهرها | <a href="AddCity" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن شهر </a></h1>
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-bordered" style="table-layout:auto;width:100%">
+            <thead>
+                <tr>
+                    <th style="width: 10px">ردیف</th>
+                    <th>نام شهر</th>
+                    <th>نام کشور</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count = 1;
+                }
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Name</td>
+                        <td>@item.CountryName</td>
+                        <td>
+                            <a href="DeleteCity/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a> |
+                            <a href="EditCity/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pencil"></i> ویرایش </a>
+                        </td>
+                    </tr>
+                    count++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>

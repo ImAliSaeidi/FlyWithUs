@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
@@ -13,9 +14,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
     public class CountryService : ICountryService
     {
         private readonly CountryRepository repository;
+        private readonly CityRepository cityRepository;
         public CountryService()
         {
             repository = new CountryRepository();
+            cityRepository = new CityRepository();
         }
 
         public bool AddCountry(CountryAddDTO dto)
@@ -121,7 +124,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 Id = country.Id,
                 NiceName = country.NiceName,
                 NumCode = country.NumCode,
-                PhoneCode = country.PhoneCode
+                PhoneCode = country.PhoneCode,
+                Cities = cityRepository.GetCityByCountryId(country.Id)
             };
         }
 

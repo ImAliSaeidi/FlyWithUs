@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 {
-   public interface ICityRepository
+    public interface ICityRepository
     {
         int AddCity(City city);
 
@@ -15,6 +15,8 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
         int UpdateCity(City city);
 
         City GetCityById(int cityid);
+
+        List<City> GetCityByCountryId(int countryid);
 
         List<City> GetAllCity();
 

@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Countries;
+﻿using FlyWithUs.Hosted.Service.DTOs.Cities;
+using FlyWithUs.Hosted.Service.DTOs.Countries;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;

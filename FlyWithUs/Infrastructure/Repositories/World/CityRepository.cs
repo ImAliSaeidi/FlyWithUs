@@ -36,6 +36,11 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             return context.Cities.ToList();
         }
 
+        public List<City> GetCityByCountryId(int countryid)
+        {
+            return context.Cities.Include(c => c.Country).Where(c => c.Country.Id == countryid).ToList();
+        }
+
         public City GetCityById(int cityid)
         {
             return context.Cities.Find(cityid);
