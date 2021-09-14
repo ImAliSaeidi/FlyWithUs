@@ -48,5 +48,18 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+
+        public IActionResult DeleteCountry(int id)
+        {
+            bool result = countryService.DeleteCountry(id);
+            if (result == true)
+            {
+                return Redirect("/Admin/Countries/GetAllCountry");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

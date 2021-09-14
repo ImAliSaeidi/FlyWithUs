@@ -37,7 +37,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
 
         public Country GetCountryById(int countryid)
         {
-            return context.Countries.AsNoTracking().Include(c => c.Cities).First(c => c.Id == countryid);
+            return context.Countries.Include(c => c.Cities).First(c => c.Id == countryid);
         }
 
         public bool IsExistCountry(string name, short numcode, short phonecode)
