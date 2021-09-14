@@ -33,10 +33,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         {
             return new Country
             {
-                ISO2 = dto.NiceName.Substring(0, 2).ToUpper(),
-                Name = dto.NiceName.ToUpper(),
+                ISO2 = dto.EnglishName.Substring(0, 2).ToUpper(),
+                Name = dto.EnglishName.ToUpper(),
                 NiceName = dto.NiceName,
-                ISO3 = dto.NiceName.Substring(0, 3).ToUpper(),
+                ISO3 = dto.EnglishName.Substring(0, 3).ToUpper(),
                 NumCode = dto.NumCode,
                 PhoneCode = dto.PhoneCode
             };
@@ -119,7 +119,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return new CountryDTO
             {
                 Id = country.Id,
-                ISO2 = country.ISO2,
                 NiceName = country.NiceName,
                 NumCode = country.NumCode,
                 PhoneCode = country.PhoneCode
@@ -129,17 +128,19 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public CountryUpdateDTO GetCountryForUpdate(int countryid)
         {
             var country = repository.GetCountryById(countryid);
-            var dto = new CountryUpdateDTO();
-            dto.Id = country.Id;
-            dto.NiceName = country.NiceName;
-            dto.NumCode = country.NumCode;
-            dto.PhoneCode = country.PhoneCode;
+            var dto = new CountryUpdateDTO
+            {
+                Id = country.Id,
+                NiceName = country.NiceName,
+                NumCode = country.NumCode,
+                PhoneCode = country.PhoneCode
+            };
             return dto;
         }
 
         public List<CountryDTO> GetAllCountry()
         {
-            List<CountryDTO> dtos = new List<CountryDTO>();
+            List<CountryDTO> dtos = new();
             List<Country> countries = repository.GetAllCountry();
             foreach (var item in countries)
             {

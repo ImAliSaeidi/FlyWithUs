@@ -45,7 +45,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
 
         public List<Airplane> GetAllAirplane()
         {
-            return context.Airplanes.Include(a => a.Agancy).ToList();
+            return context.Airplanes.Where(a => a.Agancy != null).Include(a => a.Agancy).ToList();
         }
 
         public List<Airplane> GetAllAirplaneByAgancy(int agancyid)

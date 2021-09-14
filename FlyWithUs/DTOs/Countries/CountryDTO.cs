@@ -9,8 +9,6 @@ namespace FlyWithUs.Hosted.Service.DTOs.Countries
     {
         public int Id { get; set; }
 
-        public string ISO2 { get; set; }
-
         public string NiceName { get; set; }
 
         public short NumCode { get; set; }

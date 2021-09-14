@@ -42,7 +42,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
 
         public bool IsExistCountry(string name, short numcode, short phonecode)
         {
-            return context.Countries.Any(c => c.Name == name && c.NumCode == numcode && c.PhoneCode == phonecode);
+            return context.Countries.Any(c => c.NiceName == name && c.NumCode == numcode && c.PhoneCode == phonecode);
         }
 
         public int Save()

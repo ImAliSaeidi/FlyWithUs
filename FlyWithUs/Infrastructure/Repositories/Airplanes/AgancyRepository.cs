@@ -1,6 +1,7 @@
 ﻿using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;

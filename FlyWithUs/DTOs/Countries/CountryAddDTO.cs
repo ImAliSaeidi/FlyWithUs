@@ -12,13 +12,15 @@ namespace FlyWithUs.Hosted.Service.DTOs.Countries
         [StringLength(128, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
         public string NiceName { get; set; }
 
+        [Required(ErrorMessage = "لطفا نام کشور را وارد کنید")]
+        [StringLength(128, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
+        public string EnglishName { get; set; }
+
         [Required(ErrorMessage = "لطفا کد کشور را وارد کنید")]
-        [MaxLength(6, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
         public short NumCode { get; set; }
 
 
         [Required(ErrorMessage = "لطفا کد تلفن کشور را وارد کنید")]
-        [MaxLength(5, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
         public short PhoneCode { get; set; }
     }
 }
