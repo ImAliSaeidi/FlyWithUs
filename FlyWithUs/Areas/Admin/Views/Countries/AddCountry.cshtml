@@ -1,0 +1,35 @@
+﻿@model CountryAddDTO
+@{
+    ViewData["Title"] = "AddCountry";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">
+    افزودن کشور |
+    <a href="/Admin/Countries/GetAllCountry" class="btn bg-navy"> <i class="fa fa-backward"></i> بازگشت </a>
+</h1>
+
+<form method="post" class="box-body">
+    <div class="row">
+        <div class="col-xs-4">
+            <label asp-for="NiceName">نام</label>
+            <input type="text" class="form-control" asp-for="NiceName" placeholder="نام">
+            <span class="text-danger" asp-validation-for="NiceName"></span>
+            <br />
+            <label asp-for="EnglishName">نام انگلیسی</label>
+            <input type="text" class="form-control" asp-for="EnglishName" placeholder="نام انگلیسی">
+            <span class="text-danger" asp-validation-for="EnglishName"></span>
+            <br />
+            <label asp-for="NumCode">کد کشور</label>
+            <input type="number" class="form-control" asp-for="NumCode" placeholder="کد کشور">
+            <span class="text-danger" asp-validation-for="NumCode"></span>
+            <br />
+            <label asp-for="PhoneCode">کد تلفن</label>
+            <input type="number" class="form-control" asp-for="PhoneCode" placeholder="کد تلفن">
+            <span class="text-danger" asp-validation-for="PhoneCode"></span>
+            <br />
+            <button type="submit" class=" btn btn-success btn-lg btn-block"> <i class="fa fa-check"></i> ثبت </button>
+        </div>
+    </div>
+</form>
+

@@ -6,7 +6,6 @@
     <title>@ViewData["Title"] - FlyWithUs</title>
     <link href="~/css/bootstrap-theme.css" rel="stylesheet" />
     <link href="~/css/rtl.css" rel="stylesheet" />
-    <link href="~/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/css/jquery-jvectormap.css" rel="stylesheet" />
     <link href="~/css/AdminLTE.css" rel="stylesheet" />
     <link href="~/css/_all-skins.min.css" rel="stylesheet" />
@@ -305,7 +304,7 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-group"></i>
+                        <i class="fa fa-users"></i>
                         <span>مدیریت نقش ها</span>
                     </a>
                     <ul class="treeview-menu">
@@ -333,6 +332,16 @@
                         <li><a href="/Admin/Airplanes/AddAirplane"><i class="fa fa-plus"></i> افزودن هواپیما</a></li>
                     </ul>
                 </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-globe"></i>
+                        <span>مدیریت کشور ها</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/Admin/Countries/GetAllCountry"><i class="fa fa-list"></i>مشاهده کشور ها</a></li>
+                        <li><a href="/Admin/Countries/AddCountry"><i class="fa fa-plus"></i> افزودن کشور</a></li>
+                    </ul>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -347,6 +356,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/CustomJS/adminlte.js"></script>
     <script src="~/CustomJS/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/f6cdcaff9b.js" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

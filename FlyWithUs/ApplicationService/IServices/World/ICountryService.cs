@@ -10,5 +10,19 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
     interface ICountryService
     {
         List<SelectListItem> GetAllCountryForAddUser();
+
+        List<CountryDTO> GetAllCountry();
+
+        bool AddCountry(CountryAddDTO dto);
+
+        bool DeleteCountry(int countryid);
+
+        bool UpdateCountry(CountryUpdateDTO dto);
+
+        CountryDTO GetCountryById(int countryid);
+
+        bool IsExistCountry(string name, short numcode, short phonecode, int? countryid);
+
+        CountryUpdateDTO GetCountryForUpdate(int countryid);
     }
 }

@@ -1,0 +1,55 @@
+﻿@model List<CountryDTO>
+@{
+    ViewData["Title"] = "GetAllCountry";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">لیست کشورها | <a href="Addcountry" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن کشور </a></h1>
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-bordered" style="table-layout:auto;width:100%">
+            <thead>
+                <tr>
+                    <th style="width: 10px">ردیف</th>
+                    <th>نام</th>
+                    <th>کد</th>
+                    <th>کد تلفن</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int count = 1;
+                }
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.NiceName</td>
+                        <td>@item.NumCode</td>
+                        <td>@item.PhoneCode</td>
+                        <td>
+                            <a href="GetCityForCountry/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> شهرها </a> |
+                            <a href="DeleteCountry/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|
+                            <a href="EditCountry/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pencil"></i> ویرایش </a>
+                        </td>
+                    </tr>
+                    count++;
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>
+

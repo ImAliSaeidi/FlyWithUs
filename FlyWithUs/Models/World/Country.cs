@@ -13,6 +13,7 @@ namespace FlyWithUs.Hosted.Service.Models.World
             Cities = new HashSet<City>();
         }
 
+        [Required]
         [StringLength(2)]
         public string ISO2 { get; set; }
 
@@ -25,17 +26,17 @@ namespace FlyWithUs.Hosted.Service.Models.World
         [StringLength(128)]
         public string NiceName { get; set; }
 
-
+        [Required]
         [StringLength(3)]
         public string ISO3 { get; set; }
 
-
+        [Required]
         [MaxLength(6)]
-        public short? NumCode { get; set; }
+        public short NumCode { get; set; }
 
-
+        [Required]
         [MaxLength(5)]
-        public short? PhoneCode { get; set; }
+        public short PhoneCode { get; set; }
 
         public ICollection<City> Cities { get; set; }
     }
