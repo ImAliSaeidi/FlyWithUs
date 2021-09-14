@@ -56,7 +56,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-        public List<SelectListItem> GetAllCountryForAddUser()
+        public List<SelectListItem> GetAllCountryAsSelectList()
         {
             return repository.GetAllCountry()
                 .Select(c => new SelectListItem()

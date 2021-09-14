@@ -33,7 +33,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
 
         public List<City> GetAllCity()
         {
-            return context.Cities.ToList();
+            return context.Cities.Include(c => c.Country).ToList();
         }
 
         public List<City> GetCityByCountryId(int countryid)

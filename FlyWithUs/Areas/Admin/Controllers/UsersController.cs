@@ -71,7 +71,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 
         private void FillViewData()
         {
-            var countries = countryService.GetAllCountryForAddUser();
+            var countries = countryService.GetAllCountryAsSelectList();
             ViewData["Countries"] = new SelectList(countries, "Value", "Text");
 
             var genders = new List<SelectListItem>() {

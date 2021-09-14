@@ -75,7 +75,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             {
                 Id = city.Id,
                 Name = city.Name,
-                CountryName = countryRepository.GetCountryById(city.Country.Id).Name
+                CountryName = countryRepository.GetCountryById(city.Country.Id).NiceName
             };
         }
 
@@ -107,6 +107,31 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             city.Name = dto.Name;
             city.Country = country;
             return city;
+        }
+
+        public bool IsCityExist(string name, int countryid, int? cityid)
+        {
+            if (cityid != null)
+            {
+                bool result = false;
+                var city = repository.GetCityById(cityid.Value);
+                if (repository.IsCityExist(name, countryid) == true)
+                {
+                    if (city.Name == name && city.Country.Id == countryid)
+                    {
+                        result = false;
+                    }
+                    else
+                    {
+                        result = true;
+                    }
+                }
+                return result;
+            }
+            else
+            {
+                return repository.IsCityExist(name, countryid);
+            }
         }
     }
 }

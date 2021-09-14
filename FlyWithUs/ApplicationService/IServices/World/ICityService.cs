@@ -19,5 +19,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
         List<CityDTO> GetAllCity();
 
         CityUpdateDTO GetCityForUpdate(int cityid);
+
+        bool IsCityExist(string name, int countryid, int? cityid);
     }
 }

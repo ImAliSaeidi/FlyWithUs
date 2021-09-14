@@ -10,7 +10,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 {
     interface ICountryService
     {
-        List<SelectListItem> GetAllCountryForAddUser();
+        List<SelectListItem> GetAllCountryAsSelectList();
 
         List<CountryDTO> GetAllCountry();
 
