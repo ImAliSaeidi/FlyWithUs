@@ -3,6 +3,7 @@ using FlyWithUs.Hosted.Service.DTOs.Cities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
@@ -118,5 +119,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             }
         }
         #endregion
+
+        public IActionResult GetAirportForCity(int id)
+        {
+            CityDTO dto = cityService.GetCityById(id);
+            return View(dto);
+        }
     }
 }

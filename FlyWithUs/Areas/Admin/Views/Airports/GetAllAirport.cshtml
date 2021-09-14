@@ -1,10 +1,10 @@
-﻿@model List<CountryDTO>
+﻿@model List<AirportDTO>
 @{
-    ViewData["Title"] = "GetAllCountry";
+    ViewData["Title"] = "GetAllAirport";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="box-header with-border">لیست کشورها | <a href="Addcountry" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن کشور </a></h1>
+<h1 class="box-header with-border">لیست فرودگاه ها | <a href="AddAirport" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن فرودگاه </a></h1>
 
 <div class="box">
     <div class="box-body">
@@ -13,8 +13,9 @@
                 <tr>
                     <th style="width: 10px">ردیف</th>
                     <th>نام</th>
+                    <th>نام انگلیسی</th>
                     <th>کد</th>
-                    <th>کد تلفن</th>
+                    <th>شهر</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -27,14 +28,13 @@
 
                     <tr>
                         <td>@count</td>
-                        <td>@item.NiceName</td>
-                        <td>@item.NumCode</td>
-                        <td>@item.PhoneCode</td>
+                        <td>@item.Name</td>
+                        <td>@item.EnglishName</td>
+                        <td>@item.Code</td>
+                        <td>@item.CityName</td>
                         <td>
-                            <a href="GetCityForCountry/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> شهرها </a> |
-                            <a href="DeleteCountry/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|
-                            <a href="EditCountry/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pencil"></i> ویرایش </a> |
-                            <a href="GetAirportForCountry/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> فرودگاه ها </a>
+                            <a href="DeleteAirport/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a> |
+                            <a href="EditAirport/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pencil"></i> ویرایش </a>
                         </td>
                     </tr>
                     count++;

@@ -33,12 +33,12 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
 
         public List<City> GetAllCity()
         {
-            return context.Cities.Include(c => c.Country).ToList();
+            return context.Cities.Include(c => c.Country).Include(c => c.Airports).ToList();
         }
 
         public City GetCityById(int cityid)
         {
-            return context.Cities.Include(c => c.Country).First(c => c.Id == cityid);
+            return context.Cities.Include(c => c.Country).Include(c => c.Airports).First(c => c.Id == cityid);
         }
 
         public bool IsCityExist(string name, int countryid)

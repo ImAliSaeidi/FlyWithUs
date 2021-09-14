@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.DTOs.Airports;
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
@@ -12,9 +13,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
     public class CountryService : ICountryService
     {
         private readonly CountryRepository repository;
+        private readonly CityRepository cityRepository;
         public CountryService()
         {
             repository = new CountryRepository();
+            cityRepository = new CityRepository();
         }
 
         #region Add Country
@@ -96,10 +99,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             dto.NumCode = country.NumCode;
             dto.PhoneCode = country.PhoneCode;
             dto.CityDTOs = new List<CityDTO>();
-            foreach (var item in country.Cities)
+            dto.AirportDTOs = new List<AirportDTO>();
+            List<City> cities = cityRepository.GetAllCity().Where(c => c.Country.Id == country.Id).ToList();
+            foreach (var city in cities)
             {
-                dto.CityDTOs.Add(Map(item));
+                dto.CityDTOs.Add(Map(city));
+                foreach (var airport in city.Airports)
+                {
+                    dto.AirportDTOs.Add(Map(airport));
+                }
             }
+
             return dto;
         }
 
@@ -109,6 +119,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             {
                 Id = city.Id,
                 Name = city.Name
+            };
+        }
+
+        private AirportDTO Map(Airport airport)
+        {
+            return new AirportDTO
+            {
+                Id = airport.Id,
+                Name = airport.Name,
+                EnglishName = airport.EnglishName,
+                Code = airport.Code
             };
         }
         #endregion

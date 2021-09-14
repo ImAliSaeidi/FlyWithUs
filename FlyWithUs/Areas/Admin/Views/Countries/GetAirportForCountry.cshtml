@@ -1,22 +1,22 @@
-﻿@model AgancyDTO
+﻿@model CountryDTO
 @{
-    ViewData["Title"] = "GetAirplaneForAgancy";
+    ViewData["Title"] = "GetAirportForCountry";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 <h1 class="box-header with-border">
-    لیست هواپیما های @Model.Name |
-    <a href="/Admin/Agancies/GetAllAgancy" class="btn bg-navy"> <i class=" fa fa-backward"></i> بازگشت </a>
+    لیست فرودگاه های @Model.NiceName |
+    <a href="/Admin/Countries/GetAllCountry" class="btn bg-navy"> <i class=" fa fa-backward"></i> بازگشت </a>
 </h1>
 
 <div class="box">
     <div class="box-body">
         <table class="table table-bordered" style="table-layout:auto;width:100%">
-            @if (Model.AirplaneDTOs.Count == 0)
+            @if (Model.AirportDTOs.Count == 0)
             {
                 <tr>
                     <td style="width:100%">
-                        هواپیمایی موجود نیست
+                        فرودگاهی موجود نیست
                     </td>
                 </tr>
             }
@@ -26,9 +26,8 @@
                     <tr>
                         <th style="width: 10px">ردیف</th>
                         <th>نام</th>
-                        <th>برند</th>
-                        <th>ظرفیت</th>
-                        <th>تعداد</th>
+                        <th>نام انگلیسی</th>
+                        <th>کد</th>
                         <th>عملیات</th>
                     </tr>
                 </thead>
@@ -38,17 +37,16 @@
                     }
 
 
-                    @foreach (var item in Model.AirplaneDTOs)
+                    @foreach (var item in Model.AirportDTOs)
                     {
                         <tr>
                             <td>@count</td>
                             <td>@item.Name</td>
-                            <td>@item.Brand</td>
-                            <td>@item.MaxCapacity</td>
-                            <td>@item.Count</td>
+                            <td>@item.EnglishName</td>
+                            <td>@item.Code</td>
                             <td>
-                                <a href="/Admin/Airplanes/DeleteAirplane/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|
-                                <a href="/Admin/Airplanes/EditAirplane/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pencil"></i> ویرایش </a>
+                                <a href="/Admin/Airports/DeleteAirport/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|
+                                <a href="/Admin/Airports/EditAirport/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pencil"></i> ویرایش </a>
                             </td>
                         </tr>
                         count++;

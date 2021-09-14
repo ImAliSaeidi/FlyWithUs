@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs.Cities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
         CityUpdateDTO GetCityForUpdate(int cityid);
 
         bool IsCityExist(string name, int countryid, int? cityid);
+
+        List<SelectListItem> GetAllCityAsSelectList();
+
+        CityDTO GetCityById(int cityid);
     }
 }

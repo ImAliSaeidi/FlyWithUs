@@ -125,6 +125,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             {
                 airplane.Agancy = agancy;
                 agancy.Airplanes.Add(airplane);
+                agancyRepository.UpdateAgancy(agancy);
             }
             return airplane;
         }

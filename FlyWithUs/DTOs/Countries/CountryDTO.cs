@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Cities;
+﻿using FlyWithUs.Hosted.Service.DTOs.Airports;
+using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.Models.World;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Countries
         public short PhoneCode { get; set; }
 
         public List<CityDTO> CityDTOs { get; set; }
+
+        public List<AirportDTO> AirportDTOs { get; set; }
     }
 }
