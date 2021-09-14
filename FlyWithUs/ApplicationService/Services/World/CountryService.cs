@@ -119,7 +119,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return new CountryDTO
             {
                 Id = country.Id,
-                NiceName = country.NiceName
+                ISO2 = country.ISO2,
+                NiceName = country.NiceName,
+                NumCode = country.NumCode,
+                PhoneCode = country.PhoneCode
             };
         }
 
@@ -134,5 +137,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return dto;
         }
 
+        public List<CountryDTO> GetAllCountry()
+        {
+            List<CountryDTO> dtos = new List<CountryDTO>();
+            List<Country> countries = repository.GetAllCountry();
+            foreach (var item in countries)
+            {
+                dtos.Add(Map(item));
+            }
+            return dtos;
+        }
     }
 }

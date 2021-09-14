@@ -11,6 +11,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
     {
         List<SelectListItem> GetAllCountryForAddUser();
 
+        List<CountryDTO> GetAllCountry();
+
         bool AddCountry(CountryAddDTO dto);
 
         bool DeleteCountry(int countryid);

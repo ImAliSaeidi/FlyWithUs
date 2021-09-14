@@ -8,15 +8,17 @@ namespace FlyWithUs.Hosted.Service.DTOs.Countries
 {
     public class CountryAddDTO
     {
-        [Required(ErrorMessage ="لطفا نام کشور را وارد کنید")]
-        [StringLength(128,ErrorMessage ="طول مقدار ورودی بیش از حد مجاز استس")]
+        [Required(ErrorMessage = "لطفا نام کشور را وارد کنید")]
+        [StringLength(128, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
         public string NiceName { get; set; }
 
-        [MaxLength(6,ErrorMessage = "لطفا کد کشور را وارد کنید")]
-        public short? NumCode { get; set; }
+        [Required(ErrorMessage = "لطفا کد کشور را وارد کنید")]
+        [MaxLength(6, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
+        public short NumCode { get; set; }
 
 
-        [MaxLength(5,ErrorMessage = "لطفا کد تلفن کشور را وارد کنید")]
-        public short? PhoneCode { get; set; }
+        [Required(ErrorMessage = "لطفا کد تلفن کشور را وارد کنید")]
+        [MaxLength(5, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
+        public short PhoneCode { get; set; }
     }
 }
