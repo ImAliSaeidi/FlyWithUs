@@ -22,5 +22,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
         bool IsCityExist(string name, int countryid, int? cityid);
 
         List<SelectListItem> GetAllCityAsSelectList();
+
+        CityDTO GetCityById(int cityid);
     }
 }

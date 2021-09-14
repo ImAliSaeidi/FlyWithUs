@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.DTOs.Airports;
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
@@ -70,13 +71,35 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return dtos;
         }
 
+
+        public CityDTO GetCityById(int cityid)
+        {
+            return Map(repository.GetCityById(cityid));
+        }
+
+
         private CityDTO Map(City city)
         {
-            return new CityDTO
+            CityDTO dto = new CityDTO();
+            dto.Id = city.Id;
+            dto.Name = city.Name;
+            dto.CountryName = countryRepository.GetCountryById(city.Country.Id).NiceName;
+            dto.AirportDTOs = new List<AirportDTO>();
+            foreach (var item in city.Airports)
             {
-                Id = city.Id,
-                Name = city.Name,
-                CountryName = countryRepository.GetCountryById(city.Country.Id).NiceName
+                dto.AirportDTOs.Add(Map(item));
+            }
+            return dto;
+        }
+
+        private AirportDTO Map(Airport airport)
+        {
+            return new AirportDTO
+            {
+                Id = airport.Id,
+                Name = airport.Name,
+                EnglishName = airport.EnglishName,
+                Code = airport.Code
             };
         }
         #endregion
