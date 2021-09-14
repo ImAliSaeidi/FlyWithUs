@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
 using FlyWithUs.Hosted.Service.DTOs.Agancies;
+using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
@@ -14,9 +15,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
     public class AgancyService : IAgancyService
     {
         private readonly AgancyRepository repository;
+        private readonly AirplaneService airplaneService;
         public AgancyService()
         {
             repository = new AgancyRepository();
+            airplaneService = new AirplaneService();
         }
 
         public bool AddAgancy(AgancyAddDTO dto)

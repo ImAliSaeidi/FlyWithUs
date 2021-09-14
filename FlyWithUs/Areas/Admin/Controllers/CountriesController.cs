@@ -89,5 +89,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+
+        public IActionResult GetCityForCountry(int id)
+        {
+            return View();
+        }
     }
 }
