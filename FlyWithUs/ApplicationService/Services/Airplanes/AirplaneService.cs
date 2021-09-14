@@ -12,11 +12,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
     public class AirplaneService : IAirplaneService
     {
         private readonly AirplaneRepository repository;
-        private readonly AgancyService agancyService;
+        private readonly AgancyRepository agancyRepository;
         public AirplaneService()
         {
             repository = new AirplaneRepository();
-            agancyService = new AgancyService();
+            agancyRepository = new AgancyRepository();
         }
 
         public bool AddAirplane(AirplaneAddDTO dto)
@@ -26,8 +26,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             if (id > 0)
             {
                 var airplane = repository.GetAirplaneById(id);
-                var agancy = agancyService.GetAgancyById(dto.AgancyId);
+                var agancy = agancyRepository.GetAgancyById(dto.AgancyId);
                 airplane.Agancy = agancy;
+                agancy.Airplanes.Add(airplane);
+                agancyRepository.UpdateAgancy(agancy);
                 repository.UpdateAirplane(airplane);
                 result = true;
             }
@@ -74,20 +76,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Name = airplane.Name,
                 Brand = airplane.Brand,
                 MaxCapacity = airplane.MaxCapacity,
-                AgancyName = agancyService.GetAgancyById(airplane.Agancy.Id).Name,
+                AgancyName = agancyRepository.GetAgancyById(airplane.Agancy.Id).Name,
                 Count = airplane.Count
             };
-        }
-
-        public List<AirplaneDTO> GetAllAirplaneByAgancy(int agancyid)
-        {
-            List<AirplaneDTO> dtos = new List<AirplaneDTO>();
-            List<Airplane> airplanes = repository.GetAllAirplaneByAgancy(agancyid);
-            foreach (var item in airplanes)
-            {
-                dtos.Add(Map(item));
-            }
-            return dtos;
         }
 
         public bool UpdateAirplane(AirplaneUpdateDTO dto)
@@ -103,13 +94,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
 
         private Airplane Map(AirplaneUpdateDTO dto)
         {
+            var agancy = agancyRepository.GetAgancyById(dto.AgancyId);
             var airplane = repository.GetAirplaneById(dto.Id);
-            var agancy = agancyService.GetAgancyById(dto.AgancyId);
             airplane.Name = dto.Name;
             airplane.Brand = dto.Brand;
             airplane.MaxCapacity = dto.MaxCapacity;
-            airplane.Agancy = agancy;
             airplane.Count = dto.Count;
+            if (airplane.Agancy.Id != dto.AgancyId)
+            {
+                airplane.Agancy = agancy;
+                agancy.Airplanes.Add(airplane);
+            }
             return airplane;
         }
 

@@ -40,7 +40,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
 
         public Airplane GetAirplaneById(int airplaneid)
         {
-            return context.Airplanes.AsNoTracking().Include(a => a.Agancy).First(a => a.Id == airplaneid);
+            return context.Airplanes.Include(a => a.Agancy).First(a => a.Id == airplaneid);
         }
 
         public List<Airplane> GetAllAirplane()

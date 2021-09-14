@@ -59,6 +59,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.UseSqlServer("Data Source =LAPTOP-VIV37RCJ\\SQL2019;Initial Catalog=FlyWithUsDB;Integrated Security=true");
+            optionsBuilder.EnableSensitiveDataLogging(true);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -32,12 +32,12 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
 
         public Agancy GetAgancyById(int agancyid)
         {
-            return context.Agancies.Find(agancyid);
+            return context.Agancies.Include(a => a.Airplanes).First(a => a.Id == agancyid);
         }
 
         public List<Agancy> GetAllAgancy()
         {
-            return context.Agancies.ToList();
+            return context.Agancies.Include(a => a.Airplanes).ToList();
         }
 
         public bool IsAgancyExist(string name)

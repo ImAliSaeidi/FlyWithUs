@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
 using FlyWithUs.Hosted.Service.DTOs.Agancies;
+using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
@@ -50,11 +51,27 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
         }
         private AgancyDTO Map(Agancy agancy)
         {
-            return new AgancyDTO
+            AgancyDTO dto = new AgancyDTO();
+            dto.Id = agancy.Id;
+            dto.Name = agancy.Name;
+            dto.CreateDate = agancy.CreateDate.ToShamsi();
+            dto.AirplaneDTOs = new List<AirplaneDTO>();
+            foreach (var item in agancy.Airplanes)
             {
-                Id = agancy.Id,
-                Name = agancy.Name,
-                CreateDate = agancy.CreateDate.ToShamsi()
+                dto.AirplaneDTOs.Add(Map(item));
+            }
+            return dto;
+        }
+
+        private AirplaneDTO Map(Airplane airplane)
+        {
+            return new AirplaneDTO
+            {
+                Id = airplane.Id,
+                Name = airplane.Name,
+                Brand = airplane.Brand,
+                Count = airplane.Count,
+                MaxCapacity = airplane.MaxCapacity
             };
         }
 
@@ -124,9 +141,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 }).ToList();
         }
 
-        public Agancy GetAgancyById(int agancyid)
+        public AgancyDTO GetAgancyById(int agancyid)
         {
-            return repository.GetAgancyById(agancyid);
+            return Map(repository.GetAgancyById(agancyid));
         }
     }
 }

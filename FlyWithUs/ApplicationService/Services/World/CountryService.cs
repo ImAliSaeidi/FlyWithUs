@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
@@ -13,9 +14,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
     public class CountryService : ICountryService
     {
         private readonly CountryRepository repository;
+        private readonly CityRepository cityRepository;
         public CountryService()
         {
             repository = new CountryRepository();
+            cityRepository = new CityRepository();
         }
 
         public bool AddCountry(CountryAddDTO dto)
@@ -53,7 +56,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-        public List<SelectListItem> GetAllCountryForAddUser()
+        public List<SelectListItem> GetAllCountryAsSelectList()
         {
             return repository.GetAllCountry()
                 .Select(c => new SelectListItem()
@@ -116,15 +119,27 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         }
         private CountryDTO Map(Country country)
         {
-            return new CountryDTO
+            CountryDTO dto = new CountryDTO();
+            dto.Id = country.Id;
+            dto.NiceName = country.NiceName;
+            dto.NumCode = country.NumCode;
+            dto.PhoneCode = country.PhoneCode;
+            dto.CityDTOs = new List<CityDTO>();
+            foreach (var item in country.Cities)
             {
-                Id = country.Id,
-                NiceName = country.NiceName,
-                NumCode = country.NumCode,
-                PhoneCode = country.PhoneCode
-            };
+                dto.CityDTOs.Add(Map(item));
+            }
+            return dto;
         }
 
+        private CityDTO Map(City city)
+        {
+            return new CityDTO
+            {
+                Id = city.Id,
+                Name = city.Name
+            };
+        }
         public CountryUpdateDTO GetCountryForUpdate(int countryid)
         {
             var country = repository.GetCountryById(countryid);

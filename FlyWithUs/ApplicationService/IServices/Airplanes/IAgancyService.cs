@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 {
-   public interface IAgancyService
+    public interface IAgancyService
     {
         List<AgancyDTO> GetAllAgancy();
 
@@ -24,6 +24,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 
         List<SelectListItem> GetAllAgancyForAddAirplane();
 
-        Agancy GetAgancyById(int agancyid);
+        AgancyDTO GetAgancyById(int agancyid);
     }
 }
