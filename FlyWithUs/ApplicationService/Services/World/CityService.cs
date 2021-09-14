@@ -112,6 +112,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             if (city.Country.Id != dto.CountryId)
             {
                 city.Country = country;
+                country.Cities.Add(city);
+                countryRepository.UpdateCountry(country);
             }
             return city;
         }

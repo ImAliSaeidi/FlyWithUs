@@ -69,6 +69,36 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult EditAirport(int id)
+        {
+            AirportUpdateDTO dto = airportService.GetAirportForUpdate(id);
+            FillViewData();
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult EditAirport([FromForm]AirportUpdateDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (airportService.IsAirportExist(dto.Name, dto.CityId, dto.Id) == true)
+                {
+                    ModelState.AddModelError("Name", "مشخصات وارد شده تکراری است");
+                    FillViewData();
+                    return View(dto);
+                }
+                else
+                {
+                    airportService.UpdateAirport(dto);
+                    return Redirect("/Admin/Airports/GetAllAirport");
+                }
+            }
+            else
+            {
+                return View(dto);
+            }
+        }
         private void FillViewData()
         {
             var cities = cityService.GetAllCityAsSelectList();
