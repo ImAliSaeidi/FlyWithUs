@@ -33,7 +33,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddAirport([FromForm]AirportAddDTO dto)
+        public IActionResult AddAirport([FromForm] AirportAddDTO dto)
         {
             if (ModelState.IsValid)
             {
@@ -53,6 +53,19 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             {
                 FillViewData();
                 return View();
+            }
+        }
+
+        public IActionResult DeleteAirport(int id)
+        {
+            bool result = airportService.DeleteAirport(id);
+            if (result == true)
+            {
+                return Redirect("/Admin/Airports/GetAllAirport");
+            }
+            else
+            {
+                return BadRequest();
             }
         }
 
