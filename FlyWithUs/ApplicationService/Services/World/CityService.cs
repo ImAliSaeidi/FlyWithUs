@@ -2,10 +2,7 @@
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 {
@@ -19,6 +16,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             countryRepository = new CountryRepository();
         }
 
+        #region Add City
         public bool AddCity(CityAddDTO dto)
         {
             bool result = false;
@@ -41,7 +39,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 Name = dto.Name,
             };
         }
+        #endregion
 
+
+        #region Delete City
         public bool DeleteCity(int cityid)
         {
             bool result = false;
@@ -52,7 +53,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
             return result;
         }
+        #endregion
 
+
+        #region Get City
         public List<CityDTO> GetAllCity()
         {
             List<CityDTO> dtos = new List<CityDTO>();
@@ -73,7 +77,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 CountryName = countryRepository.GetCountryById(city.Country.Id).NiceName
             };
         }
+        #endregion
 
+
+        #region Update City
         public CityUpdateDTO GetCityForUpdate(int cityid)
         {
             var city = repository.GetCityById(cityid);
@@ -106,7 +113,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
             return city;
         }
+        #endregion
 
+
+        #region Validation
         public bool IsCityExist(string name, int countryid, int? cityid)
         {
             if (cityid != null)
@@ -131,5 +141,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 return repository.IsCityExist(name, countryid);
             }
         }
+        #endregion
+
     }
 }

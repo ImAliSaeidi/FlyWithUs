@@ -1,12 +1,8 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
-using FlyWithUs.Hosted.Service.DTOs.Agancies;
 using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
@@ -29,6 +25,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             return View(dtos);
         }
         #endregion
+
 
         #region Add Airplane
         [HttpGet]
@@ -115,7 +112,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         #region Fill View Data Method
         private void FillViewData()
         {
-            var agancies = agancyService.GetAllAgancyForAddAirplane();
+            var agancies = agancyService.GetAllAgancyAsSelectList();
             ViewData["Agancies"] = new SelectList(agancies, "Value", "Text");
         }
         #endregion

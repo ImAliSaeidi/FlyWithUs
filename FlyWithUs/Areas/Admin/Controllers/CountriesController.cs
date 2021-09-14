@@ -1,10 +1,7 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
@@ -16,17 +13,23 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             countryService = new CountryService();
         }
+
+        #region Get All Country
         public IActionResult GetAllCountry()
         {
             List<CountryDTO> dtos = countryService.GetAllCountry();
             return View(dtos);
         }
+        #endregion
 
+
+        #region Add Country
         [HttpGet]
         public IActionResult AddCountry()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult AddCountry([FromForm] CountryAddDTO dto)
         {
@@ -48,7 +51,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
 
+
+        #region Delete Country
         public IActionResult DeleteCountry(int id)
         {
             bool result = countryService.DeleteCountry(id);
@@ -61,13 +67,17 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
+
+        #region Edit Country
         [HttpGet]
         public IActionResult EditCountry(int id)
         {
             CountryUpdateDTO dto = countryService.GetCountryForUpdate(id);
             return View(dto);
         }
+
         [HttpPost]
         public IActionResult EditCountry([FromForm] CountryUpdateDTO dto)
         {
@@ -89,11 +99,15 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
 
+
+        #region Get City For Country
         public IActionResult GetCityForCountry(int id)
         {
             CountryDTO dto = countryService.GetCountryById(id);
             return View(dto);
         }
+        #endregion
     }
 }

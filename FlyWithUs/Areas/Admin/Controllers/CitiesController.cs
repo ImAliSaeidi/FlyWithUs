@@ -2,10 +2,7 @@
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
@@ -19,18 +16,24 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             cityService = new CityService();
             countryService = new CountryService();
         }
+
+        #region Get All City
         public IActionResult GetAllCity()
         {
             List<CityDTO> dtos = cityService.GetAllCity();
             return View(dtos);
         }
+        #endregion
 
+
+        #region Add City
         [HttpGet]
         public IActionResult AddCity()
         {
             FillViewData();
             return View();
         }
+
         [HttpPost]
         public IActionResult AddCity([FromForm] CityAddDTO dto)
         {
@@ -54,13 +57,19 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
 
+
+        #region Fill View Data Method
         private void FillViewData()
         {
             var countries = countryService.GetAllCountryAsSelectList();
             ViewData["Countries"] = new SelectList(countries, "Value", "Text");
         }
+        #endregion
 
+
+        #region Delete City
         public IActionResult DeleteCity(int id)
         {
             bool result = cityService.DeleteCity(id);
@@ -73,7 +82,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
+
+        #region Edit City
         [HttpGet]
         public IActionResult EditCity(int id)
         {
@@ -81,8 +93,9 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             FillViewData();
             return View(dto);
         }
+
         [HttpPost]
-        public IActionResult EditCity([FromForm]CityUpdateDTO dto)
+        public IActionResult EditCity([FromForm] CityUpdateDTO dto)
         {
             if (ModelState.IsValid)
             {
@@ -104,5 +117,6 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
     }
 }

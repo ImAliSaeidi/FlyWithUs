@@ -5,10 +5,8 @@ using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
 {
@@ -20,6 +18,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             repository = new AgancyRepository();
         }
 
+        #region Add Agancy
         public bool AddAgancy(AgancyAddDTO dto)
         {
             bool result = false;
@@ -38,7 +37,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Name = dto.Name.ToLower().Trim()
             };
         }
+        #endregion
 
+
+        #region Get Agancy
         public List<AgancyDTO> GetAllAgancy()
         {
             List<AgancyDTO> dtos = new List<AgancyDTO>();
@@ -49,6 +51,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             }
             return dtos;
         }
+
+        public AgancyDTO GetAgancyById(int agancyid)
+        {
+            return Map(repository.GetAgancyById(agancyid));
+        }
+
         private AgancyDTO Map(Agancy agancy)
         {
             AgancyDTO dto = new AgancyDTO();
@@ -74,7 +82,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 MaxCapacity = airplane.MaxCapacity
             };
         }
+        #endregion
 
+
+        #region Validation
         public bool IsAgancyExist(string name, int? agancyid)
         {
             if (agancyid != null)
@@ -92,7 +103,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 return repository.IsAgancyExist(name);
             }
         }
+        #endregion
 
+
+        #region Delete Agancy
         public bool DeleteAgancy(int agancyid)
         {
             bool result = false;
@@ -103,7 +117,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             }
             return result;
         }
+        #endregion
 
+
+        #region Update Agancy
         public AgancyUpdateDTO GetAgancyForUpdate(int agancyid)
         {
             var agancy = repository.GetAgancyById(agancyid);
@@ -124,14 +141,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             }
             return result;
         }
+
         private Agancy Map(AgancyUpdateDTO dto)
         {
             var agancy = repository.GetAgancyById(dto.Id);
             agancy.Name = dto.Name.ToLower().Trim();
             return agancy;
         }
+        #endregion
 
-        public List<SelectListItem> GetAllAgancyForAddAirplane()
+
+        #region Agancy As Select List
+        public List<SelectListItem> GetAllAgancyAsSelectList()
         {
             return repository.GetAllAgancy()
                 .Select(a => new SelectListItem
@@ -140,10 +161,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                     Value = a.Id.ToString()
                 }).ToList();
         }
+        #endregion
 
-        public AgancyDTO GetAgancyById(int agancyid)
-        {
-            return Map(repository.GetAgancyById(agancyid));
-        }
     }
 }

@@ -3,10 +3,7 @@ using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
@@ -20,12 +17,17 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             userService = new UserService();
             countryService = new CountryService();
         }
+
+        #region Get All User
         public IActionResult GetAllUser()
         {
             List<UserDTO> dtos = userService.GetAllUser();
             return View(dtos);
         }
+        #endregion
 
+
+        #region Add User
         [HttpGet]
         public IActionResult AddUser()
         {
@@ -38,13 +40,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userService.IsPhoneNumberExist(dto.PhoneNumber,null) == true)
+                if (userService.IsPhoneNumberExist(dto.PhoneNumber, null) == true)
                 {
                     ModelState.AddModelError("PhoneNumber", "شماره تلفن وارد شده معتبر نیست");
                     FillViewData();
                     return View(dto);
                 }
-                else if (userService.IsEmailExist(dto.Email,null) == true)
+                else if (userService.IsEmailExist(dto.Email, null) == true)
                 {
                     ModelState.AddModelError("Email", "ایمیل وارد شده معتبر نیست");
                     FillViewData();
@@ -68,7 +70,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
 
+
+        #region Fill View Data Methods
         private void FillViewData()
         {
             var countries = countryService.GetAllCountryAsSelectList();
@@ -88,14 +93,19 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             };
             ViewData["Genders"] = new SelectList(genders, "Value", "Text");
         }
+        #endregion
 
+
+        #region Get User
         public IActionResult GetUser(int id)
         {
             var user = userService.GetUserById(id);
             return View(user);
         }
+        #endregion
 
 
+        #region Delete User
         public IActionResult DeleteUser(int id)
         {
             var result = userService.DeleteUser(id);
@@ -108,8 +118,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
 
+        #region Edit User
         [HttpGet]
         public IActionResult EditUser(int id)
         {
@@ -123,13 +135,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userService.IsPhoneNumberExist(dto.PhoneNumber,dto.Id) == true)
+                if (userService.IsPhoneNumberExist(dto.PhoneNumber, dto.Id) == true)
                 {
                     ModelState.AddModelError("PhoneNumber", "شماره تلفن وارد شده معتبر نیست");
                     FillViewData();
                     return View(dto);
                 }
-                else if (userService.IsEmailExist(dto.Email,dto.Id) == true)
+                else if (userService.IsEmailExist(dto.Email, dto.Id) == true)
                 {
                     ModelState.AddModelError("Email", "ایمیل وارد شده معتبر نیست");
                     FillViewData();
@@ -147,5 +159,6 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
     }
 }

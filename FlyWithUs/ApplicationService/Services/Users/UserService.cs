@@ -6,8 +6,6 @@ using FlyWithUs.Hosted.Service.Tools.Convertors;
 using FlyWithUs.Hosted.Service.Tools.Security;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 {
@@ -19,6 +17,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             repository = new UserRepository();
         }
 
+        #region Add User
         public bool AddUser(UserAddDTO dto)
         {
             bool result = false;
@@ -30,6 +29,39 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
+        private User Map(UserAddDTO dto)
+        {
+
+            User user = new User
+            {
+                PhoneNumber = dto.PhoneNumber,
+                Email = dto.Email,
+                Password = PasswordHelper.EncodePasswordSHA3(dto.Password),
+                NationalityId = dto.NationalityId,
+                FirstNamePersian = dto.FirstNamePersian,
+                LastNamePersian = dto.LastNamePersian,
+                FirstNameEnglish = dto.FirstNameEnglish,
+                LastNameEnglish = dto.LastNameEnglish,
+                NationalityCode = dto.NationalityCode,
+                BirthdateAD = dto.BirthdateAD,
+                Birthdate = Convert.ToDateTime(dto.BirthdateAD.ToShamsi()),
+                Gender = dto.Gender,
+                PassportNumber = dto.PassportNumber
+            };
+            if (dto.PassportIssunaceDate != null)
+            {
+                user.PassportIssunaceDate = dto.PassportIssunaceDate.Value.ToShortDateString();
+            }
+            if (dto.PassportExpirationDate != null)
+            {
+                user.PassportExpirationDate = dto.PassportExpirationDate.Value.ToShortDateString();
+            }
+            return user;
+        }
+        #endregion
+
+
+        #region Delete User
         public bool DeleteUser(int userid)
         {
             bool result = false;
@@ -40,7 +72,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             return result;
         }
+        #endregion
 
+
+        #region Get User
         public List<UserDTO> GetAllUser()
         {
             List<UserDTO> dtos = new List<UserDTO>();
@@ -56,6 +91,66 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return Map(repository.GetUserById(userid));
         }
 
+        public string GetUserNationality(int nationalityid)
+        {
+            return repository.GetUserNationality(nationalityid);
+        }
+
+        private UserDTO Map(User user)
+        {
+            return new UserDTO
+            {
+                Id = user.Id,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                Nationality = GetUserNationality(user.NationalityId),
+                FirstNamePersian = user.FirstNamePersian,
+                LastNamePersian = user.LastNamePersian,
+                FirstNameEnglish = user.FirstNameEnglish,
+                LastNameEnglish = user.LastNameEnglish,
+                NationalityCode = user.NationalityCode,
+                Birthdate = user.Birthdate,
+                BirthdateAD = user.BirthdateAD,
+                Gender = user.Gender,
+                CreateDate = user.CreateDate,
+                PassportNumber = user.PassportNumber,
+                PassportIssunaceDate = user.PassportIssunaceDate,
+                PassportExpirationDate = user.PassportExpirationDate
+            };
+        }
+        #endregion
+
+
+        #region Update User
+        public UserUpdateDTO GetUserForUpdate(int userid)
+        {
+            var user = repository.GetUserById(userid);
+            UserUpdateDTO dto = new UserUpdateDTO();
+            dto.Id = user.Id;
+            dto.PhoneNumber = user.PhoneNumber;
+            dto.Email = user.Email;
+            dto.NationalityId = user.NationalityId;
+            dto.FirstNamePersian = user.FirstNamePersian;
+            dto.LastNamePersian = user.LastNamePersian;
+            dto.FirstNameEnglish = user.FirstNameEnglish;
+            dto.LastNameEnglish = user.LastNameEnglish;
+            dto.NationalityCode = user.NationalityCode;
+            dto.BirthdateAD = user.BirthdateAD;
+            dto.Gender = user.Gender;
+            dto.PassportNumber = user.PassportNumber;
+
+
+            if (user.PassportIssunaceDate != null)
+            {
+                dto.PassportIssunaceDate = Convert.ToDateTime(user.PassportIssunaceDate);
+            }
+            if (user.PassportExpirationDate != null)
+            {
+                dto.PassportExpirationDate = Convert.ToDateTime(user.PassportExpirationDate);
+            }
+            return dto;
+        }
+
         public bool UpdateUser(UserUpdateDTO dto)
         {
             bool result = false;
@@ -66,6 +161,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             return result;
         }
+
         private User Map(UserUpdateDTO dto)
         {
             var user = repository.GetUserById(dto.Id);
@@ -95,11 +191,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             return user;
         }
-        public string GetUserNationality(int nationalityid)
-        {
-            return repository.GetUserNationality(nationalityid);
-        }
+        #endregion
 
+
+        #region Validation
         public bool IsEmailExist(string email, int? userid)
         {
             if (userid != null)
@@ -136,86 +231,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
 
         }
-        private UserDTO Map(User user)
-        {
-            return new UserDTO
-            {
-                Id = user.Id,
-                PhoneNumber = user.PhoneNumber,
-                Email = user.Email,
-                Nationality = GetUserNationality(user.NationalityId),
-                FirstNamePersian = user.FirstNamePersian,
-                LastNamePersian = user.LastNamePersian,
-                FirstNameEnglish = user.FirstNameEnglish,
-                LastNameEnglish = user.LastNameEnglish,
-                NationalityCode = user.NationalityCode,
-                Birthdate = user.Birthdate,
-                BirthdateAD = user.BirthdateAD,
-                Gender = user.Gender,
-                CreateDate = user.CreateDate,
-                PassportNumber = user.PassportNumber,
-                PassportIssunaceDate = user.PassportIssunaceDate,
-                PassportExpirationDate = user.PassportExpirationDate
-            };
-        }
+        #endregion
 
-        private User Map(UserAddDTO dto)
-        {
-
-            User user = new User
-            {
-                PhoneNumber = dto.PhoneNumber,
-                Email = dto.Email,
-                Password = PasswordHelper.EncodePasswordSHA3(dto.Password),
-                NationalityId = dto.NationalityId,
-                FirstNamePersian = dto.FirstNamePersian,
-                LastNamePersian = dto.LastNamePersian,
-                FirstNameEnglish = dto.FirstNameEnglish,
-                LastNameEnglish = dto.LastNameEnglish,
-                NationalityCode = dto.NationalityCode,
-                BirthdateAD = dto.BirthdateAD,
-                Birthdate = Convert.ToDateTime(dto.BirthdateAD.ToShamsi()),
-                Gender = dto.Gender,
-                PassportNumber = dto.PassportNumber
-            };
-            if (dto.PassportIssunaceDate != null)
-            {
-                user.PassportIssunaceDate = dto.PassportIssunaceDate.Value.ToShortDateString();
-            }
-            if (dto.PassportExpirationDate != null)
-            {
-                user.PassportExpirationDate = dto.PassportExpirationDate.Value.ToShortDateString();
-            }
-            return user;
-        }
-
-        public UserUpdateDTO GetUserForUpdate(int userid)
-        {
-            var user = repository.GetUserById(userid);
-            UserUpdateDTO dto = new UserUpdateDTO();
-            dto.Id = user.Id;
-            dto.PhoneNumber = user.PhoneNumber;
-            dto.Email = user.Email;
-            dto.NationalityId = user.NationalityId;
-            dto.FirstNamePersian = user.FirstNamePersian;
-            dto.LastNamePersian = user.LastNamePersian;
-            dto.FirstNameEnglish = user.FirstNameEnglish;
-            dto.LastNameEnglish = user.LastNameEnglish;
-            dto.NationalityCode = user.NationalityCode;
-            dto.BirthdateAD = user.BirthdateAD;
-            dto.Gender = user.Gender;
-            dto.PassportNumber = user.PassportNumber;
-
-
-            if (user.PassportIssunaceDate != null)
-            {
-                dto.PassportIssunaceDate = Convert.ToDateTime(user.PassportIssunaceDate);
-            }
-            if (user.PassportExpirationDate != null)
-            {
-                dto.PassportExpirationDate = Convert.ToDateTime(user.PassportExpirationDate);
-            }
-            return dto;
-        }
     }
 }

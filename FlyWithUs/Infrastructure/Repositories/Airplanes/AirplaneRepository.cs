@@ -48,11 +48,6 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
             return context.Airplanes.Where(a => a.Agancy != null).Include(a => a.Agancy).ToList();
         }
 
-        public List<Airplane> GetAllAirplaneByAgancy(int agancyid)
-        {
-            return context.Airplanes.Include(a => a.Agancy).Where(a => a.Agancy.Id == agancyid).ToList();
-        }
-
         public int Save()
         {
             return context.SaveChanges();

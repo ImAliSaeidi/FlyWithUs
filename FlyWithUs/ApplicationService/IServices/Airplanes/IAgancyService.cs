@@ -22,7 +22,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 
         bool UpdateAgancy(AgancyUpdateDTO dto);
 
-        List<SelectListItem> GetAllAgancyForAddAirplane();
+        List<SelectListItem> GetAllAgancyAsSelectList();
 
         AgancyDTO GetAgancyById(int agancyid);
     }

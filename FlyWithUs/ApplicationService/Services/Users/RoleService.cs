@@ -3,10 +3,7 @@ using FlyWithUs.Hosted.Service.DTOs.Roles;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 {
@@ -18,6 +15,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             repository = new RoleRepository();
         }
 
+        #region Add Role
         public bool AddRole(RoleAddDTO dto)
         {
             bool result = false;
@@ -28,6 +26,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             return result;
         }
+
         private Role Map(RoleAddDTO dto)
         {
             return new Role
@@ -35,6 +34,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 Name = dto.Name.ToLower().Trim()
             };
         }
+        #endregion
+
+
+        #region Get Role
         public List<RoleDTO> GetAllRole()
         {
             List<RoleDTO> dtos = new List<RoleDTO>();
@@ -45,6 +48,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             return dtos;
         }
+
         private RoleDTO Map(Role role)
         {
             return new RoleDTO
@@ -54,7 +58,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 CreateDate = role.CreateDate.ToShamsi()
             };
         }
+        #endregion
 
+
+        #region Validation
         public bool IsRoleExist(string name, int? roleid)
         {
             if (roleid != null)
@@ -72,7 +79,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 return repository.IsRoleExist(name);
             }
         }
+        #endregion
 
+
+        #region Delete Role
         public bool DeleteRole(int roleid)
         {
             bool result = false;
@@ -82,6 +92,19 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 result = true;
             }
             return result;
+        }
+        #endregion
+
+
+        #region Update Role
+        public RoleUpdateDTO GetRoleForUpdate(int roleid)
+        {
+            Role role = repository.GetRoleById(roleid);
+            return new RoleUpdateDTO
+            {
+                Id = role.Id,
+                Name = role.Name
+            };
         }
 
         public bool UpdateRole(RoleUpdateDTO dto)
@@ -101,14 +124,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             role.Name = dto.Name;
             return role;
         }
-        public RoleUpdateDTO GetRoleForUpdate(int roleid)
-        {
-            Role role = repository.GetRoleById(roleid);
-            return new RoleUpdateDTO
-            {
-                Id = role.Id,
-                Name = role.Name
-            };
-        }
+        #endregion
     }
 }

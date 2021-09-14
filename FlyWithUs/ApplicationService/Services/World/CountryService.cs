@@ -4,23 +4,20 @@ using FlyWithUs.Hosted.Service.DTOs.Countries;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 {
     public class CountryService : ICountryService
     {
         private readonly CountryRepository repository;
-        private readonly CityRepository cityRepository;
         public CountryService()
         {
             repository = new CountryRepository();
-            cityRepository = new CityRepository();
         }
 
+        #region Add Country
         public bool AddCountry(CountryAddDTO dto)
         {
             bool result = false;
@@ -44,7 +41,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 PhoneCode = dto.PhoneCode
             };
         }
+        #endregion
 
+
+        #region Delete Country
         public bool DeleteCountry(int countryid)
         {
             bool result = false;
@@ -55,7 +55,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
             return result;
         }
+        #endregion
 
+
+        #region Country As Select List
         public List<SelectListItem> GetAllCountryAsSelectList()
         {
             return repository.GetAllCountry()
@@ -65,12 +68,53 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                     Value = c.Id.ToString()
                 }).ToList();
         }
+        #endregion
 
+
+        #region Get Country
         public CountryDTO GetCountryById(int countryid)
         {
             return Map(repository.GetCountryById(countryid));
         }
 
+        public List<CountryDTO> GetAllCountry()
+        {
+            List<CountryDTO> dtos = new();
+            List<Country> countries = repository.GetAllCountry();
+            foreach (var item in countries)
+            {
+                dtos.Add(Map(item));
+            }
+            return dtos;
+        }
+
+        private CountryDTO Map(Country country)
+        {
+            CountryDTO dto = new CountryDTO();
+            dto.Id = country.Id;
+            dto.NiceName = country.NiceName;
+            dto.NumCode = country.NumCode;
+            dto.PhoneCode = country.PhoneCode;
+            dto.CityDTOs = new List<CityDTO>();
+            foreach (var item in country.Cities)
+            {
+                dto.CityDTOs.Add(Map(item));
+            }
+            return dto;
+        }
+
+        private CityDTO Map(City city)
+        {
+            return new CityDTO
+            {
+                Id = city.Id,
+                Name = city.Name
+            };
+        }
+        #endregion
+
+
+        #region Validation
         public bool IsExistCountry(string name, short numcode, short phonecode, int? countryid)
         {
             if (countryid != null)
@@ -95,7 +139,23 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 return repository.IsExistCountry(name, numcode, phonecode);
             }
         }
+        #endregion
 
+
+        #region Update Country
+        public CountryUpdateDTO GetCountryForUpdate(int countryid)
+        {
+            var country = repository.GetCountryById(countryid);
+            var dto = new CountryUpdateDTO
+            {
+                Id = country.Id,
+                NiceName = country.NiceName,
+                EnglishName = country.Name,
+                NumCode = country.NumCode,
+                PhoneCode = country.PhoneCode
+            };
+            return dto;
+        }
         public bool UpdateCountry(CountryUpdateDTO dto)
         {
             bool result = false;
@@ -117,52 +177,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             country.PhoneCode = dto.PhoneCode;
             return country;
         }
-        private CountryDTO Map(Country country)
-        {
-            CountryDTO dto = new CountryDTO();
-            dto.Id = country.Id;
-            dto.NiceName = country.NiceName;
-            dto.NumCode = country.NumCode;
-            dto.PhoneCode = country.PhoneCode;
-            dto.CityDTOs = new List<CityDTO>();
-            foreach (var item in country.Cities)
-            {
-                dto.CityDTOs.Add(Map(item));
-            }
-            return dto;
-        }
+        #endregion
 
-        private CityDTO Map(City city)
-        {
-            return new CityDTO
-            {
-                Id = city.Id,
-                Name = city.Name
-            };
-        }
-        public CountryUpdateDTO GetCountryForUpdate(int countryid)
-        {
-            var country = repository.GetCountryById(countryid);
-            var dto = new CountryUpdateDTO
-            {
-                Id = country.Id,
-                NiceName = country.NiceName,
-                EnglishName = country.Name,
-                NumCode = country.NumCode,
-                PhoneCode = country.PhoneCode
-            };
-            return dto;
-        }
-
-        public List<CountryDTO> GetAllCountry()
-        {
-            List<CountryDTO> dtos = new();
-            List<Country> countries = repository.GetAllCountry();
-            foreach (var item in countries)
-            {
-                dtos.Add(Map(item));
-            }
-            return dtos;
-        }
     }
 }

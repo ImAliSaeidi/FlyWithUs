@@ -16,8 +16,6 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 
         City GetCityById(int cityid);
 
-        List<City> GetCityByCountryId(int countryid);
-
         List<City> GetAllCity();
 
         bool IsCityExist(string name, int countryid);

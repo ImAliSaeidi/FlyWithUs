@@ -1,11 +1,7 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
 using FlyWithUs.Hosted.Service.DTOs.Agancies;
-using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
@@ -13,23 +9,28 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     public class AganciesController : Controller
     {
         private readonly AgancyService agancyService;
-        private readonly AirplaneService airplaneService;
         public AganciesController()
         {
             agancyService = new AgancyService();
-            airplaneService = new AirplaneService();
         }
+
+
+        #region Get All Agancy
         public IActionResult GetAllAgancy()
         {
             List<AgancyDTO> dto = agancyService.GetAllAgancy();
             return View(dto);
         }
+        #endregion
 
+
+        #region Add Agancy
         [HttpGet]
         public IActionResult AddAgancy()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult AddAgancy([FromForm] AgancyAddDTO dto)
         {
@@ -51,7 +52,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
 
+
+        #region Delete Agancy
         public IActionResult DeleteAgancy(int id)
         {
             if (agancyService.DeleteAgancy(id) == true)
@@ -63,7 +67,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
+
+        #region Edit Agancy
         [HttpGet]
         public IActionResult EditAgancy(int id)
         {
@@ -92,11 +99,15 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
 
+
+        #region Get Airplane For Agancy
         public IActionResult GetAirplaneForAgancy(int id)
         {
             AgancyDTO dto = agancyService.GetAgancyById(id);
             return View(dto);
         }
+        #endregion
     }
 }

@@ -1,10 +1,7 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
 using FlyWithUs.Hosted.Service.DTOs.Roles;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
@@ -16,12 +13,17 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             roleService = new RoleService();
         }
+
+        #region Get All Role
         public IActionResult GetAllRole()
         {
             List<RoleDTO> dtos = roleService.GetAllRole();
             return View(dtos);
         }
+        #endregion
 
+
+        #region Add Role
         [HttpGet]
         public IActionResult AddRole()
         {
@@ -33,7 +35,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (roleService.IsRoleExist(dto.Name,null) == true)
+                if (roleService.IsRoleExist(dto.Name, null) == true)
                 {
                     ModelState.AddModelError("Name", "نام نقش معتبر نیست");
                     return View(dto);
@@ -49,7 +51,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
 
+
+        #region Delete Role
         public IActionResult DeleteRole(int id)
         {
             bool result = roleService.DeleteRole(id);
@@ -62,7 +67,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
+
+        #region Edit Role
         [HttpGet]
         public IActionResult EditRole(int id)
         {
@@ -74,7 +82,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (roleService.IsRoleExist(dto.Name,dto.Id) == true)
+                if (roleService.IsRoleExist(dto.Name, dto.Id) == true)
                 {
                     ModelState.AddModelError("Name", "نام وارد شده معتبر نیست");
                     return View(dto);
@@ -90,5 +98,6 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
     }
 }
