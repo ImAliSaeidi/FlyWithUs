@@ -32,7 +32,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddCity([FromForm]CityAddDTO dto)
+        public IActionResult AddCity([FromForm] CityAddDTO dto)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +59,19 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             var countries = countryService.GetAllCountryAsSelectList();
             ViewData["Countries"] = new SelectList(countries, "Value", "Text");
+        }
+
+        public IActionResult DeleteCity(int id)
+        {
+            bool result = cityService.DeleteCity(id);
+            if (result == true)
+            {
+                return Redirect("/Admin/Cities/GetAllCity");
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }
