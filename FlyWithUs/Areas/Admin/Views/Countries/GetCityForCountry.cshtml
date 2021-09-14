@@ -1,0 +1,66 @@
+﻿@model CountryDTO
+@{
+    ViewData["Title"] = "GetCityForCountry";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">
+    لیست شهر ها |
+    <a href="/Admin/Countries/GetAllCountry" class="btn bg-navy"> <i class=" fa fa-backward"></i> بازگشت </a>
+</h1>
+
+<div class="box">
+    <div class="box-body">
+        <table class="table table-bordered" style="table-layout:auto;width:100%">
+            @if (Model.CityDTOs.Count == 0)
+            {
+                <tr>
+                    <td style="width:100%">
+                        شهری موجود نیست
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <thead>
+                    <tr>
+                        <th style="width: 10px">ردیف</th>
+                        <th>نام</th>
+                        <th>عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 1;
+                    }
+
+
+                    @foreach (var item in Model.CityDTOs)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@item.Name</td>
+                            <td>
+                                <a href="/Admin/Cities/DeleteCity/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|
+                                <a href="/Admin/Cities/EditCity/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pencil"></i> ویرایش </a>
+                            </td>
+                        </tr>
+                        count++;
+
+                    }
+                </tbody>
+            }
+        </table>
+    </div>
+    <!-- /.box-body -->
+    <div class="box-footer clearfix">
+        <ul class="pagination pagination-sm no-margin pull-right">
+            <li><a href="#">«</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>
+

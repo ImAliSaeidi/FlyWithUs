@@ -119,16 +119,27 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         }
         private CountryDTO Map(Country country)
         {
-            return new CountryDTO
+            CountryDTO dto = new CountryDTO();
+            dto.Id = country.Id;
+            dto.NiceName = country.NiceName;
+            dto.NumCode = country.NumCode;
+            dto.PhoneCode = country.PhoneCode;
+            dto.CityDTOs = new List<CityDTO>();
+            foreach (var item in country.Cities)
             {
-                Id = country.Id,
-                NiceName = country.NiceName,
-                NumCode = country.NumCode,
-                PhoneCode = country.PhoneCode,
-                Cities = cityRepository.GetCityByCountryId(country.Id)
-            };
+                dto.CityDTOs.Add(Map(item));
+            }
+            return dto;
         }
 
+        private CityDTO Map(City city)
+        {
+            return new CityDTO
+            {
+                Id = city.Id,
+                Name = city.Name
+            };
+        }
         public CountryUpdateDTO GetCountryForUpdate(int countryid)
         {
             var country = repository.GetCountryById(countryid);

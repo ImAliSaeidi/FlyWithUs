@@ -64,11 +64,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return dtos;
         }
 
-        public CityDTO GetCityById(int cityid)
-        {
-            return Map(repository.GetCityById(cityid));
-        }
-
         private CityDTO Map(City city)
         {
             return new CityDTO

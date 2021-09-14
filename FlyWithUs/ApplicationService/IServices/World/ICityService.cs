@@ -14,8 +14,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         bool DeleteCity(int cityid);
 
-        CityDTO GetCityById(int cityid);
-
         List<CityDTO> GetAllCity();
 
         CityUpdateDTO GetCityForUpdate(int cityid);
