@@ -95,7 +95,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 
         public IActionResult GetAirplaneForAgancy(int id)
         {
-            List<AirplaneDTO> dto = airplaneService.GetAllAirplaneByAgancy(id);
+            AgancyDTO dto = agancyService.GetAgancyById(id);
             return View(dto);
         }
     }

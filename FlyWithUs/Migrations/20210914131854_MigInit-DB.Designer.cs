@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    [Migration("20210914085027_Mig-Update-Country")]
-    partial class MigUpdateCountry
+    [Migration("20210914131854_MigInit-DB")]
+    partial class MigInitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

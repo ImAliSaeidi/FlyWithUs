@@ -105,7 +105,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             var city = repository.GetCityById(dto.Id);
             var country = countryRepository.GetCountryById(dto.CountryId);
             city.Name = dto.Name;
-            city.Country = country;
+            if (city.Country.Id != dto.CountryId)
+            {
+                city.Country = country;
+            }
             return city;
         }
 
