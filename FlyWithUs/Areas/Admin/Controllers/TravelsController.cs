@@ -1,6 +1,8 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Travels;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +14,64 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     public class TravelsController : Controller
     {
         private readonly TravelService travelService;
+        private readonly CityService cityService;
         public TravelsController()
         {
             travelService = new TravelService();
+            cityService = new CityService();
         }
+
+
+        #region Get All Travel
         public IActionResult GetAllTravel()
         {
             List<TravelDTO> dtos = travelService.GetAllTravel();
             return View(dtos);
         }
+        #endregion
+
+
+        #region Add Travel
+        [HttpGet]
+        public IActionResult AddTravel()
+        {
+            FillViewData();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddTravel([FromForm] TravelAddDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (dto.OriginCityId == dto.DestinationCityId)
+                {
+                    ModelState.AddModelError("OriginCityId", "مبدا و مقصد نمیتواند یکسان باشد");
+                    FillViewData();
+                    return View(dto);
+                }
+                else
+                {
+                    travelService.AddTravel(dto);
+                    return Redirect("/Admin/Travels/GetAllTravel");
+                }
+            }
+            else
+            {
+                FillViewData();
+                return View(dto);
+            }
+        }
+
+        #endregion
+
+
+        #region Fill View Data Method
+        private void FillViewData()
+        {
+            var cities = cityService.GetAllCityAsSelectList();
+            ViewData["Cities"] = new SelectList(cities, "Value", "Text");
+        }
+        #endregion]
     }
 }

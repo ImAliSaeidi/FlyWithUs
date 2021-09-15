@@ -50,7 +50,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
 
             return new Travel
             {
-                Code = (org + dest + Guid.NewGuid()).Substring(0, 10)
+                Code = (org + dest + Guid.NewGuid()).Substring(0, 10).ToUpper()
             };
         }
         #endregion
@@ -143,7 +143,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             }
             string org = dto.OriginCityId.ToString();
             string dest = dto.DestinationCityId.ToString();
-            travel.Code = (org + dest + Guid.NewGuid()).Substring(0, 10);
+            travel.Code = (org + dest + Guid.NewGuid()).Substring(0, 10).ToUpper();
             return travel;
         }
         #endregion
