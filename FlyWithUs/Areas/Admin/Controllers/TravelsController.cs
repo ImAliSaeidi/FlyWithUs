@@ -66,6 +66,28 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         #endregion
 
 
+        #region Delete Travel
+        public IActionResult DeleteTravel(int id)
+        {
+            bool result = travelService.DeleteTravel(id);
+            if (result == true)
+            {
+                return Redirect("/Admin/Travels/GetAllTravel");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        #endregion
+
+
+        #region Update Travel
+
+
+        #endregion
+
+
         #region Fill View Data Method
         private void FillViewData()
         {
