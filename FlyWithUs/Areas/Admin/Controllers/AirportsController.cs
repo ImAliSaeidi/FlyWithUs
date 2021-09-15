@@ -19,12 +19,18 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             airportService = new AirportService();
             cityService = new CityService();
         }
+
+
+        #region Get All Airport
         public IActionResult GetAllAirport()
         {
             List<AirportDTO> dtos = airportService.GetAllAirport();
             return View(dtos);
         }
+        #endregion
 
+
+        #region AddAirport
         [HttpGet]
         public IActionResult AddAirport()
         {
@@ -55,7 +61,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View();
             }
         }
+        #endregion
 
+
+        #region Delete Airport
         public IActionResult DeleteAirport(int id)
         {
             bool result = airportService.DeleteAirport(id);
@@ -68,7 +77,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
+        #endregion
 
+
+        #region Edit Airport
         [HttpGet]
         public IActionResult EditAirport(int id)
         {
@@ -78,7 +90,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditAirport([FromForm]AirportUpdateDTO dto)
+        public IActionResult EditAirport([FromForm] AirportUpdateDTO dto)
         {
             if (ModelState.IsValid)
             {
@@ -99,10 +111,15 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
+        #endregion
+
+
+        #region Fill View Data Method
         private void FillViewData()
         {
             var cities = cityService.GetAllCityAsSelectList();
             ViewData["Cities"] = new SelectList(cities, "Value", "Text");
         }
+        #endregion]
     }
 }

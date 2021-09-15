@@ -19,6 +19,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             cityRepository = new CityRepository();
         }
 
+
+        #region Add Airport
         public bool AddAirport(AirportAddDTO dto)
         {
             bool result = false;
@@ -45,7 +47,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 Code = dto.EnglishName.ToUpper().Trim().Substring(0, 4),
             };
         }
+        #endregion
 
+
+        #region Delete Airport
         public bool DeleteAirport(int airportid)
         {
             bool result = false;
@@ -56,7 +61,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
             return result;
         }
+        #endregion
 
+
+        #region Get Airport
         public AirportDTO GetAirportById(int airportid)
         {
             return Map(repository.GetAirportById(airportid));
@@ -84,7 +92,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
             return dtos;
         }
+        #endregion
 
+
+        #region Validation
         public bool IsAirportExist(string name, int cityid, int? airportid)
         {
             if (airportid != null)
@@ -109,7 +120,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 return repository.IsAirportExist(name, cityid);
             }
         }
+        #endregion
 
+
+        #region Update Airport
         public bool UpdateAirport(AirportUpdateDTO dto)
         {
             bool result = false;
@@ -148,5 +162,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 CityId = airport.City.Id
             };
         }
+        #endregion
     }
 }

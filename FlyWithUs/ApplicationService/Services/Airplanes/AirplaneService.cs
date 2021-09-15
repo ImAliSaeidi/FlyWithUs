@@ -80,7 +80,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 Name = airplane.Name,
                 Brand = airplane.Brand,
                 MaxCapacity = airplane.MaxCapacity,
-                AgancyName = agancyRepository.GetAgancyById(airplane.Agancy.Id).Name,
+                AgancyName = airplane.Agancy.Name,
                 Count = airplane.Count
             };
         }

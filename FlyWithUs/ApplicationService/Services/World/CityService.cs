@@ -83,7 +83,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             CityDTO dto = new CityDTO();
             dto.Id = city.Id;
             dto.Name = city.Name;
-            dto.CountryName = countryRepository.GetCountryById(city.Country.Id).NiceName;
+            dto.CountryName = city.Country.NiceName;
             dto.AirportDTOs = new List<AirportDTO>();
             foreach (var item in city.Airports)
             {
@@ -171,6 +171,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         #endregion
 
 
+        #region City As Select List
         public List<SelectListItem> GetAllCityAsSelectList()
         {
             return repository.GetAllCity()
@@ -180,5 +181,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                     Value = c.Id.ToString()
                 }).ToList();
         }
+        #endregion
     }
 }

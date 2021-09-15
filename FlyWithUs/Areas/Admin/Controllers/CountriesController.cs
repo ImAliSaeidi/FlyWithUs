@@ -110,10 +110,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
         #endregion
 
+
+        #region Get Airport For Country
         public IActionResult GetAirportForCountry(int id)
         {
             CountryDTO dto = countryService.GetCountryById(id);
             return View(dto);
         }
+        #endregion
     }
 }
