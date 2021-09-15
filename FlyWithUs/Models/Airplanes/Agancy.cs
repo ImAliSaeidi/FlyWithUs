@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyWithUs.Hosted.Service.Models.Travels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

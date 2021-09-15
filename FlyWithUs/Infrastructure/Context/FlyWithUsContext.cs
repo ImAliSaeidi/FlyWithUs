@@ -28,10 +28,6 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 
         #region Travel
         public DbSet<Travel> Travels { get; set; }
-
-        public DbSet<TravelDetail> TravelDetails { get; set; }
-
-        public DbSet<MultiPartTravel> MultiPartTravels { get; set; }
         #endregion
 
         #region Users
@@ -78,13 +74,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
             modelBuilder.Entity<UserTicket>()
              .HasQueryFilter(u => !u.IsDeleted);
 
-            modelBuilder.Entity<MultiPartTravel>()
-             .HasQueryFilter(u => !u.IsDeleted);
-
             modelBuilder.Entity<Travel>()
-             .HasQueryFilter(u => !u.IsDeleted);
-
-            modelBuilder.Entity<TravelDetail>()
              .HasQueryFilter(u => !u.IsDeleted);
 
             modelBuilder.Entity<Role>()

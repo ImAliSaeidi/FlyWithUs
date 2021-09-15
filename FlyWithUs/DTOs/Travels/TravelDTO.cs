@@ -13,9 +13,29 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
 
         public int MaxCapacity { get; set; }
 
+        public int SaledTicket { get; set; }
+
+        public int Price { get; set; }
+
         public string OriginCityName { get; set; }
 
         public string DestinationCityName { get; set; }
+
+        public string OriginAirportName { get; set; }
+
+        public string DestinationAirportName { get; set; }
+
+        public string MovingTime { get; set; }
+
+        public string ArrivingTime { get; set; }
+
+        public string MovingDate { get; set; }
+
+        public string ArrivingDate { get; set; }
+
+        public string Type { get; set; }
+
+        public string Class { get; set; }
 
     }
 }

@@ -12,9 +12,7 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
     {
         public Travel()
         {
-            TravelDetails = new HashSet<TravelDetail>();
             Tickets = new HashSet<Ticket>();
-            MultiPartTravels = new HashSet<MultiPartTravel>();
         }
 
         [Required]
@@ -25,14 +23,42 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
         [Required]
         public int MaxCapacity { get; set; }
 
-        public ICollection<TravelDetail> TravelDetails { get; set; }
+
+        [Required]
+        public DateTime MovingTime { get; set; }
+
+
+        [Required]
+        public DateTime ArrivingTime { get; set; }
+
+
+        [Required]
+        public DateTime MovingDate { get; set; }
+
+
+        [Required]
+        public DateTime ArrivingDate { get; set; }
+
+
+        [Required]
+        [StringLength(32)]
+        public string Type { get; set; }
+
+
+        [Required]
+        [StringLength(32)]
+        public string Class { get; set; }
+
+
+        [Required]
+        public int Price { get; set; }
+
 
         public ICollection<Ticket> Tickets { get; set; }
 
-        public City OriginCity { get; set; }
+        public Airport OriginAirport { get; set; }
 
-        public City DestinationCity { get; set; }
+        public Airport DestinationAirport { get; set; }
 
-        public ICollection<MultiPartTravel> MultiPartTravels { get; set; }
     }
 }

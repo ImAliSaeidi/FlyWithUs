@@ -12,13 +12,13 @@
 <form method="post" class="box-body">
     <div class="row">
         <div class="col-xs-4">
-            <label asp-for="OriginCityId">مبدا</label>
-            <select class="form-control" asp-for="OriginCityId" asp-items="@(ViewData["Cities"] as SelectList)"></select>
-            <span class="text-danger" asp-validation-for="OriginCityId"></span>
+            <label asp-for="OriginAirportId">مبدا</label>
+            <select class="form-control" asp-for="OriginAirportId" asp-items="@(ViewData["Cities"] as SelectList)"></select>
+            <span class="text-danger" asp-validation-for="OriginAirportId"></span>
             <br />
-            <label asp-for="DestinationCityId">مقصد</label>
-            <select class="form-control" asp-for="DestinationCityId" asp-items="@(ViewData["Cities"] as SelectList)"></select>
-            <span class="text-danger" asp-validation-for="DestinationCityId"></span>
+            <label asp-for="DestinationAirportId">مقصد</label>
+            <select class="form-control" asp-for="DestinationAirportId" asp-items="@(ViewData["Cities"] as SelectList)"></select>
+            <span class="text-danger" asp-validation-for="DestinationAirportId"></span>
             <br />
             <button type="submit" class=" btn btn-success btn-lg btn-block"> <i class="fa fa-check"></i> ثبت </button>
         </div>

@@ -44,7 +44,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (dto.OriginCityId == dto.DestinationCityId)
+                if (dto.OriginAirportId == dto.DestinationAirportId)
                 {
                     ModelState.AddModelError("OriginCityId", "مبدا و مقصد نمیتواند یکسان باشد");
                     FillViewData();
@@ -92,11 +92,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditTravel([FromForm]TravelUpdateDTO dto)
+        public IActionResult EditTravel([FromForm] TravelUpdateDTO dto)
         {
             if (ModelState.IsValid)
             {
-                if (dto.OriginCityId == dto.DestinationCityId)
+                if (dto.OriginAirportId == dto.DestinationAirportId)
                 {
                     ModelState.AddModelError("OriginCityId", "مبدا و مقصد نمیتواند یکسان باشد");
                     FillViewData();

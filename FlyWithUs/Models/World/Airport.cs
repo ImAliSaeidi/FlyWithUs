@@ -12,8 +12,8 @@ namespace FlyWithUs.Hosted.Service.Models.World
     {
         public Airport()
         {
-            IncomingTravelDetails = new HashSet<TravelDetail>();
-            OutboundTravelDetails = new HashSet<TravelDetail>();
+            IncomingTravels = new HashSet<Travel>();
+            OutboundTravels = new HashSet<Travel>();
         }
 
 
@@ -36,11 +36,11 @@ namespace FlyWithUs.Hosted.Service.Models.World
 
 
         [InverseProperty("DestinationAirport")]
-        public ICollection<TravelDetail> IncomingTravelDetails { get; set; }
+        public ICollection<Travel> IncomingTravels { get; set; }
 
 
 
         [InverseProperty("OriginAirport")]
-        public ICollection<TravelDetail> OutboundTravelDetails { get; set; }
+        public ICollection<Travel> OutboundTravels { get; set; }
     }
 }

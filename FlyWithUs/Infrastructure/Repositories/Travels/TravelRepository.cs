@@ -34,20 +34,16 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
         public List<Travel> GetAllTravel()
         {
             return context.Travels
-                .Include(t => t.OriginCity)
-                .Include(t => t.DestinationCity)
-                .Include(t => t.TravelDetails)
-                .Include(t => t.MultiPartTravels)
+                .Include(t => t.OriginAirport)
+                .Include(t => t.DestinationAirport)
                 .ToList();
         }
 
         public Travel GetTravelById(int travelid)
         {
             return context.Travels
-                .Include(t => t.OriginCity)
-                .Include(t => t.DestinationCity)
-                .Include(t => t.TravelDetails)
-                .Include(t => t.MultiPartTravels)
+                .Include(t => t.OriginAirport)
+                .Include(t => t.DestinationAirport)
                 .First(t => t.Id == travelid);
         }
 
