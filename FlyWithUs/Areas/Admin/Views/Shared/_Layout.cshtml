@@ -10,6 +10,7 @@
     <link href="~/css/AdminLTE.css" rel="stylesheet" />
     <link href="~/css/_all-skins.min.css" rel="stylesheet" />
     <link href="~/css/CustomStyle.css" rel="stylesheet" />
+    <link href="~/css/all.css" rel="stylesheet" />
 </head>
 <body class="hold-transition skin-yellow sidebar-mini">
     <header class="main-header">
@@ -363,6 +364,16 @@
                             </ul>
                         </li>
                     </ul>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-globe"></i>
+                        <span>مدیریت سفر ها</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/Admin/Travels/GetAllTravel"><i class="fa fa-list"></i>مشاهده سفر ها</a></li>
+                        <li><a href="/Admin/Travels/AddTravel"><i class="fa fa-plus"></i> افزودن سفر</a></li>
+                    </ul>
+                </li>
                 </li>
 
             </ul>
@@ -379,7 +390,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/CustomJS/adminlte.js"></script>
     <script src="~/CustomJS/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/f6cdcaff9b.js" crossorigin="anonymous"></script>
+    <script src="~/js/all.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

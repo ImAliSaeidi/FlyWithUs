@@ -238,6 +238,9 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<int>("MaxCapacity")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("MovingTime")
                         .HasColumnType("datetime2");
 

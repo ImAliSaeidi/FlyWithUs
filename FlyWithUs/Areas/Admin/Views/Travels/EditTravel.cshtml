@@ -1,0 +1,28 @@
+﻿@model TravelUpdateDTO 
+@{
+    ViewData["Title"] = "EditTravel";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="box-header with-border">
+    ویرایش سفر |
+    <a href="/Admin/Travels/GetAllTravel" class="btn bg-navy"> <i class="fa fa-backward"></i> بازگشت </a>
+</h1>
+
+<form method="post" class="box-body">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-xs-4">
+            <label asp-for="OriginCityId">مبدا</label>
+            <select class="form-control" asp-for="OriginCityId" asp-items="@(ViewData["Cities"] as SelectList)"></select>
+            <span class="text-danger" asp-validation-for="OriginCityId"></span>
+            <br />
+            <label asp-for="DestinationCityId">مقصد</label>
+            <select class="form-control" asp-for="DestinationCityId" asp-items="@(ViewData["Cities"] as SelectList)"></select>
+            <span class="text-danger" asp-validation-for="DestinationCityId"></span>
+            <br />
+            <button type="submit" class=" btn btn-success btn-lg btn-block"> <i class="fa fa-check"></i> ثبت </button>
+        </div>
+    </div>
+</form>
+

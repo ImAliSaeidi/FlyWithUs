@@ -12,6 +12,9 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
     {
 
         #region Properties
+        public int MaxCapacity { get; set; }
+
+
         [Required]
         [StringLength(16)]
         public string Code { get; set; }
