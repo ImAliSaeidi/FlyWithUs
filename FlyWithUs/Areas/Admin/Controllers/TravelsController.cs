@@ -82,9 +82,38 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         #endregion
 
 
-        #region Update Travel
+        #region Edit Travel
+        [HttpGet]
+        public IActionResult EditTravel(int id)
+        {
+            TravelUpdateDTO dto = travelService.GetTravelForUpdate(id);
+            FillViewData();
+            return View(dto);
+        }
 
-
+        [HttpPost]
+        public IActionResult EditTravel([FromForm]TravelUpdateDTO dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (dto.OriginCityId == dto.DestinationCityId)
+                {
+                    ModelState.AddModelError("OriginCityId", "مبدا و مقصد نمیتواند یکسان باشد");
+                    FillViewData();
+                    return View(dto);
+                }
+                else
+                {
+                    travelService.UpdateTravel(dto);
+                    return Redirect("/Admin/Travels/GetAllTravel");
+                }
+            }
+            else
+            {
+                FillViewData();
+                return View(dto);
+            }
+        }
         #endregion
 
 
