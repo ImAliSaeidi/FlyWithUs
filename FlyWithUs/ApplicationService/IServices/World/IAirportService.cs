@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs.Airports;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,5 +22,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
         bool IsAirportExist(string name, int cityid, int? airportid);
 
         AirportUpdateDTO GetAirportForUpdate(int airportid);
+
+        List<SelectListItem> GetAllAirportAsSelectList();
     }
 }

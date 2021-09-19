@@ -3,6 +3,7 @@ using FlyWithUs.Hosted.Service.DTOs.Airports;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,6 +84,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 Code = airport.Code,
                 CityName = cityRepository.GetCityById(airport.City.Id).Name
             };
+        }
+
+
+        public List<SelectListItem> GetAllAirportAsSelectList()
+        {
+            return repository.GetAllAirport()
+               .Select(c => new SelectListItem()
+               {
+                   Text = c.Name,
+                   Value = c.Id.ToString()
+               }).ToList();
         }
 
         public List<AirportDTO> GetAllAirport()

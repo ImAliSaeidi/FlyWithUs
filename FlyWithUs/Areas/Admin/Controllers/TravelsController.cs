@@ -17,12 +17,18 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     {
         private readonly ITravelService travelService;
         private readonly ICityService cityService;
+        private readonly ICountryService countryService;
+        private readonly IAirportService airportService;
 
-        public TravelsController(ITravelService travelService, ICityService cityService)
+        public TravelsController(ITravelService travelService, ICityService cityService, ICountryService countryService, IAirportService airportService)
         {
             this.travelService = travelService;
             this.cityService = cityService;
+            this.countryService = countryService;
+            this.airportService = airportService;
         }
+
+
 
 
 
@@ -124,8 +130,14 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         #region Fill View Data Method
         private void FillViewData()
         {
+            var countries = countryService.GetAllCountryAsSelectList();
+            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
+
             var cities = cityService.GetAllCityAsSelectList();
             ViewData["Cities"] = new SelectList(cities, "Value", "Text");
+
+            var airports = airportService.GetAllAirportAsSelectList();
+            ViewData["Airports"] = new SelectList(airports, "Value", "Text");
         }
         #endregion]
     }
