@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Roles
 {
-    public class RoleUpdateDTO
+    public class RoleUpdateDTO : RoleAddDTO
     {
         public int Id { get; set; }
 
-
-        [Required(ErrorMessage = "لطفا نام نقش را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        public string Name { get; set; }
     }
 }

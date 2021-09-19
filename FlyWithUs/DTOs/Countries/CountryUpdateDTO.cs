@@ -6,25 +6,9 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Countries
 {
-    public class CountryUpdateDTO
+    public class CountryUpdateDTO: CountryAddDTO
     {
         public int Id { get; set; }
 
-
-        [Required(ErrorMessage = "لطفا نام کشور را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
-        public string NiceName { get; set; }
-
-        [Required(ErrorMessage = "لطفا نام کشور را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
-        public string EnglishName { get; set; }
-
-
-        [Required(ErrorMessage = "لطفا کد کشور را وارد کنید")]
-        public short NumCode { get; set; }
-
-
-        [Required(ErrorMessage = "لطفا کد تلفن کشور را وارد کنید")]
-        public short PhoneCode { get; set; }
     }
 }
