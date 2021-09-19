@@ -24,13 +24,13 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         [Required(ErrorMessage = "لطفا رمزعبور را وارد کنید")]
         [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        public string Password { get; set; }
+        public  string Password { get; set; }
 
 
         [Required(ErrorMessage = "لطفا تکرار رمزعبور را وارد کنید")]
         [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
         [Compare("Password", ErrorMessage = "رمز عبور و تکرار آن یکسان نیست")]
-        public string RePassword { get; set; }
+        public  string RePassword { get; set; }
 
 
 
