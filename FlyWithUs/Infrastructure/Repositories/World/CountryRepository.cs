@@ -12,9 +12,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
     public class CountryRepository : ICountryRepository
     {
         private readonly FlyWithUsContext context;
-        public CountryRepository()
+
+        public CountryRepository(FlyWithUsContext context)
         {
-            context = new FlyWithUsContext();
+            this.context = context;
         }
 
         public int AddCountry(Country country)

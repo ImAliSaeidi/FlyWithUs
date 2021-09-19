@@ -1,4 +1,6 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
+﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +12,15 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     [Area("Admin")]
     public class UsersController : Controller
     {
-        private readonly UserService userService;
-        private readonly CountryService countryService;
-        public UsersController()
+        private readonly IUserService userService;
+        private readonly ICountryService countryService;
+
+        public UsersController(IUserService userService, ICountryService countryService)
         {
-            userService = new UserService();
-            countryService = new CountryService();
+            this.userService = userService;
+            this.countryService = countryService;
         }
+
 
         #region Get All User
         public IActionResult GetAllUser()

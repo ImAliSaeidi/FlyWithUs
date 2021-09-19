@@ -11,9 +11,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
     public class UserRepository : IUserRepository
     {
         private readonly FlyWithUsContext context;
-        public UserRepository()
+
+        public UserRepository(FlyWithUsContext context)
         {
-            context = new FlyWithUsContext();
+            this.context = context;
         }
 
         public int AddUser(User user)

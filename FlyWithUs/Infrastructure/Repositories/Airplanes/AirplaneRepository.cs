@@ -12,9 +12,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
     public class AirplaneRepository : IAirplaneRepository
     {
         private readonly FlyWithUsContext context;
-        public AirplaneRepository()
+
+        public AirplaneRepository(FlyWithUsContext context)
         {
-            context = new FlyWithUsContext();
+            this.context = context;
         }
 
         public int AddAirplane(Airplane airplane)

@@ -13,6 +13,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 {
     public class FlyWithUsContext : DbContext
     {
+        public FlyWithUsContext(DbContextOptions<FlyWithUsContext> option) : base(option)
+        {
+
+        }
 
         #region Airplanes
         public DbSet<Airplane> Airplanes { get; set; }
@@ -54,7 +58,6 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Data Source =LAPTOP-VIV37RCJ\\SQL2019;Initial Catalog=FlyWithUsDB;Integrated Security=true");
             optionsBuilder.EnableSensitiveDataLogging(true);
         }
 

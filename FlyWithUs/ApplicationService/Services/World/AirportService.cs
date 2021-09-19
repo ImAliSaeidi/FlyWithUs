@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
 using FlyWithUs.Hosted.Service.DTOs.Airports;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
 using System;
@@ -11,13 +12,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 {
     public class AirportService : IAirportService
     {
-        private readonly AirportRepository repository;
-        private readonly CityRepository cityRepository;
-        public AirportService()
+        private readonly IAirportRepository repository;
+        private readonly ICityRepository cityRepository;
+
+        public AirportService(IAirportRepository repository, ICityRepository cityRepository)
         {
-            repository = new AirportRepository();
-            cityRepository = new CityRepository();
+            this.repository = repository;
+            this.cityRepository = cityRepository;
         }
+
 
 
         #region Add Airport

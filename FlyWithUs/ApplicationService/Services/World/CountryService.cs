@@ -2,6 +2,7 @@
 using FlyWithUs.Hosted.Service.DTOs.Airports;
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,13 +13,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 {
     public class CountryService : ICountryService
     {
-        private readonly CountryRepository repository;
-        private readonly CityRepository cityRepository;
-        public CountryService()
+        private readonly ICountryRepository repository;
+        private readonly ICityRepository cityRepository;
+
+        public CountryService(ICountryRepository repository, ICityRepository cityRepository)
         {
-            repository = new CountryRepository();
-            cityRepository = new CityRepository();
+            this.repository = repository;
+            this.cityRepository = cityRepository;
         }
+
 
         #region Add Country
         public bool AddCountry(CountryAddDTO dto)

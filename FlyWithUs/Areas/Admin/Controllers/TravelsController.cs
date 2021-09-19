@@ -1,4 +1,6 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Travels;
+﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.Travels;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +15,15 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     [Area("Admin")]
     public class TravelsController : Controller
     {
-        private readonly TravelService travelService;
-        private readonly CityService cityService;
-        public TravelsController()
+        private readonly ITravelService travelService;
+        private readonly ICityService cityService;
+
+        public TravelsController(ITravelService travelService, ICityService cityService)
         {
-            travelService = new TravelService();
-            cityService = new CityService();
+            this.travelService = travelService;
+            this.cityService = cityService;
         }
+
 
 
         #region Get All Travel

@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.DTOs.Roles;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
@@ -9,11 +10,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 {
     public class RoleService : IRoleService
     {
-        private readonly RoleRepository repository;
-        public RoleService()
+        private readonly IRoleRepository repository;
+
+        public RoleService(IRoleRepository repository)
         {
-            repository = new RoleRepository();
+            this.repository = repository;
         }
+
+
 
         #region Add Role
         public bool AddRole(RoleAddDTO dto)

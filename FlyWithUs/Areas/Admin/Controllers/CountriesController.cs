@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
+﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -8,11 +9,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     [Area("Admin")]
     public class CountriesController : Controller
     {
-        private readonly CountryService countryService;
-        public CountriesController()
+        private readonly ICountryService countryService;
+
+        public CountriesController(ICountryService countryService)
         {
-            countryService = new CountryService();
+            this.countryService = countryService;
         }
+
 
         #region Get All Country
         public IActionResult GetAllCountry()

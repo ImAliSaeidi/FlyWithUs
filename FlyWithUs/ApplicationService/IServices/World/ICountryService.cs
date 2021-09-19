@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 {
-    interface ICountryService
+    public interface ICountryService
     {
         List<SelectListItem> GetAllCountryAsSelectList();
 

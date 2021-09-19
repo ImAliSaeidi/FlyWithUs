@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes
 {
-    interface IAirplaneRepository
+    public interface IAirplaneRepository
     {
         int AddAirplane(Airplane airplane);
 

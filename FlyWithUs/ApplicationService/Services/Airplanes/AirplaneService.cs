@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
 using FlyWithUs.Hosted.Service.DTOs.Airplanes;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using System.Collections.Generic;
@@ -8,13 +9,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
 {
     public class AirplaneService : IAirplaneService
     {
-        private readonly AirplaneRepository repository;
-        private readonly AgancyRepository agancyRepository;
-        public AirplaneService()
+        private readonly IAirplaneRepository repository;
+        private readonly IAgancyRepository agancyRepository;
+
+        public AirplaneService(IAirplaneRepository repository, IAgancyRepository agancyRepository)
         {
-            repository = new AirplaneRepository();
-            agancyRepository = new AgancyRepository();
+            this.repository = repository;
+            this.agancyRepository = agancyRepository;
         }
+
 
         #region Add Airplane
         public bool AddAirplane(AirplaneAddDTO dto)

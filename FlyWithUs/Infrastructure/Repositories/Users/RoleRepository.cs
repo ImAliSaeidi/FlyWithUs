@@ -11,9 +11,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
     public class RoleRepository : IRoleRepository
     {
         private readonly FlyWithUsContext context;
-        public RoleRepository()
+
+        public RoleRepository(FlyWithUsContext context)
         {
-            context = new FlyWithUsContext();
+            this.context = context;
         }
 
         public int AddRole(Role role)

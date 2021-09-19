@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.DTOs.Users;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
@@ -11,11 +12,13 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 {
     public class UserService : IUserService
     {
-        private readonly UserRepository repository;
-        public UserService()
+        private readonly IUserRepository repository;
+
+        public UserService(IUserRepository repository)
         {
-            repository = new UserRepository();
+            this.repository = repository;
         }
+
 
         #region Add User
         public bool AddUser(UserAddDTO dto)

@@ -12,9 +12,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
     public class CityRepository : ICityRepository
     {
         private readonly FlyWithUsContext context;
-        public CityRepository()
+
+        public CityRepository(FlyWithUsContext context)
         {
-            context = new FlyWithUsContext();
+            this.context = context;
         }
 
         public int AddCity(City city)

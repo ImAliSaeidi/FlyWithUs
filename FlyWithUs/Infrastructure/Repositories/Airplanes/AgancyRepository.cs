@@ -12,9 +12,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
     public class AgancyRepository : IAgancyRepository
     {
         private readonly FlyWithUsContext context;
-        public AgancyRepository()
+
+        public AgancyRepository(FlyWithUsContext context)
         {
-            context = new FlyWithUsContext();
+            this.context = context;
         }
 
         public int AddAgancy(Agancy agancy)

@@ -12,9 +12,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
     public class AirportRepository : IAirportRepository
     {
         private readonly FlyWithUsContext context;
-        public AirportRepository()
+
+        public AirportRepository(FlyWithUsContext context)
         {
-            context = new FlyWithUsContext();
+            this.context = context;
         }
 
         public int AddAirport(Airport airport)

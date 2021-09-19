@@ -12,9 +12,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
     public class TravelRepository : ITravelRepository
     {
         private readonly FlyWithUsContext context;
-        public TravelRepository()
+
+        public TravelRepository(FlyWithUsContext context)
         {
-            context = new FlyWithUsContext();
+            this.context = context;
         }
 
         public int AddTravel(Travel travel)

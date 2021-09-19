@@ -1,5 +1,7 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.Travels;
@@ -13,12 +15,13 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
 {
     public class TravelService : ITravelService
     {
-        private readonly TravelRepository repository;
-        private readonly AirportRepository airportRepository;
-        public TravelService()
+        private readonly ITravelRepository repository;
+        private readonly IAirportRepository airportRepository;
+
+        public TravelService(ITravelRepository repository, IAirportRepository airportRepository)
         {
-            repository = new TravelRepository();
-            airportRepository = new AirportRepository();
+            this.repository = repository;
+            this.airportRepository = airportRepository;
         }
 
 

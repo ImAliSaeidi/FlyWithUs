@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
+﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
 using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,13 +10,15 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     [Area("Admin")]
     public class AirplanesController : Controller
     {
-        private readonly AirplaneService airplaneService;
-        private readonly AgancyService agancyService;
-        public AirplanesController()
+        private readonly IAirplaneService airplaneService;
+        private readonly IAgancyService agancyService;
+
+        public AirplanesController(IAirplaneService airplaneService, IAgancyService agancyService)
         {
-            airplaneService = new AirplaneService();
-            agancyService = new AgancyService();
+            this.airplaneService = airplaneService;
+            this.agancyService = agancyService;
         }
+
 
 
         #region Get All Airplane

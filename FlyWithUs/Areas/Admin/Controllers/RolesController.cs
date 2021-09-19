@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
+﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
 using FlyWithUs.Hosted.Service.DTOs.Roles;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -8,11 +9,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     [Area("Admin")]
     public class RolesController : Controller
     {
-        private readonly RoleService roleService;
-        public RolesController()
+        private readonly IRoleService roleService;
+
+        public RolesController(IRoleService roleService)
         {
-            roleService = new RoleService();
+            this.roleService = roleService;
         }
+
 
         #region Get All Role
         public IActionResult GetAllRole()
