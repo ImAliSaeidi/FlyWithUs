@@ -163,35 +163,21 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             var airplanes = airplaneService.GetAllAirplaneAsSelectList(Convert.ToInt32(agancies.First().Value));
             ViewData["Airplanes"] = new SelectList(airplanes, "Value", "Text");
 
-            var types = new List<SelectListItem>() {
-                new SelectListItem
-                {
-                Text = "داخلی",
-                Value = "داخلی"
-                },
-                new SelectListItem
-                {
-                Text = "خارجی",
-                Value = "خارجی"
-                }
-            };
-            ViewData["Types"] = new SelectList(types, "Value", "Text");
-
             var classes = new List<SelectListItem>() {
                 new SelectListItem
                 {
                 Text = "اکونومی",
-                Value = "اکونومی"
+                Value = "Economy"
                 },
                 new SelectListItem
                 {
                 Text = "بیزینس کلاس",
-                Value = "بیزینس کلاس"
+                Value = "Business"
                 },
                 new SelectListItem
                 {
                 Text = "فرست کلاس",
-                Value = "فرست کلاس"
+                Value = "First"
                 }
             };
             ViewData["Classes"] = new SelectList(classes, "Value", "Text");
@@ -216,7 +202,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             list.AddRange(airportService.GetAllAirportAsSelectList(id));
             return Json(new SelectList(list, "Value", "Text"));
         }
-        
+
         public IActionResult GetAirplanes(int id)
         {
             List<SelectListItem> list = new List<SelectListItem>()

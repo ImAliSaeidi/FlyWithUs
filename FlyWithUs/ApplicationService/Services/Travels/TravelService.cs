@@ -59,7 +59,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             travel.ArrivingTime = dto.ArrivingTime.ToShortTimeString();
             travel.MovingDate = dto.MovingDate.ToShortDateString();
             travel.ArrivingDate = dto.ArrivingDate.ToShortDateString();
-            travel.Type = dto.Type;
+            if (dto.OriginCountryId == dto.DestinationCountryId)
+            {
+                travel.Type = "Domestic";
+            }
+            else
+            {
+                travel.Type = "International";
+            }
             travel.Class = dto.Class;
             travel.Price = dto.Price;
             return travel;
@@ -198,7 +205,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             if (travel.Airplane.Id != dto.AirplaneId)
             {
                 var airplane = airplaneRepository.GetAirplaneById(dto.AirplaneId);
-                travel.Airplane=airplane;
+                travel.Airplane = airplane;
                 airplane.Travels.Add(travel);
                 airplaneRepository.UpdateAirplane(airplane);
             }
@@ -208,7 +215,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             travel.ArrivingTime = dto.ArrivingTime.ToShortTimeString();
             travel.MovingDate = Convert.ToDateTime(dto.MovingDate.ToShortDateString()).ToShamsi();
             travel.ArrivingDate = Convert.ToDateTime(dto.ArrivingDate.ToShortDateString()).ToShamsi();
-            travel.Type = dto.Type;
+            if (dto.OriginCountryId == dto.DestinationCountryId)
+            {
+                travel.Type = "Domestic";
+            }
+            else
+            {
+                travel.Type = "International";
+            }
             travel.Class = dto.Class;
             string org = dto.OriginAirportId.ToString();
             string dest = dto.DestinationAirportId.ToString();

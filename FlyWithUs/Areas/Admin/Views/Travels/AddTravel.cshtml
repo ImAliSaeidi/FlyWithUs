@@ -61,6 +61,12 @@
             <span class="text-danger" asp-validation-for="AirplaneId"></span>
             <br />
         </div>
+        <div class="col-xs-2">
+            <label asp-for="Class">کلاس پرواز</label>
+            <select class="form-control" asp-for="Class" asp-items="@(ViewData["Classes"] as SelectList)"></select>
+            <span class="text-danger" asp-validation-for="Class"></span>
+            <br />
+        </div>
     </div>
     <div class="row">
         <div class="col-xs-2">
@@ -101,20 +107,6 @@
             <label asp-for="ArrivingDate">تاریخ رسیدن به مقصد</label>
             <input type="date" class="form-control" asp-for="ArrivingDate">
             <span class="text-danger" asp-validation-for="ArrivingDate"></span>
-            <br />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-2">
-            <label asp-for="Type">نوع پرواز</label>
-            <select class="form-control" asp-for="Type" asp-items="@(ViewData["Types"] as SelectList)"></select>
-            <span class="text-danger" asp-validation-for="Type"></span>
-            <br />
-        </div>
-        <div class="col-xs-2">
-            <label asp-for="Class">کلاس پرواز</label>
-            <select class="form-control" asp-for="Class" asp-items="@(ViewData["Classes"] as SelectList)"></select>
-            <span class="text-danger" asp-validation-for="Class"></span>
             <br />
         </div>
     </div>

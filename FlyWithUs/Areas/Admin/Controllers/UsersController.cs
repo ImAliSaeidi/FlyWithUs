@@ -87,12 +87,12 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 new SelectListItem
                 {
                 Text = "مرد",
-                Value = "مرد"
+                Value = "Male"
                 },
                 new SelectListItem
                 {
                 Text = "زن",
-                Value = "زن"
+                Value = "Female"
                 }
             };
             ViewData["Genders"] = new SelectList(genders, "Value", "Text");
