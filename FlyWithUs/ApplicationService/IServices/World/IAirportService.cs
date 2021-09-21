@@ -23,6 +23,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         AirportUpdateDTO GetAirportForUpdate(int airportid);
 
-        List<SelectListItem> GetAllAirportAsSelectList();
+        List<SelectListItem> GetAllAirportAsSelectList(int cityid);
     }
 }

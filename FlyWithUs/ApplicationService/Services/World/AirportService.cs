@@ -87,9 +87,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         }
 
 
-        public List<SelectListItem> GetAllAirportAsSelectList()
+        public List<SelectListItem> GetAllAirportAsSelectList(int cityid)
         {
-            return repository.GetAllAirport()
+            return repository.GetAllAirport().Where(a => a.City.Id == cityid)
                .Select(c => new SelectListItem()
                {
                    Text = c.Name,

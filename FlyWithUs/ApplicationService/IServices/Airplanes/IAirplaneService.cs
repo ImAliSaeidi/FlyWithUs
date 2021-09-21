@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs.Airplanes;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
         AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneid);
 
         bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid, int? airplaneid);
+
+        List<SelectListItem> GetAllAirplaneAsSelectList(int agancyid);
+
     }
 }

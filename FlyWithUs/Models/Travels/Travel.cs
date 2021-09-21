@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.Models.Tickets;
+﻿using FlyWithUs.Hosted.Service.Models.Airplanes;
+using FlyWithUs.Hosted.Service.Models.Tickets;
 using FlyWithUs.Hosted.Service.Models.World;
 using System;
 using System.Collections.Generic;
@@ -25,19 +26,19 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
 
 
         [Required]
-        public DateTime MovingTime { get; set; }
+        public string MovingTime { get; set; }
 
 
         [Required]
-        public DateTime ArrivingTime { get; set; }
+        public string ArrivingTime { get; set; }
 
 
         [Required]
-        public DateTime MovingDate { get; set; }
+        public string MovingDate { get; set; }
 
 
         [Required]
-        public DateTime ArrivingDate { get; set; }
+        public string ArrivingDate { get; set; }
 
 
         [Required]
@@ -55,6 +56,8 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
 
 
         public ICollection<Ticket> Tickets { get; set; }
+
+        public Airplane Airplane { get; set; }
 
         public Airport OriginAirport { get; set; }
 

@@ -12,21 +12,42 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
         public int MaxCapacity { get; set; }
 
 
+        public int OriginCountryId { get; set; }
+
+
+        public int DestinationCountryId { get; set; }
+
+
+        public int OriginCityId { get; set; }
+
+
+        public int DestinationCityId { get; set; }
+
+
+        public int AgancyId { get; set; }
+
+
+        [Required(ErrorMessage = "لطفا هواپیما را انتخاب کنید")]
+        public int AirplaneId { get; set; }
+
+
+        [Required(ErrorMessage = "لطفا فرودگاه مبدا را انتخاب کنید")]
         public int OriginAirportId { get; set; }
 
 
+        [Required(ErrorMessage = "لطفا فرودگاه مقصد را انتخاب کنید")]
         public int DestinationAirportId { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا زمان حرکت را انتخاب کنید")]
+        [Required(ErrorMessage = "لطفا ساعت پرواز را انتخاب کنید")]
         public DateTime MovingTime { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا زمان رسیدن به مقصد را انتخاب کنید")]
+        [Required(ErrorMessage = "لطفا ساعت رسیدن به مقصد را انتخاب کنید")]
         public DateTime ArrivingTime { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا تاریخ حرکت را انتخاب کنید")]
+        [Required(ErrorMessage = "لطفا تاریخ پرواز را انتخاب کنید")]
         public DateTime MovingDate { get; set; }
 
 

@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20210921081751_Mig-Init-DB2")]
+    partial class MigInitDB2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,13 +149,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<int?>("AirplaneId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ArrivingDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("ArrivingDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("ArrivingTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("ArrivingTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Class")
                         .IsRequired()
@@ -177,13 +177,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<int>("MaxCapacity")
                         .HasColumnType("int");
 
-                    b.Property<string>("MovingDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("MovingDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("MovingTime")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("MovingTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("OriginAirportId")
                         .HasColumnType("int");

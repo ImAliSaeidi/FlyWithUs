@@ -3,7 +3,9 @@ using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
 {
@@ -160,6 +162,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             {
                 return repository.IsAirplaneExist(name, brand, maxcapacity, agancyid);
             }
+        }
+
+        public List<SelectListItem> GetAllAirplaneAsSelectList(int agancyid)
+        {
+            return repository.GetAllAirplane().Where(a => a.Agancy.Id == agancyid)
+                .Select(c => new SelectListItem()
+                {
+                    Text = c.Name,
+                    Value = c.Id.ToString()
+                }).ToList();
         }
         #endregion
     }

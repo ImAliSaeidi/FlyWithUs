@@ -175,9 +175,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 
 
         #region City As Select List
-        public List<SelectListItem> GetAllCityAsSelectList()
+        public List<SelectListItem> GetAllCityAsSelectList(int? countryid)
         {
-            return repository.GetAllCity()
+            return repository.GetAllCity().Where(c=>c.Country.Id==countryid)
                 .Select(c => new SelectListItem()
                 {
                     Text = c.Name,

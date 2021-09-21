@@ -120,7 +120,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         #region Fill View Data Method
         private void FillViewData()
         {
-            var cities = cityService.GetAllCityAsSelectList();
+            var cities = cityService.GetAllCityAsSelectList(null);
             ViewData["Cities"] = new SelectList(cities, "Value", "Text");
         }
         #endregion]
