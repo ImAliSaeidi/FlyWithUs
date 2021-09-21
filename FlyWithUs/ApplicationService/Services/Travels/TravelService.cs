@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FlyWithUs.Hosted.Service.Tools.Convertors;
+
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
 {
@@ -21,17 +21,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
         private readonly ITravelRepository repository;
         private readonly IAirportRepository airportRepository;
         private readonly IAirplaneRepository airplaneRepository;
+        private readonly IAgancyRepository agancyRepository;
 
-        public TravelService(ITravelRepository repository, IAirportRepository airportRepository, IAirplaneRepository airplaneRepository)
+        public TravelService(ITravelRepository repository,
+            IAirportRepository airportRepository,
+            IAirplaneRepository airplaneRepository,
+            IAgancyRepository agancyRepository)
         {
             this.repository = repository;
             this.airportRepository = airportRepository;
             this.airplaneRepository = airplaneRepository;
+            this.agancyRepository = agancyRepository;
         }
-
-
-
-
 
 
         #region Add Travel
@@ -56,8 +57,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             travel.MaxCapacity = dto.MaxCapacity;
             travel.MovingTime = dto.MovingTime.ToShortTimeString();
             travel.ArrivingTime = dto.ArrivingTime.ToShortTimeString();
-            travel.MovingDate = Convert.ToDateTime(dto.MovingDate.ToShortDateString()).ToShamsi();
-            travel.ArrivingDate = Convert.ToDateTime(dto.ArrivingDate.ToShortDateString()).ToShamsi();
+            travel.MovingDate = dto.MovingDate.ToShortDateString();
+            travel.ArrivingDate = dto.ArrivingDate.ToShortDateString();
             travel.Type = dto.Type;
             travel.Class = dto.Class;
             travel.Price = dto.Price;
@@ -127,12 +128,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
                 DestinationCityName = travel.DestinationAirport.City.Name,
                 OriginAirportName = travel.OriginAirport.Name,
                 DestinationAirportName = travel.DestinationAirport.Name,
-                AgancyName=travel.Airplane.Agancy.Name,
-                AirplaneName=travel.Airplane.Name,
+                AgancyName = travel.Airplane.Agancy.Name,
+                AirplaneName = travel.Airplane.Name,
                 MovingTime = travel.MovingTime,
                 ArrivingTime = travel.ArrivingTime,
-                MovingDate = travel.MovingDate,
-                ArrivingDate = travel.ArrivingDate,
+                MovingDate = Convert.ToDateTime(travel.MovingDate).ToShamsi(),
+                ArrivingDate = Convert.ToDateTime(travel.ArrivingDate).ToShamsi(),
                 Type = travel.Type,
                 Class = travel.Class
             };
@@ -156,7 +157,13 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
                 ArrivingDate = Convert.ToDateTime(travel.ArrivingDate),
                 Type = travel.Type,
                 Class = travel.Class,
-                Price = travel.Price
+                Price = travel.Price,
+                AgancyId = travel.Airplane.Agancy.Id,
+                AirplaneId = travel.Airplane.Id,
+                DestinationCityId = travel.DestinationAirport.City.Id,
+                DestinationCountryId = travel.DestinationAirport.City.Country.Id,
+                OriginCityId = travel.OriginAirport.City.Id,
+                OriginCountryId = travel.OriginAirport.City.Country.Id
             };
         }
 
@@ -188,6 +195,21 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
                 destairport.IncomingTravels.Add(travel);
                 airportRepository.UpdateAirport(destairport);
             }
+            if (travel.Airplane.Id != dto.AirplaneId)
+            {
+                var airplane = airplaneRepository.GetAirplaneById(dto.AirplaneId);
+                travel.Airplane=airplane;
+                airplane.Travels.Add(travel);
+                airplaneRepository.UpdateAirplane(airplane);
+            }
+            travel.MaxCapacity = dto.MaxCapacity;
+            travel.Price = dto.Price;
+            travel.MovingTime = dto.MovingTime.ToShortTimeString();
+            travel.ArrivingTime = dto.ArrivingTime.ToShortTimeString();
+            travel.MovingDate = Convert.ToDateTime(dto.MovingDate.ToShortDateString()).ToShamsi();
+            travel.ArrivingDate = Convert.ToDateTime(dto.ArrivingDate.ToShortDateString()).ToShamsi();
+            travel.Type = dto.Type;
+            travel.Class = dto.Class;
             string org = dto.OriginAirportId.ToString();
             string dest = dto.DestinationAirportId.ToString();
             travel.Code = (org + dest + Guid.NewGuid()).Substring(0, 10).ToUpper();

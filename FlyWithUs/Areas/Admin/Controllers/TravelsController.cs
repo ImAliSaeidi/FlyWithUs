@@ -115,7 +115,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             {
                 if (dto.OriginAirportId == dto.DestinationAirportId)
                 {
-                    ModelState.AddModelError("OriginCityId", "مبدا و مقصد نمیتواند یکسان باشد");
+                    ModelState.AddModelError("OriginAirportId", "مبدا و مقصد نمیتواند یکسان باشد");
                     FillViewData();
                     return View(dto);
                 }
