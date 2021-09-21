@@ -44,11 +44,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 
         private Airport Map(AirportAddDTO dto)
         {
+            string[] engnamesplited = dto.EnglishName.Split(" ");
+            string code = "";
+            foreach (var item in engnamesplited)
+            {
+                code += item.Substring(0, 1).ToUpper();
+            }
             return new Airport
             {
                 Name = dto.Name,
                 EnglishName = dto.EnglishName,
-                Code = dto.EnglishName.ToUpper().Trim().Substring(0, 4),
+                Code = code
             };
         }
         #endregion
@@ -152,11 +158,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 
         private Airport Map(AirportUpdateDTO dto)
         {
+            string[] engnamesplited = dto.EnglishName.Split(" ");
+            string code = "";
+            foreach (var item in engnamesplited)
+            {
+                code += item.Substring(0, 1).ToUpper();
+            }
             var airport = repository.GetAirportById(dto.Id);
             var city = cityRepository.GetCityById(dto.CityId);
             airport.Name = dto.Name;
             airport.EnglishName = dto.EnglishName;
-            airport.Code = dto.EnglishName.ToUpper().Trim().Substring(0, 4);
+            airport.Code = code;
             if (airport.City.Id != dto.CityId)
             {
                 airport.City = city;

@@ -43,6 +43,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
                 .Include(t => t.DestinationAirport)
                 .Include(t => t.DestinationAirport.City)
                 .Include(t => t.DestinationAirport.City.Country)
+                .IgnoreQueryFilters()
                 .ToList();
         }
 
@@ -57,6 +58,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
                 .Include(t => t.DestinationAirport)
                 .Include(t => t.DestinationAirport.City)
                 .Include(t => t.DestinationAirport.City.Country)
+                .IgnoreQueryFilters()
                 .First(t => t.Id == travelid);
         }
 
