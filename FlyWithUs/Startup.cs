@@ -8,10 +8,12 @@ using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
+
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
+
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
@@ -59,8 +61,6 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<IAirportService, AirportService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
-
-
         }
 
 

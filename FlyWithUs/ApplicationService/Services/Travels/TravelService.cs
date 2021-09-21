@@ -6,6 +6,7 @@ using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
+using FlyWithUs.Hosted.Service.Models.Tickets;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
 using System;
@@ -21,17 +22,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
         private readonly ITravelRepository repository;
         private readonly IAirportRepository airportRepository;
         private readonly IAirplaneRepository airplaneRepository;
-        private readonly IAgancyRepository agancyRepository;
 
         public TravelService(ITravelRepository repository,
             IAirportRepository airportRepository,
-            IAirplaneRepository airplaneRepository,
-            IAgancyRepository agancyRepository)
+            IAirplaneRepository airplaneRepository
+           )
         {
             this.repository = repository;
             this.airportRepository = airportRepository;
             this.airplaneRepository = airplaneRepository;
-            this.agancyRepository = agancyRepository;
+
         }
 
 
@@ -129,7 +129,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
                 Id = travel.Id,
                 Code = travel.Code,
                 MaxCapacity = travel.MaxCapacity,
-                SaledTicket = travel.Tickets.Count,
+                SaledTicket = travel.Tickets.Where(t => t.IsSaled == true).Count(),
                 Price = travel.Price,
                 OriginCityName = travel.OriginAirport.City.Name,
                 DestinationCityName = travel.DestinationAirport.City.Name,
@@ -163,6 +163,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
                 MovingDate = Convert.ToDateTime(travel.MovingDate),
                 ArrivingDate = Convert.ToDateTime(travel.ArrivingDate),
                 Type = travel.Type,
+                SaledTicket = travel.Tickets.Where(t => t.IsSaled == true).Count(),
                 Class = travel.Class,
                 Price = travel.Price,
                 AgancyId = travel.Airplane.Agancy.Id,
@@ -188,6 +189,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
         private Travel Map(TravelUpdateDTO dto)
         {
             var travel = repository.GetTravelById(dto.Id);
+            string org = dto.OriginAirportId.ToString();
+            string dest = dto.DestinationAirportId.ToString();
             if (travel.OriginAirport.Id != dto.OriginAirportId)
             {
                 var orgairport = airportRepository.GetAirportById(dto.OriginAirportId);
@@ -213,8 +216,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             travel.Price = dto.Price;
             travel.MovingTime = dto.MovingTime.ToShortTimeString();
             travel.ArrivingTime = dto.ArrivingTime.ToShortTimeString();
-            travel.MovingDate = Convert.ToDateTime(dto.MovingDate.ToShortDateString()).ToShamsi();
-            travel.ArrivingDate = Convert.ToDateTime(dto.ArrivingDate.ToShortDateString()).ToShamsi();
+            travel.MovingDate = dto.MovingDate.ToShortDateString();
+            travel.ArrivingDate = dto.ArrivingDate.ToShortDateString(); ;
             if (dto.OriginCountryId == dto.DestinationCountryId)
             {
                 travel.Type = "Domestic";
@@ -224,8 +227,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
                 travel.Type = "International";
             }
             travel.Class = dto.Class;
-            string org = dto.OriginAirportId.ToString();
-            string dest = dto.DestinationAirportId.ToString();
             travel.Code = (org + dest + Guid.NewGuid()).Substring(0, 10).ToUpper();
             return travel;
         }
