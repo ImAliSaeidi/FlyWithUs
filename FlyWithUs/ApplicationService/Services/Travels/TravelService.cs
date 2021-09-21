@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FlyWithUs.Hosted.Service.Tools.Convertors;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
 {
@@ -55,8 +56,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             travel.MaxCapacity = dto.MaxCapacity;
             travel.MovingTime = dto.MovingTime.ToShortTimeString();
             travel.ArrivingTime = dto.ArrivingTime.ToShortTimeString();
-            travel.MovingDate = dto.MovingDate.ToShortDateString();
-            travel.ArrivingDate = dto.ArrivingDate.ToShortDateString();
+            travel.MovingDate = Convert.ToDateTime(dto.MovingDate.ToShortDateString()).ToShamsi();
+            travel.ArrivingDate = Convert.ToDateTime(dto.ArrivingDate.ToShortDateString()).ToShamsi();
             travel.Type = dto.Type;
             travel.Class = dto.Class;
             travel.Price = dto.Price;
@@ -126,6 +127,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
                 DestinationCityName = travel.DestinationAirport.City.Name,
                 OriginAirportName = travel.OriginAirport.Name,
                 DestinationAirportName = travel.DestinationAirport.Name,
+                AgancyName=travel.Airplane.Agancy.Name,
+                AirplaneName=travel.Airplane.Name,
                 MovingTime = travel.MovingTime,
                 ArrivingTime = travel.ArrivingTime,
                 MovingDate = travel.MovingDate,

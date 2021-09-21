@@ -134,6 +134,17 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         #endregion
 
 
+        #region Travel Info
+
+        public IActionResult GetTravelInfo(int id)
+        {
+            var dto = travelService.GetTravelById(id);
+            return View(dto);
+        }
+
+        #endregion
+
+
         #region Fill View Data Method
         private void FillViewData()
         {

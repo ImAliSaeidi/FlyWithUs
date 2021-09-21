@@ -25,6 +25,10 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
 
         public string DestinationAirportName { get; set; }
 
+        public string AgancyName { get; set; }
+
+        public string AirplaneName { get; set; }
+
         public string MovingTime { get; set; }
 
         public string ArrivingTime { get; set; }
