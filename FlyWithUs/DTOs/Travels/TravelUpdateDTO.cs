@@ -10,5 +10,10 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
     {
         public int Id { get; set; }
 
+
+        public int SaledTicket { get; set; }
+
+
+        public string Type { get; set; }
     }
 }
