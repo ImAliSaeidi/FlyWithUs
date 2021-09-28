@@ -19,23 +19,13 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 
         int Save();
 
-        List<User> GetAllUser();
+        List<User> GetAllUser(int take, int skip);
 
         bool IsPhoneNumberExist(string phonenumber);
 
         bool IsEmailExist(string email);
 
         string GetUserNationality(int nationalityid);
-
-        int AddTicket(Ticket ticket);
-
-        int DeleteTicket(int ticketid);
-
-        int UpdateTicket(Ticket ticket);
-
-        List<UserTicket> GetAllUserTicketByUserId(int userid);
-
-        Ticket GetUserTicketByTicketId(int ticketid);
 
     }
 }

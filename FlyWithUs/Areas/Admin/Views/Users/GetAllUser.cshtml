@@ -49,9 +49,11 @@
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
             <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
+            @for (int i = 1; i <= (Model.Count / 10) + 1; i++)
+            {
+                <li><a href="~/admin/users/GetAllUser/10/@((i-1)*10)">@i</a></li>
+            }
+
             <li><a href="#">»</a></li>
         </ul>
     </div>

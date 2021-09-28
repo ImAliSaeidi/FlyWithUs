@@ -79,10 +79,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 
 
         #region Get User
-        public List<UserDTO> GetAllUser()
+        public List<UserDTO> GetAllUser(int take, int skip)
         {
             List<UserDTO> dtos = new List<UserDTO>();
-            foreach (var user in repository.GetAllUser())
+            foreach (var user in repository.GetAllUser(take, skip))
             {
                 dtos.Add(Map(user));
             }
