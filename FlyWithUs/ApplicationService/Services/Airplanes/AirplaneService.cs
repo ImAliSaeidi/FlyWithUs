@@ -173,6 +173,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                     Value = c.Id.ToString()
                 }).ToList();
         }
+
+        public AirplaneDTO GetAirplaneById(int airplaneid)
+        {
+            return Map(repository.GetAirplaneById(airplaneid));
+        }
         #endregion
     }
 }

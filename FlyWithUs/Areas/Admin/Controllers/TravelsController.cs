@@ -61,9 +61,17 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var airplane = airplaneService.GetAirplaneById(dto.AirplaneId);
                 if (dto.OriginAirportId == dto.DestinationAirportId)
                 {
                     ModelState.AddModelError("OriginCityId", "مبدا و مقصد نمیتواند یکسان باشد");
+                    FillViewData();
+                    return View(dto);
+                }
+                else if (airplane.MaxCapacity < dto.MaxCapacity)
+                {
+                    string errormessage = "ظرفیت وارد شده مجاز نیست،حداکثر" + "(" + airplane.MaxCapacity + ")";
+                    ModelState.AddModelError("MaxCapacity", errormessage);
                     FillViewData();
                     return View(dto);
                 }

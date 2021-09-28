@@ -23,5 +23,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 
         List<SelectListItem> GetAllAirplaneAsSelectList(int agancyid);
 
+        AirplaneDTO GetAirplaneById(int airplaneid);
+
     }
 }

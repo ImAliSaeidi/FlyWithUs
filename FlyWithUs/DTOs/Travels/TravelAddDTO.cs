@@ -8,7 +8,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
 {
     public class TravelAddDTO
     {
-        [Required(ErrorMessage ="لطفا حداکثر ظرفیت را وارد کنید")]
+        [Required(ErrorMessage = "لطفا حداکثر ظرفیت را وارد کنید")]
         public int MaxCapacity { get; set; }
 
 
@@ -53,11 +53,6 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
 
         [Required(ErrorMessage = "لطفا تاریخ رسیدن به مقصد را انتخاب کنید")]
         public DateTime ArrivingDate { get; set; }
-
-
-        [Required(ErrorMessage = "لطفا نوع پرواز را انتخاب کنید")]
-        [StringLength(32)]
-        public string Type { get; set; }
 
 
         [Required(ErrorMessage = "لطفا کلاس پرواز انتخاب کنید")]

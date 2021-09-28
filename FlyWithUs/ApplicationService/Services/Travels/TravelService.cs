@@ -162,7 +162,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
                 ArrivingTime = Convert.ToDateTime(travel.ArrivingTime),
                 MovingDate = Convert.ToDateTime(travel.MovingDate),
                 ArrivingDate = Convert.ToDateTime(travel.ArrivingDate),
-                Type = travel.Type,
                 Class = travel.Class,
                 Price = travel.Price,
                 AgancyId = travel.Airplane.Agancy.Id,
