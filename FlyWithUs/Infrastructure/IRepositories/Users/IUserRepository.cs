@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.Models.Users;
+﻿using FlyWithUs.Hosted.Service.Models.Tickets;
+using FlyWithUs.Hosted.Service.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,13 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 
         int Save();
 
-        List<User> GetAllUser();
+        List<User> GetAllUser(int take, int skip);
 
         bool IsPhoneNumberExist(string phonenumber);
 
         bool IsEmailExist(string email);
 
         string GetUserNationality(int nationalityid);
+
     }
 }

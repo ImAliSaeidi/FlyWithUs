@@ -6,14 +6,18 @@ using FlyWithUs.Hosted.Service.DTOs.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[Controller]/[Action]")]
     public class UsersController : Controller
     {
         private readonly IUserService userService;
         private readonly ICountryService countryService;
+        private int offset = 0;
+
 
         public UsersController(IUserService userService, ICountryService countryService)
         {
@@ -23,9 +27,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 
 
         #region Get All User
-        public IActionResult GetAllUser()
+        [HttpGet("{take}/{skip}")]
+        public IActionResult GetAllUser([Required] int take = 10, int skip = 0)
         {
-            List<UserDTO> dtos = userService.GetAllUser();
+            List<UserDTO> dtos = userService.GetAllUser(take, skip);
             return View(dtos);
         }
         #endregion

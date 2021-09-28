@@ -10,7 +10,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
     {
         bool AddUser(UserAddDTO dto);
 
-        List<UserDTO> GetAllUser();
+        List<UserDTO> GetAllUser(int take, int skip);
 
         bool IsPhoneNumberExist(string phonenumber, int? userid);
 

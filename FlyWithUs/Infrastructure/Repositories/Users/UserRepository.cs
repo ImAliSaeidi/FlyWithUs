@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
+using FlyWithUs.Hosted.Service.Models.Tickets;
 using FlyWithUs.Hosted.Service.Models.Users;
 using System;
 using System.Collections.Generic;
@@ -30,9 +31,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return UpdateUser(user);
         }
 
-        public List<User> GetAllUser()
+        public List<User> GetAllUser(int take, int skip)
         {
-            return context.User.ToList();
+            return context.User.Skip(skip).Take(take).ToList();
         }
 
         public User GetUserById(int userid)
@@ -65,5 +66,6 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             context.User.Update(user);
             return Save();
         }
+
     }
 }
