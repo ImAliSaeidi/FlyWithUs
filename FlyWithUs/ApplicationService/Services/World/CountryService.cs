@@ -5,7 +5,6 @@ using FlyWithUs.Hosted.Service.DTOs.Airports;
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
-using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;

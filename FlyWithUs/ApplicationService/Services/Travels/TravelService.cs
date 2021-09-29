@@ -2,9 +2,7 @@
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
-using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
-using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using System;
 using System.Collections.Generic;
