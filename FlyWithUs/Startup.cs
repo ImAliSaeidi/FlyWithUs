@@ -45,6 +45,17 @@ namespace FlyWithUs.Hosted.Service
         {
             services.AddControllersWithViews();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder
+                    .WithOrigins(configuration["Origin"])
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+                });
+            });
             services.AddDbContext<FlyWithUsContext>(option => { option.UseSqlServer(configuration["ConnectionString"]); });
             services.AddScoped<IAgancyRepository, AgancyRepository>();
             services.AddScoped<IAirplaneRepository, AirplaneRepository>();
