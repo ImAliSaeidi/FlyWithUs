@@ -1,9 +1,7 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Airplanes;
+﻿using FlyWithUs.Hosted.Service.DTOs;
+using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 {
@@ -15,7 +13,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 
         bool DeleteAirplane(int airplaneid);
 
-        List<AirplaneDTO> GetAllAirplane();
+        GridResultDTO<AirplaneDTO> GetAllAirplane(int skip,int take);
 
         AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneid);
 

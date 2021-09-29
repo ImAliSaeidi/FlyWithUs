@@ -1,6 +1,8 @@
-﻿using System;
+﻿using FlyWithUs.Hosted.Service.Models.Travels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,25 +21,28 @@ namespace FlyWithUs.Hosted.Service.Models.World
 
         [Required]
         [StringLength(128)]
-        public string Name { get; set; }
+        public string EnglishName { get; set; }
 
 
         [Required]
         [StringLength(128)]
-        public string NiceName { get; set; }
+        public string PersianName { get; set; }
 
         [Required]
         [StringLength(3)]
         public string ISO3 { get; set; }
-
-        [Required]
-        [MaxLength(6)]
-        public short NumCode { get; set; }
-
+            
+        
         [Required]
         [MaxLength(5)]
         public short PhoneCode { get; set; }
 
         public ICollection<City> Cities { get; set; }
+
+        [InverseProperty("DestinationCountry")]
+        public ICollection<Travel> IncomingTravels { get; set; }
+
+        [InverseProperty("OriginCountry")]
+        public ICollection<Travel> OutboundTravels { get; set; }
     }
 }

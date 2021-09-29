@@ -9,7 +9,7 @@
     <a href="/Admin/Travels/GetAllTravel" class="btn bg-navy"> <i class="fa fa-backward"></i> بازگشت </a>
 </h1>
 
-<form method="post" class="box-body">
+<form method="post" action="/Admin/Travels/EditTravel" class="box-body">
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="SaledTicket" />
     <div class="row">
@@ -176,6 +176,7 @@
                         });
                 });
         });
+
     </script>
 }
 

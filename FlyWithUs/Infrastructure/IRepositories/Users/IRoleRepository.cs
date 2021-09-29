@@ -1,25 +1,22 @@
 ﻿using FlyWithUs.Hosted.Service.Models.Users;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 {
     public interface IRoleRepository
     {
-        int AddRole(Role role);
+        int Add(Role role);
 
-        int DeleteRole(int roleid);
+        int Delete(int roleid);
 
-        int UpdateRole(Role role);
+        int Update(Role role);
 
-        Role GetRoleById(int roleid);
+        Role GetById(int roleid);
 
-        List<Role> GetAllRole();
+        IQueryable<Role> GetAll();
 
         int Save();
 
-        bool IsRoleExist(string name);
+        bool IsExist(string name);
     }
 }

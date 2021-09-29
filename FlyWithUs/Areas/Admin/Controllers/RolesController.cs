@@ -1,12 +1,13 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Roles;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[Controller]/[Action]")]
     public class RolesController : Controller
     {
         private readonly IRoleService roleService;
@@ -17,16 +18,14 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
 
-        #region Get All Role
-        public IActionResult GetAllRole()
+
+        [HttpGet("{skip=0}/{take=10}")]
+        public IActionResult GetAllRole([Required] int skip = 0, [Required] int take = 10)
         {
-            List<RoleDTO> dtos = roleService.GetAllRole();
-            return View(dtos);
+            GridResultDTO<RoleDTO> dto = roleService.GetAllRole(skip, take);
+            return View(dto);
         }
-        #endregion
 
-
-        #region Add Role
         [HttpGet]
         public IActionResult AddRole()
         {
@@ -54,13 +53,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Delete Role
-        public IActionResult DeleteRole(int id)
+        [HttpGet("{roleid}")]
+        public IActionResult DeleteRole(int roleid)
         {
-            bool result = roleService.DeleteRole(id);
+            bool result = roleService.DeleteRole(roleid);
             if (result == true)
             {
                 return Redirect("/Admin/Roles/GetAllRole");
@@ -70,16 +67,14 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-        #endregion
 
-
-        #region Edit Role
-        [HttpGet]
-        public IActionResult EditRole(int id)
+        [HttpGet("{roleid}")]
+        public IActionResult EditRole(int roleid)
         {
-            RoleUpdateDTO dto = roleService.GetRoleForUpdate(id);
+            RoleUpdateDTO dto = roleService.GetRoleForUpdate(roleid);
             return View(dto);
         }
+
         [HttpPost]
         public IActionResult EditRole([FromForm] RoleUpdateDTO dto)
         {
@@ -101,6 +96,5 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
     }
 }

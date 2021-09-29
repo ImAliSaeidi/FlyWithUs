@@ -20,9 +20,20 @@ namespace FlyWithUs.Hosted.Service.Models.World
         [StringLength(128)]
         public string Name { get; set; }
 
+
+        [Required]
+        public int CountryId { get; set; }
+
+
         public Country Country { get; set; }
 
         public ICollection<Airport> Airports { get; set; }
+
+        [InverseProperty("DestinationCity")]
+        public ICollection<Travel> IncomingTravels { get; set; }
+
+        [InverseProperty("OriginCity")]
+        public ICollection<Travel> OutboundTravels { get; set; }
 
     }
 }

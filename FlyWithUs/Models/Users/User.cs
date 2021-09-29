@@ -63,9 +63,6 @@ namespace FlyWithUs.Hosted.Service.Models.Users
         [Required]
         public DateTime Birthdate { get; set; }
 
-        [Required]
-        public DateTime BirthdateAD { get; set; }
-
 
         [Required]
         public string Gender { get; set; }
@@ -75,10 +72,10 @@ namespace FlyWithUs.Hosted.Service.Models.Users
         public string PassportNumber { get; set; }
 
 
-        public string PassportIssunaceDate { get; set; }
+        public DateTime PassportIssunaceDate { get; set; }
 
 
-        public string PassportExpirationDate { get; set; }
+        public DateTime PassportExpirationDate { get; set; }
         #endregion
 
 

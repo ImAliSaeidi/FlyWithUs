@@ -1,12 +1,14 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[Controller]/[Action]")]
     public class CountriesController : Controller
     {
         private readonly ICountryService countryService;
@@ -16,17 +18,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             this.countryService = countryService;
         }
 
-
-        #region Get All Country
-        public IActionResult GetAllCountry()
+        [HttpGet("{skip=0}/{take=10}")]
+        public IActionResult GetAllCountry([Required] int skip = 0, [Required] int take = 10)
         {
-            List<CountryDTO> dtos = countryService.GetAllCountry();
+            GridResultDTO<CountryDTO> dtos = countryService.GetAllCountry(skip, take);
             return View(dtos);
         }
-        #endregion
 
-
-        #region Add Country
         [HttpGet]
         public IActionResult AddCountry()
         {
@@ -38,9 +36,9 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (countryService.IsExistCountry(dto.NiceName, dto.NumCode, dto.PhoneCode, null) == true)
+                if (countryService.IsExistCountry(dto.EnglishName,dto.PersianName, dto.PhoneCode, null) == true)
                 {
-                    ModelState.AddModelError("NiceName", "مشخصات وارد شده تکراری است");
+                    ModelState.AddModelError("PersianName", "مشخصات وارد شده تکراری است");
                     return View(dto);
                 }
                 else
@@ -54,13 +52,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Delete Country
-        public IActionResult DeleteCountry(int id)
+        [HttpGet("{countryid}")]
+        public IActionResult DeleteCountry(int countryid)
         {
-            bool result = countryService.DeleteCountry(id);
+            bool result = countryService.DeleteCountry(countryid);
             if (result == true)
             {
                 return Redirect("/Admin/Countries/GetAllCountry");
@@ -70,14 +66,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-        #endregion
 
-
-        #region Edit Country
-        [HttpGet]
-        public IActionResult EditCountry(int id)
+        [HttpGet("{countryid}")]
+        public IActionResult EditCountry(int countryid)
         {
-            CountryUpdateDTO dto = countryService.GetCountryForUpdate(id);
+            CountryUpdateDTO dto = countryService.GetCountryForUpdate(countryid);
             return View(dto);
         }
 
@@ -86,9 +79,9 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (countryService.IsExistCountry(dto.NiceName, dto.NumCode, dto.PhoneCode, dto.Id) == true)
+                if (countryService.IsExistCountry(dto.EnglishName, dto.PersianName, dto.PhoneCode, dto.Id) == true)
                 {
-                    ModelState.AddModelError("NiceName", "مشخصات وارد شده تکراری است");
+                    ModelState.AddModelError("PersianName", "مشخصات وارد شده تکراری است");
                     return View(dto);
                 }
                 else
@@ -102,24 +95,20 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Get City For Country
-        public IActionResult GetCityForCountry(int id)
+        [HttpGet("{countryid}")]
+        public IActionResult GetCityForCountry(int countryid)
         {
-            CountryDTO dto = countryService.GetCountryById(id);
+            CountryDTO dto = countryService.GetCountryById(countryid);
             return View(dto);
         }
-        #endregion
 
-
-        #region Get Airport For Country
-        public IActionResult GetAirportForCountry(int id)
+        [HttpGet("{countryid}")]
+        public IActionResult GetAirportForCountry(int countryid)
         {
-            CountryDTO dto = countryService.GetCountryById(id);
+            CountryDTO dto = countryService.GetCountryById(countryid);
             return View(dto);
         }
-        #endregion
+
     }
 }

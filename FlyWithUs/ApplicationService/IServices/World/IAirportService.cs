@@ -1,9 +1,7 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Airports;
+﻿using FlyWithUs.Hosted.Service.DTOs;
+using FlyWithUs.Hosted.Service.DTOs.Airports;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 {
@@ -17,7 +15,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         AirportDTO GetAirportById(int airportid);
 
-        List<AirportDTO> GetAllAirport();
+        GridResultDTO<AirportDTO> GetAllAirport(int skip, int take);
 
         bool IsAirportExist(string name, int cityid, int? airportid);
 

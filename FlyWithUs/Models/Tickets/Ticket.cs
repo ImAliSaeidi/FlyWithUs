@@ -18,6 +18,11 @@ namespace FlyWithUs.Hosted.Service.Models.Tickets
         [StringLength(16)]
         public string Code { get; set; }
 
+
+        [Required]
+        public int TravelId { get; set; }
+
+
         public bool IsSaled { get; set; }
 
         public ICollection<UserTicket> UserTickets { get; set; }

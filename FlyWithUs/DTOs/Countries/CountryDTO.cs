@@ -10,11 +10,15 @@ namespace FlyWithUs.Hosted.Service.DTOs.Countries
 {
     public class CountryDTO
     {
+        public CountryDTO()
+        {
+            AirportDTOs = new List<AirportDTO>();
+            CityDTOs = new List<CityDTO>();
+        }
+
         public int Id { get; set; }
 
-        public string NiceName { get; set; }
-
-        public short NumCode { get; set; }
+        public string PersianName { get; set; }
 
         public short PhoneCode { get; set; }
 

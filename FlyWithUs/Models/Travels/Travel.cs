@@ -26,19 +26,19 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
 
 
         [Required]
-        public string MovingTime { get; set; }
+        public DateTime MovingTime { get; set; }
 
 
         [Required]
-        public string ArrivingTime { get; set; }
+        public DateTime ArrivingTime { get; set; }
 
 
         [Required]
-        public string MovingDate { get; set; }
+        public DateTime MovingDate { get; set; }
 
 
         [Required]
-        public string ArrivingDate { get; set; }
+        public DateTime ArrivingDate { get; set; }
 
 
         [Required]
@@ -55,6 +55,34 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
         public int Price { get; set; }
 
 
+        [Required]
+        public int AirplaneId { get; set; }
+
+
+        [Required]
+        public int OriginAirportId { get; set; }
+
+
+        [Required]
+        public int DestinationAirportId { get; set; }
+
+
+        [Required]
+        public int OriginCityId { get; set; }
+
+
+        [Required]
+        public int DestinationCityId { get; set; }
+
+
+        [Required]
+        public int OriginCountryId { get; set; }
+
+
+        [Required]
+        public int DestinationCountryId { get; set; }
+
+
         public ICollection<Ticket> Tickets { get; set; }
 
         public Airplane Airplane { get; set; }
@@ -62,6 +90,14 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
         public Airport OriginAirport { get; set; }
 
         public Airport DestinationAirport { get; set; }
+
+        public City OriginCity { get; set; }
+
+        public City DestinationCity { get; set; }
+
+        public Country OriginCountry { get; set; }
+
+        public Country DestinationCountry { get; set; }
 
     }
 }

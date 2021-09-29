@@ -10,7 +10,7 @@
     <a href="/Admin/Users/GetAllUser" class="btn bg-navy"> <i class="fa fa-backward"></i> بازگشت </a>
 </h1>
 
-<form method="post" class="col-8 box-body">
+<form method="post"  action="~/Admin/Users/EditUser" class="col-8 box-body">
     <input type="hidden" asp-for="Id" />
     <div class="row">
         <div class="col-xs-4">
@@ -98,9 +98,9 @@
             <span class="text-danger" asp-validation-for="NationalityId"></span>
         </div>
         <div class="col-xs-2">
-            <label asp-for="BirthdateAD">تاریخ تولد</label>
-            <input type="date" class="form-control" asp-for="BirthdateAD" placeholder="تاریخ تولد">
-            <span class="text-danger" asp-validation-for="BirthdateAD"></span>
+            <label asp-for="Birthdate">تاریخ تولد</label>
+            <input type="date" class="form-control" asp-for="Birthdate" placeholder="تاریخ تولد">
+            <span class="text-danger" asp-validation-for="Birthdate"></span>
         </div>
         <div class="col-xs-2">
             <label asp-for="Gender">جنسیت</label>

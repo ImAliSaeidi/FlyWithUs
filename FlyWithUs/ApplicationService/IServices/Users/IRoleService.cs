@@ -1,14 +1,11 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Roles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FlyWithUs.Hosted.Service.DTOs;
+using FlyWithUs.Hosted.Service.DTOs.Roles;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 {
     public interface IRoleService
     {
-        List<RoleDTO> GetAllRole();
+        GridResultDTO<RoleDTO> GetAllRole(int skip,int take);
 
         bool AddRole(RoleAddDTO dto);
 

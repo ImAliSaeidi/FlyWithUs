@@ -1,10 +1,10 @@
-﻿@model List<CountryDTO>
+﻿@model GridResultDTO<CountryDTO>
 @{
     ViewData["Title"] = "GetAllCountry";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="box-header with-border">لیست کشورها | <a href="Addcountry" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن کشور </a></h1>
+<h1 class="box-header with-border">لیست کشورها | <a href="/Admin/Countries/Addcountry" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن کشور </a></h1>
 
 <div class="box">
     <div class="box-body">
@@ -13,7 +13,6 @@
                 <tr>
                     <th style="width: 10px">ردیف</th>
                     <th>نام</th>
-                    <th>کد</th>
                     <th>کد تلفن</th>
                     <th>عملیات</th>
                 </tr>
@@ -22,19 +21,18 @@
                 @{
                     int count = 1;
                 }
-                @foreach (var item in Model)
+                @foreach (var item in Model.Data)
                 {
 
                     <tr>
                         <td>@count</td>
-                        <td>@item.NiceName</td>
-                        <td>@item.NumCode</td>
+                        <td>@item.PersianName</td>
                         <td>@item.PhoneCode</td>
                         <td>
-                            <a href="GetCityForCountry/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> شهرها </a> |
-                            <a href="DeleteCountry/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|
-                            <a href="EditCountry/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pen"></i> ویرایش </a> |
-                            <a href="GetAirportForCountry/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> فرودگاه ها </a>
+                            <a href="/Admin/Countries/GetCityForCountry/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> شهرها </a> |
+                            <a href="/Admin/Countries/DeleteCountry/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|
+                            <a href="/Admin/Countries/EditCountry/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pen"></i> ویرایش </a> |
+                            <a href="/Admin/Countries/GetAirportForCountry/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> فرودگاه ها </a>
                         </td>
                     </tr>
                     count++;
@@ -45,11 +43,25 @@
     <!-- /.box-body -->
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
+            @if (Model.Count > 10)
+            {
+                <li><a href="#">«</a></li>
+
+                int pagecount = 1;
+                if ((Model.Count) % 10 == 0)
+                {
+                    pagecount = (Model.Count) / 10;
+                }
+                else
+                {
+                    pagecount = (((Model.Count) / 10) + 1);
+                }
+                for (int i = 1; i <= pagecount; i++)
+                {
+                    <li><a href="~/Admin/Countries/GetAllCountry/@((i-1)*10)/10">@i</a></li>
+                }
+                <li><a href="#">»</a></li>
+            }
         </ul>
     </div>
 </div>

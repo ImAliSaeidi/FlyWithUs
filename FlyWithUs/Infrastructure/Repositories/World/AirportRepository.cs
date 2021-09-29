@@ -2,10 +2,7 @@
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
 {
@@ -18,31 +15,30 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             this.context = context;
         }
 
-        public int AddAirport(Airport airport)
+        public int Add(Airport airport)
         {
             context.Airports.Add(airport);
-            Save();
-            return airport.Id;
+            return Save();
         }
 
-        public int DeleteAirport(int airportid)
+        public int Delete(int airportid)
         {
-            var airport = GetAirportById(airportid);
+            var airport = GetById(airportid);
             airport.IsDeleted = true;
-            return UpdateAirport(airport);
+            return Update(airport);
         }
 
-        public Airport GetAirportById(int airportid)
+        public Airport GetById(int airportid)
         {
-            return context.Airports.Include(a => a.City).First(a => a.Id == airportid);
+            return context.Airports.Include(a => a.City).AsNoTracking().First(a => a.Id == airportid);
         }
 
-        public List<Airport> GetAllAirport()
+        public IQueryable<Airport> GetAll()
         {
-            return context.Airports.Include(a => a.City).ToList();
+            return context.Airports.Include(a => a.City);
         }
 
-        public bool IsAirportExist(string name, int cityid)
+        public bool IsExist(string name, int cityid)
         {
             return context.Airports.Include(a => a.City).Any(a => a.Name == name && a.City.Id == cityid);
         }
@@ -52,7 +48,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             return context.SaveChanges();
         }
 
-        public int UpdateAirport(Airport airport)
+        public int Update(Airport airport)
         {
             context.Airports.Update(airport);
             return Save();

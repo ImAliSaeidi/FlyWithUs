@@ -1,9 +1,7 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Cities;
+﻿using FlyWithUs.Hosted.Service.DTOs;
+using FlyWithUs.Hosted.Service.DTOs.Cities;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 {
@@ -15,7 +13,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         bool DeleteCity(int cityid);
 
-        List<CityDTO> GetAllCity();
+        GridResultDTO<CityDTO> GetAllCity(int skip, int take);
 
         CityUpdateDTO GetCityForUpdate(int cityid);
 

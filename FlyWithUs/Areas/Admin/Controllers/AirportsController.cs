@@ -1,16 +1,14 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Airports;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[Controller]/[Action]")]
     public class AirportsController : Controller
     {
         private readonly IAirportService airportService;
@@ -23,17 +21,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
 
-
-        #region Get All Airport
-        public IActionResult GetAllAirport()
+        [HttpGet("{skip=0}/{take=10}")]
+        public IActionResult GetAllAirport([Required] int skip = 0, [Required] int take = 10)
         {
-            List<AirportDTO> dtos = airportService.GetAllAirport();
-            return View(dtos);
+            GridResultDTO<AirportDTO> dto = airportService.GetAllAirport(skip, take);
+            return View(dto);
         }
-        #endregion
 
-
-        #region AddAirport
         [HttpGet]
         public IActionResult AddAirport()
         {
@@ -64,13 +58,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View();
             }
         }
-        #endregion
 
-
-        #region Delete Airport
-        public IActionResult DeleteAirport(int id)
+        [HttpGet("{airportid}")]
+        public IActionResult DeleteAirport(int airportid)
         {
-            bool result = airportService.DeleteAirport(id);
+            bool result = airportService.DeleteAirport(airportid);
             if (result == true)
             {
                 return Redirect("/Admin/Airports/GetAllAirport");
@@ -80,14 +72,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-        #endregion
 
-
-        #region Edit Airport
-        [HttpGet]
-        public IActionResult EditAirport(int id)
+        [HttpGet("{airportid}")]
+        public IActionResult EditAirport(int airportid)
         {
-            AirportUpdateDTO dto = airportService.GetAirportForUpdate(id);
+            AirportUpdateDTO dto = airportService.GetAirportForUpdate(airportid);
             FillViewData();
             return View(dto);
         }
@@ -114,15 +103,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Fill View Data Method
         private void FillViewData()
         {
             var cities = cityService.GetAllCityAsSelectList(null);
             ViewData["Cities"] = new SelectList(cities, "Value", "Text");
         }
-        #endregion]
     }
 }

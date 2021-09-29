@@ -43,9 +43,9 @@
                 </tr>
                 <tr>
                     <th>تاریخ تولد(شمسی)</th>
-                    <td>@Model.BirthdateAD.ToShamsi()</td>
+                    <td>@Model.Birthdate.ToShamsi()</td>
                     <th>تاریخ تولد(میلادی)</th>
-                    <td>@Model.BirthdateAD.ToString().Substring(0, 10)</td>
+                    <td>@Model.Birthdate.ToShortDateString()</td>
                 </tr>
                 <tr>
                     <th>جنسیت</th>
@@ -64,24 +64,24 @@
                 </tr>
                 <tr>
                     <th>تاریخ صدور پاسپورت</th>
-                    @if (Model.PassportIssunaceDate == null)
+                    @if (Model.PassportIssunaceDate == default)
                     {
                         <td class="text text-danger">ثبت نشده</td>
                     }
                     else
                     {
-                        <td>@Model.PassportIssunaceDate</td>
+                        <td>@Model.PassportIssunaceDate.ToShortDateString()</td>
                     }
                 </tr>
                 <tr>
                     <th>تاریخ انقضای پاسپورت</th>
-                    @if (Model.PassportExpirationDate == null)
+                    @if (Model.PassportExpirationDate == default)
                     {
                         <td class="text text-danger">ثبت نشده</td>
                     }
                     else
                     {
-                        <td>@Model.PassportExpirationDate</td>
+                        <td>@Model.PassportExpirationDate.ToShortDateString()</td>
                     }
                 </tr>
                 <tr>

@@ -1,25 +1,22 @@
 ﻿using FlyWithUs.Hosted.Service.Models.Airplanes;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes
 {
     public interface IAgancyRepository
     {
-        int AddAgancy(Agancy agancy);
+        int Add(Agancy agancy);
 
-        int DeleteAgancy(int agancyid);
+        int Delete(int id);
 
-        int UpdateAgancy(Agancy agancy);
+        int Update(Agancy agancy);
 
-        Agancy GetAgancyById(int agancyid);
+        Agancy GetById(int id);
 
-        List<Agancy> GetAllAgancy();
+        IQueryable<Agancy> GetAll();
 
         int Save();
 
-        bool IsAgancyExist(string name);
+        bool IsExist(string name);
     }
 }

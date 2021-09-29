@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Users;
+﻿using FlyWithUs.Hosted.Service.DTOs;
+using FlyWithUs.Hosted.Service.DTOs.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,13 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
     {
         bool AddUser(UserAddDTO dto);
 
-        List<UserDTO> GetAllUser(int take, int skip);
+        GridResultDTO<UserDTO> GetAllUser(int skip, int take);
 
         bool IsPhoneNumberExist(string phonenumber, int? userid);
 
         bool IsEmailExist(string email, int? userid);
 
         UserDTO GetUserById(int userid);
-
-        string GetUserNationality(int nationalityid);
 
         bool DeleteUser(int userid);
 

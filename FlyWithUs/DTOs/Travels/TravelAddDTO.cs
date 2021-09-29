@@ -8,6 +8,10 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
 {
     public class TravelAddDTO
     {
+        public string Code { get; set; }
+
+        public string Type { get; set; }
+
         [Required(ErrorMessage = "لطفا حداکثر ظرفیت را وارد کنید")]
         public int MaxCapacity { get; set; }
 

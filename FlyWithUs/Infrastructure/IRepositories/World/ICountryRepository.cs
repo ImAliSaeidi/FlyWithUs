@@ -1,25 +1,22 @@
 ﻿using FlyWithUs.Hosted.Service.Models.World;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 {
     public interface ICountryRepository
     {
 
-        int AddCountry(Country country);
+        int Add(Country country);
 
-        int DeleteCountry(int countryid);
+        int Delete(int countryid);
 
-        int UpdateCountry(Country country);
+        int Update(Country country);
 
-        Country GetCountryById(int countryid);
+        Country GetById(int countryid);
 
-        List<Country> GetAllCountry();
+        IQueryable<Country> GetAll();
 
-        bool IsExistCountry(string name,short numcode, short phonecode);
+        bool IsExist(string englishname,string persianname, short phonecode);
 
         int Save();
     }

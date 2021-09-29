@@ -1,29 +1,31 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
+﻿using AutoMapper;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Roles;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
-using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Models.Users;
-using FlyWithUs.Hosted.Service.Tools.Convertors;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 {
     public class RoleService : IRoleService
     {
         private readonly IRoleRepository repository;
+        private readonly IMapper mapper;
 
-        public RoleService(IRoleRepository repository)
+        public RoleService(IRoleRepository repository, IMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
 
 
-
-        #region Add Role
         public bool AddRole(RoleAddDTO dto)
         {
             bool result = false;
-            int count = repository.AddRole(Map(dto));
+            dto.Name = dto.Name.ToLower().Trim();
+            int count = repository.Add(mapper.Map<Role>(dto));
             if (count > 0)
             {
                 result = true;
@@ -31,48 +33,20 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        private Role Map(RoleAddDTO dto)
+        public GridResultDTO<RoleDTO> GetAllRole(int skip, int take)
         {
-            return new Role
-            {
-                Name = dto.Name.ToLower().Trim()
-            };
-        }
-        #endregion
-
-
-        #region Get Role
-        public List<RoleDTO> GetAllRole()
-        {
-            List<RoleDTO> dtos = new List<RoleDTO>();
-            List<Role> roles = repository.GetAllRole();
-            foreach (var item in roles)
-            {
-                dtos.Add(Map(item));
-            }
-            return dtos;
+            var dtos = mapper.Map<List<RoleDTO>>(repository.GetAll().Skip(skip).Take(take).ToList());
+            var count = repository.GetAll().Count();
+            return new GridResultDTO<RoleDTO>(count, dtos);
         }
 
-        private RoleDTO Map(Role role)
-        {
-            return new RoleDTO
-            {
-                Id = role.Id,
-                Name = role.Name,
-                CreateDate = role.CreateDate.ToShamsi()
-            };
-        }
-        #endregion
-
-
-        #region Validation
         public bool IsRoleExist(string name, int? roleid)
         {
             if (roleid != null)
             {
                 bool result = false;
-                var role = repository.GetRoleById(roleid.Value);
-                if (repository.IsRoleExist(name) == true && role.Name != name)
+                var role = repository.GetById(roleid.Value);
+                if (repository.IsExist(name) == true && role.Name != name)
                 {
                     result = true;
                 }
@@ -80,41 +54,31 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             else
             {
-                return repository.IsRoleExist(name);
+                return repository.IsExist(name);
             }
         }
-        #endregion
 
-
-        #region Delete Role
         public bool DeleteRole(int roleid)
         {
             bool result = false;
-            int count = repository.DeleteRole(roleid);
+            int count = repository.Delete(roleid);
             if (count > 0)
             {
                 result = true;
             }
             return result;
         }
-        #endregion
 
-
-        #region Update Role
         public RoleUpdateDTO GetRoleForUpdate(int roleid)
         {
-            Role role = repository.GetRoleById(roleid);
-            return new RoleUpdateDTO
-            {
-                Id = role.Id,
-                Name = role.Name
-            };
+            return mapper.Map<RoleUpdateDTO>(repository.GetById(roleid));
         }
 
         public bool UpdateRole(RoleUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.UpdateRole(Map(dto));
+            dto.Name = dto.Name.ToLower().Trim();
+            int count = repository.Update(mapper.Map<Role>(dto));
             if (count > 0)
             {
                 result = true;
@@ -122,12 +86,5 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        private Role Map(RoleUpdateDTO dto)
-        {
-            Role role = repository.GetRoleById(dto.Id);
-            role.Name = dto.Name;
-            return role;
-        }
-        #endregion
     }
 }

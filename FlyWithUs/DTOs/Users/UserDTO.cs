@@ -13,6 +13,8 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         public string Email { get; set; }
 
+        public int NationalityId { get; set; }
+
         public string Nationality { get; set; }
 
         public string FirstNamePersian { get; set; }
@@ -27,16 +29,14 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         public DateTime Birthdate { get; set; }
 
-        public DateTime BirthdateAD { get; set; }
-
         public string Gender { get; set; }
 
         public DateTime CreateDate { get; set; }
 
         public string PassportNumber { get; set; }
 
-        public string PassportIssunaceDate { get; set; }
+        public DateTime PassportIssunaceDate { get; set; }
 
-        public string PassportExpirationDate { get; set; }
+        public DateTime PassportExpirationDate { get; set; }
     }
 }

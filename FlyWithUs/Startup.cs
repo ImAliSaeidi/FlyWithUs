@@ -6,6 +6,7 @@ using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Travels;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
+using FlyWithUs.Hosted.Service.Infrastructure.Common;
 using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 
@@ -61,6 +62,8 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<IAirportService, AirportService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
+
+            services.AddAutoMapper(typeof(MappingProfile));
         }
 
 

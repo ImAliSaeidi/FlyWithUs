@@ -1,22 +1,19 @@
 ﻿using FlyWithUs.Hosted.Service.Models.Travels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels
 {
     public interface ITravelRepository
     {
-        int AddTravel(Travel travel);
+        int Add(Travel travel);
 
-        int DeleteTravel(int travelid);
+        int Delete(int travelid);
 
-        int UpdateTravel(Travel travel);
+        int Update(Travel travel);
 
-        Travel GetTravelById(int travelid);
+        Travel GetById(int travelid);
 
-        List<Travel> GetAllTravel();
+        IQueryable<Travel> GetAll();
 
         int Save();
     }

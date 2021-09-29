@@ -1,11 +1,8 @@
 ﻿using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
-using FlyWithUs.Hosted.Service.Models.Tickets;
 using FlyWithUs.Hosted.Service.Models.Users;
-using System;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
 {
@@ -18,32 +15,33 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             this.context = context;
         }
 
-        public int AddUser(User user)
+
+        public int Add(User user)
         {
             context.User.Add(user);
             return Save();
         }
 
-        public int DeleteUser(int userid)
+        public int Delete(int userid)
         {
-            var user = GetUserById(userid);
+            var user = GetById(userid);
             user.IsDeleted = true;
-            return UpdateUser(user);
+            return Update(user);
         }
 
-        public List<User> GetAllUser(int take, int skip)
+        public IQueryable<User> GetAll()
         {
-            return context.User.Skip(skip).Take(take).ToList();
+            return context.User;
         }
 
-        public User GetUserById(int userid)
+        public User GetById(int userid)
         {
-            return context.User.Find(userid);
+            return context.User.AsNoTracking().First(u => u.Id == userid);
         }
 
-        public string GetUserNationality(int nationalityid)
+        public string GetNationality(int nationalityid)
         {
-            return context.Countries.Find(nationalityid).NiceName;
+            return context.Countries.Find(nationalityid).PersianName;
         }
 
         public bool IsEmailExist(string email)
@@ -61,7 +59,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return context.SaveChanges();
         }
 
-        public int UpdateUser(User user)
+        public int Update(User user)
         {
             context.User.Update(user);
             return Save();

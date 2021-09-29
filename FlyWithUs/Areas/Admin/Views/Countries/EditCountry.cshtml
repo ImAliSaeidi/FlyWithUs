@@ -11,21 +11,17 @@
     <a href="/Admin/Countries/DeleteCountry/@Model.Id" class="btn btn-danger"> <i class=" fa fa-trash"></i> حذف </a>
 </h1>
 
-<form method="post" class="box-body">
+<form method="post" action="/Admin/Countries/EditCountry" class="box-body">
     <input type="hidden" asp-for="Id" />
     <div class="row">
         <div class="col-xs-4">
-            <label asp-for="NiceName">نام</label>
-            <input type="text" class="form-control" asp-for="NiceName" placeholder="نام">
-            <span class="text-danger" asp-validation-for="NiceName"></span>
+            <label asp-for="PersianName">نام</label>
+            <input type="text" class="form-control" asp-for="PersianName" placeholder="نام">
+            <span class="text-danger" asp-validation-for="PersianName"></span>
             <br />
             <label asp-for="EnglishName">نام انگلیسی</label>
             <input type="text" class="form-control" asp-for="EnglishName" placeholder="نام انگلیسی">
             <span class="text-danger" asp-validation-for="EnglishName"></span>
-            <br />
-            <label asp-for="NumCode">کد کشور</label>
-            <input type="number" class="form-control" asp-for="NumCode" placeholder="کد کشور">
-            <span class="text-danger" asp-validation-for="NumCode"></span>
             <br />
             <label asp-for="PhoneCode">کد تلفن</label>
             <input type="number" class="form-control" asp-for="PhoneCode" placeholder="کد تلفن">

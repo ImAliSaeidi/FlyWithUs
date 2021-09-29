@@ -2,10 +2,7 @@
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
 {
@@ -18,31 +15,36 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             this.context = context;
         }
 
-        public int AddCity(City city)
+        public int Add(City city)
         {
             context.Cities.Add(city);
-            Save();
-            return city.Id;
+            return Save();
         }
 
-        public int DeleteCity(int cityid)
+        public int Delete(int cityid)
         {
-            var city = GetCityById(cityid);
+            var city = GetById(cityid);
             city.IsDeleted = true;
-            return UpdateCity(city);
+            return Update(city);
         }
 
-        public List<City> GetAllCity()
+        public IQueryable<City> GetAll()
         {
-            return context.Cities.Include(c => c.Country).Include(c => c.Airports).ToList();
+            return context.Cities.Include(c => c.Country).Include(c => c.Airports);
         }
 
-        public City GetCityById(int cityid)
+        public City GetById(int cityid)
         {
-            return context.Cities.Include(c => c.Country).Include(c => c.Airports).First(c => c.Id == cityid);
+            return context.Cities
+                .Include(c => c.Country)
+                .Include(c => c.Airports)
+                .Include(c => c.IncomingTravels)
+                .Include(c => c.OutboundTravels)
+                .AsNoTracking()
+                .First(c => c.Id == cityid);
         }
 
-        public bool IsCityExist(string name, int countryid)
+        public bool IsExist(string name, int countryid)
         {
             return context.Cities.Include(c => c.Country).Any(c => c.Name == name && c.Country.Id == countryid);
         }
@@ -52,7 +54,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             return context.SaveChanges();
         }
 
-        public int UpdateCity(City city)
+        public int Update(City city)
         {
             context.Cities.Update(city);
             return Save();

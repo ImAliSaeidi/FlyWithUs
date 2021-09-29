@@ -1,10 +1,10 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
+﻿using AutoMapper;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Agancies;
 using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
-using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
-using FlyWithUs.Hosted.Service.Tools.Convertors;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,20 +14,20 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
     public class AgancyService : IAgancyService
     {
         private readonly IAgancyRepository repository;
+        private readonly IMapper mapper;
 
-        public AgancyService(IAgancyRepository repository)
+        public AgancyService(IAgancyRepository repository, IMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
 
 
-
-
-        #region Add Agancy
         public bool AddAgancy(AgancyAddDTO dto)
         {
             bool result = false;
-            int count = repository.AddAgancy(Map(dto));
+            dto.Name = dto.Name.ToLower().Trim();
+            int count = repository.Add(mapper.Map<Agancy>(dto));
             if (count > 0)
             {
                 result = true;
@@ -35,69 +35,31 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return result;
         }
 
-        private Agancy Map(AgancyAddDTO dto)
+        public GridResultDTO<AgancyDTO> GetAllAgancy(int skip, int take)
         {
-            return new Agancy
-            {
-                Name = dto.Name.ToLower().Trim()
-            };
-        }
-        #endregion
-
-
-        #region Get Agancy
-        public List<AgancyDTO> GetAllAgancy()
-        {
-            List<AgancyDTO> dtos = new List<AgancyDTO>();
-            List<Agancy> agancies = repository.GetAllAgancy();
-            foreach (var item in agancies)
-            {
-                dtos.Add(Map(item));
-            }
-            return dtos;
+            var dtos = mapper.Map<List<AgancyDTO>>(repository.GetAll().Skip(skip).Take(take).ToList());
+            var count = repository.GetAll().Count();
+            return new GridResultDTO<AgancyDTO>(count, dtos);
         }
 
         public AgancyDTO GetAgancyById(int agancyid)
         {
-            return Map(repository.GetAgancyById(agancyid));
-        }
-
-        private AgancyDTO Map(Agancy agancy)
-        {
-            AgancyDTO dto = new AgancyDTO();
-            dto.Id = agancy.Id;
-            dto.Name = agancy.Name;
-            dto.CreateDate = agancy.CreateDate.ToShamsi();
-            dto.AirplaneDTOs = new List<AirplaneDTO>();
+            var agancy = repository.GetById(agancyid);
+            var agancydto = mapper.Map<AgancyDTO>(agancy);
             foreach (var item in agancy.Airplanes)
             {
-                dto.AirplaneDTOs.Add(Map(item));
+                agancydto.AirplaneDTOs.Add(mapper.Map<AirplaneDTO>(item));
             }
-            return dto;
+            return agancydto;
         }
 
-        private AirplaneDTO Map(Airplane airplane)
-        {
-            return new AirplaneDTO
-            {
-                Id = airplane.Id,
-                Name = airplane.Name,
-                Brand = airplane.Brand,
-                Count = airplane.Count,
-                MaxCapacity = airplane.MaxCapacity
-            };
-        }
-        #endregion
-
-
-        #region Validation
         public bool IsAgancyExist(string name, int? agancyid)
         {
             if (agancyid != null)
             {
                 bool result = false;
-                var agancy = repository.GetAgancyById(agancyid.Value);
-                if (repository.IsAgancyExist(name) == true && agancy.Name != name)
+                var agancy = repository.GetById(agancyid.Value);
+                if (repository.IsExist(name) == true && agancy.Name != name)
                 {
                     result = true;
                 }
@@ -105,41 +67,31 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             }
             else
             {
-                return repository.IsAgancyExist(name);
+                return repository.IsExist(name);
             }
         }
-        #endregion
 
-
-        #region Delete Agancy
         public bool DeleteAgancy(int agancyid)
         {
             bool result = false;
-            int count = repository.DeleteAgancy(agancyid);
+            int count = repository.Delete(agancyid);
             if (count > 0)
             {
                 result = true;
             }
             return result;
         }
-        #endregion
 
-
-        #region Update Agancy
         public AgancyUpdateDTO GetAgancyForUpdate(int agancyid)
         {
-            var agancy = repository.GetAgancyById(agancyid);
-            return new AgancyUpdateDTO
-            {
-                Id = agancy.Id,
-                Name = agancy.Name
-            };
+            return mapper.Map<AgancyUpdateDTO>(repository.GetById(agancyid));
         }
 
         public bool UpdateAgancy(AgancyUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.UpdateAgancy(Map(dto));
+            dto.Name = dto.Name.ToLower().Trim();
+            int count = repository.Update(mapper.Map<Agancy>(dto));
             if (count > 0)
             {
                 result = true;
@@ -147,26 +99,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return result;
         }
 
-        private Agancy Map(AgancyUpdateDTO dto)
-        {
-            var agancy = repository.GetAgancyById(dto.Id);
-            agancy.Name = dto.Name.ToLower().Trim();
-            return agancy;
-        }
-        #endregion
-
-
-        #region Agancy As Select List
         public List<SelectListItem> GetAllAgancyAsSelectList()
         {
-            return repository.GetAllAgancy()
+            return repository.GetAll()
                 .Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
         }
-        #endregion
 
     }
 }

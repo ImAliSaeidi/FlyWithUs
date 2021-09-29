@@ -9,8 +9,8 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
 {
     public class AirplaneAddDTO
     {
-        [Required(ErrorMessage ="لطفا نام هواپیما را وارد کنید")]
-        [StringLength(128,ErrorMessage ="طول ورودی بیش از حد مجاز است")]
+        [Required(ErrorMessage = "لطفا نام هواپیما را وارد کنید")]
+        [StringLength(128, ErrorMessage = "طول ورودی بیش از حد مجاز است")]
         public string Name { get; set; }
 
 
@@ -29,5 +29,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
 
         [Required(ErrorMessage = "لطفا آژانس هواپیمایی را انتخاب کنید")]
         public int AgancyId { get; set; }
+
+
     }
 }

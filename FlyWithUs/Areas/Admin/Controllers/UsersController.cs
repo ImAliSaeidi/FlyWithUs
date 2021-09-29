@@ -1,7 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,7 +15,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     {
         private readonly IUserService userService;
         private readonly ICountryService countryService;
-        private int offset = 0;
+
 
 
         public UsersController(IUserService userService, ICountryService countryService)
@@ -26,17 +25,20 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
 
-        #region Get All User
-        [HttpGet("{take}/{skip}")]
-        public IActionResult GetAllUser([Required] int take = 10, int skip = 0)
+        [HttpGet("{skip=0}/{take=10}")]
+        public IActionResult GetAllUser([Required] int skip = 0, int take = 10)
         {
-            List<UserDTO> dtos = userService.GetAllUser(take, skip);
-            return View(dtos);
+            GridResultDTO<UserDTO> dto = userService.GetAllUser(skip, take);
+            return View(dto);
         }
-        #endregion
 
+        [HttpGet("{userid}")]
+        public IActionResult GetUser(int userid)
+        {
+            var user = userService.GetUserById(userid);
+            return View(user);
+        }
 
-        #region Add User
         [HttpGet]
         public IActionResult AddUser()
         {
@@ -79,45 +81,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Fill View Data Methods
-        private void FillViewData()
+        [HttpGet("{userid}")]
+        public IActionResult DeleteUser(int userid)
         {
-            var countries = countryService.GetAllCountryAsSelectList();
-            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
-
-            var genders = new List<SelectListItem>() {
-                new SelectListItem
-                {
-                Text = "مرد",
-                Value = "Male"
-                },
-                new SelectListItem
-                {
-                Text = "زن",
-                Value = "Female"
-                }
-            };
-            ViewData["Genders"] = new SelectList(genders, "Value", "Text");
-        }
-        #endregion
-
-
-        #region Get User
-        public IActionResult GetUser(int id)
-        {
-            var user = userService.GetUserById(id);
-            return View(user);
-        }
-        #endregion
-
-
-        #region Delete User
-        public IActionResult DeleteUser(int id)
-        {
-            var result = userService.DeleteUser(id);
+            var result = userService.DeleteUser(userid);
             if (result == true)
             {
                 return Redirect("/Admin/Users/GetAllUser");
@@ -127,14 +95,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-        #endregion
 
-
-        #region Edit User
-        [HttpGet]
-        public IActionResult EditUser(int id)
+        [HttpGet("{userid}")]
+        public IActionResult EditUser(int userid)
         {
-            var userupdatedto = userService.GetUserForUpdate(id);
+            var userupdatedto = userService.GetUserForUpdate(userid);
             FillViewData();
             return View(userupdatedto);
         }
@@ -168,6 +133,25 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
+
+        private void FillViewData()
+        {
+            var countries = countryService.GetAllCountryAsSelectList();
+            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
+
+            var genders = new List<SelectListItem>() {
+                new SelectListItem
+                {
+                Text = "مرد",
+                Value = "Male"
+                },
+                new SelectListItem
+                {
+                Text = "زن",
+                Value = "Female"
+                }
+            };
+            ViewData["Genders"] = new SelectList(genders, "Value", "Text");
+        }
     }
 }

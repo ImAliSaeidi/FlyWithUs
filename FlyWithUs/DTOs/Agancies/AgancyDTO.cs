@@ -9,11 +9,16 @@ namespace FlyWithUs.Hosted.Service.DTOs.Agancies
 {
     public class AgancyDTO
     {
+        public AgancyDTO()
+        {
+            AirplaneDTOs = new List<AirplaneDTO>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public string CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
 
         public List<AirplaneDTO> AirplaneDTOs { get; set; }
     }

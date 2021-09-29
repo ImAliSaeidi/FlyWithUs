@@ -11,6 +11,6 @@ namespace FlyWithUs.Hosted.Service.DTOs.Roles
 
         public string Name { get; set; }
 
-        public string CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

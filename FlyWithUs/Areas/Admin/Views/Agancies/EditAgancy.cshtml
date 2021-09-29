@@ -10,7 +10,7 @@
     <a href="/Admin/Agancies/DeleteAgancy/@Model.Id" class="btn btn-danger"> <i class=" fa fa-trash"></i> حذف </a>
 </h1>
 
-<form method="post" class="box-body">
+<form method="post" action="~/Admin/Agancies/EditAgancy" class="box-body">
     <input type="hidden" asp-for="Id" />
     <div class="col-xs-4">
         <label asp-for="Name">نام آژانس</label>

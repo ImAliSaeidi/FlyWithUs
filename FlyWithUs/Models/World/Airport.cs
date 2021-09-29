@@ -31,14 +31,16 @@ namespace FlyWithUs.Hosted.Service.Models.World
         [StringLength(4)]
         public string Code { get; set; }
 
+        
+        [Required]
+        public int CityId { get; set; }
+
 
         public City City { get; set; }
 
 
         [InverseProperty("DestinationAirport")]
         public ICollection<Travel> IncomingTravels { get; set; }
-
-
 
         [InverseProperty("OriginAirport")]
         public ICollection<Travel> OutboundTravels { get; set; }

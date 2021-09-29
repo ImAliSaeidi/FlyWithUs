@@ -1,12 +1,13 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Agancies;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[Controller]/[Action]")]
     public class AganciesController : Controller
     {
         private readonly IAgancyService agancyService;
@@ -17,17 +18,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
 
-
-        #region Get All Agancy
-        public IActionResult GetAllAgancy()
+        [HttpGet("{skip=0}/{take=10}")]
+        public IActionResult GetAllAgancy([Required] int skip = 0, [Required] int take = 10)
         {
-            List<AgancyDTO> dto = agancyService.GetAllAgancy();
+            GridResultDTO<AgancyDTO> dto = agancyService.GetAllAgancy(skip, take);
             return View(dto);
         }
-        #endregion
 
-
-        #region Add Agancy
         [HttpGet]
         public IActionResult AddAgancy()
         {
@@ -39,7 +36,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (agancyService.IsAgancyExist(dto.Name, null) == true)
+                if (agancyService.IsAgancyExist(dto.Name.ToLower().Trim(), null) == true)
                 {
                     ModelState.AddModelError("Name", "نام وارد شده معتبر نیست");
                     return View(dto);
@@ -55,13 +52,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Delete Agancy
-        public IActionResult DeleteAgancy(int id)
+        [HttpGet("{agancyid}")]
+        public IActionResult DeleteAgancy(int agancyid)
         {
-            if (agancyService.DeleteAgancy(id) == true)
+            if (agancyService.DeleteAgancy(agancyid) == true)
             {
                 return Redirect("/Admin/Agancies/GetAllAgancy");
             }
@@ -70,14 +65,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-        #endregion
 
-
-        #region Edit Agancy
-        [HttpGet]
-        public IActionResult EditAgancy(int id)
+        [HttpGet("{agancyid}")]
+        public IActionResult EditAgancy(int agancyid)
         {
-            var dto = agancyService.GetAgancyForUpdate(id);
+            var dto = agancyService.GetAgancyForUpdate(agancyid);
             return View(dto);
         }
 
@@ -102,15 +94,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Get Airplane For Agancy
-        public IActionResult GetAirplaneForAgancy(int id)
+        [HttpGet("{agancyid}")]
+        public IActionResult GetAirplaneForAgancy(int agancyid)
         {
-            AgancyDTO dto = agancyService.GetAgancyById(id);
+            AgancyDTO dto = agancyService.GetAgancyById(agancyid);
             return View(dto);
         }
-        #endregion
+
     }
 }

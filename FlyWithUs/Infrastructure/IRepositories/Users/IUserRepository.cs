@@ -1,31 +1,27 @@
-﻿using FlyWithUs.Hosted.Service.Models.Tickets;
-using FlyWithUs.Hosted.Service.Models.Users;
-using System;
-using System.Collections.Generic;
+﻿using FlyWithUs.Hosted.Service.Models.Users;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 {
     public interface IUserRepository
     {
-        int AddUser(User user);
+        int Add(User user);
 
-        int UpdateUser(User user);
+        int Update(User user);
 
-        int DeleteUser(int userid);
+        int Delete(int userid);
 
-        User GetUserById(int userid);
+        User GetById(int userid);
 
         int Save();
 
-        List<User> GetAllUser(int take, int skip);
+        IQueryable<User> GetAll();
 
         bool IsPhoneNumberExist(string phonenumber);
 
         bool IsEmailExist(string email);
 
-        string GetUserNationality(int nationalityid);
+        string GetNationality(int nationalityid);
 
     }
 }

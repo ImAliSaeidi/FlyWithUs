@@ -2,10 +2,7 @@
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
 {
@@ -18,32 +15,37 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             this.context = context;
         }
 
-        public int AddCountry(Country country)
+        public int Add(Country country)
         {
             context.Countries.Add(country);
             return Save();
         }
 
-        public int DeleteCountry(int countryid)
+        public int Delete(int countryid)
         {
-            var country = GetCountryById(countryid);
+            var country = GetById(countryid);
             country.IsDeleted = true;
-            return UpdateCountry(country);
+            return Update(country);
         }
 
-        public List<Country> GetAllCountry()
+        public IQueryable<Country> GetAll()
         {
-            return context.Countries.Include(c => c.Cities).ToList();
+            return context.Countries.Include(c => c.Cities);
         }
 
-        public Country GetCountryById(int countryid)
+        public Country GetById(int countryid)
         {
-            return context.Countries.Include(c => c.Cities).First(c => c.Id == countryid);
+            return context.Countries
+                .Include(c => c.Cities)
+                .Include(c => c.IncomingTravels)
+                .Include(c => c.OutboundTravels)
+                .AsNoTracking()
+                .First(c => c.Id == countryid);
         }
 
-        public bool IsExistCountry(string name, short numcode, short phonecode)
+        public bool IsExist(string englishname, string persianname, short phonecode)
         {
-            return context.Countries.Any(c => c.NiceName == name && c.NumCode == numcode && c.PhoneCode == phonecode);
+            return context.Countries.Any(c => c.EnglishName == englishname || c.PersianName == persianname || c.PhoneCode == phonecode);
         }
 
         public int Save()
@@ -51,7 +53,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             return context.SaveChanges();
         }
 
-        public int UpdateCountry(Country country)
+        public int Update(Country country)
         {
             context.Countries.Update(country);
             return Save();

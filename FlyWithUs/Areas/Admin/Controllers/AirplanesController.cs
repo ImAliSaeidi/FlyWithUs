@@ -1,13 +1,14 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[Controller]/[Action]")]
     public class AirplanesController : Controller
     {
         private readonly IAirplaneService airplaneService;
@@ -20,17 +21,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
 
-
-        #region Get All Airplane
-        public IActionResult GetAllAirplane()
+        [HttpGet("{skip=0}/{take=10}")]
+        public IActionResult GetAllAirplane([Required] int skip = 0, [Required] int take = 10)
         {
-            List<AirplaneDTO> dtos = airplaneService.GetAllAirplane();
-            return View(dtos);
+            GridResultDTO<AirplaneDTO> dto = airplaneService.GetAllAirplane(skip, take);
+            return View(dto);
         }
-        #endregion
 
-
-        #region Add Airplane
         [HttpGet]
         public IActionResult AddAirplane()
         {
@@ -60,13 +57,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Delete Airplane
-        public IActionResult DeleteAirplane(int id)
+        [HttpGet("{airplaneid}")]
+        public IActionResult DeleteAirplane(int airplaneid)
         {
-            var result = airplaneService.DeleteAirplane(id);
+            var result = airplaneService.DeleteAirplane(airplaneid);
             if (result == true)
             {
                 return Redirect("/Admin/Airplanes/GetAllAirplane");
@@ -76,17 +71,15 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-        #endregion
 
-
-        #region Edit Airplane
-        [HttpGet]
-        public IActionResult EditAirplane(int id)
+        [HttpGet("{airplaneid}")]
+        public IActionResult EditAirplane(int airplaneid)
         {
-            AirplaneUpdateDTO dto = airplaneService.GetAirplaneForUpdate(id);
+            AirplaneUpdateDTO dto = airplaneService.GetAirplaneForUpdate(airplaneid);
             FillViewData();
             return View(dto);
         }
+
         [HttpPost]
         public IActionResult EditAirplane([FromForm] AirplaneUpdateDTO dto)
         {
@@ -109,15 +102,12 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Fill View Data Method
         private void FillViewData()
         {
             var agancies = agancyService.GetAllAgancyAsSelectList();
             ViewData["Agancies"] = new SelectList(agancies, "Value", "Text");
         }
-        #endregion
+
     }
 }

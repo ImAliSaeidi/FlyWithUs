@@ -2,10 +2,7 @@
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
 {
@@ -18,30 +15,30 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
             this.context = context;
         }
 
-        public int AddAgancy(Agancy agancy)
+        public int Add(Agancy agancy)
         {
             context.Agancies.Add(agancy);
             return Save();
         }
 
-        public int DeleteAgancy(int agancyid)
+        public int Delete(int agancyid)
         {
-            var agancy = GetAgancyById(agancyid);
+            var agancy = GetById(agancyid);
             agancy.IsDeleted = true;
-            return UpdateAgancy(agancy);
+            return Update(agancy);
         }
 
-        public Agancy GetAgancyById(int agancyid)
+        public Agancy GetById(int agancyid)
         {
-            return context.Agancies.Include(a => a.Airplanes).First(a => a.Id == agancyid);
+            return context.Agancies.Include(a => a.Airplanes).AsNoTracking().First(a => a.Id == agancyid);
         }
 
-        public List<Agancy> GetAllAgancy()
+        public IQueryable<Agancy> GetAll()
         {
-            return context.Agancies.Include(a => a.Airplanes).ToList();
+            return context.Agancies.Include(a => a.Airplanes);
         }
 
-        public bool IsAgancyExist(string name)
+        public bool IsExist(string name)
         {
             return context.Agancies.Any(a => a.Name == name);
         }
@@ -51,7 +48,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
             return context.SaveChanges();
         }
 
-        public int UpdateAgancy(Agancy agancy)
+        public int Update(Agancy agancy)
         {
             context.Agancies.Update(agancy);
             return Save();

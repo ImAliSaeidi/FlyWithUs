@@ -1,10 +1,10 @@
-﻿@model List<CityDTO>
+﻿@model GridResultDTO<CityDTO>
 @{
     ViewData["Title"] = "GetAllCity";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="box-header with-border">لیست شهرها | <a href="AddCity" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن شهر </a></h1>
+<h1 class="box-header with-border">لیست شهرها | <a href="/Admin/Cities/AddCity" class="btn btn-success btn-lg"> <i class="fa fa-plus"></i> افزودن شهر </a></h1>
 
 <div class="box">
     <div class="box-body">
@@ -21,7 +21,7 @@
                 @{
                     int count = 1;
                 }
-                @foreach (var item in Model)
+                @foreach (var item in Model.Data)
                 {
 
                     <tr>
@@ -29,9 +29,9 @@
                         <td>@item.Name</td>
                         <td>@item.CountryName</td>
                         <td>
-                            <a href="DeleteCity/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a> |
-                            <a href="EditCity/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pen"></i> ویرایش </a> |
-                            <a href="GetAirportForCity/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-plane"></i> فرودگاه ها </a>
+                            <a href="/Admin/Cities/DeleteCity/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a> |
+                            <a href="/Admin/Cities/EditCity/@item.Id" class="btn btn-warning btn-sm"> <i class="fa fa-pen"></i> ویرایش </a> |
+                            <a href="/Admin/Cities/GetAirportForCity/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-plane"></i> فرودگاه ها </a>
                         </td>
                     </tr>
                     count++;
@@ -42,11 +42,25 @@
     <!-- /.box-body -->
     <div class="box-footer clearfix">
         <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
+            @if (Model.Count > 10)
+            {
+                <li><a href="#">«</a></li>
+
+                int pagecount = 1;
+                if ((Model.Count) % 10 == 0)
+                {
+                    pagecount = (Model.Count) / 10;
+                }
+                else
+                {
+                    pagecount = (((Model.Count) / 10) + 1);
+                }
+                for (int i = 1; i <= pagecount; i++)
+                {
+                    <li><a href="~/Admin/Cities/GetAllCity/@((i-1)*10)/10">@i</a></li>
+                }
+                <li><a href="#">»</a></li>
+            }
         </ul>
     </div>
 </div>

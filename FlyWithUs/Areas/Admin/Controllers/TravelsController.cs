@@ -1,19 +1,18 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.Travels;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[Controller]/[Action]")]
     public class TravelsController : Controller
     {
         private readonly ITravelService travelService;
@@ -39,16 +38,14 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
 
-        #region Get All Travel
-        public IActionResult GetAllTravel()
+
+        [HttpGet("{skip=0}/{take=10}")]
+        public IActionResult GetAllTravel(int skip = 0, int take = 10)
         {
-            List<TravelDTO> dtos = travelService.GetAllTravel();
-            return View(dtos);
+            GridResultDTO<TravelDTO> dto = travelService.GetAllTravel(skip, take);
+            return View(dto);
         }
-        #endregion
 
-
-        #region Add Travel
         [HttpGet]
         public IActionResult AddTravel()
         {
@@ -88,13 +85,10 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             }
         }
 
-        #endregion
-
-
-        #region Delete Travel
-        public IActionResult DeleteTravel(int id)
+        [HttpGet("{travelid}")]
+        public IActionResult DeleteTravel(int travelid)
         {
-            bool result = travelService.DeleteTravel(id);
+            bool result = travelService.DeleteTravel(travelid);
             if (result == true)
             {
                 return Redirect("/Admin/Travels/GetAllTravel");
@@ -104,14 +98,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-        #endregion
 
-
-        #region Edit Travel
-        [HttpGet]
-        public IActionResult EditTravel(int id)
+        [HttpGet("{travelid}")]
+        public IActionResult EditTravel(int travelid)
         {
-            TravelUpdateDTO dto = travelService.GetTravelForUpdate(id);
+            TravelUpdateDTO dto = travelService.GetTravelForUpdate(travelid);
             FillViewData();
             return View(dto);
         }
@@ -145,21 +136,14 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Travel Info
-
-        public IActionResult GetTravelInfo(int id)
+        [HttpGet("{travelid}")]
+        public IActionResult GetTravelInfo(int travelid)
         {
-            var dto = travelService.GetTravelById(id);
+            var dto = travelService.GetTravelById(travelid);
             return View(dto);
         }
 
-        #endregion
-
-
-        #region Fill View Data Method
         private void FillViewData()
         {
             var countries = countryService.GetAllCountryAsSelectList();
@@ -197,37 +181,38 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             ViewData["Classes"] = new SelectList(classes, "Value", "Text");
         }
 
-        public IActionResult GetCities(int id)
+        [HttpGet("{countryid}")]
+        public IActionResult GetCities(int countryid)
         {
             List<SelectListItem> list = new List<SelectListItem>()
             {
                 new SelectListItem(){Text = "انتخاب کنید",Value = ""}
             };
-            list.AddRange(cityService.GetAllCityAsSelectList(id));
+            list.AddRange(cityService.GetAllCityAsSelectList(countryid));
             return Json(new SelectList(list, "Value", "Text"));
         }
 
-        public IActionResult GetAirports(int id)
+        [HttpGet("{cityid}")]
+        public IActionResult GetAirports(int cityid)
         {
             List<SelectListItem> list = new List<SelectListItem>()
             {
                 new SelectListItem(){Text = "انتخاب کنید",Value = ""}
             };
-            list.AddRange(airportService.GetAllAirportAsSelectList(id));
+            list.AddRange(airportService.GetAllAirportAsSelectList(cityid));
             return Json(new SelectList(list, "Value", "Text"));
         }
 
-        public IActionResult GetAirplanes(int id)
+        [HttpGet("{agancyid}")]
+        public IActionResult GetAirplanes(int agancyid)
         {
             List<SelectListItem> list = new List<SelectListItem>()
             {
                 new SelectListItem(){Text = "انتخاب کنید",Value = ""}
             };
-            list.AddRange(airplaneService.GetAllAirplaneAsSelectList(id));
+            list.AddRange(airplaneService.GetAllAirplaneAsSelectList(agancyid));
             return Json(new SelectList(list, "Value", "Text"));
         }
-        #endregion
-
 
     }
 }

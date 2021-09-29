@@ -1,14 +1,14 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
-using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Route("Admin/[Controller]/[Action]")]
     public class CitiesController : Controller
     {
         private readonly ICityService cityService;
@@ -21,16 +21,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
 
-        #region Get All City
-        public IActionResult GetAllCity()
+        [HttpGet("{skip=0}/{take=10}")]
+        public IActionResult GetAllCity([Required] int skip = 0, [Required] int take = 10)
         {
-            List<CityDTO> dtos = cityService.GetAllCity();
-            return View(dtos);
+            GridResultDTO<CityDTO> dto = cityService.GetAllCity(skip, take);
+            return View(dto);
         }
-        #endregion
 
-
-        #region Add City
         [HttpGet]
         public IActionResult AddCity()
         {
@@ -61,22 +58,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Fill View Data Method
-        private void FillViewData()
+        [HttpGet("{cityid}")]
+        public IActionResult DeleteCity(int cityid)
         {
-            var countries = countryService.GetAllCountryAsSelectList();
-            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
-        }
-        #endregion
-
-
-        #region Delete City
-        public IActionResult DeleteCity(int id)
-        {
-            bool result = cityService.DeleteCity(id);
+            bool result = cityService.DeleteCity(cityid);
             if (result == true)
             {
                 return Redirect("/Admin/Cities/GetAllCity");
@@ -86,14 +72,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return BadRequest();
             }
         }
-        #endregion
 
-
-        #region Edit City
-        [HttpGet]
-        public IActionResult EditCity(int id)
+        [HttpGet("{cityid}")]
+        public IActionResult EditCity(int cityid)
         {
-            CityUpdateDTO dto = cityService.GetCityForUpdate(id);
+            CityUpdateDTO dto = cityService.GetCityForUpdate(cityid);
             FillViewData();
             return View(dto);
         }
@@ -121,15 +104,19 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                 return View(dto);
             }
         }
-        #endregion
 
-
-        #region Get Airport For City
-        public IActionResult GetAirportForCity(int id)
+        [HttpGet("{cityid}")]
+        public IActionResult GetAirportForCity(int cityid)
         {
-            CityDTO dto = cityService.GetCityById(id);
+            CityDTO dto = cityService.GetCityById(cityid);
             return View(dto);
         }
-        #endregion]
+
+        private void FillViewData()
+        {
+            var countries = countryService.GetAllCountryAsSelectList();
+            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
+        }
+
     }
 }

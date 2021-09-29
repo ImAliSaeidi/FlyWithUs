@@ -2,10 +2,7 @@
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
 {
@@ -18,21 +15,20 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
             this.context = context;
         }
 
-        public int AddTravel(Travel travel)
+        public int Add(Travel travel)
         {
             context.Travels.Add(travel);
-            Save();
-            return travel.Id;
+            return Save();
         }
 
-        public int DeleteTravel(int travelid)
+        public int Delete(int travelid)
         {
-            var travel = GetTravelById(travelid);
+            var travel = GetById(travelid);
             travel.IsDeleted = true;
-            return UpdateTravel(travel);
+            return Update(travel);
         }
 
-        public List<Travel> GetAllTravel()
+        public IQueryable<Travel> GetAll()
         {
             return context.Travels
                 .Include(t => t.Airplane)
@@ -43,11 +39,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
                 .Include(t => t.DestinationAirport)
                 .Include(t => t.DestinationAirport.City)
                 .Include(t => t.DestinationAirport.City.Country)
-                .Include(t => t.Tickets)
-                .ToList();
+                .Include(t => t.Tickets.Where(t => t.IsSaled == false));
         }
 
-        public Travel GetTravelById(int travelid)
+        public Travel GetById(int travelid)
         {
             return context.Travels
                 .Include(t => t.Airplane)
@@ -60,6 +55,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
                 .Include(t => t.DestinationAirport.City.Country)
                 .Include(t => t.Tickets)
                 .IgnoreQueryFilters()
+                .AsNoTracking()
                 .First(t => t.Id == travelid);
         }
 
@@ -68,7 +64,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
             return context.SaveChanges();
         }
 
-        public int UpdateTravel(Travel travel)
+        public int Update(Travel travel)
         {
             context.Travels.Update(travel);
             return Save();

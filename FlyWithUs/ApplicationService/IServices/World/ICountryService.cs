@@ -1,10 +1,7 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Cities;
+﻿using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 {
@@ -12,7 +9,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
     {
         List<SelectListItem> GetAllCountryAsSelectList();
 
-        List<CountryDTO> GetAllCountry();
+        GridResultDTO<CountryDTO> GetAllCountry(int skip,int take);
 
         bool AddCountry(CountryAddDTO dto);
 
@@ -22,7 +19,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         CountryDTO GetCountryById(int countryid);
 
-        bool IsExistCountry(string name, short numcode, short phonecode, int? countryid);
+        bool IsExistCountry(string englishname,string persianname,short phonecode, int? countryid);
 
         CountryUpdateDTO GetCountryForUpdate(int countryid);
     }

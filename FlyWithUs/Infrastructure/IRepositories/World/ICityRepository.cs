@@ -1,24 +1,21 @@
 ﻿using FlyWithUs.Hosted.Service.Models.World;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 {
     public interface ICityRepository
     {
-        int AddCity(City city);
+        int Add(City city);
 
-        int DeleteCity(int cityid);
+        int Delete(int cityid);
 
-        int UpdateCity(City city);
+        int Update(City city);
 
-        City GetCityById(int cityid);
+        City GetById(int cityid);
 
-        List<City> GetAllCity();
+        IQueryable<City> GetAll();
 
-        bool IsCityExist(string name, int countryid);
+        bool IsExist(string name, int countryid);
 
         int Save();
     }

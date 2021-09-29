@@ -1,16 +1,13 @@
-﻿using FlyWithUs.Hosted.Service.DTOs.Agancies;
-using FlyWithUs.Hosted.Service.Models.Airplanes;
+﻿using FlyWithUs.Hosted.Service.DTOs;
+using FlyWithUs.Hosted.Service.DTOs.Agancies;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 {
     public interface IAgancyService
     {
-        List<AgancyDTO> GetAllAgancy();
+        GridResultDTO<AgancyDTO> GetAllAgancy(int skip, int take);
 
         bool AddAgancy(AgancyAddDTO dto);
 

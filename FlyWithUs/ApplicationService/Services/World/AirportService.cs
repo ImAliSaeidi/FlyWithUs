@@ -1,42 +1,32 @@
-﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+﻿using AutoMapper;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Airports;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
-using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 {
     public class AirportService : IAirportService
     {
         private readonly IAirportRepository repository;
-        private readonly ICityRepository cityRepository;
+        private readonly IMapper mapper;
 
-        public AirportService(IAirportRepository repository, ICityRepository cityRepository)
+        public AirportService(IAirportRepository repository, IMapper mapper)
         {
             this.repository = repository;
-            this.cityRepository = cityRepository;
+            this.mapper = mapper;
         }
 
-
-
-        #region Add Airport
         public bool AddAirport(AirportAddDTO dto)
         {
             bool result = false;
-            int id = repository.AddAirport(Map(dto));
-            if (id > 0)
+            int count = repository.Add(Map(dto));
+            if (count > 0)
             {
-                var airport = repository.GetAirportById(id);
-                var city = cityRepository.GetCityById(dto.CityId);
-                airport.City = city;
-                city.Airports.Add(airport);
-                cityRepository.UpdateCity(city);
-                repository.UpdateAirport(airport);
                 result = true;
             }
             return result;
@@ -44,58 +34,36 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 
         private Airport Map(AirportAddDTO dto)
         {
+            var airport = mapper.Map<Airport>(dto);
             string[] engnamesplited = dto.EnglishName.Split(" ");
             string code = "";
             foreach (var item in engnamesplited)
             {
                 code += item.Substring(0, 1).ToUpper();
             }
-            return new Airport
-            {
-                Name = dto.Name,
-                EnglishName = dto.EnglishName,
-                Code = code
-            };
+            airport.Code = code;
+            return airport;
         }
-        #endregion
 
-
-        #region Delete Airport
         public bool DeleteAirport(int airportid)
         {
             bool result = false;
-            int count = repository.DeleteAirport(airportid);
+            int count = repository.Delete(airportid);
             if (count > 0)
             {
                 result = true;
             }
             return result;
         }
-        #endregion
 
-
-        #region Get Airport
         public AirportDTO GetAirportById(int airportid)
         {
-            return Map(repository.GetAirportById(airportid));
+            return mapper.Map<AirportDTO>(repository.GetById(airportid));
         }
-
-        private AirportDTO Map(Airport airport)
-        {
-            return new AirportDTO
-            {
-                Id = airport.Id,
-                Name = airport.Name,
-                EnglishName = airport.EnglishName,
-                Code = airport.Code,
-                CityName = cityRepository.GetCityById(airport.City.Id).Name
-            };
-        }
-
 
         public List<SelectListItem> GetAllAirportAsSelectList(int cityid)
         {
-            return repository.GetAllAirport().Where(a => a.City.Id == cityid)
+            return repository.GetAll().Where(a => a.City.Id == cityid)
                .Select(c => new SelectListItem()
                {
                    Text = c.Name,
@@ -103,27 +71,20 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                }).ToList();
         }
 
-        public List<AirportDTO> GetAllAirport()
+        public GridResultDTO<AirportDTO> GetAllAirport(int skip, int take)
         {
-            List<AirportDTO> dtos = new List<AirportDTO>();
-            List<Airport> airports = repository.GetAllAirport();
-            foreach (var item in airports)
-            {
-                dtos.Add(Map(item));
-            }
-            return dtos;
+            var dtos = mapper.Map<List<AirportDTO>>(repository.GetAll().Skip(skip).Take(take).ToList());
+            var count = repository.GetAll().Count();
+            return new GridResultDTO<AirportDTO>(count, dtos);
         }
-        #endregion
 
-
-        #region Validation
         public bool IsAirportExist(string name, int cityid, int? airportid)
         {
             if (airportid != null)
             {
                 bool result = false;
-                var airport = repository.GetAirportById(airportid.Value);
-                if (repository.IsAirportExist(name, cityid) == true)
+                var airport = repository.GetById(airportid.Value);
+                if (repository.IsExist(name, cityid) == true)
                 {
                     if (airport.Name == name && airport.City.Id == cityid)
                     {
@@ -138,17 +99,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
             else
             {
-                return repository.IsAirportExist(name, cityid);
+                return repository.IsExist(name, cityid);
             }
         }
-        #endregion
 
-
-        #region Update Airport
         public bool UpdateAirport(AirportUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.UpdateAirport(Map(dto));
+            int count = repository.Update(Map(dto));
             if (count > 0)
             {
                 result = true;
@@ -158,37 +116,21 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 
         private Airport Map(AirportUpdateDTO dto)
         {
+            var airport = mapper.Map<Airport>(dto);
             string[] engnamesplited = dto.EnglishName.Split(" ");
             string code = "";
             foreach (var item in engnamesplited)
             {
                 code += item.Substring(0, 1).ToUpper();
             }
-            var airport = repository.GetAirportById(dto.Id);
-            var city = cityRepository.GetCityById(dto.CityId);
-            airport.Name = dto.Name;
-            airport.EnglishName = dto.EnglishName;
             airport.Code = code;
-            if (airport.City.Id != dto.CityId)
-            {
-                airport.City = city;
-                city.Airports.Add(airport);
-                cityRepository.UpdateCity(city);
-            }
             return airport;
         }
 
         public AirportUpdateDTO GetAirportForUpdate(int airportid)
         {
-            var airport = repository.GetAirportById(airportid);
-            return new AirportUpdateDTO
-            {
-                Id = airport.Id,
-                Name = airport.Name,
-                EnglishName = airport.EnglishName,
-                CityId = airport.City.Id
-            };
+            return mapper.Map<AirportUpdateDTO>(repository.GetById(airportid));
         }
-        #endregion
+
     }
 }
