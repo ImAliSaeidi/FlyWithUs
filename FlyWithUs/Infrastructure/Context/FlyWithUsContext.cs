@@ -1,8 +1,11 @@
-﻿using FlyWithUs.Hosted.Service.Models.Airplanes;
+﻿using FlyWithUs.Hosted.Service.Models;
+using FlyWithUs.Hosted.Service.Models.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Tickets;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Models.World;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 {
-    public class FlyWithUsContext : DbContext
+    public class FlyWithUsContext : IdentityDbContext
     {
         public FlyWithUsContext(DbContextOptions<FlyWithUsContext> option) : base(option)
         {
@@ -39,7 +42,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 
         public DbSet<Role> Role { get; set; }
 
-        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<UserRole> AdminUserRoles { get; set; }
         #endregion
 
         #region World
@@ -93,6 +96,18 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 
             modelBuilder.Entity<Country>()
              .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<IdentityUser>().ToTable("AppUser");
+            modelBuilder.Entity<IdentityRole>().ToTable("AppRole");
+            modelBuilder.Entity<IdentityUserRole<string>>().ToTable("AppUserRole");
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole(AuthorizationRoles.UserRole) { NormalizedName = AuthorizationRoles.UserRole.ToUpper() },
+                 new IdentityRole(AuthorizationRoles.AdminRole) { NormalizedName = AuthorizationRoles.AdminRole.ToUpper() }
+                );
+            modelBuilder.Ignore<IdentityUserClaim<string>>();
+            modelBuilder.Ignore<IdentityRoleClaim<string>>();
+            modelBuilder.Ignore<IdentityUserToken<string>>();
+            modelBuilder.Ignore<IdentityUserLogin<string>>();
         }
     }
 }
