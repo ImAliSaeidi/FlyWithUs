@@ -103,7 +103,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         public IActionResult EditTravel(int travelid)
         {
             TravelUpdateDTO dto = travelService.GetTravelForUpdate(travelid);
-            FillViewData();
+            FillViewData(dto);
             return View(dto);
         }
 
@@ -142,6 +142,48 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             var dto = travelService.GetTravelById(travelid);
             return View(dto);
+        }
+
+        private void FillViewData(TravelUpdateDTO dto)
+        {
+            var countries = countryService.GetAllCountryAsSelectList();
+            ViewData["OriginCountries"] = new SelectList(countries, "Value", "Text", dto.OriginCountryId);
+            ViewData["DestinationCountries"] = new SelectList(countries, "Value", "Text", dto.DestinationCountryId);
+
+            var origincities = cityService.GetAllCityAsSelectList(dto.OriginCountryId);
+            var destinationcities = cityService.GetAllCityAsSelectList(dto.DestinationCountryId);
+            ViewData["OriginCities"] = new SelectList(origincities, "Value", "Text", dto.OriginCityId);
+            ViewData["DestinationCities"] = new SelectList(destinationcities, "Value", "Text", dto.DestinationCityId);
+
+            var originairports = airportService.GetAllAirportAsSelectList(dto.OriginCityId);
+            var destinationairports = airportService.GetAllAirportAsSelectList(dto.DestinationCityId);
+            ViewData["OriginAirports"] = new SelectList(originairports, "Value", "Text", dto.OriginAirportId);
+            ViewData["DestinationAirports"] = new SelectList(destinationairports, "Value", "Text", dto.DestinationAirportId);
+
+            var agancies = agancyService.GetAllAgancyAsSelectList();
+            ViewData["Agancies"] = new SelectList(agancies, "Value", "Text", dto.AgancyId);
+
+            var airplanes = airplaneService.GetAllAirplaneAsSelectList(dto.AgancyId);
+            ViewData["Airplanes"] = new SelectList(airplanes, "Value", "Text", dto.AirplaneId);
+
+            var classes = new List<SelectListItem>() {
+                new SelectListItem
+                {
+                Text = "اکونومی",
+                Value = "Economy"
+                },
+                new SelectListItem
+                {
+                Text = "بیزینس کلاس",
+                Value = "Business"
+                },
+                new SelectListItem
+                {
+                Text = "فرست کلاس",
+                Value = "First"
+                }
+            };
+            ViewData["Classes"] = new SelectList(classes, "Value", "Text");
         }
 
         private void FillViewData()

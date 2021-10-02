@@ -15,18 +15,18 @@
     <div class="row">
         <div class="col-xs-2">
             <label asp-for="OriginCountryId">کشور مبدا</label>
-            <select class="form-control" asp-for="OriginCountryId" asp-items="@(ViewData["Countries"] as SelectList)"></select>
+            <select class="form-control" asp-for="OriginCountryId" asp-items="@(ViewData["OriginCountries"] as SelectList)"></select>
             <span class="text-danger" asp-validation-for="OriginCountryId"></span>
         </div>
         <div class="col-xs-2">
             <label asp-for="OriginCityId">شهر مبدا</label>
-            <select class="form-control" asp-for="OriginCityId" asp-items="@(ViewData["Cities"] as SelectList)"></select>
+            <select class="form-control" asp-for="OriginCityId" asp-items="@(ViewData["OriginCities"] as SelectList)"></select>
             <span class="text-danger" asp-validation-for="OriginCityId"></span>
             <br />
         </div>
         <div class="col-xs-3">
             <label asp-for="OriginAirportId">فرودگاه مبدا</label>
-            <select class="form-control" asp-for="OriginAirportId" asp-items="@(ViewData["Airports"] as SelectList)"></select>
+            <select class="form-control" asp-for="OriginAirportId" asp-items="@(ViewData["OriginAirports"] as SelectList)"></select>
             <span class="text-danger" asp-validation-for="OriginAirportId"></span>
             <br />
         </div>
@@ -34,18 +34,18 @@
     <div class="row">
         <div class="col-xs-2">
             <label asp-for="DestinationCountryId">کشور مقصد</label>
-            <select class="form-control" asp-for="DestinationCountryId" asp-items="@(ViewData["Countries"] as SelectList)"></select>
+            <select class="form-control" asp-for="DestinationCountryId" asp-items="@(ViewData["DestinationCountries"] as SelectList)"></select>
             <span class="text-danger" asp-validation-for="DestinationCountryId"></span>
         </div>
         <div class="col-xs-2">
             <label asp-for="DestinationCityId">شهر مقصد</label>
-            <select class="form-control" asp-for="DestinationCityId" asp-items="@(ViewData["Cities"] as SelectList)"></select>
+            <select class="form-control" asp-for="DestinationCityId" asp-items="@(ViewData["DestinationCities"] as SelectList)"></select>
             <span class="text-danger" asp-validation-for="DestinationCityId"></span>
             <br />
         </div>
         <div class="col-xs-3">
             <label asp-for="DestinationAirportId">فرودگاه مقصد</label>
-            <select class="form-control" asp-for="DestinationAirportId" asp-items="@(ViewData["Airports"] as SelectList)"></select>
+            <select class="form-control" asp-for="DestinationAirportId" asp-items="@(ViewData["DestinationAirports"] as SelectList)"></select>
             <span class="text-danger" asp-validation-for="DestinationAirportId"></span>
             <br />
         </div>

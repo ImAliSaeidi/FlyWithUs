@@ -63,13 +63,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
 
         public TravelDTO GetTravelById(int travelid)
         {
-            return mapper.Map<TravelDTO>(repository.GetById(travelid));
+            var travel = repository.GetById(travelid);
+            var dto = mapper.Map<TravelDTO>(repository.GetById(travelid));
+            dto.AgancyName = travel.Airplane.Agancy.Name;
+            dto.OriginCityName = travel.OriginCity.Name;
+            dto.DestinationCityName = travel.DestinationCity.Name;
+            return dto;
         }
 
         public TravelUpdateDTO GetTravelForUpdate(int travelid)
         {
             var dto = mapper.Map<TravelUpdateDTO>(repository.GetById(travelid));
-
+            dto.AgancyId=repository.GetById(travelid).Airplane.Agancy.Id;
             return dto;
         }
 

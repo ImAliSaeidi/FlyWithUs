@@ -31,14 +31,14 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
         public IQueryable<Travel> GetAll()
         {
             return context.Travels
-                .Include(t => t.Airplane)
+               .Include(t => t.Airplane)
                 .Include(t => t.Airplane.Agancy)
                 .Include(t => t.OriginAirport)
-                .Include(t => t.OriginAirport.City)
-                .Include(t => t.OriginAirport.City.Country)
                 .Include(t => t.DestinationAirport)
-                .Include(t => t.DestinationAirport.City)
-                .Include(t => t.DestinationAirport.City.Country)
+                .Include(t => t.OriginCity)
+                .Include(t => t.DestinationCity)
+                .Include(t => t.OriginCountry)
+                .Include(t => t.DestinationCountry)
                 .Include(t => t.Tickets.Where(t => t.IsSaled == false));
         }
 
@@ -48,11 +48,11 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
                 .Include(t => t.Airplane)
                 .Include(t => t.Airplane.Agancy)
                 .Include(t => t.OriginAirport)
-                .Include(t => t.OriginAirport.City)
-                .Include(t => t.OriginAirport.City.Country)
                 .Include(t => t.DestinationAirport)
-                .Include(t => t.DestinationAirport.City)
-                .Include(t => t.DestinationAirport.City.Country)
+                .Include(t => t.OriginCity)
+                .Include(t => t.DestinationCity)
+                .Include(t => t.OriginCountry)
+                .Include(t => t.DestinationCountry)
                 .Include(t => t.Tickets)
                 .IgnoreQueryFilters()
                 .AsNoTracking()
