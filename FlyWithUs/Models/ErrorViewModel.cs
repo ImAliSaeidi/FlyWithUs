@@ -1,5 +1,3 @@
-using System;
-
 namespace FlyWithUs.Hosted.Service.Models
 {
     public class ErrorViewModel

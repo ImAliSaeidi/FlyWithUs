@@ -25,7 +25,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         public bool AddUser(UserAddDTO dto)
         {
             bool result = false;
-            dto.Password = PasswordHelper.EncodePasswordSHA3(dto.Password);
+            dto.Password = HashGenerator.SalterHash(dto.Password);
             int count = repository.Add(mapper.Map<User>(dto));
             if (count > 0)
             {
@@ -75,7 +75,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             bool result = false;
             if (dto.Password != null && dto.RePassword != null)
             {
-                dto.Password = PasswordHelper.EncodePasswordSHA3(dto.Password);
+                dto.Password = HashGenerator.SalterHash(dto.Password);
             }
             else
             {
