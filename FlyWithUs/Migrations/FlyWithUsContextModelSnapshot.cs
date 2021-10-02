@@ -497,15 +497,15 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bfe38b7f-f34f-431f-9a25-b08194ebf625",
-                            ConcurrencyStamp = "2ec97b2f-3da3-4cb4-bef3-85cdd87ccbfd",
+                            Id = "fbe84a38-22ea-4de9-9c39-c2452271b64d",
+                            ConcurrencyStamp = "8a6562d4-8fed-4964-a533-79fb30eda980",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "0bc89dd5-d0a1-40a3-8acc-e84d4f920bd6",
-                            ConcurrencyStamp = "eb4efc39-0b56-401f-a17e-7a9700e22e1c",
+                            Id = "3e5a39b4-23e9-4993-aff4-e133f7e4809b",
+                            ConcurrencyStamp = "131c53aa-6b8a-4b75-8c09-8b9fe5ecae0e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

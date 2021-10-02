@@ -1,6 +1,7 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Roles;
+using FlyWithUs.Hosted.Service.Filter;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -26,6 +27,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             return View(dto);
         }
 
+        [SecurityFilter("Admin")]
         [HttpGet]
         public IActionResult AddRole()
         {

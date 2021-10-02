@@ -20,6 +20,7 @@ using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -71,6 +72,8 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<ICountryService, CountryService>();
 
             services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<FlyWithUsContext>();
         }
 
 

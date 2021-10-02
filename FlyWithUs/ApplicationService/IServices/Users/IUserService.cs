@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs;
+using FlyWithUs.Hosted.Service.DTOs.APIs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
     public interface IUserService
     {
         bool AddUser(UserAddDTO dto);
+
+        void RegisterUser(RegisterDTO dto);
+
+        string LoginUser(LoginDTO dto);
 
         GridResultDTO<UserDTO> GetAllUser(int skip, int take);
 

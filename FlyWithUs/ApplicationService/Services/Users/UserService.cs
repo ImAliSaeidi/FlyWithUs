@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.DTOs;
+using FlyWithUs.Hosted.Service.DTOs.APIs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
+using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Security;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,12 +17,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
     public class UserService : IUserService
     {
         private readonly IUserRepository repository;
+        private readonly UserManager<IdentityUser> userManager;
         private readonly IMapper mapper;
 
-        public UserService(IUserRepository repository, IMapper mapper)
+        public UserService(IUserRepository repository, IMapper mapper, UserManager<IdentityUser> userManager)
         {
             this.repository = repository;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
 
@@ -126,5 +132,69 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 
         }
 
+        public void RegisterUser(RegisterDTO dto)
+        {
+            var user = userManager.Users.FirstOrDefault(u => u.PhoneNumber == dto.PhoneNumber);
+            if (user == null)
+            {
+                if (dto.Password == dto.RePassword)
+                {
+                    var hashpass = HashGenerator.SalterHash(dto.Password);
+                    user = new IdentityUser
+                    {
+                        UserName = dto.PhoneNumber,
+                        NormalizedUserName = dto.PhoneNumber.Trim(),
+                        Email = dto.Email,
+                        NormalizedEmail = dto.Email.Trim().ToUpper(),
+                        EmailConfirmed = true,
+                        PasswordHash = hashpass,
+                        PhoneNumber = dto.PhoneNumber,
+                        PhoneNumberConfirmed = true,
+                        TwoFactorEnabled = false,
+                        LockoutEnabled = false,
+                        AccessFailedCount = 0
+                    };
+                    var rowAffetcted = userManager.CreateAsync(user).Result;
+                    if (rowAffetcted.Succeeded)
+                    {
+                        userManager.AddToRoleAsync(user, AuthorizationRoles.UserRole.ToUpper());
+                    }
+                    else
+                    {
+                        throw new ArgumentException();
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+
+        }
+
+        public string LoginUser(LoginDTO dto)
+        {
+            var user = userManager.Users.FirstOrDefault(u => u.PhoneNumber == dto.PhoneNumber);
+            if (user != null)
+            {
+                var hashpass = HashGenerator.SalterHash(dto.Password);
+                if (user.PasswordHash == hashpass)
+                {
+                    return TokenGenerator.Generate(user);
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+        }
     }
 }
