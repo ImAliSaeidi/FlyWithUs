@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
-    public partial class AddIdentity : Migration
+    public partial class InitDBAndAddIdentity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -379,12 +379,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
             migrationBuilder.InsertData(
                 table: "AppRole",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "bfe38b7f-f34f-431f-9a25-b08194ebf625", "2ec97b2f-3da3-4cb4-bef3-85cdd87ccbfd", "User", "USER" });
+                values: new object[] { "fbe84a38-22ea-4de9-9c39-c2452271b64d", "8a6562d4-8fed-4964-a533-79fb30eda980", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AppRole",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0bc89dd5-d0a1-40a3-8acc-e84d4f920bd6", "eb4efc39-0b56-401f-a17e-7a9700e22e1c", "Admin", "ADMIN" });
+                values: new object[] { "3e5a39b4-23e9-4993-aff4-e133f7e4809b", "131c53aa-6b8a-4b75-8c09-8b9fe5ecae0e", "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AdminUserRoles_RoleId",
