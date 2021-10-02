@@ -23,7 +23,7 @@
       },
       "dotnetRunMessages": "true",
       "applicationUrl": "http://localhost:5000",
-      "launchUrl": "admin/users/getalluser"
+      "launchUrl": "admin/home/index"
     },
     "WSL": {
       "commandName": "WSL2",
