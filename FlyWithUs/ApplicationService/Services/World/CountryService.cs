@@ -138,5 +138,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
+        private Country Map(CountryUpdateDTO dto)
+        {
+            Country country = mapper.Map<Country>(dto);
+            country.ISO2 = dto.EnglishName.Substring(0, 2).ToUpper();
+            country.EnglishName = dto.EnglishName.ToUpper();
+            country.ISO3 = dto.EnglishName.Substring(0, 3).ToUpper();
+            return country;
+        }
+
     }
 }

@@ -10,75 +10,88 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class UserAddDTO
     {
-        [Required(ErrorMessage = "لطفا شماره موبایل را وارد کنید")]
-        [StringLength(11, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}", ErrorMessage = "شماره وارد شده معتبر نیست")]
+        [Display(Name = "شماره موبایل")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(11, ErrorMessage = CustomDTOValidation.Length)]
+        [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string PhoneNumber { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا ایمیل را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [EmailAddress(ErrorMessage = "ایمیل وارد شده معتبر نیست")]
+        [Display(Name = "ایمیل")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [EmailAddress(ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string Email { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا رمزعبور را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
+        [Display(Name = "رمزعبور")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         public string Password { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا تکرار رمزعبور را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
+        [Display(Name = "تکرار رمزعبور")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         [Compare("Password", ErrorMessage = "رمز عبور و تکرار آن یکسان نیست")]
         public string RePassword { get; set; }
 
 
-
-        [Required(ErrorMessage = "لطفا ملیت را انتخاب کنید")]
+        [Display(Name = "ملیت")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int NationalityId { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا نام فارسی را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = "نام وارد شده معتبر نیست")]
+        [Display(Name = "نام فارسی")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string FirstNamePersian { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا نام خانوادگی فارسی را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = "نام خانوادگی وارد شده معتبر نیست")]
+        [Display(Name = "نام خانوادگی فارسی")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string LastNamePersian { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا نام انگلیسی را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "نام وارد شده معتبر نیست")]
+        [Display(Name = "نام انگلیسی")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string FirstNameEnglish { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا نام خانوادگی انگلیسی را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "نام خانوادگی وارد شده معتبر نیست")]
+        [Display(Name = " نام خانوادگی انگلیسی")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string LastNameEnglish { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا کدملی را وارد کنید")]
-        [StringLength(32, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [RegularExpression("^[0-9]{10}$", ErrorMessage = "کدملی وارد شده معتبر نیست")]
+        [Display(Name = "کدملی")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(32, ErrorMessage = CustomDTOValidation.Length)]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string NationalityCode { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا تاریخ تولد را انتخاب کنید")]
+        [Display(Name = " تاریخ تولد")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public DateTime Birthdate { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا جنسیت را انتخاب کنید")]
+        [Display(Name = "جنسیت")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public string Gender { get; set; }
 
 
-        [StringLength(32, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
-        [RegularExpression("[A-Z|a-z][0-9]{8}$", ErrorMessage = "شماره وارد شده معتبر نیست")]
+        [Display(Name = "شماره گذرنامه")]
+        [StringLength(32, ErrorMessage = CustomDTOValidation.Length)]
+        [RegularExpression("[A-Z|a-z][0-9]{8}$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string PassportNumber { get; set; }
+
 
 
         public DateTime? PassportIssunaceDate { get; set; }

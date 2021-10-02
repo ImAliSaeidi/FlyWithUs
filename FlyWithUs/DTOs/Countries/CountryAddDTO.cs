@@ -1,23 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Countries
 {
     public class CountryAddDTO
     {
-        [Required(ErrorMessage = "لطفا نام کشور را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
+        [Display(Name = "نام کشور")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         public string PersianName { get; set; }
 
-        [Required(ErrorMessage = "لطفا نام کشور را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی بیش از حد مجاز است")]
+        [Display(Name = "نام کشور")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         public string EnglishName { get; set; }
 
-     
-        [Required(ErrorMessage = "لطفا کد تلفن کشور را وارد کنید")]
+
+        [Display(Name = "کد تلفن")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
         public short PhoneCode { get; set; }
     }
 }

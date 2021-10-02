@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Agancies
 {
@@ -10,8 +6,9 @@ namespace FlyWithUs.Hosted.Service.DTOs.Agancies
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "لطفا نام آژانس هواپیمایی را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول مقدار ورودی مجاز نیست")]
+        [Display(Name = "نام آژانس هواپیمایی")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         public string Name { get; set; }
     }
 }

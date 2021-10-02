@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Travels
 {
@@ -10,61 +7,84 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
     {
         public string Code { get; set; }
 
+
         public string Type { get; set; }
 
-        [Required(ErrorMessage = "لطفا حداکثر ظرفیت را وارد کنید")]
+
+        [Display(Name = "حداکثر ظرفیت")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
         public int MaxCapacity { get; set; }
 
 
+        [Display(Name = "کشور مبدا")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int OriginCountryId { get; set; }
 
 
+        [Display(Name = "کشور مقصد")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int DestinationCountryId { get; set; }
 
 
+
+        [Display(Name = "شهر مبدا")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int OriginCityId { get; set; }
 
 
+        [Display(Name = "شهر مقصد")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int DestinationCityId { get; set; }
 
 
+        [Display(Name = "آژانس هواپیمایی")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int AgancyId { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا هواپیما را انتخاب کنید")]
+        [Display(Name = "هواپیما")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int AirplaneId { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا فرودگاه مبدا را انتخاب کنید")]
+        [Display(Name = "فرودگاه مبدا")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int OriginAirportId { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا فرودگاه مقصد را انتخاب کنید")]
+        [Display(Name = "فرودگاه مقصد")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int DestinationAirportId { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا ساعت پرواز را انتخاب کنید")]
+        [Display(Name = "ساعت پرواز")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public DateTime MovingTime { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا ساعت رسیدن به مقصد را انتخاب کنید")]
+        [Display(Name = "ساعت رسیدن به مقصد")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public DateTime ArrivingTime { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا تاریخ پرواز را انتخاب کنید")]
+        [Display(Name = "تاریخ پرواز")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public DateTime MovingDate { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا تاریخ رسیدن به مقصد را انتخاب کنید")]
+        [Display(Name = "تاریخ رسیدن به مقصد")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public DateTime ArrivingDate { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا کلاس پرواز انتخاب کنید")]
+        [Display(Name = "کلاس پرواز")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         [StringLength(32)]
         public string Class { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا قیمت هر بلیط(بزرگسال) را وارد کنید")]
+        [Display(Name = "قیمت هر بلیط(بزرگسال)")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
         public int Price { get; set; }
 
     }

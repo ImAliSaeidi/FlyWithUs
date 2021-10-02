@@ -1,14 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Airports
 {
-    public class AirportUpdateDTO: AirportAddDTO
+    public class AirportUpdateDTO
     {
         public int Id { get; set; }
 
+
+        [Display(Name = "نام فرودگاه")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        public string Name { get; set; }
+
+
+        [Display(Name = "نام  انگلیسی فرودگاه")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        public string EnglishName { get; set; }
+
+
+        [Display(Name = "شهر")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
+        public int CityId { get; set; }
     }
 }

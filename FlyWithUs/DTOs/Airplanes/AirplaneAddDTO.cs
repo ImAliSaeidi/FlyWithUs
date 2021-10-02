@@ -1,33 +1,33 @@
-﻿using FlyWithUs.Hosted.Service.Models.Airplanes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
 {
     public class AirplaneAddDTO
     {
-        [Required(ErrorMessage = "لطفا نام هواپیما را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول ورودی بیش از حد مجاز است")]
+        [Display(Name = "نام هواپیما")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         public string Name { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا برند هواپیما را وارد کنید")]
-        [StringLength(128, ErrorMessage = "طول ورودی بیش از حد مجاز است")]
+        [Display(Name = "برند هواپیما")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         public string Brand { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا ظرفیت هواپیما را وارد کنید")]
+        [Display(Name = "ظرفیت هواپیما")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
         public int MaxCapacity { get; set; }
 
 
-        [Required(ErrorMessage = "لطفا تعداد هواپیما را وارد کنید")]
+        [Display(Name = "تعداد هواپیما")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
         public int Count { get; set; }
 
-
-        [Required(ErrorMessage = "لطفا آژانس هواپیمایی را انتخاب کنید")]
+        
+        [Display(Name = "آژانس هواپیمایی")]
+        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public int AgancyId { get; set; }
 
 
