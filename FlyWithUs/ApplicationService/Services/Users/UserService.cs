@@ -134,8 +134,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 
         public void RegisterUser(RegisterDTO dto)
         {
-            var user = userManager.Users.FirstOrDefault(u => u.PhoneNumber == dto.PhoneNumber);
-            if (user == null)
+            var user = userManager.Users
+                .FirstOrDefault(u =>
+                u.PhoneNumber == dto.PhoneNumber ||
+                u.NormalizedEmail == dto.Email.Trim().ToUpper());
+            if (user == null && dto.Rules == true)
             {
                 if (dto.Password == dto.RePassword)
                 {
