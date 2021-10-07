@@ -15,5 +15,8 @@ namespace FlyWithUs.Hosted.Service.DTOs.APIs.User
 
         [Required]
         public string RePassword { get; set; }
+
+        [Required]
+        public bool Rules { get; set; }
     }
 }
