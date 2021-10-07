@@ -51,13 +51,13 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userService.IsPhoneNumberExist(dto.PhoneNumber, null) == true)
+                if (userService.IsPhoneNumberExist(dto.PhoneNumber) == true)
                 {
                     ModelState.AddModelError("PhoneNumber", "شماره تلفن وارد شده معتبر نیست");
                     FillViewData();
                     return View(dto);
                 }
-                else if (userService.IsEmailExist(dto.Email, null) == true)
+                else if (userService.IsEmailExist(dto.Email) == true)
                 {
                     ModelState.AddModelError("Email", "ایمیل وارد شده معتبر نیست");
                     FillViewData();

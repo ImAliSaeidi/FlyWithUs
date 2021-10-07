@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using System;
@@ -56,7 +58,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
 
         public GridResultDTO<TravelDTO> GetAllTravel(int skip, int take)
         {
-            var dtos = mapper.Map<List<TravelDTO>>(repository.GetAll().Skip(skip).Take(take).ToList());
+            var dtos = new List<TravelDTO>();
+            var travels = repository.GetAll().Skip(skip).Take(take).ToList();
+            foreach (var travel in travels)
+            {
+                var dto = new TravelDTO();
+                dto = mapper.Map<TravelDTO>(travel);
+                dto.AgancyName = travel.Airplane.Agancy.Name;
+                dtos.Add(dto);
+            }
             var count = repository.GetAll().Count();
             return new GridResultDTO<TravelDTO>(count, dtos);
         }
@@ -74,7 +84,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
         public TravelUpdateDTO GetTravelForUpdate(int travelid)
         {
             var dto = mapper.Map<TravelUpdateDTO>(repository.GetById(travelid));
-            dto.AgancyId=repository.GetById(travelid).Airplane.Agancy.Id;
+            dto.AgancyId = repository.GetById(travelid).Airplane.Agancy.Id;
             return dto;
         }
 

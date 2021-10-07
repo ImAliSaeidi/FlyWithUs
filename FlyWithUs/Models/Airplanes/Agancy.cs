@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FlyWithUs.Hosted.Service.Models.Travels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Models.Airplanes

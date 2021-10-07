@@ -31,7 +31,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
         public IQueryable<Travel> GetAll()
         {
             return context.Travels
-               .Include(t => t.Airplane)
+                .Include(t => t.Airplane)
                 .Include(t => t.Airplane.Agancy)
                 .Include(t => t.OriginAirport)
                 .Include(t => t.DestinationAirport)

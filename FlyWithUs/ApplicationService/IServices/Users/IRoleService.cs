@@ -9,7 +9,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         bool AddRole(RoleAddDTO dto);
 
-        bool IsRoleExist(string name, int? roleid);
+        bool IsRoleExist(string name);
+
+        bool IsRoleExist(string name, int roleid);
 
         bool DeleteRole(int roleid);
 

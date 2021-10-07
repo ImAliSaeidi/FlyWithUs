@@ -17,7 +17,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         CityUpdateDTO GetCityForUpdate(int cityid);
 
-        bool IsCityExist(string name, int countryid, int? cityid);
+        bool IsCityExist(string name, int countryid);
+
+        bool IsCityExist(string name, int countryid, int cityid);
 
         List<SelectListItem> GetAllCityAsSelectList(int? countryid);
 

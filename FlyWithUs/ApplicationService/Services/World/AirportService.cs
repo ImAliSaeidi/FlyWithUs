@@ -78,29 +78,27 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return new GridResultDTO<AirportDTO>(count, dtos);
         }
 
-        public bool IsAirportExist(string name, int cityid, int? airportid)
+        public bool IsAirportExist(string name, int cityid)
         {
-            if (airportid != null)
+            return repository.IsExist(name, cityid);
+        }
+
+        public bool IsAirportExist(string name, int cityid, int airportid)
+        {
+            bool result = false;
+            var airport = repository.GetById(airportid);
+            if (repository.IsExist(name, cityid) == true)
             {
-                bool result = false;
-                var airport = repository.GetById(airportid.Value);
-                if (repository.IsExist(name, cityid) == true)
+                if (airport.Name == name && airport.City.Id == cityid)
                 {
-                    if (airport.Name == name && airport.City.Id == cityid)
-                    {
-                        result = false;
-                    }
-                    else
-                    {
-                        result = true;
-                    }
+                    result = false;
                 }
-                return result;
+                else
+                {
+                    result = true;
+                }
             }
-            else
-            {
-                return repository.IsExist(name, cityid);
-            }
+            return result;
         }
 
         public bool UpdateAirport(AirportUpdateDTO dto)

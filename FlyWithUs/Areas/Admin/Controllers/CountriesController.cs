@@ -36,7 +36,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (countryService.IsExistCountry(dto.EnglishName,dto.PersianName, dto.PhoneCode, null) == true)
+                if (countryService.IsExistCountry(dto.EnglishName,dto.PersianName, dto.PhoneCode) == true)
                 {
                     ModelState.AddModelError("PersianName", "مشخصات وارد شده تکراری است");
                     return View(dto);

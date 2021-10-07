@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
-    public partial class InitDBAndAddIdentity : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -261,13 +261,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     Type = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Class = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    AirplaneId = table.Column<int>(type: "int", nullable: false),
-                    OriginAirportId = table.Column<int>(type: "int", nullable: false),
-                    DestinationAirportId = table.Column<int>(type: "int", nullable: false),
-                    OriginCityId = table.Column<int>(type: "int", nullable: false),
-                    DestinationCityId = table.Column<int>(type: "int", nullable: false),
-                    OriginCountryId = table.Column<int>(type: "int", nullable: false),
-                    DestinationCountryId = table.Column<int>(type: "int", nullable: false),
+                    AirplaneId = table.Column<int>(type: "int", nullable: true),
+                    OriginAirportId = table.Column<int>(type: "int", nullable: true),
+                    DestinationAirportId = table.Column<int>(type: "int", nullable: true),
+                    OriginCityId = table.Column<int>(type: "int", nullable: true),
+                    DestinationCityId = table.Column<int>(type: "int", nullable: true),
+                    OriginCountryId = table.Column<int>(type: "int", nullable: true),
+                    DestinationCountryId = table.Column<int>(type: "int", nullable: true),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -361,7 +361,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         column: x => x.UserId1,
                         principalTable: "AppUser",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_UserTickets_Tickets_TicketId",
                         column: x => x.TicketId,
@@ -379,12 +379,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
             migrationBuilder.InsertData(
                 table: "AppRole",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "fbe84a38-22ea-4de9-9c39-c2452271b64d", "8a6562d4-8fed-4964-a533-79fb30eda980", "User", "USER" });
+                values: new object[] { "b13ffe5b-d8ad-43b0-92a4-13103b69f37a", "14f2af81-e086-4036-a7c8-88dd2b6bf70e", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AppRole",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "3e5a39b4-23e9-4993-aff4-e133f7e4809b", "131c53aa-6b8a-4b75-8c09-8b9fe5ecae0e", "Admin", "ADMIN" });
+                values: new object[] { "4ea62ba4-3b2c-46cd-ac20-071cfc04679f", "9ac2d5d1-b38e-4080-9d63-73cdaa642a18", "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AdminUserRoles_RoleId",

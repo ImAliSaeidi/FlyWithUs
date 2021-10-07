@@ -36,7 +36,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (agancyService.IsAgancyExist(dto.Name.ToLower().Trim(), null) == true)
+                if (agancyService.IsAgancyExist(dto.Name.ToLower().Trim()) == true)
                 {
                     ModelState.AddModelError("Name", "نام وارد شده معتبر نیست");
                     return View(dto);

@@ -72,30 +72,28 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return result;
         }
 
-        public bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid, int? airplaneid)
+        public bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid)
         {
-            if (airplaneid != null)
+            return repository.IsExist(name, brand, maxcapacity, agancyid);
+        }
+
+        public bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid, int airplaneid)
+        {
+            bool result = false;
+            var airplane = repository.GetById(airplaneid);
+            if (repository.IsExist(name, brand, maxcapacity, agancyid) == true)
             {
-                bool result = false;
-                Airplane airplane = repository.GetById(airplaneid.Value);
-                if (repository.IsExist(name, brand, maxcapacity, agancyid) == true)
+                if (airplane.Name == name && airplane.Brand == brand && airplane.MaxCapacity == maxcapacity &&
+                airplane.Agancy.Id == agancyid)
                 {
-                    if (airplane.Name == name && airplane.Brand == brand && airplane.MaxCapacity == maxcapacity &&
-                    airplane.Agancy.Id == agancyid)
-                    {
-                        result = false;
-                    }
-                    else
-                    {
-                        result = true;
-                    }
+                    result = false;
                 }
-                return result;
+                else
+                {
+                    result = true;
+                }
             }
-            else
-            {
-                return repository.IsExist(name, brand, maxcapacity, agancyid);
-            }
+            return result;
         }
 
         public List<SelectListItem> GetAllAirplaneAsSelectList(int agancyid)

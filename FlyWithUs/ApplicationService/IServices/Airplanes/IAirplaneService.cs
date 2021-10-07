@@ -13,11 +13,13 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 
         bool DeleteAirplane(int airplaneid);
 
-        GridResultDTO<AirplaneDTO> GetAllAirplane(int skip,int take);
+        GridResultDTO<AirplaneDTO> GetAllAirplane(int skip, int take);
 
         AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneid);
 
-        bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid, int? airplaneid);
+        bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid);
+
+        bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid, int airplaneid);
 
         List<SelectListItem> GetAllAirplaneAsSelectList(int agancyid);
 

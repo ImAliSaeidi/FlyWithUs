@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20211007102644_Init-DB")]
+    partial class InitDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,7 +154,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AirplaneId")
+                    b.Property<int?>("AirplaneId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ArrivingDate")
@@ -174,13 +176,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DestinationAirportId")
+                    b.Property<int?>("DestinationAirportId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DestinationCityId")
+                    b.Property<int?>("DestinationCityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DestinationCountryId")
+                    b.Property<int?>("DestinationCountryId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -195,13 +197,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<DateTime>("MovingTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("OriginAirportId")
+                    b.Property<int?>("OriginAirportId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OriginCityId")
+                    b.Property<int?>("OriginCityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OriginCountryId")
+                    b.Property<int?>("OriginCountryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -497,15 +499,15 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "25aef75d-ec1b-4684-a79a-a5fe2694cf1c",
+                            Id = "b13ffe5b-d8ad-43b0-92a4-13103b69f37a",
+                            ConcurrencyStamp = "14f2af81-e086-4036-a7c8-88dd2b6bf70e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "74420f99-6c7a-44ad-bc18-6bdfe611136c",
+                            Id = "4ea62ba4-3b2c-46cd-ac20-071cfc04679f",
+                            ConcurrencyStamp = "9ac2d5d1-b38e-4080-9d63-73cdaa642a18",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -640,45 +642,31 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 {
                     b.HasOne("FlyWithUs.Hosted.Service.Models.Airplanes.Airplane", "Airplane")
                         .WithMany("Travels")
-                        .HasForeignKey("AirplaneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AirplaneId");
 
                     b.HasOne("FlyWithUs.Hosted.Service.Models.World.Airport", "DestinationAirport")
                         .WithMany("IncomingTravels")
-                        .HasForeignKey("DestinationAirportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DestinationAirportId");
 
                     b.HasOne("FlyWithUs.Hosted.Service.Models.World.City", "DestinationCity")
                         .WithMany("IncomingTravels")
-                        .HasForeignKey("DestinationCityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DestinationCityId");
 
                     b.HasOne("FlyWithUs.Hosted.Service.Models.World.Country", "DestinationCountry")
                         .WithMany("IncomingTravels")
-                        .HasForeignKey("DestinationCountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DestinationCountryId");
 
                     b.HasOne("FlyWithUs.Hosted.Service.Models.World.Airport", "OriginAirport")
                         .WithMany("OutboundTravels")
-                        .HasForeignKey("OriginAirportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OriginAirportId");
 
                     b.HasOne("FlyWithUs.Hosted.Service.Models.World.City", "OriginCity")
                         .WithMany("OutboundTravels")
-                        .HasForeignKey("OriginCityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OriginCityId");
 
                     b.HasOne("FlyWithUs.Hosted.Service.Models.World.Country", "OriginCountry")
                         .WithMany("OutboundTravels")
-                        .HasForeignKey("OriginCountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OriginCountryId");
 
                     b.Navigation("Airplane");
 

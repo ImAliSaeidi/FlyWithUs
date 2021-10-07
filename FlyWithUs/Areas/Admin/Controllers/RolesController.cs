@@ -27,7 +27,6 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             return View(dto);
         }
 
-        [SecurityFilter("Admin")]
         [HttpGet]
         public IActionResult AddRole()
         {
@@ -39,7 +38,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (roleService.IsRoleExist(dto.Name, null) == true)
+                if (roleService.IsRoleExist(dto.Name) == true)
                 {
                     ModelState.AddModelError("Name", "نام نقش معتبر نیست");
                     return View(dto);

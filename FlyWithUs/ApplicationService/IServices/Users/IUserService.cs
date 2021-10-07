@@ -18,9 +18,13 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         GridResultDTO<UserDTO> GetAllUser(int skip, int take);
 
-        bool IsPhoneNumberExist(string phonenumber, int? userid);
+        bool IsPhoneNumberExist(string phonenumber);
 
-        bool IsEmailExist(string email, int? userid);
+        bool IsPhoneNumberExist(string phonenumber, int userid);
+
+        bool IsEmailExist(string email);
+
+        bool IsEmailExist(string email, int userid);
 
         UserDTO GetUserById(int userid);
 

@@ -95,41 +95,36 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        public bool IsEmailExist(string email, int? userid)
+        public bool IsEmailExist(string email)
         {
-            if (userid != null)
-            {
-                bool result = false;
-                var user = repository.GetById(userid.Value);
-                if (repository.IsEmailExist(email) == true && user.Email != email)
-                {
-                    result = true;
-                }
-                return result;
-            }
-            else
-            {
-                return repository.IsEmailExist(email);
-            }
+            return repository.IsEmailExist(email);
         }
 
-        public bool IsPhoneNumberExist(string phonenumber, int? userid)
+        public bool IsEmailExist(string email, int userid)
         {
-            if (userid != null)
+            bool result = false;
+            var user = repository.GetById(userid);
+            if (repository.IsEmailExist(email) == true && user.Email != email)
             {
-                bool result = false;
-                var user = repository.GetById(userid.Value);
-                if (repository.IsPhoneNumberExist(phonenumber) == true && user.PhoneNumber != phonenumber)
-                {
-                    result = true;
-                }
-                return result;
+                result = true;
             }
-            else
-            {
-                return repository.IsPhoneNumberExist(phonenumber);
-            }
+            return result;
+        }
 
+        public bool IsPhoneNumberExist(string phonenumber)
+        {
+            return repository.IsPhoneNumberExist(phonenumber);
+        }
+
+        public bool IsPhoneNumberExist(string phonenumber, int userid)
+        {
+            bool result = false;
+            var user = repository.GetById(userid);
+            if (repository.IsPhoneNumberExist(phonenumber) == true && user.PhoneNumber != phonenumber)
+            {
+                result = true;
+            }
+            return result;
         }
 
         public void RegisterUser(RegisterDTO dto)

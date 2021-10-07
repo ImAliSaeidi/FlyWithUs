@@ -40,22 +40,20 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return new GridResultDTO<RoleDTO>(count, dtos);
         }
 
-        public bool IsRoleExist(string name, int? roleid)
+        public bool IsRoleExist(string name)
         {
-            if (roleid != null)
+            return repository.IsExist(name);
+        }
+
+        public bool IsRoleExist(string name, int roleid)
+        {
+            bool result = false;
+            var role = repository.GetById(roleid);
+            if (repository.IsExist(name) == true && role.Name != name)
             {
-                bool result = false;
-                var role = repository.GetById(roleid.Value);
-                if (repository.IsExist(name) == true && role.Name != name)
-                {
-                    result = true;
-                }
-                return result;
+                result = true;
             }
-            else
-            {
-                return repository.IsExist(name);
-            }
+            return result;
         }
 
         public bool DeleteRole(int roleid)

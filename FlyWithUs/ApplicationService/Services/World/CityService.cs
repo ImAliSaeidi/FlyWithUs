@@ -89,30 +89,29 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-        public bool IsCityExist(string name, int countryid, int? cityid)
+        public bool IsCityExist(string name, int countryid)
         {
-            if (cityid != null)
-            {
-                bool result = false;
-                var city = repository.GetById(cityid.Value);
-                if (repository.IsExist(name, countryid) == true)
-                {
-                    if (city.Name == name && city.Country.Id == countryid)
-                    {
-                        result = false;
-                    }
-                    else
-                    {
-                        result = true;
-                    }
-                }
-                return result;
-            }
-            else
-            {
-                return repository.IsExist(name, countryid);
-            }
+            return repository.IsExist(name, countryid);
         }
+
+        public bool IsCityExist(string name, int countryid, int cityid)
+        {
+            bool result = false;
+            var city = repository.GetById(cityid);
+            if (repository.IsExist(name, countryid) == true)
+            {
+                if (city.Name == name && city.Country.Id == countryid)
+                {
+                    result = false;
+                }
+                else
+                {
+                    result = true;
+                }
+            }
+            return result;
+        }
+
 
         public List<SelectListItem> GetAllCityAsSelectList(int? countryid)
         {

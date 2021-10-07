@@ -17,7 +17,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         GridResultDTO<AirportDTO> GetAllAirport(int skip, int take);
 
-        bool IsAirportExist(string name, int cityid, int? airportid);
+        bool IsAirportExist(string name, int cityid);
+
+        bool IsAirportExist(string name, int cityid, int airportid);
 
         AirportUpdateDTO GetAirportForUpdate(int airportid);
 

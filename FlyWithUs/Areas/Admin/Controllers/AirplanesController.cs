@@ -40,7 +40,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (airplaneService.IsAirplaneExist(dto.Name, dto.Brand, dto.MaxCapacity, dto.AgancyId, null) == true)
+                if (airplaneService.IsAirplaneExist(dto.Name, dto.Brand, dto.MaxCapacity, dto.AgancyId) == true)
                 {
                     ModelState.AddModelError("Name", "مشخصات وارد شده تکراری است");
                     FillViewData();

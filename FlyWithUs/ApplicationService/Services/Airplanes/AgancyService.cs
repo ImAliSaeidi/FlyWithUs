@@ -53,22 +53,20 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return agancydto;
         }
 
-        public bool IsAgancyExist(string name, int? agancyid)
+        public bool IsAgancyExist(string name)
         {
-            if (agancyid != null)
+            return repository.IsExist(name);
+        }
+
+        public bool IsAgancyExist(string name, int agancyid)
+        {
+            bool result = false;
+            var agancy = repository.GetById(agancyid);
+            if (repository.IsExist(name) == true && agancy.Name != name)
             {
-                bool result = false;
-                var agancy = repository.GetById(agancyid.Value);
-                if (repository.IsExist(name) == true && agancy.Name != name)
-                {
-                    result = true;
-                }
-                return result;
+                result = true;
             }
-            else
-            {
-                return repository.IsExist(name);
-            }
+            return result;
         }
 
         public bool DeleteAgancy(int agancyid)

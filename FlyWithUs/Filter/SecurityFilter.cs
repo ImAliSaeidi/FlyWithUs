@@ -15,7 +15,6 @@ namespace FlyWithUs.Hosted.Service.Filter
             this.role = role;
         }
 
-        private readonly UserManager<IdentityUser> userManager;
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             bool isAccess = false;

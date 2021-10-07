@@ -97,29 +97,27 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return dto;
         }
 
-        public bool IsExistCountry(string englishname, string persianname, short phonecode, int? countryid)
+        public bool IsExistCountry(string englishname, string persianname, short phonecode)
         {
-            if (countryid != null)
+            return repository.IsExist(englishname, persianname, phonecode);
+        }
+
+        public bool IsExistCountry(string englishname, string persianname, short phonecode, int countryid)
+        {
+            bool result = false;
+            var country = repository.GetById(countryid);
+            if (repository.IsExist(englishname, persianname, phonecode) == true)
             {
-                bool result = false;
-                var country = repository.GetById(countryid.Value);
-                if (repository.IsExist(englishname, persianname, phonecode) == true)
+                if (country.EnglishName == englishname && country.PersianName == persianname && country.PhoneCode == phonecode)
                 {
-                    if (country.EnglishName == englishname && country.PersianName == persianname && country.PhoneCode == phonecode)
-                    {
-                        result = false;
-                    }
-                    else
-                    {
-                        result = true;
-                    }
+                    result = false;
                 }
-                return result;
+                else
+                {
+                    result = true;
+                }
             }
-            else
-            {
-                return repository.IsExist(englishname, persianname, phonecode);
-            }
+            return result;
         }
 
         public CountryUpdateDTO GetCountryForUpdate(int countryid)
