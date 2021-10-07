@@ -46,6 +46,7 @@ namespace FlyWithUs.Hosted.Service
             {
                 options.AddPolicy("CorsPolicy", builder =>
                 {
+                    
                     builder
                     .WithOrigins(configuration["Origin"])
                     .AllowAnyMethod()
@@ -87,6 +88,7 @@ namespace FlyWithUs.Hosted.Service
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
 
             app.UseRouting();
