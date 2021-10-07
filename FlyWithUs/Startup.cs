@@ -48,7 +48,7 @@ namespace FlyWithUs.Hosted.Service
                 {
                     
                     builder
-                    .WithOrigins("http://localhost:4000")
+                    .WithOrigins(configuration["Origin"])
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials();
