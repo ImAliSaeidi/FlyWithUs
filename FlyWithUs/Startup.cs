@@ -46,12 +46,11 @@ namespace FlyWithUs.Hosted.Service
             {
                 options.AddPolicy("CorsPolicy", builder =>
                 {
-                    
                     builder
-                    .WithOrigins(configuration["Origin"])
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .AllowCredentials();
+                   .WithOrigins(configuration["Origin"])
+                   .AllowAnyMethod()
+                   .AllowAnyHeader()
+                   .AllowCredentials();
                 });
             });
             services.AddDbContext<FlyWithUsContext>(option => { option.UseSqlServer(configuration["ConnectionString"]); });
