@@ -1,7 +1,9 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
-using FlyWithUs.Hosted.Service.DTOs.User;
+using FlyWithUs.Hosted.Service.DTOs.APIs.User;
+using FlyWithUs.Hosted.Service.DTOs.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Controllers
 {
@@ -29,6 +31,20 @@ namespace FlyWithUs.Hosted.Service.Controllers
         {
             var token = userService.LoginUser(dto);
             return Ok(token);
+        }
+
+        [HttpGet("{userid}")]
+        public IActionResult Get([Required] int userid)
+        {
+            var user = userService.GetUserById(userid);
+            return Ok(user);
+        }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] UserUpdateDTO dto)
+        {
+            var result = userService.UpdateUser(dto);
+            return Ok(result);
         }
     }
 }
