@@ -33,7 +33,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
         [HttpGet("{userid}")]
-        public IActionResult GetUser(int userid)
+        public IActionResult GetUser(string userid)
         {
             var user = userService.GetUserById(userid);
             return View(user);
@@ -83,7 +83,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
         [HttpGet("{userid}")]
-        public IActionResult DeleteUser(int userid)
+        public IActionResult DeleteUser(string userid)
         {
             var result = userService.DeleteUser(userid);
             if (result == true)
@@ -97,7 +97,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         }
 
         [HttpGet("{userid}")]
-        public IActionResult EditUser(int userid)
+        public IActionResult EditUser(string userid)
         {
             var userupdatedto = userService.GetUserForUpdate(userid);
             FillViewData();
@@ -140,6 +140,11 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
             ViewData["Countries"] = new SelectList(countries, "Value", "Text");
 
             var genders = new List<SelectListItem>() {
+                new SelectListItem
+                {
+                    Text="انتخاب کنید",
+                    Value=""
+                },
                 new SelectListItem
                 {
                 Text = "مرد",

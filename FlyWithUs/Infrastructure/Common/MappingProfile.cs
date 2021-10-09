@@ -2,12 +2,11 @@
 using FlyWithUs.Hosted.Service.DTOs.Agancies;
 using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.DTOs.Airports;
+using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
-using FlyWithUs.Hosted.Service.DTOs.Roles;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
 using FlyWithUs.Hosted.Service.DTOs.Users;
-using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Models.Users;
@@ -36,15 +35,11 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Common
             CreateMap<TravelUpdateDTO, Travel>().ReverseMap();
             CreateMap<Travel, TravelDTO>();
 
-            CreateMap<RoleAddDTO, Role>();
-            CreateMap<RoleUpdateDTO, Role>();
-            CreateMap<RoleUpdateDTO, Role>().ReverseMap();
-            CreateMap<Role, RoleDTO>();
 
-            CreateMap<UserAddDTO, User>();
-            CreateMap<UserUpdateDTO, User>();
-            CreateMap<UserUpdateDTO, User>().ReverseMap();
-            CreateMap<User, UserDTO>();
+            CreateMap<UserAddDTO, ApplicationUser>();
+            CreateMap<UserUpdateDTO, ApplicationUser>();
+            CreateMap<UserUpdateDTO, ApplicationUser>().ReverseMap();
+            CreateMap<ApplicationUser, UserDTO>();
 
             CreateMap<AirportAddDTO, Airport>();
             CreateMap<AirportUpdateDTO, Airport>();
@@ -60,6 +55,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Common
             CreateMap<CountryUpdateDTO, Country>();
             CreateMap<CountryUpdateDTO, Country>().ReverseMap();
             CreateMap<Country, CountryDTO>();
+
+            CreateMap<RegisterDTO, ApplicationUser>();
+            CreateMap<RegisterDTO, ApplicationUser>().ReverseMap();
+
         }
     }
 }

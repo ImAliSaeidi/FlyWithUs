@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FlyWithUs.Hosted.Service.DTOs.APIs.User
+namespace FlyWithUs.Hosted.Service.DTOs.User
 {
     public class LoginDTO
     {

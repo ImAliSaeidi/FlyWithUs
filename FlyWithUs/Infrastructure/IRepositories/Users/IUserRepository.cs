@@ -5,17 +5,17 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 {
     public interface IUserRepository
     {
-        int Add(User user);
+        int Add(ApplicationUser user);
 
-        int Update(User user);
+        int Update(ApplicationUser user);
 
-        int Delete(int userid);
+        int Delete(string userid);
 
-        User GetById(int userid);
+        ApplicationUser GetById(string userid);
 
         int Save();
 
-        IQueryable<User> GetAll();
+        IQueryable<ApplicationUser> GetAll();
 
         bool IsPhoneNumberExist(string phonenumber);
 

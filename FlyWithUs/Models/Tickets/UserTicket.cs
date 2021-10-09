@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FlyWithUs.Hosted.Service.Models.Users;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Models.Tickets
@@ -12,7 +13,7 @@ namespace FlyWithUs.Hosted.Service.Models.Tickets
         [Required]
         public int TicketId { get; set; }
 
-        public IdentityUser User { get; set; }
+        public ApplicationUser User { get; set; }
 
         public Ticket Ticket { get; set; }
     }

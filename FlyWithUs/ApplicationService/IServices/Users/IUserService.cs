@@ -1,10 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs;
-using FlyWithUs.Hosted.Service.DTOs.APIs.User;
+using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 {
@@ -20,19 +16,19 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         bool IsPhoneNumberExist(string phonenumber);
 
-        bool IsPhoneNumberExist(string phonenumber, int userid);
+        bool IsPhoneNumberExist(string phonenumber, string userid);
 
         bool IsEmailExist(string email);
 
-        bool IsEmailExist(string email, int userid);
+        bool IsEmailExist(string email, string userid);
 
-        UserDTO GetUserById(int userid);
+        UserDTO GetUserById(string userid);
 
-        bool DeleteUser(int userid);
+        bool DeleteUser(string userid);
 
         bool UpdateUser(UserUpdateDTO dto);
 
-        UserUpdateDTO GetUserForUpdate(int userid);
+        UserUpdateDTO GetUserForUpdate(string userid);
 
     }
 }

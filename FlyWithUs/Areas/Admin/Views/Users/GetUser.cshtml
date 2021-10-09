@@ -25,37 +25,100 @@
                 </tr>
                 <tr>
                     <th>نام فارسی</th>
-                    <td>@Model.FirstNamePersian</td>
+                    @if (Model.FirstNamePersian == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.FirstNamePersian</td>
+                    }
                     <th>نام خانوادگی فارسی</th>
-                    <td>@Model.LastNamePersian</td>
+                    @if (Model.LastNamePersian == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.LastNamePersian</td>
+                    }
                 </tr>
                 <tr>
                     <th>نام انگلیسی</th>
-                    <td>@Model.FirstNameEnglish</td>
+                    @if (Model.FirstNameEnglish == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.FirstNameEnglish</td>
+                    }
                     <th>نام خانوادگی انگلیسی</th>
-                    <td>@Model.LastNameEnglish</td>
+                    @if (Model.LastNameEnglish == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.LastNameEnglish</td>
+                    }
                 </tr>
                 <tr>
                     <th>ملیت</th>
-                    <td>@Model.Nationality</td>
+                    @if (Model.NationalityId == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.NationalityId</td>
+                    }
                     <th>کد ملی</th>
-                    <td>@Model.NationalityCode</td>
+                    @if (Model.NationalityCode == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.NationalityCode</td>
+                    }
                 </tr>
                 <tr>
                     <th>تاریخ تولد(شمسی)</th>
-                    <td>@Model.Birthdate.ToShamsi()</td>
+                    @if (Model.Birthdate == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.Birthdate.Value.ToShamsi()</td>
+                    }
                     <th>تاریخ تولد(میلادی)</th>
-                    <td>@Model.Birthdate.ToShortDateString()</td>
+                    @if (Model.Birthdate == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.Birthdate.Value.ToShortDateString()</td>
+                    }
                 </tr>
                 <tr>
                     <th>جنسیت</th>
-                    <td>@Model.Gender</td>
+                    @if (Model.Gender == null)
+                    {
+                        <td class="text-danger">ثبت نشده</td>
+                    }
+                    else
+                    {
+                        <td>@Model.Gender</td>
+                    }
                 </tr>
                 <tr>
                     <th>شماره پاسپورت</th>
                     @if (Model.PassportNumber == null)
                     {
-                        <td class="text text-danger">ثبت نشده</td>
+                        <td class="text-danger">ثبت نشده</td>
                     }
                     else
                     {
@@ -64,24 +127,24 @@
                 </tr>
                 <tr>
                     <th>تاریخ صدور پاسپورت</th>
-                    @if (Model.PassportIssunaceDate == default)
+                    @if (Model.PassportIssunaceDate == null)
                     {
-                        <td class="text text-danger">ثبت نشده</td>
+                        <td class="text-danger">ثبت نشده</td>
                     }
                     else
                     {
-                        <td>@Model.PassportIssunaceDate.ToShortDateString()</td>
+                        <td>@Model.PassportIssunaceDate.Value.ToShortDateString()</td>
                     }
                 </tr>
                 <tr>
                     <th>تاریخ انقضای پاسپورت</th>
-                    @if (Model.PassportExpirationDate == default)
+                    @if (Model.PassportExpirationDate == null)
                     {
-                        <td class="text text-danger">ثبت نشده</td>
+                        <td class="text-danger">ثبت نشده</td>
                     }
                     else
                     {
-                        <td>@Model.PassportExpirationDate.ToShortDateString()</td>
+                        <td>@Model.PassportExpirationDate.Value.ToShortDateString()</td>
                     }
                 </tr>
                 <tr>

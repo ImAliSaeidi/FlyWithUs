@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FlyWithUs.Hosted.Service.Models.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -9,7 +10,7 @@ namespace FlyWithUs.Hosted.Service.Tools.Security
 {
     public class TokenGenerator
     {
-        public static string Generate(IdentityUser user)
+        public static string Generate(ApplicationUser user)
         {
             Claim userid = new Claim("UserId", user.Id);
             var tokenDescriptor = new SecurityTokenDescriptor

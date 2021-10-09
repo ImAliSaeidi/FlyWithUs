@@ -41,11 +41,13 @@
         <div class="col-xs-4">
             <label asp-for="FirstNamePersian">نام فارسی</label>
             <input type="text" class="form-control" asp-for="FirstNamePersian" placeholder="نام فارسی">
+            <label class="text text-muted">اختیاری</label>
             <span class="text-danger" asp-validation-for="FirstNamePersian"></span>
         </div>
         <div class="col-xs-4">
             <label asp-for="LastNamePersian">نام خانوادگی فارسی</label>
             <input type="text" class="form-control" asp-for="LastNamePersian" placeholder="نام خانوادگی فارسی">
+            <label class="text text-muted">اختیاری</label>
             <span class="text-danger" asp-validation-for="LastNamePersian"></span>
         </div>
     </div>
@@ -54,11 +56,13 @@
         <div class="col-xs-4">
             <label asp-for="FirstNameEnglish">نام انگلیسی</label>
             <input type="text" class="form-control" asp-for="FirstNameEnglish" placeholder="نام انگلیسی">
+            <label class="text text-muted">اختیاری</label>
             <span class="text-danger" asp-validation-for="FirstNameEnglish"></span>
         </div>
         <div class="col-xs-4">
             <label asp-for="LastNameEnglish">نام خانوادگی انگلیسی</label>
             <input type="text" class="form-control" asp-for="LastNameEnglish" placeholder="نام خانوادگی انگلیسی">
+            <label class="text text-muted">اختیاری</label>
             <span class="text-danger" asp-validation-for="LastNameEnglish"></span>
         </div>
     </div>
@@ -88,21 +92,25 @@
         <div class="col-xs-2">
             <label asp-for="NationalityCode">کد ملی</label>
             <input type="text" class="form-control" asp-for="NationalityCode" placeholder="کد ملی">
+            <label class="text text-muted">اختیاری</label>
             <span class="text-danger" asp-validation-for="NationalityCode"></span>
         </div>
         <div class="col-xs-2">
             <label asp-for="NationalityId">ملیت</label>
             <select class="form-control" asp-for="NationalityId" asp-items="@(ViewData["Countries"] as SelectList)"></select>
+            <label class="text text-muted">اختیاری</label>
             <span class="text-danger" asp-validation-for="NationalityId"></span>
         </div>
         <div class="col-xs-2">
             <label asp-for="Birthdate">تاریخ تولد</label>
             <input type="date" class="form-control" asp-for="Birthdate" placeholder="تاریخ تولد">
+            <label class="text text-muted">اختیاری</label>
             <span class="text-danger" asp-validation-for="Birthdate"></span>
         </div>
         <div class="col-xs-2">
             <label asp-for="Gender">جنسیت</label>
             <select class="form-control" asp-for="Gender" asp-items="@(ViewData["Genders"] as SelectList)"></select>
+            <label class="text text-muted">اختیاری</label>
             <span class="text-danger" asp-validation-for="Gender"></span>
         </div>
     </div>

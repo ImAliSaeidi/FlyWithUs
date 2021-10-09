@@ -23,45 +23,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppRole",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppRole", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AppUser",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppUser", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Countries",
                 columns: table => new
                 {
@@ -84,11 +45,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Role",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -99,24 +60,31 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     NationalityId = table.Column<int>(type: "int", nullable: false),
-                    FirstNamePersian = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    LastNamePersian = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    FirstNameEnglish = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    LastNameEnglish = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    NationalityCode = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    FirstNamePersian = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    LastNamePersian = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    FirstNameEnglish = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    LastNameEnglish = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    NationalityCode = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
                     PassportNumber = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     PassportIssunaceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PassportExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(11)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,30 +117,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppUserRole",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppUserRole", x => new { x.UserId, x.RoleId });
-                    table.ForeignKey(
-                        name: "FK_AppUserRole_AppRole_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AppRole",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_AppUserRole_AppUser_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AppUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
                 {
@@ -195,27 +139,24 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AdminUserRoles",
+                name: "UserRole",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdminUserRoles", x => x.Id);
+                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
                     table.ForeignKey(
-                        name: "FK_AdminUserRoles_Role_RoleId",
+                        name: "FK_UserRole_Role_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Role",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_AdminUserRoles_User_UserId",
+                        name: "FK_UserRole_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -261,13 +202,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     Type = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Class = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    AirplaneId = table.Column<int>(type: "int", nullable: true),
-                    OriginAirportId = table.Column<int>(type: "int", nullable: true),
-                    DestinationAirportId = table.Column<int>(type: "int", nullable: true),
-                    OriginCityId = table.Column<int>(type: "int", nullable: true),
-                    DestinationCityId = table.Column<int>(type: "int", nullable: true),
-                    OriginCountryId = table.Column<int>(type: "int", nullable: true),
-                    DestinationCountryId = table.Column<int>(type: "int", nullable: true),
+                    AirplaneId = table.Column<int>(type: "int", nullable: false),
+                    OriginAirportId = table.Column<int>(type: "int", nullable: false),
+                    DestinationAirportId = table.Column<int>(type: "int", nullable: false),
+                    OriginCityId = table.Column<int>(type: "int", nullable: false),
+                    DestinationCityId = table.Column<int>(type: "int", nullable: false),
+                    OriginCountryId = table.Column<int>(type: "int", nullable: false),
+                    DestinationCountryId = table.Column<int>(type: "int", nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -357,44 +298,28 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 {
                     table.PrimaryKey("PK_UserTickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserTickets_AppUser_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "AppUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
                         name: "FK_UserTickets_Tickets_TicketId",
                         column: x => x.TicketId,
                         principalTable: "Tickets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_UserTickets_User_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserTickets_User_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.InsertData(
-                table: "AppRole",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b13ffe5b-d8ad-43b0-92a4-13103b69f37a", "14f2af81-e086-4036-a7c8-88dd2b6bf70e", "User", "USER" });
+                table: "Role",
+                columns: new[] { "Id", "ConcurrencyStamp", "IsDeleted", "Name", "NormalizedName" },
+                values: new object[] { "1af962a6-d464-467f-8fea-8f6e9c4be780", "42230d9d-4962-4c1f-83d2-257fd72ee54d", false, "User", "USER" });
 
             migrationBuilder.InsertData(
-                table: "AppRole",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4ea62ba4-3b2c-46cd-ac20-071cfc04679f", "9ac2d5d1-b38e-4080-9d63-73cdaa642a18", "Admin", "ADMIN" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AdminUserRoles_RoleId",
-                table: "AdminUserRoles",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AdminUserRoles_UserId",
-                table: "AdminUserRoles",
-                column: "UserId");
+                table: "Role",
+                columns: new[] { "Id", "ConcurrencyStamp", "IsDeleted", "Name", "NormalizedName" },
+                values: new object[] { "586faa77-67b7-477e-849f-e174c7924f95", "c76ddbdd-b55c-44fd-b15c-0427a01246af", false, "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airplanes_AgancyId",
@@ -407,33 +332,16 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "RoleNameIndex",
-                table: "AppRole",
-                column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AppUser",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AppUser",
-                column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppUserRole_RoleId",
-                table: "AppUserRole",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Cities_CountryId",
                 table: "Cities",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "Role",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_TravelId",
@@ -476,14 +384,19 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 column: "OriginCountryId");
 
             migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "User",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_RoleId",
+                table: "UserRole",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserTickets_TicketId",
                 table: "UserTickets",
                 column: "TicketId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserTickets_UserId",
-                table: "UserTickets",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserTickets_UserId1",
@@ -494,22 +407,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AdminUserRoles");
-
-            migrationBuilder.DropTable(
-                name: "AppUserRole");
+                name: "UserRole");
 
             migrationBuilder.DropTable(
                 name: "UserTickets");
 
             migrationBuilder.DropTable(
                 name: "Role");
-
-            migrationBuilder.DropTable(
-                name: "AppRole");
-
-            migrationBuilder.DropTable(
-                name: "AppUser");
 
             migrationBuilder.DropTable(
                 name: "Tickets");

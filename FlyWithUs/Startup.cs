@@ -18,6 +18,7 @@ using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
+using FlyWithUs.Hosted.Service.Models.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -57,7 +58,6 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<IAgancyRepository, AgancyRepository>();
             services.AddScoped<IAirplaneRepository, AirplaneRepository>();
             services.AddScoped<ITravelRepository, TravelRepository>();
-            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAirportRepository, AirportRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
@@ -65,7 +65,6 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<IAgancyService, AgancyService>();
             services.AddScoped<IAirplaneService, AirplaneService>();
             services.AddScoped<ITravelService, TravelService>();
-            services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAirportService, AirportService>();
             services.AddScoped<ICityService, CityService>();
@@ -73,7 +72,7 @@ namespace FlyWithUs.Hosted.Service
 
             services.AddAutoMapper(typeof(MappingProfile));
 
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<FlyWithUsContext>();
+            services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<FlyWithUsContext>();
         }
 
 

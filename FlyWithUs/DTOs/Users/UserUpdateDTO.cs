@@ -8,7 +8,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class UserUpdateDTO
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
 
         [Display(Name = "شماره موبایل")]
@@ -37,52 +37,49 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
 
         [Display(Name = "ملیت")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
-        public int NationalityId { get; set; }
+        public int? NationalityId { get; set; }
 
 
         [Display(Name = "نام فارسی")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+
         [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string FirstNamePersian { get; set; }
 
 
         [Display(Name = "نام خانوادگی فارسی")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+
         [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string LastNamePersian { get; set; }
 
 
         [Display(Name = "نام انگلیسی")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+
         [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         [RegularExpression("^[a-zA-Z]*$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string FirstNameEnglish { get; set; }
 
 
         [Display(Name = " نام خانوادگی انگلیسی")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+
         [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
         [RegularExpression("^[a-zA-Z]*$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string LastNameEnglish { get; set; }
 
 
         [Display(Name = "کدملی")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+
         [StringLength(32, ErrorMessage = CustomDTOValidation.Length)]
         [RegularExpression("^[0-9]{10}$", ErrorMessage = CustomDTOValidation.InvalidInput)]
         public string NationalityCode { get; set; }
 
 
         [Display(Name = " تاریخ تولد")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
 
 
         [Display(Name = "جنسیت")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
         public string Gender { get; set; }
 
 

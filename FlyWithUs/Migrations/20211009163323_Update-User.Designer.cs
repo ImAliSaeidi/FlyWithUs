@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    [Migration("20211007154032_Update-Travel")]
-    partial class UpdateTravel
+    [Migration("20211009163323_Update-User")]
+    partial class UpdateUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -140,8 +140,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.HasIndex("TicketId");
 
-                    b.HasIndex("UserId");
-
                     b.HasIndex("UserId1");
 
                     b.ToTable("UserTickets");
@@ -233,133 +231,164 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.ToTable("Travels");
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.Role", b =>
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationRole", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
                     b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
+                            ConcurrencyStamp = "02d20383-ee85-4f63-aac6-c3bc26d2dd77",
+                            IsDeleted = false,
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "586faa77-67b7-477e-849f-e174c7924f95",
+                            ConcurrencyStamp = "7804176e-8788-4722-8c99-822741ce9249",
+                            IsDeleted = false,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.User", b =>
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Birthdate")
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("Birthdate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstNameEnglish")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("FirstNamePersian")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastNameEnglish")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("LastNamePersian")
-                        .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("NationalityCode")
-                        .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
-                    b.Property<int>("NationalityId")
+                    b.Property<int?>("NationalityId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PassportExpirationDate")
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime?>("PassportExpirationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("PassportIssunaceDate")
+                    b.Property<DateTime?>("PassportIssunaceDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PassportNumber")
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.UserRole", b =>
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationUserRole", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AdminUserRoles");
+                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.Airport", b =>
@@ -470,129 +499,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AppRole");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "25aef75d-ec1b-4684-a79a-a5fe2694cf1c",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        },
-                        new
-                        {
-                            Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "74420f99-6c7a-44ad-bc18-6bdfe611136c",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AppUser");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AppUserRole");
-                });
-
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Airplane", b =>
                 {
                     b.HasOne("FlyWithUs.Hosted.Service.Models.Airplanes.Agancy", "Agancy")
@@ -623,14 +529,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FlyWithUs.Hosted.Service.Models.Users.User", null)
+                    b.HasOne("FlyWithUs.Hosted.Service.Models.Users.ApplicationUser", "User")
                         .WithMany("Usertickets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
-                        .WithMany()
                         .HasForeignKey("UserId1");
 
                     b.Navigation("Ticket");
@@ -697,16 +597,16 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Navigation("OriginCountry");
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.UserRole", b =>
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationUserRole", b =>
                 {
-                    b.HasOne("FlyWithUs.Hosted.Service.Models.Users.Role", "Role")
-                        .WithMany("UserRoles")
+                    b.HasOne("FlyWithUs.Hosted.Service.Models.Users.ApplicationRole", "Role")
+                        .WithMany("ApplicationUserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FlyWithUs.Hosted.Service.Models.Users.User", "User")
-                        .WithMany("UserRoles")
+                    b.HasOne("FlyWithUs.Hosted.Service.Models.Users.ApplicationUser", "User")
+                        .WithMany("ApplicationUserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -738,21 +638,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Agancy", b =>
                 {
                     b.Navigation("Airplanes");
@@ -773,14 +658,14 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Navigation("Tickets");
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.Role", b =>
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationRole", b =>
                 {
-                    b.Navigation("UserRoles");
+                    b.Navigation("ApplicationUserRoles");
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.User", b =>
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationUser", b =>
                 {
-                    b.Navigation("UserRoles");
+                    b.Navigation("ApplicationUserRoles");
 
                     b.Navigation("Usertickets");
                 });

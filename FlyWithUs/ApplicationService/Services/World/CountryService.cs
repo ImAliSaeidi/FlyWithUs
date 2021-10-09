@@ -60,12 +60,20 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 
         public List<SelectListItem> GetAllCountryAsSelectList()
         {
-            return repository.GetAll()
+            var result = new List<SelectListItem>() {
+                new SelectListItem
+                {
+                    Text="انتخاب کنید",
+                    Value=""
+                }};
+            var countries = repository.GetAll()
                 .Select(c => new SelectListItem()
                 {
                     Text = c.PersianName,
                     Value = c.Id.ToString()
                 }).ToList();
+            result.AddRange(countries);
+            return result;
         }
 
         public CountryDTO GetCountryById(int countryid)

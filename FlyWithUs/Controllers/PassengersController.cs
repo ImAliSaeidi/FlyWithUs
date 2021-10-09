@@ -1,5 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
-using FlyWithUs.Hosted.Service.DTOs.APIs.User;
+using FlyWithUs.Hosted.Service.DTOs.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

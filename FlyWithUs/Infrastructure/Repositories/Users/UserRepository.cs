@@ -16,27 +16,27 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
         }
 
 
-        public int Add(User user)
+        public int Add(ApplicationUser user)
         {
-            context.User.Add(user);
+            context.Users.Add(user);
             return Save();
         }
 
-        public int Delete(int userid)
+        public int Delete(string userid)
         {
             var user = GetById(userid);
             user.IsDeleted = true;
             return Update(user);
         }
 
-        public IQueryable<User> GetAll()
+        public IQueryable<ApplicationUser> GetAll()
         {
-            return context.User;
+            return context.Users;
         }
 
-        public User GetById(int userid)
+        public ApplicationUser GetById(string userid)
         {
-            return context.User.AsNoTracking().First(u => u.Id == userid);
+            return context.Users.AsNoTracking().First(u => u.Id == userid);
         }
 
         public string GetNationality(int nationalityid)
@@ -46,12 +46,12 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
 
         public bool IsEmailExist(string email)
         {
-            return context.User.Any(u => u.Email == email);
+            return context.Users.Any(u => u.Email == email);
         }
 
         public bool IsPhoneNumberExist(string phonenumber)
         {
-            return context.User.Any(u => u.PhoneNumber == phonenumber);
+            return context.Users.Any(u => u.PhoneNumber == phonenumber);
         }
 
         public int Save()
@@ -59,9 +59,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return context.SaveChanges();
         }
 
-        public int Update(User user)
+        public int Update(ApplicationUser user)
         {
-            context.User.Update(user);
+            context.Users.Update(user);
             return Save();
         }
 

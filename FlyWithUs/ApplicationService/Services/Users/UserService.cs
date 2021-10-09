@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.DTOs;
-using FlyWithUs.Hosted.Service.DTOs.APIs.User;
+using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
-using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Security;
 using Microsoft.AspNetCore.Identity;
@@ -17,10 +16,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
     public class UserService : IUserService
     {
         private readonly IUserRepository repository;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapper;
 
-        public UserService(IUserRepository repository, IMapper mapper, UserManager<IdentityUser> userManager)
+        public UserService(IUserRepository repository, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             this.repository = repository;
             this.mapper = mapper;
@@ -31,8 +30,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         public bool AddUser(UserAddDTO dto)
         {
             bool result = false;
-            dto.Password = HashGenerator.SalterHash(dto.Password);
-            int count = repository.Add(mapper.Map<User>(dto));
+            var user = mapper.Map<ApplicationUser>(dto);
+            user.PasswordHash = HashGenerator.SalterHash(dto.Password);
+            user.NormalizedEmail = dto.Email.Trim().ToUpper();
+            int count = repository.Add(user);
             if (count > 0)
             {
                 result = true;
@@ -40,7 +41,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        public bool DeleteUser(int userid)
+        public bool DeleteUser(string userid)
         {
             bool result = false;
             int count = repository.Delete(userid);
@@ -57,19 +58,26 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             var count = repository.GetAll().Count();
             foreach (var dto in dtos)
             {
-                dto.Nationality = repository.GetNationality(dto.NationalityId);
+                if (dto.NationalityId != null)
+                {
+                    dto.Nationality = repository.GetNationality(dto.NationalityId.Value);
+                }
             }
             return new GridResultDTO<UserDTO>(count, dtos);
         }
 
-        public UserDTO GetUserById(int userid)
+        public UserDTO GetUserById(string userid)
         {
-            var dto = mapper.Map<UserDTO>(repository.GetById(userid));
-            dto.Nationality = repository.GetNationality(dto.NationalityId);
+            var user = repository.GetById(userid);
+            var dto = mapper.Map<UserDTO>(user);
+            if (dto.NationalityId != null)
+            {
+                dto.Nationality = repository.GetNationality(dto.NationalityId.Value);
+            }
             return dto;
         }
 
-        public UserUpdateDTO GetUserForUpdate(int userid)
+        public UserUpdateDTO GetUserForUpdate(string userid)
         {
             var dto = mapper.Map<UserUpdateDTO>(repository.GetById(userid));
             dto.Password = "";
@@ -79,15 +87,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         public bool UpdateUser(UserUpdateDTO dto)
         {
             bool result = false;
+            var user = mapper.Map<ApplicationUser>(dto);
             if (dto.Password != null && dto.RePassword != null)
             {
-                dto.Password = HashGenerator.SalterHash(dto.Password);
+                user.PasswordHash = HashGenerator.SalterHash(dto.Password);
             }
             else
             {
-                dto.Password = repository.GetById(dto.Id).Password;
+                user.PasswordHash = repository.GetById(dto.Id).PasswordHash;
             }
-            int count = repository.Update(mapper.Map<User>(dto));
+            user.NormalizedEmail = dto.Email.Trim().ToUpper();
+            int count = repository.Update(user);
             if (count > 0)
             {
                 result = true;
@@ -100,7 +110,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return repository.IsEmailExist(email);
         }
 
-        public bool IsEmailExist(string email, int userid)
+        public bool IsEmailExist(string email, string userid)
         {
             bool result = false;
             var user = repository.GetById(userid);
@@ -116,7 +126,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return repository.IsPhoneNumberExist(phonenumber);
         }
 
-        public bool IsPhoneNumberExist(string phonenumber, int userid)
+        public bool IsPhoneNumberExist(string phonenumber, string userid)
         {
             bool result = false;
             var user = repository.GetById(userid);
@@ -129,7 +139,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 
         public void RegisterUser(RegisterDTO dto)
         {
-            var user = userManager.Users
+            var user = repository.GetAll()
                 .FirstOrDefault(u =>
                 u.PhoneNumber == dto.PhoneNumber ||
                 u.NormalizedEmail == dto.Email.Trim().ToUpper());
@@ -137,25 +147,13 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             {
                 if (dto.Password == dto.RePassword)
                 {
-                    var hashpass = HashGenerator.SalterHash(dto.Password);
-                    user = new IdentityUser
+                    user = mapper.Map<ApplicationUser>(dto);
+                    user.PasswordHash = HashGenerator.SalterHash(dto.Password);
+                    user.NormalizedEmail = dto.Email.Trim().ToUpper();
+                    int count = repository.Add(user);
+                    if (count > 0)
                     {
-                        UserName = dto.PhoneNumber,
-                        NormalizedUserName = dto.PhoneNumber.Trim(),
-                        Email = dto.Email,
-                        NormalizedEmail = dto.Email.Trim().ToUpper(),
-                        EmailConfirmed = true,
-                        PasswordHash = hashpass,
-                        PhoneNumber = dto.PhoneNumber,
-                        PhoneNumberConfirmed = true,
-                        TwoFactorEnabled = false,
-                        LockoutEnabled = false,
-                        AccessFailedCount = 0
-                    };
-                    var rowAffetcted = userManager.CreateAsync(user).Result;
-                    if (rowAffetcted.Succeeded)
-                    {
-                        userManager.AddToRoleAsync(user, AuthorizationRoles.UserRole.ToUpper());
+                        return;
                     }
                     else
                     {
