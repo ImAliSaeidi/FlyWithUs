@@ -9,6 +9,7 @@ namespace FlyWithUs.Hosted.Service.Models.Airplanes
         public Agancy()
         {
             Airplanes = new HashSet<Airplane>();
+            Travels = new HashSet<Travel>();
         }
 
         [Required]
@@ -16,6 +17,8 @@ namespace FlyWithUs.Hosted.Service.Models.Airplanes
         public string Name { get; set; }
 
         public ICollection<Airplane> Airplanes { get; set; }
+
+        public ICollection<Travel> Travels { get; set; }
 
     }
 }

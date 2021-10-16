@@ -1,5 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.Tools.Security;
-using Microsoft.AspNetCore.Identity;
+﻿using FlyWithUs.Hosted.Service.Infrastructure.Common;
+using FlyWithUs.Hosted.Service.Tools.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
@@ -27,8 +27,21 @@ namespace FlyWithUs.Hosted.Service.Filter
                 {
                     var token = authorization.Replace("Bearer ", "");
                     var claimsPrincipal = TokenGenerator.Validate(token);
-                    var id = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == "UserId").Value;
-                    isAccess = true;
+                    if (claimsPrincipal != null)
+                    {
+                        var roles = claimsPrincipal.Claims.Where(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role");
+                        foreach (var claim in roles)
+                        {
+                            if (claim.Value == role)
+                            {
+                                var userId = claimsPrincipal.Claims.FirstOrDefault(x => x.Type == "UserId").Value;
+                                var userContext = (IUserContext)context.HttpContext.RequestServices.GetService(typeof(IUserContext));
+                                userContext.UserId = userId;
+                                isAccess = true;
+                                return;
+                            }
+                        }
+                    }
                 }
             }
             if (isAccess == false)

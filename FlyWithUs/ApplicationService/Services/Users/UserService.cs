@@ -4,9 +4,9 @@ using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
+using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Security;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +16,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
     public class UserService : IUserService
     {
         private readonly IUserRepository repository;
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IMapper mapper;
 
-        public UserService(IUserRepository repository, IMapper mapper, UserManager<ApplicationUser> userManager)
+        public UserService(IUserRepository repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
-            this.userManager = userManager;
         }
 
 
@@ -77,6 +75,25 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return dto;
         }
 
+        public UserPanelDTO GetUserForUserPanel(string userid)
+        {
+            var user = repository.GetById(userid);
+            var dto = mapper.Map<UserPanelDTO>(user);
+            if (user.Birthdate != null)
+            {
+                dto.Birthdate = user.Birthdate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+            }
+            if (user.PassportIssunaceDate != null)
+            {
+                dto.PassportIssunaceDate = user.PassportIssunaceDate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+            }
+            if (user.PassportExpirationDate != null)
+            {
+                dto.PassportExpirationDate = user.PassportExpirationDate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+            }
+            return dto;
+        }
+
         public UserUpdateDTO GetUserForUpdate(string userid)
         {
             var dto = mapper.Map<UserUpdateDTO>(repository.GetById(userid));
@@ -87,6 +104,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         public bool UpdateUser(UserUpdateDTO dto)
         {
             bool result = false;
+            foreach (var item in dto.GetType().GetProperties())
+            {
+                if (item.GetValue(dto, null) != null)
+                {
+                    if (item.GetValue(dto, null).ToString() == "")
+                    {
+                        item.SetValue(dto, null);
+                    }
+                }
+            }
             var user = mapper.Map<ApplicationUser>(dto);
             if (dto.Password != null && dto.RePassword != null)
             {
@@ -147,9 +174,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             {
                 if (dto.Password == dto.RePassword)
                 {
+                    var lstUserRoles = new List<ApplicationUserRole>();
+                    var userRoles = new ApplicationUserRole()
+                    {
+                        RoleId = AuthorizationRoles.UserRoleId
+                    };
+                    lstUserRoles.Add(userRoles);
                     user = mapper.Map<ApplicationUser>(dto);
                     user.PasswordHash = HashGenerator.SalterHash(dto.Password);
                     user.NormalizedEmail = dto.Email.Trim().ToUpper();
+                    user.ApplicationUserRoles = lstUserRoles;
                     int count = repository.Add(user);
                     if (count > 0)
                     {
@@ -174,7 +208,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 
         public string LoginUser(LoginDTO dto)
         {
-            var user = userManager.Users.FirstOrDefault(u => u.PhoneNumber == dto.PhoneNumber);
+            var user = repository.GetAll().FirstOrDefault(u => u.PhoneNumber == dto.PhoneNumber);
             if (user != null)
             {
                 var hashpass = HashGenerator.SalterHash(dto.Password);
@@ -191,6 +225,33 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             {
                 throw new ArgumentException();
             }
+        }
+
+        public bool ChangePassword(ChangePasswordDTO dto)
+        {
+            var result = false;
+            var user = repository.GetById(dto.Id);
+            if (dto.NewPassword == dto.ReNewPassword)
+            {
+                if (HashGenerator.SalterHash(dto.CurrentPassword) == user.PasswordHash)
+                {
+                    user.PasswordHash = HashGenerator.SalterHash(dto.NewPassword);
+                    int count = repository.Update(user);
+                    if (count > 0)
+                    {
+                        result = true;
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException();
+                }
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+            return result;
         }
     }
 }

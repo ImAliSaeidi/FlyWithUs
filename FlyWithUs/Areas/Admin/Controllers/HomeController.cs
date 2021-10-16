@@ -6,6 +6,8 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
     {
         [Area("Admin")]
         [Route("Admin/[Controller]/[Action]")]
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

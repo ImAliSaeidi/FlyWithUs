@@ -6,8 +6,10 @@ namespace FlyWithUs.Hosted.Service.Models.Tickets
 {
     public class Ticket : BaseEntity
     {
-        public Ticket()
+        public Ticket(int travelId, string code)
         {
+            TravelId = travelId;
+            Code = code;
             UserTickets = new HashSet<UserTicket>();
         }
 
@@ -18,9 +20,6 @@ namespace FlyWithUs.Hosted.Service.Models.Tickets
 
         [Required]
         public int TravelId { get; set; }
-
-
-        public bool IsSaled { get; set; }
 
         public ICollection<UserTicket> UserTickets { get; set; }
 

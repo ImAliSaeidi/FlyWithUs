@@ -1,4 +1,4 @@
-﻿@model GridResultDTO<TravelDTO>
+﻿@model GridResultDTO<TravelView>
 @{
     ViewData["Title"] = "GetAllTravel";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -15,7 +15,6 @@
                     <th>کد سفر</th>
                     <th>مبدا</th>
                     <th>مقصد</th>
-                    <th>ظرفیت</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -28,10 +27,9 @@
 
                     <tr>
                         <td>@count</td>
-                        <td>@item.Code</td>
+                        <td>@item.TravelCode</td>
                         <td>@item.OriginCityName</td>
                         <td>@item.DestinationCityName</td>
-                        <td>@item.MaxCapacity</td>
                         <td>
                             <a href="/Admin/Travels/GetTravelInfo/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> جزئیات </a> |
                             <a href="/Admin/Travels/DeleteTravel/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|

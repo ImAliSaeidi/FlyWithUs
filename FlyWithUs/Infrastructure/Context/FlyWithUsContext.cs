@@ -31,6 +31,8 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 
         #region Travel
         public DbSet<Travel> Travels { get; set; }
+
+        public virtual DbSet<TravelView> TravelViews { get; set; }
         #endregion
 
         #region World
@@ -51,6 +53,8 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<TravelView>().ToView("TravelViews").HasKey(t => t.Id);
 
             modelBuilder.Entity<ApplicationUser>().ToTable("User");
             modelBuilder.Entity<ApplicationUser>().HasKey(x => x.Id);

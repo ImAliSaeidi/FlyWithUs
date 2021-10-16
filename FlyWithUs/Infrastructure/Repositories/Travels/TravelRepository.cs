@@ -28,32 +28,29 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
             return Update(travel);
         }
 
-        public IQueryable<Travel> GetAll()
+        public IQueryable<TravelView> GetAll()
         {
-            return context.Travels
-                .Include(t => t.Airplane)
-                .Include(t => t.Airplane.Agancy)
-                .Include(t => t.OriginAirport)
-                .Include(t => t.DestinationAirport)
-                .Include(t => t.OriginCity)
-                .Include(t => t.DestinationCity)
-                .Include(t => t.OriginCountry)
-                .Include(t => t.DestinationCountry)
-                .Include(t => t.Tickets.Where(t => t.IsSaled == false));
+            return context.TravelViews;
         }
 
         public Travel GetById(int travelid)
         {
             return context.Travels
                 .Include(t => t.Airplane)
-                .Include(t => t.Airplane.Agancy)
+                .Include(t => t.Agancy)
                 .Include(t => t.OriginAirport)
                 .Include(t => t.DestinationAirport)
-                .Include(t => t.OriginCity)
-                .Include(t => t.DestinationCity)
                 .Include(t => t.OriginCountry)
                 .Include(t => t.DestinationCountry)
-                .Include(t => t.Tickets)
+                .Include(t => t.OriginCity)
+                .Include(t => t.DestinationCity)
+                .IgnoreQueryFilters()
+                .First(t => t.Id == travelid);
+        }
+
+        public TravelView GetTravel(int travelid)
+        {
+            return context.TravelViews
                 .IgnoreQueryFilters()
                 .AsNoTracking()
                 .First(t => t.Id == travelid);

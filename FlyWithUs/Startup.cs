@@ -9,23 +9,24 @@ using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Common;
 using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
-
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
-
+using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
+using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace FlyWithUs.Hosted.Service
 {
@@ -42,6 +43,7 @@ namespace FlyWithUs.Hosted.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddControllers().AddNewtonsoftJson();
 
             services.AddCors(options =>
             {
@@ -62,6 +64,7 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<IAirportRepository, AirportRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IAgancyService, AgancyService>();
             services.AddScoped<IAirplaneService, AirplaneService>();
             services.AddScoped<ITravelService, TravelService>();
@@ -69,10 +72,41 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<IAirportService, AirportService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
-
+            services.AddScoped<IUserContext, UserContext>();
             services.AddAutoMapper(typeof(MappingProfile));
-
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<FlyWithUsContext>();
+            configuration.GetSection("TokenConfig").Bind(new TokenConfig());
+          
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Fly With Us API",
+                    Version = "v1"
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                          new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+                    }
+                });
+            });
         }
 
 
@@ -81,6 +115,11 @@ namespace FlyWithUs.Hosted.Service
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fly With Us API V1");
+                });
             }
             else
             {

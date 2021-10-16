@@ -10,6 +10,8 @@ namespace FlyWithUs.Hosted.Service.Models.World
         public City()
         {
             Airports = new HashSet<Airport>();
+            IncomingTravels = new HashSet<Travel>();
+            OutboundTravels = new HashSet<Travel>();
         }
 
 

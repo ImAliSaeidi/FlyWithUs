@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20211015114352_UpdateTravel")]
+    partial class UpdateTravel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,9 +240,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AgancyName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("AirplaneName")
                         .HasColumnType("nvarchar(max)");
 
@@ -264,9 +263,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("OriginCountryName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
 
                     b.Property<string>("TravelCode")
                         .HasColumnType("nvarchar(max)");
@@ -309,7 +305,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "78c4545c-497b-4fed-b962-97768c0a013d",
+                            ConcurrencyStamp = "751a30f4-ecfa-4eff-825c-3dce8650d648",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -317,7 +313,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "9c5fa2bb-42c5-4b36-9d14-dc9b12161652",
+                            ConcurrencyStamp = "ecd88246-1fc4-4259-8cf1-5e4e7bf01cd9",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"

@@ -23,7 +23,7 @@
       },
       "dotnetRunMessages": "true",
       "applicationUrl": "http://localhost:5000",
-      "launchUrl": "admin/home/index"
+      "launchUrl": "swagger"
     },
     "WSL": {
       "commandName": "WSL2",

@@ -31,7 +31,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
 
         public IQueryable<ApplicationUser> GetAll()
         {
-            return context.Users;
+            return context.Users.Include(u => u.ApplicationUserRoles).ThenInclude(u => u.Role);
         }
 
         public ApplicationUser GetById(string userid)

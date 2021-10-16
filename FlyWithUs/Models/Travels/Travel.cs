@@ -85,6 +85,8 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
 
         public Airplane Airplane { get; set; }
 
+        public Agancy Agancy { get; set; }
+
         public Airport OriginAirport { get; set; }
 
         public Airport DestinationAirport { get; set; }

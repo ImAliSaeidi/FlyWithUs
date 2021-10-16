@@ -24,11 +24,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         UserDTO GetUserById(string userid);
 
+        UserPanelDTO GetUserForUserPanel(string userid);
+
         bool DeleteUser(string userid);
 
         bool UpdateUser(UserUpdateDTO dto);
 
         UserUpdateDTO GetUserForUpdate(string userid);
+
+        bool ChangePassword(ChangePasswordDTO dto);
 
     }
 }

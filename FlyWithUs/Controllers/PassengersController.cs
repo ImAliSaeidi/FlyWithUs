@@ -1,9 +1,11 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
-using FlyWithUs.Hosted.Service.DTOs.APIs.User;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
+using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
-using Microsoft.AspNetCore.Http;
+using FlyWithUs.Hosted.Service.Filter;
+using FlyWithUs.Hosted.Service.Infrastructure.Common;
+using FlyWithUs.Hosted.Service.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Controllers
 {
@@ -12,10 +14,14 @@ namespace FlyWithUs.Hosted.Service.Controllers
     public class PassengersController : ControllerBase
     {
         private readonly IUserService userService;
+        private readonly IUserContext userContext;
+        private readonly ICountryService countryService;
 
-        public PassengersController(IUserService userService)
+        public PassengersController(IUserService userService, IUserContext userContext, ICountryService countryService)
         {
             this.userService = userService;
+            this.userContext = userContext;
+            this.countryService = countryService;
         }
 
         [HttpPost("Register")]
@@ -33,18 +39,41 @@ namespace FlyWithUs.Hosted.Service.Controllers
             return Ok(token);
         }
 
-        [HttpGet("{userid}")]
-        public IActionResult Get([Required] int userid)
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpGet("GetUser")]
+        public IActionResult Get()
         {
-            var user = userService.GetUserById(userid);
+            string userid = userContext.UserId;
+            var user = userService.GetUserForUserPanel(userid);
             return Ok(user);
         }
 
-        [HttpPut]
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpPut("Update")]
         public IActionResult Update([FromBody] UserUpdateDTO dto)
         {
+            dto.Id = userContext.UserId;
             var result = userService.UpdateUser(dto);
             return Ok(result);
+        }
+
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpPatch("ChangePassword")]
+        public IActionResult ChangePassword([FromBody] ChangePasswordDTO dto)
+        {
+            dto.Id = userContext.UserId;
+            var result = userService.ChangePassword(dto);
+            return Ok(result);
+        }
+
+
+        [HttpGet("GetCountries")]
+        public IActionResult GetCountries()
+        {
+            return Ok(countryService.GetAllCountryForUserPanel());
         }
     }
 }

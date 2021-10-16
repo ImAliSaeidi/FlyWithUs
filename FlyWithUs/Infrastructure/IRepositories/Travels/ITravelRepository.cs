@@ -11,10 +11,12 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels
 
         int Update(Travel travel);
 
+        TravelView GetTravel(int travelid);
+
         Travel GetById(int travelid);
 
-        IQueryable<Travel> GetAll();
-
+        IQueryable<TravelView> GetAll();
+              
         int Save();
     }
 }

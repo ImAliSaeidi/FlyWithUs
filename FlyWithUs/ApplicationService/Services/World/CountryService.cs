@@ -153,5 +153,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return country;
         }
 
+        public List<CountryListDTO> GetAllCountryForUserPanel()
+        {
+            return mapper.Map<List<CountryListDTO>>(repository.GetAll().ToList());
+        }
     }
 }

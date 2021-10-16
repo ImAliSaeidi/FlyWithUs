@@ -9,7 +9,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
     {
         List<SelectListItem> GetAllCountryAsSelectList();
 
-        GridResultDTO<CountryDTO> GetAllCountry(int skip,int take);
+        GridResultDTO<CountryDTO> GetAllCountry(int skip, int take);
+        List<CountryListDTO> GetAllCountryForUserPanel();
 
         bool AddCountry(CountryAddDTO dto);
 
@@ -19,9 +20,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         CountryDTO GetCountryById(int countryid);
 
-        bool IsExistCountry(string englishname,string persianname,short phonecode);
+        bool IsExistCountry(string englishname, string persianname, short phonecode);
 
-        bool IsExistCountry(string englishname,string persianname,short phonecode, int countryid);
+        bool IsExistCountry(string englishname, string persianname, short phonecode, int countryid);
 
         CountryUpdateDTO GetCountryForUpdate(int countryid);
     }
