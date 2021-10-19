@@ -2,7 +2,6 @@
 using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
@@ -36,7 +35,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (countryService.IsExistCountry(dto.EnglishName,dto.PersianName, dto.PhoneCode) == true)
+                if (countryService.IsExistCountry(dto.EnglishName, dto.PersianName) == true)
                 {
                     ModelState.AddModelError("PersianName", "مشخصات وارد شده تکراری است");
                     return View(dto);
@@ -79,7 +78,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (countryService.IsExistCountry(dto.EnglishName, dto.PersianName, dto.PhoneCode, dto.Id) == true)
+                if (countryService.IsExistCountry(dto.EnglishName, dto.PersianName, dto.Id) == true)
                 {
                     ModelState.AddModelError("PersianName", "مشخصات وارد شده تکراری است");
                     return View(dto);

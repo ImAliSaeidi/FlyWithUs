@@ -7,20 +7,13 @@ namespace FlyWithUs.Hosted.Service.DTOs.Countries
         public int Id { get; set; }
 
 
-        [Display(Name = "نام کشور")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [Required(ErrorMessage = CountryValidation.RequiredPersianNameError)]
+        [StringLength(128, ErrorMessage = CountryValidation.LengthError)]
         public string PersianName { get; set; }
 
-        [Display(Name = "نام کشور")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+
+        [Required(ErrorMessage = CountryValidation.RequiredEnglishNameError)]
+        [StringLength(128, ErrorMessage = CountryValidation.LengthError)]
         public string EnglishName { get; set; }
-
-
-        [Display(Name = "کد تلفن")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        public short PhoneCode { get; set; }
-
     }
 }

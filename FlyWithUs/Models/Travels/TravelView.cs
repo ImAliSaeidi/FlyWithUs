@@ -11,8 +11,6 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
         [Key]
         public int Id { get; set; }
 
-        public string TravelCode { get; set; }
-
         public int Price { get; set; }
 
         public int MaxCapacity { get; set; }

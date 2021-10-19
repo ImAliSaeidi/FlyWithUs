@@ -15,7 +15,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 
         IQueryable<City> GetAll();
 
-        bool IsExist(string name, int countryid);
+        bool IsExist(string persianName, int countryid);
 
         int Save();
     }

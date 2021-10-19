@@ -8,8 +8,6 @@
 
         public string EnglishName { get; set; }
 
-        public string Code { get; set; }
-
         public string CityName { get; set; }
     }
 }

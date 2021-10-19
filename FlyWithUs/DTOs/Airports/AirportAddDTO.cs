@@ -4,20 +4,18 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airports
 {
     public class AirportAddDTO
     {
-        [Display(Name = "نام فرودگاه")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        
+        [Required(ErrorMessage = AirportValidation.RequiredPersianNameError)]
+        [StringLength(128, ErrorMessage = AirportValidation.LengthError)]
         public string Name { get; set; }
 
 
-        [Display(Name = "نام  انگلیسی فرودگاه")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [Required(ErrorMessage = AirportValidation.RequiredEnglishNameError)]
+        [StringLength(128, ErrorMessage = AirportValidation.LengthError)]
         public string EnglishName { get; set; }
 
 
-        [Display(Name = "شهر")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
+        [Required(ErrorMessage = AirportValidation.RequiredSelectError)]
         public int CityId { get; set; }
     }
 }

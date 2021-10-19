@@ -43,9 +43,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
                 .First(c => c.Id == countryid);
         }
 
-        public bool IsExist(string englishname, string persianname, short phonecode)
+        public bool IsExist(string englishname, string persianname)
         {
-            return context.Countries.Any(c => c.EnglishName == englishname || c.PersianName == persianname || c.PhoneCode == phonecode);
+            return context.Countries.Any(c => c.EnglishName == englishname || c.PersianName == persianname);
         }
 
         public int Save()

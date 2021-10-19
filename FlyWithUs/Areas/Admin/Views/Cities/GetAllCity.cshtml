@@ -12,8 +12,10 @@
             <thead>
                 <tr>
                     <th style="width: 10px">ردیف</th>
-                    <th>نام شهر</th>
-                    <th>نام کشور</th>
+                    <th>نام فارسی</th>
+                    <th>نام انگلیسی</th>
+                    <th>تصویر</th>
+                    <th>کشور</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -26,7 +28,9 @@
 
                     <tr>
                         <td>@count</td>
-                        <td>@item.Name</td>
+                        <td>@item.PersianName</td>
+                        <td>@item.EnglishName</td>
+                        <th><img src="@item.ImagePath" style="height:70px;width:70px" /></th>
                         <td>@item.CountryName</td>
                         <td>
                             <a href="/Admin/Cities/DeleteCity/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a> |

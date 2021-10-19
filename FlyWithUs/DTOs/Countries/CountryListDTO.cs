@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FlyWithUs.Hosted.Service.DTOs.Countries
+﻿namespace FlyWithUs.Hosted.Service.DTOs.Countries
 {
     public class CountryListDTO
     {

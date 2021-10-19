@@ -13,7 +13,6 @@
                 <tr>
                     <th style="width: 10px">ردیف</th>
                     <th>نام</th>
-                    <th>کد تلفن</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -27,7 +26,6 @@
                     <tr>
                         <td>@count</td>
                         <td>@item.PersianName</td>
-                        <td>@item.PhoneCode</td>
                         <td>
                             <a href="/Admin/Countries/GetCityForCountry/@item.Id" class="btn btn-info btn-sm"> <i class="fa fa-info"></i> شهرها </a> |
                             <a href="/Admin/Countries/DeleteCountry/@item.Id" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> حذف </a>|

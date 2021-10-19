@@ -16,7 +16,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 
         IQueryable<Country> GetAll();
 
-        bool IsExist(string englishname,string persianname, short phonecode);
+        bool IsExist(string englishname,string persianname);
 
         string GetCountryName(int nationalityid);
 

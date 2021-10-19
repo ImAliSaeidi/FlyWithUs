@@ -4,9 +4,12 @@ using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Airports;
 using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
+using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.World;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
@@ -26,13 +29,36 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 
         public bool AddCity(CityAddDTO dto)
         {
-            bool result = false;
-            int count = repository.Add(mapper.Map<City>(dto));
+            var result = false;
+            var city = mapper.Map<City>(dto);
+            city.ImagePath = ImagePaths.CityImagePath + dto.EnglishName + "\\" + dto.Image.FileName;
+            SaveCityImage(dto.EnglishName, dto.Image);
+            int count = repository.Add(city);
             if (count > 0)
             {
                 result = true;
             }
             return result;
+        }
+
+        private static void SaveCityImage(string directoryName, IFormFile image)
+        {
+            var destinationPath = CreateDirectory(directoryName);
+            destinationPath = destinationPath + "\\" + image.FileName;
+            using (Stream stream = new FileStream(destinationPath, FileMode.Create))
+            {
+                image.CopyTo(stream);
+            }
+        }
+
+        private static string CreateDirectory(string directoryName)
+        {
+            var directoryPath = CDNConfiguration.FileUrl + ImagePaths.CityImagePath + directoryName;
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            return directoryPath;
         }
 
         public bool DeleteCity(int cityid)
@@ -81,7 +107,13 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool UpdateCity(CityUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.Update(mapper.Map<City>(dto));
+            var city = mapper.Map<City>(dto);
+            if (dto.Image != null)
+            {
+                city.ImagePath = ImagePaths.CityImagePath + dto.EnglishName + "\\" + dto.Image.FileName;
+                SaveCityImage(dto.EnglishName, dto.Image);
+            }
+            int count = repository.Update(city);
             if (count > 0)
             {
                 result = true;
@@ -89,18 +121,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-        public bool IsCityExist(string name, int countryid)
+        public bool IsCityExist(string persianName, int countryid)
         {
-            return repository.IsExist(name, countryid);
+            return repository.IsExist(persianName, countryid);
         }
 
-        public bool IsCityExist(string name, int countryid, int cityid)
+        public bool IsCityExist(string persianName, int countryid, int cityid)
         {
             bool result = false;
             var city = repository.GetById(cityid);
-            if (repository.IsExist(name, countryid) == true)
+            if (repository.IsExist(persianName, countryid) == true)
             {
-                if (city.Name == name && city.Country.Id == countryid)
+                if (city.PersianName == persianName && city.Country.Id == countryid)
                 {
                     result = false;
                 }
@@ -112,7 +144,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-
         public List<SelectListItem> GetAllCityAsSelectList(int? countryid)
         {
             if (countryid != null)
@@ -120,7 +151,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 return repository.GetAll().Where(c => c.Country.Id == countryid)
                 .Select(c => new SelectListItem()
                 {
-                    Text = c.Name,
+                    Text = c.PersianName,
                     Value = c.Id.ToString()
                 }).ToList();
             }
@@ -129,7 +160,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 return repository.GetAll()
                 .Select(c => new SelectListItem()
                 {
-                    Text = c.Name,
+                    Text = c.PersianName,
                     Value = c.Id.ToString()
                 }).ToList();
             }

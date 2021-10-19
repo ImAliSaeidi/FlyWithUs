@@ -12,10 +12,7 @@ namespace FlyWithUs.Hosted.Service.Models.World
             Cities = new HashSet<City>();
         }
 
-        [Required]
-        [StringLength(2)]
-        public string ISO2 { get; set; }
-
+       
         [Required]
         [StringLength(128)]
         public string EnglishName { get; set; }
@@ -25,15 +22,7 @@ namespace FlyWithUs.Hosted.Service.Models.World
         [StringLength(128)]
         public string PersianName { get; set; }
 
-        [Required]
-        [StringLength(3)]
-        public string ISO3 { get; set; }
-            
-        
-        [Required]
-        [MaxLength(5)]
-        public short PhoneCode { get; set; }
-
+  
         public ICollection<City> Cities { get; set; }
 
         [InverseProperty("DestinationCountry")]

@@ -24,16 +24,12 @@
             <input type="number" class="form-control" asp-for="MaxCapacity" placeholder="ظرفیت">
             <span class="text-danger" asp-validation-for="MaxCapacity"></span>
             <br />
-            <label asp-for="Count">تعداد</label>
-            <input type="number" class="form-control" asp-for="Count" placeholder="تعداد">
-            <span class="text-danger" asp-validation-for="Count"></span>
-            <br />
             <label asp-for="AgancyId">آژانس هواپیمایی</label>
             <select class="form-control" asp-for="AgancyId" asp-items="@(ViewData["Agancies"] as SelectList)"></select>
             <span class="text-danger" asp-validation-for="AgancyId"></span>
-       <br />
-        <button type="submit" class=" btn btn-success btn-lg btn-block"> <i class="fa fa-check"></i> ثبت </button>
-    </div>
+            <br />
+            <button type="submit" class=" btn btn-success btn-lg btn-block"> <i class="fa fa-check"></i> ثبت </button>
+        </div>
     </div>
 </form>
 

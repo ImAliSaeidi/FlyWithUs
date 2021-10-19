@@ -77,9 +77,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             var travel = repository.GetById(travelid);
             var dto = mapper.Map<TravelDTO>(repository.GetById(travelid));
             dto.AgancyName = travel.Agancy.Name;
-            dto.OriginCityName = travel.OriginCity.Name;
-            dto.DestinationCityName = travel.DestinationCity.Name;
-            dto.SaledTicket = travel.Tickets.Where(t => t.IsDeleted == false).ToList().Count;
+            dto.OriginCityName = travel.OriginCity.PersianName;
+            dto.DestinationCityName = travel.DestinationCity.PersianName;
+            dto.SoldTicket = travel.Tickets.Where(t => t.IsDeleted == false).ToList().Count;
             return dto;
         }
 

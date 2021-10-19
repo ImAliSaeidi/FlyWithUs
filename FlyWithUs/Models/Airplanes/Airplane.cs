@@ -29,9 +29,6 @@ namespace FlyWithUs.Hosted.Service.Models.Airplanes
         public int AgancyId { get; set; }
 
 
-        [Required]
-        public int Count { get; set; }
-
         public Agancy Agancy { get; set; }
 
         public ICollection<Travel> Travels { get; set; }

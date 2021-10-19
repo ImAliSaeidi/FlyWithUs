@@ -31,9 +31,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         public bool AddUser(UserAddDTO dto)
         {
             bool result = false;
+            var lstUserRoles = new List<ApplicationUserRole>();
+            var userRoles = new ApplicationUserRole()
+            {
+                RoleId = AuthorizationRoles.UserRoleId
+            };
+            lstUserRoles.Add(userRoles);
             var user = mapper.Map<ApplicationUser>(dto);
             user.PasswordHash = HashGenerator.SalterHash(dto.Password);
             user.NormalizedEmail = dto.Email.Trim().ToUpper();
+            user.ApplicationUserRoles = lstUserRoles;
             int count = repository.Add(user);
             if (count > 0)
             {
@@ -48,7 +55,11 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             int count = repository.Delete(userid);
             if (count > 0)
             {
-                result = true;
+                count = repository.DeleteUserRoles(userid);
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
@@ -283,7 +294,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             return result;
         }
-
 
     }
 }

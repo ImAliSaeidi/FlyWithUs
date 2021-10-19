@@ -13,7 +13,7 @@ namespace FlyWithUs.Hosted.Service.Models.Tickets
         }
 
         [Required]
-        [StringLength(16)]
+        [StringLength(512)]
         public string Code { get; set; }
 
 

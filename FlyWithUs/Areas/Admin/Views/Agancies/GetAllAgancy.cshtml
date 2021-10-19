@@ -15,8 +15,7 @@
             <thead>
                 <tr>
                     <th style="width: 10px">ردیف</th>
-                    <th>نام آژانس</th>
-                    <th>تاریخ ایجاد</th>
+                    <th>نام</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -30,7 +29,6 @@
                     <tr>
                         <td>@count</td>
                         <td>@item.Name</td>
-                        <td>@item.CreateDate.ToShamsi()</td>
                         <td>
                             <a href="/Admin/Agancies/DeleteAgancy/@item.Id" class="btn btn-danger btn-sm"> <i class=" fa fa-trash"></i> حذف </a> |
                             <a href="/Admin/Agancies/EditAgancy/@item.Id" class="btn btn-warning btn-sm"><i class="fa fa-pen"></i> ویرایش </a> |

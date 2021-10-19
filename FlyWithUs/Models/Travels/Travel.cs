@@ -14,11 +14,7 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
             Tickets = new HashSet<Ticket>();
         }
 
-        [Required]
-        [StringLength(16)]
-        public string Code { get; set; }
-
-
+     
         [Required]
         public int MaxCapacity { get; set; }
 

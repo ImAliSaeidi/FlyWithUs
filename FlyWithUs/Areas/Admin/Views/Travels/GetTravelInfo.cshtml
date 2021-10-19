@@ -16,16 +16,14 @@
         <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <th>کد پرواز</th>
-                    <td>@Model.Code</td>
                     <th>حداکثر ظرفیت</th>
                     <td>@Model.MaxCapacity</td>
                 </tr>
                 <tr>
                     <th>بلیط های فروش رفته</th>
-                    <td>@Model.SaledTicket</td>
+                    <td>@Model.SoldTicket</td>
                     <th>قیمت بلیط بزرگسال(تومان)</th>
-                    <td>@Model.Price</td>
+                    <td>@Model.Price.ToString("N0")</td>
                 </tr>
                 <tr>
                     <th>آژانس هواپیمایی</th>
@@ -47,15 +45,15 @@
                 </tr>
                 <tr>
                     <th>تاریخ حرکت</th>
-                    <td>@Model.MovingDate</td>
+                    <td>@Model.MovingDate.ToShamsi()</td>
                     <th>زمان حرکت</th>
-                    <td>@Model.MovingTime</td>
+                    <td>@Model.MovingTime.ToString("HH:mm")</td>
                 </tr>
                 <tr>
                     <th>تاریخ رسیدن به مقصد</th>
-                    <td>@Model.ArrivingDate</td>
+                    <td>@Model.ArrivingDate.ToShamsi()</td>
                     <th>زمان رسیدن به مقصد</th>
-                    <td>@Model.ArrivingTime</td>
+                    <td>@Model.ArrivingTime.ToString("HH:mm")</td>
                 </tr>
                 <tr>
                     <th>نوع پرواز</th>

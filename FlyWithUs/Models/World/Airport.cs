@@ -23,12 +23,7 @@ namespace FlyWithUs.Hosted.Service.Models.World
         [StringLength(128)]
         public string EnglishName { get; set; }
 
-
-        [Required]
-        [StringLength(4)]
-        public string Code { get; set; }
-
-        
+       
         [Required]
         public int CityId { get; set; }
 

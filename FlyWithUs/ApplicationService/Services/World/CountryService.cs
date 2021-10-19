@@ -30,21 +30,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool AddCountry(CountryAddDTO dto)
         {
             bool result = false;
-            int count = repository.Add(Map(dto));
+            int count = repository.Add(mapper.Map<Country>(dto));
             if (count > 0)
             {
                 result = true;
             }
             return result;
-        }
-
-        private Country Map(CountryAddDTO dto)
-        {
-            Country country = mapper.Map<Country>(dto);
-            country.ISO2 = dto.EnglishName.Substring(0, 2).ToUpper();
-            country.EnglishName = dto.EnglishName.ToUpper();
-            country.ISO3 = dto.EnglishName.Substring(0, 3).ToUpper();
-            return country;
         }
 
         public bool DeleteCountry(int countryid)
@@ -105,18 +96,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return dto;
         }
 
-        public bool IsExistCountry(string englishname, string persianname, short phonecode)
+        public bool IsExistCountry(string englishname, string persianname)
         {
-            return repository.IsExist(englishname, persianname, phonecode);
+            return repository.IsExist(englishname, persianname);
         }
 
-        public bool IsExistCountry(string englishname, string persianname, short phonecode, int countryid)
+        public bool IsExistCountry(string englishname, string persianname, int countryid)
         {
             bool result = false;
             var country = repository.GetById(countryid);
-            if (repository.IsExist(englishname, persianname, phonecode) == true)
+            if (repository.IsExist(englishname, persianname) == true)
             {
-                if (country.EnglishName == englishname && country.PersianName == persianname && country.PhoneCode == phonecode)
+                if (country.EnglishName == englishname && country.PersianName == persianname)
                 {
                     result = false;
                 }
@@ -136,21 +127,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool UpdateCountry(CountryUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.Update(Map(dto));
+            int count = repository.Update(mapper.Map<Country>(dto));
             if (count > 0)
             {
                 result = true;
             }
             return result;
-        }
-
-        private Country Map(CountryUpdateDTO dto)
-        {
-            Country country = mapper.Map<Country>(dto);
-            country.ISO2 = dto.EnglishName.Substring(0, 2).ToUpper();
-            country.EnglishName = dto.EnglishName.ToUpper();
-            country.ISO3 = dto.EnglishName.Substring(0, 3).ToUpper();
-            return country;
         }
 
         public List<CountryListDTO> GetAllCountryForAPI()

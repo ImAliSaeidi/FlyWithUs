@@ -21,9 +21,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         CountryDTO GetCountryById(int countryid);
 
-        bool IsExistCountry(string englishname, string persianname, short phonecode);
+        bool IsExistCountry(string englishname, string persianname);
 
-        bool IsExistCountry(string englishname, string persianname, short phonecode, int countryid);
+        bool IsExistCountry(string englishname, string persianname, int countryid);
 
         CountryUpdateDTO GetCountryForUpdate(int countryid);
     }

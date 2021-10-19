@@ -89,6 +89,7 @@ namespace FlyWithUs.Hosted.Service
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<FlyWithUsContext>();
             configuration.GetSection("TokenConfig").Bind(new TokenConfig());
+            configuration.GetSection("CDNConfiguration").Bind(new CDNConfiguration());
 
             services.AddSwaggerGen(c =>
             {

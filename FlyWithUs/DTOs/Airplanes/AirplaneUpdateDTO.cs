@@ -7,30 +7,21 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
         public int Id { get; set; }
 
 
-        [Display(Name = "نام هواپیما")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [Required(ErrorMessage = AirplaneValidation.RequiredError)]
+        [StringLength(128, ErrorMessage = AirplaneValidation.LengthError)]
         public string Name { get; set; }
 
 
-        [Display(Name = "برند هواپیما")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [Required(ErrorMessage = AirplaneValidation.RequiredError)]
+        [StringLength(128, ErrorMessage = AirplaneValidation.LengthError)]
         public string Brand { get; set; }
 
 
-        [Display(Name = "ظرفیت هواپیما")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
+        [Required(ErrorMessage = AirplaneValidation.RequiredError)]
         public int MaxCapacity { get; set; }
 
 
-        [Display(Name = "تعداد هواپیما")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        public int Count { get; set; }
-
-
-        [Display(Name = "آژانس هواپیمایی")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
+        [Required(ErrorMessage = AirplaneValidation.RequiredSelectError)]
         public int AgancyId { get; set; }
 
     }

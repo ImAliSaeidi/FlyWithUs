@@ -21,5 +21,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 
         bool IsEmailExist(string email);
 
+        int DeleteUserRoles(string userid);
+
     }
 }

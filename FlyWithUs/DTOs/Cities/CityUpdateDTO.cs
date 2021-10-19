@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Cities
 {
@@ -7,15 +8,21 @@ namespace FlyWithUs.Hosted.Service.DTOs.Cities
         public int Id { get; set; }
 
 
-        [Display(Name = "نام شهر")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
-        public string Name { get; set; }
+        [Required(ErrorMessage = CityValidation.RequiredPersianNameError)]
+        [StringLength(128, ErrorMessage = CityValidation.LengthError)]
+        public string PersianName { get; set; }
 
 
-        [Display(Name = "کشور")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredSelect)]
+        [Required(ErrorMessage = CityValidation.RequiredEnglishNameError)]
+        [StringLength(128, ErrorMessage = CityValidation.LengthError)]
+        public string EnglishName { get; set; }
+
+
+        [Required(ErrorMessage = CityValidation.RequiredSelectError)]
         public int CountryId { get; set; }
+
+       
+        public IFormFile Image { get; set; }
 
     }
 }

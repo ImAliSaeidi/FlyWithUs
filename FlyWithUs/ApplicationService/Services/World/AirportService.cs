@@ -24,25 +24,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool AddAirport(AirportAddDTO dto)
         {
             bool result = false;
-            int count = repository.Add(Map(dto));
+            int count = repository.Add(mapper.Map<Airport>(dto));
             if (count > 0)
             {
                 result = true;
             }
             return result;
-        }
-
-        private Airport Map(AirportAddDTO dto)
-        {
-            var airport = mapper.Map<Airport>(dto);
-            string[] engnamesplited = dto.EnglishName.Split(" ");
-            string code = "";
-            foreach (var item in engnamesplited)
-            {
-                code += item.Substring(0, 1).ToUpper();
-            }
-            airport.Code = code;
-            return airport;
         }
 
         public bool DeleteAirport(int airportid)
@@ -73,7 +60,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
 
         public GridResultDTO<AirportDTO> GetAllAirport(int skip, int take)
         {
-            var dtos = mapper.Map<List<AirportDTO>>(repository.GetAll().Skip(skip).Take(take).ToList());
+            var airports = repository.GetAll().Skip(skip).Take(take).ToList();
+            var dtos = new List<AirportDTO>();
+            foreach (var item in airports)
+            {
+                var dto = mapper.Map<AirportDTO>(item);
+                dto.CityName = item.City.PersianName;
+                dtos.Add(dto);
+            }
             var count = repository.GetAll().Count();
             return new GridResultDTO<AirportDTO>(count, dtos);
         }
@@ -104,25 +98,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool UpdateAirport(AirportUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.Update(Map(dto));
+            int count = repository.Update(mapper.Map<Airport>(dto));
             if (count > 0)
             {
                 result = true;
             }
             return result;
-        }
-
-        private Airport Map(AirportUpdateDTO dto)
-        {
-            var airport = mapper.Map<Airport>(dto);
-            string[] engnamesplited = dto.EnglishName.Split(" ");
-            string code = "";
-            foreach (var item in engnamesplited)
-            {
-                code += item.Substring(0, 1).ToUpper();
-            }
-            airport.Code = code;
-            return airport;
         }
 
         public AirportUpdateDTO GetAirportForUpdate(int airportid)

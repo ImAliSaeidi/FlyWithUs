@@ -22,7 +22,7 @@ namespace FlyWithUs.Hosted.Service.Models.Orders
 
         public bool IsFinaly { get; set; }
 
-        [StringLength(256)]
+        [StringLength(512)]
         public string TrackingCode { get; set; }
 
         public ApplicationUser User { get; set; }

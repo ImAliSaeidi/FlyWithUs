@@ -118,7 +118,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
                     FillViewData();
                     return View(dto);
                 }
-                else if (dto.MaxCapacity <= dto.SaledTicket)
+                else if (dto.MaxCapacity <= dto.SoldTicket)
                 {
                     ModelState.AddModelError("MaxCapacity", "حداکثر ظرفیت نمیتواند کمتر از بلیط های فروش رفته باشد");
                     FillViewData();

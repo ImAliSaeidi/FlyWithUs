@@ -29,6 +29,16 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return Update(user);
         }
 
+        public int DeleteUserRoles(string userid)
+        {
+            var roles = context.UserRoles.Where(ur => ur.UserId == userid).ToList();
+            foreach (var role in roles)
+            {
+                role.IsDeleted = true;
+            }
+           return Save();
+        }
+
         public IQueryable<ApplicationUser> GetAll()
         {
             return context.Users.Include(u => u.ApplicationUserRoles).ThenInclude(u => u.Role);

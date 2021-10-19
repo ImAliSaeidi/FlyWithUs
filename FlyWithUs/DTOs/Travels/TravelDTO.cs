@@ -6,11 +6,9 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
     {
         public int Id { get; set; }
 
-        public string Code { get; set; }
-
         public int MaxCapacity { get; set; }
 
-        public int SaledTicket { get; set; }
+        public int SoldTicket { get; set; }
 
         public int Price { get; set; }
 

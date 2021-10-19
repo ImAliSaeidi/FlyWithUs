@@ -8,7 +8,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Travels
         public int Id { get; set; }
 
 
-        public int SaledTicket { get; set; }
+        public int SoldTicket { get; set; }
 
 
         public string Code { get; set; }
