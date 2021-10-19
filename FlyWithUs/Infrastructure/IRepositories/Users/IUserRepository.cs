@@ -21,7 +21,5 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 
         bool IsEmailExist(string email);
 
-        string GetNationality(int nationalityid);
-
     }
 }

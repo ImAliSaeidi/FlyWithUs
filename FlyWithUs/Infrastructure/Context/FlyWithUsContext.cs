@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
+using FlyWithUs.Hosted.Service.Models.Orders;
 using FlyWithUs.Hosted.Service.Models.Tickets;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Models.Users;
@@ -26,7 +27,13 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
         #region Tickets
         public DbSet<Ticket> Tickets { get; set; }
 
-        public DbSet<UserTicket> UserTickets { get; set; }
+        public virtual DbSet<PaymentResultView> PaymentResultViews { get; set; }
+        #endregion
+
+        #region Orders
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderTicket> OrderTickets { get; set; }
         #endregion
 
         #region Travel
@@ -55,6 +62,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<TravelView>().ToView("TravelViews").HasKey(t => t.Id);
+            modelBuilder.Entity<PaymentResultView>().ToView("PaymentResultViews").HasKey(t => t.TicketId);
 
             modelBuilder.Entity<ApplicationUser>().ToTable("User");
             modelBuilder.Entity<ApplicationUser>().HasKey(x => x.Id);
@@ -78,7 +86,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
             modelBuilder.Entity<Ticket>()
              .HasQueryFilter(u => !u.IsDeleted);
 
-            modelBuilder.Entity<UserTicket>()
+            modelBuilder.Entity<OrderTicket>()
+             .HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Order>()
              .HasQueryFilter(u => !u.IsDeleted);
 
             modelBuilder.Entity<Travel>()

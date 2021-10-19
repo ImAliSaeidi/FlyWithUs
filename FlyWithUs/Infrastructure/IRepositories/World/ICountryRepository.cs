@@ -18,6 +18,8 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 
         bool IsExist(string englishname,string persianname, short phonecode);
 
+        string GetCountryName(int nationalityid);
+
         int Save();
     }
 }

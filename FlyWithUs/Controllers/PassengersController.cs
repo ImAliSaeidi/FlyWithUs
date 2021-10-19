@@ -1,5 +1,4 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
-using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
 using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using FlyWithUs.Hosted.Service.Filter;
@@ -15,13 +14,12 @@ namespace FlyWithUs.Hosted.Service.Controllers
     {
         private readonly IUserService userService;
         private readonly IUserContext userContext;
-        private readonly ICountryService countryService;
 
-        public PassengersController(IUserService userService, IUserContext userContext, ICountryService countryService)
+
+        public PassengersController(IUserService userService, IUserContext userContext)
         {
             this.userService = userService;
             this.userContext = userContext;
-            this.countryService = countryService;
         }
 
         [HttpPost("Register")]
@@ -44,8 +42,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
         [HttpGet("GetUser")]
         public IActionResult Get()
         {
-            string userid = userContext.UserId;
-            var user = userService.GetUserForUserPanel(userid);
+            var user = userService.GetUserForUserPanel(userContext.UserId);
             return Ok(user);
         }
 
@@ -61,6 +58,16 @@ namespace FlyWithUs.Hosted.Service.Controllers
 
 
         [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpPut("CompleteUserInfo")]
+        public IActionResult CompleteUserInfo([FromBody] CompleteUserInfoDTO dto)
+        {
+            dto.Id = userContext.UserId;
+            var result = userService.CompleteUserInfo(dto);
+            return Ok(result);
+        }
+
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
         [HttpPatch("ChangePassword")]
         public IActionResult ChangePassword([FromBody] ChangePasswordDTO dto)
         {
@@ -69,11 +76,5 @@ namespace FlyWithUs.Hosted.Service.Controllers
             return Ok(result);
         }
 
-
-        [HttpGet("GetCountries")]
-        public IActionResult GetCountries()
-        {
-            return Ok(countryService.GetAllCountryForUserPanel());
-        }
     }
 }

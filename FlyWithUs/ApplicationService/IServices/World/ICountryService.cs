@@ -10,7 +10,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
         List<SelectListItem> GetAllCountryAsSelectList();
 
         GridResultDTO<CountryDTO> GetAllCountry(int skip, int take);
-        List<CountryListDTO> GetAllCountryForUserPanel();
+
+        List<CountryListDTO> GetAllCountryForAPI();
 
         bool AddCountry(CountryAddDTO dto);
 

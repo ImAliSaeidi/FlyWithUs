@@ -1,6 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
-using FlyWithUs.Hosted.Service.Models.Travels;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels
 {
@@ -14,12 +13,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels
 
         TravelDTO GetTravelById(int travelid);
 
-        GridResultDTO<TravelView> GetAllTravel(int skip, int take);
+        TravelViewDTO GetTravelViewById(int travelid);
 
-        GridResultDTO<TravelView> SearchTravel(int skip, int take, TravelSearchDTO dto);
+        GridResultDTO<TravelViewDTO> GetAllTravel(int skip, int take);
+
+        GridResultDTO<TravelViewDTO> SearchTravel(int skip, int take, TravelSearchDTO dto);
 
         TravelUpdateDTO GetTravelForUpdate(int travelid);
-
-        bool AddTicket(int travelid, string userid);
     }
 }

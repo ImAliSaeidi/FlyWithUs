@@ -1,10 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets;
 using FlyWithUs.Hosted.Service.Models.Tickets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets
 {
@@ -17,15 +13,33 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets
             this.context = context;
         }
 
-        public int AddTicket(Ticket ticket)
+        public int Add(Ticket ticket)
         {
             context.Tickets.Add(ticket);
             return Save();
         }
 
+        public int Delete(int ticketid)
+        {
+            var ticket = GetById(ticketid);
+            ticket.IsDeleted = true;
+            return Update(ticket);
+        }
+
+        public Ticket GetById(int ticketid)
+        {
+            return context.Tickets.Find(ticketid);
+        }
+
         public int Save()
         {
             return context.SaveChanges();
+        }
+
+        public int Update(Ticket ticket)
+        {
+            context.Tickets.Update(ticket);
+            return Save();
         }
     }
 }

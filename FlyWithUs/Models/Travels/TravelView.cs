@@ -15,7 +15,19 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
 
         public int Price { get; set; }
 
+        public int MaxCapacity { get; set; }
+
+        public string Type { get; set; }
+
+        public string Class { get; set; }
+
         public DateTime MovingDate { get; set; }
+
+        public DateTime MovingTime { get; set; }
+
+        public DateTime ArrivingDate { get; set; }
+
+        public DateTime ArrivingTime { get; set; }
 
         public string AgancyName { get; set; }
 

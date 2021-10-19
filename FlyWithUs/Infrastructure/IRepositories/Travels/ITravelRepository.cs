@@ -10,13 +10,13 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels
         int Delete(int travelid);
 
         int Update(Travel travel);
-
-        TravelView GetTravel(int travelid);
-
+               
         Travel GetById(int travelid);
 
+        TravelView GetViewById(int travelid);
+
         IQueryable<TravelView> GetAll();
-              
+
         int Save();
     }
 }

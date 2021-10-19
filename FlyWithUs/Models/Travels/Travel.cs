@@ -56,6 +56,8 @@ namespace FlyWithUs.Hosted.Service.Models.Travels
         [Required]
         public int AirplaneId { get; set; }
 
+        [Required]
+        public int AgancyId { get; set; }
 
         [Required]
         public int OriginAirportId { get; set; }

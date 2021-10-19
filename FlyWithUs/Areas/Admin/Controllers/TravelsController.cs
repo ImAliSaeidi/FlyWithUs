@@ -3,7 +3,6 @@ using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
 using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
-using FlyWithUs.Hosted.Service.Models.Travels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -43,7 +42,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         [HttpGet("{skip=0}/{take=10}")]
         public IActionResult GetAllTravel(int skip = 0, int take = 10)
         {
-            GridResultDTO<TravelView> dto = travelService.GetAllTravel(skip, take);
+            GridResultDTO<TravelViewDTO> dto = travelService.GetAllTravel(skip, take);
             return View(dto);
         }
 
@@ -190,7 +189,7 @@ namespace FlyWithUs.Hosted.Service.Areas.Admin.Controllers
         private void FillViewData()
         {
             var countries = countryService.GetAllCountryAsSelectList();
-            ViewData["Countries"] = new SelectList(countries, "Value", "Text");
+            ViewData["Countries"] = new SelectList(countries, "Value", "Text", countries[1].Value);
 
             var cities = cityService.GetAllCityAsSelectList(Convert.ToInt32(countries[1].Value));
             ViewData["Cities"] = new SelectList(cities, "Value", "Text");

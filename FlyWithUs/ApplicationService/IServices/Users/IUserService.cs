@@ -30,9 +30,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         bool UpdateUser(UserUpdateDTO dto);
 
+        bool CompleteUserInfo(CompleteUserInfoDTO dto);
+
         UserUpdateDTO GetUserForUpdate(string userid);
 
         bool ChangePassword(ChangePasswordDTO dto);
 
+      
     }
 }

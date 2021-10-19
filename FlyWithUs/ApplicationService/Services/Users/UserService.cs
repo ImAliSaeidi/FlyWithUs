@@ -4,6 +4,7 @@ using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Security;
@@ -16,12 +17,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
     public class UserService : IUserService
     {
         private readonly IUserRepository repository;
+        private readonly ICountryRepository countryRepository;
         private readonly IMapper mapper;
 
-        public UserService(IUserRepository repository, IMapper mapper)
+        public UserService(IUserRepository repository, IMapper mapper, ICountryRepository countryRepository)
         {
             this.repository = repository;
             this.mapper = mapper;
+            this.countryRepository = countryRepository;
         }
 
 
@@ -58,7 +61,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             {
                 if (dto.NationalityId != null)
                 {
-                    dto.Nationality = repository.GetNationality(dto.NationalityId.Value);
+                    dto.Nationality = countryRepository.GetCountryName(dto.NationalityId.Value);
                 }
             }
             return new GridResultDTO<UserDTO>(count, dtos);
@@ -70,7 +73,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             var dto = mapper.Map<UserDTO>(user);
             if (dto.NationalityId != null)
             {
-                dto.Nationality = repository.GetNationality(dto.NationalityId.Value);
+                dto.Nationality = countryRepository.GetCountryName(dto.NationalityId.Value);
             }
             return dto;
         }
@@ -253,5 +256,35 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             return result;
         }
+
+        public bool CompleteUserInfo(CompleteUserInfoDTO dto)
+        {
+            bool result = false;
+            var olduser = repository.GetById(dto.Id);
+            foreach (var item in dto.GetType().GetProperties())
+            {
+                if (item.GetValue(dto, null) != null)
+                {
+                    if (item.GetValue(dto, null).ToString() == "")
+                    {
+                        item.SetValue(dto, null);
+                    }
+                }
+            }
+            var user = mapper.Map<ApplicationUser>(dto);
+            user.PasswordHash = olduser.PasswordHash;
+            user.Email = olduser.Email;
+            user.NormalizedEmail = olduser.Email.Trim().ToUpper();
+            user.PhoneNumber = olduser.PhoneNumber;
+            int count = repository.Update(user);
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+
     }
 }
+

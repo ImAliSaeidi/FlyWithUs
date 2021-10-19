@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.Models.Tickets;
+﻿using FlyWithUs.Hosted.Service.Models.Orders;
+using FlyWithUs.Hosted.Service.Models.Tickets;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,8 @@ namespace FlyWithUs.Hosted.Service.Models.Users
     {
         public ApplicationUser()
         {
-            Usertickets = new HashSet<UserTicket>();
             ApplicationUserRoles = new HashSet<ApplicationUserRole>();
+            Orders = new HashSet<Order>();
             CreateDate = DateTime.Now;
         }
 
@@ -62,9 +63,9 @@ namespace FlyWithUs.Hosted.Service.Models.Users
 
 
         #region Relations
-        public ICollection<UserTicket> Usertickets { get; set; }
-
         public ICollection<ApplicationUserRole> ApplicationUserRoles { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
         #endregion
 
     }

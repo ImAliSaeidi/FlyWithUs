@@ -1,8 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
-using FlyWithUs.Hosted.Service.Filter;
 using FlyWithUs.Hosted.Service.Infrastructure.Common;
-using FlyWithUs.Hosted.Service.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,32 +11,28 @@ namespace FlyWithUs.Hosted.Service.Controllers
     public class TravelsController : ControllerBase
     {
         private readonly ITravelService travelService;
-        private readonly IUserContext userContext;
 
-        public TravelsController(ITravelService travelService, IUserContext userContext)
+        public TravelsController(ITravelService travelService)
         {
             this.travelService = travelService;
-            this.userContext = userContext;
         }
 
 
-        [HttpGet("{skip=0}/{take=2}/{origin}/{destination}/{movingdate}/{backingdate?}")]
-        public IActionResult GetAll(string origin, string destination, string movingdate, string backingdate, [Required] int skip = 0, [Required] int take = 2)
+        [HttpGet("{skip=0}/{take=2}/{origin}/{destination}/{movingdate}/{orderby}/")]
+        public IActionResult GetAll(string origin, string destination, string movingdate, string orderby, [Required] int skip = 0, [Required] int take = 2)
         {
             var result = travelService.SearchTravel(skip, take,
-                new TravelSearchDTO(movingdate, backingdate)
-                { Origin = origin, Destination = destination });
+                new TravelSearchDTO(movingdate)
+                { Origin = origin, Destination = destination, OrderBy = orderby });
             return Ok(result);
         }
 
 
-        [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpPost("{travelid}")]
-        public IActionResult AddTicket(int travelid)
+        [HttpGet("{travelid}")]
+        public IActionResult GetTravel([Required] int travelid)
         {
-            var userid = userContext.UserId;
-            travelService.AddTicket(travelid, userid);
-            return Created("", "");
+            var result = travelService.GetTravelViewById(travelid);
+            return Ok(result);
         }
     }
 }

@@ -58,5 +58,10 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             context.Countries.Update(country);
             return Save();
         }
+
+        public string GetCountryName(int nationalityid)
+        {
+            return context.Countries.Find(nationalityid).PersianName;
+        }
     }
 }

@@ -1,19 +1,25 @@
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.Orders;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.Tickets;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.Orders;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.Tickets;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Travels;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Common;
 using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Orders;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes;
+using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Orders;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
@@ -34,6 +40,7 @@ namespace FlyWithUs.Hosted.Service
     {
         private readonly IConfiguration configuration;
 
+
         public Startup(IConfiguration configuration)
         {
             this.configuration = configuration;
@@ -45,17 +52,19 @@ namespace FlyWithUs.Hosted.Service
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson();
 
+
+
             services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy", builder =>
                 {
-                    builder
-                   .WithOrigins(configuration["Origin"])
-                   .AllowAnyMethod()
-                   .AllowAnyHeader()
-                   .AllowCredentials();
+                    options.AddPolicy("CorsPolicy", builder =>
+                    {
+                        builder
+                       .WithOrigins(configuration["FlyWithUsOrigin"])
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .AllowCredentials();
+                    });
                 });
-            });
             services.AddDbContext<FlyWithUsContext>(option => { option.UseSqlServer(configuration["ConnectionString"]); });
             services.AddScoped<IAgancyRepository, AgancyRepository>();
             services.AddScoped<IAirplaneRepository, AirplaneRepository>();
@@ -65,9 +74,13 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<IOrderTicketRepository, OrderTicketRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IAgancyService, AgancyService>();
             services.AddScoped<IAirplaneService, AirplaneService>();
             services.AddScoped<ITravelService, TravelService>();
+            services.AddScoped<ITicektService, TicektService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAirportService, AirportService>();
             services.AddScoped<ICityService, CityService>();
@@ -76,7 +89,7 @@ namespace FlyWithUs.Hosted.Service
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<FlyWithUsContext>();
             configuration.GetSection("TokenConfig").Bind(new TokenConfig());
-          
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -107,6 +120,7 @@ namespace FlyWithUs.Hosted.Service
                     }
                 });
             });
+
         }
 
 
@@ -142,6 +156,7 @@ namespace FlyWithUs.Hosted.Service
                     pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}"
                   );
             });
+
         }
     }
 }

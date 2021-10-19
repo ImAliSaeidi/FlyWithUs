@@ -2,12 +2,11 @@
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
-using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
-using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
-using FlyWithUs.Hosted.Service.Models.Tickets;
 using FlyWithUs.Hosted.Service.Models.Travels;
+using FlyWithUs.Hosted.Service.Tools.Convertors;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 
@@ -16,34 +15,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
     public class TravelService : ITravelService
     {
         private readonly ITravelRepository repository;
-        private readonly ITicketRepository ticketRepository;
-        private readonly IUserRepository userRepository;
         private readonly IMapper mapper;
 
-        public TravelService(ITravelRepository repository, IMapper mapper, ITicketRepository ticketRepository, IUserRepository userRepository)
+        public TravelService(ITravelRepository repository, IMapper mapper)
         {
             this.repository = repository;
             this.mapper = mapper;
-            this.ticketRepository = ticketRepository;
-            this.userRepository = userRepository;
-        }
-
-        public bool AddTicket(int travelid, string userid)
-        {
-            bool result = false;
-            string code = travelid.ToString() + Guid.NewGuid().ToString().Substring(0, 7).ToUpper();
-            Ticket ticket = new Ticket(travelid, code);
-            UserTicket userTicket = new UserTicket()
-            {
-                UserId = userid
-            };
-            ticket.UserTickets.Add(userTicket);
-            int count = ticketRepository.AddTicket(ticket);
-            if (count > 0)
-            {
-                result = true;
-            }
-            return result;
         }
 
         public bool AddTravel(TravelAddDTO dto)
@@ -78,20 +55,31 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             return result;
         }
 
-        public GridResultDTO<TravelView> GetAllTravel(int skip, int take)
+        public GridResultDTO<TravelViewDTO> GetAllTravel(int skip, int take)
         {
+            var dtos = new List<TravelViewDTO>();
             var travels = repository.GetAll().Skip(skip).Take(take).ToList();
+            foreach (var item in travels)
+            {
+                var dto = mapper.Map<TravelViewDTO>(item);
+                dto.MovingDate = item.MovingDate.ToShamsi();
+                dto.MovingTime = item.MovingTime.ToString("HH:mm");
+                dto.ArrivingTime = item.ArrivingTime.ToString("HH:mm");
+                dto.Price = item.Price.ToString("N0");
+                dtos.Add(dto);
+            }
             var count = repository.GetAll().Count();
-            return new GridResultDTO<TravelView>(count, travels);
+            return new GridResultDTO<TravelViewDTO>(count, dtos);
         }
 
         public TravelDTO GetTravelById(int travelid)
         {
             var travel = repository.GetById(travelid);
             var dto = mapper.Map<TravelDTO>(repository.GetById(travelid));
-            dto.AgancyName = travel.Airplane.Agancy.Name;
+            dto.AgancyName = travel.Agancy.Name;
             dto.OriginCityName = travel.OriginCity.Name;
             dto.DestinationCityName = travel.DestinationCity.Name;
+            dto.SaledTicket = travel.Tickets.Where(t => t.IsDeleted == false).ToList().Count;
             return dto;
         }
 
@@ -102,25 +90,80 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             return dto;
         }
 
-        public GridResultDTO<TravelView> SearchTravel(int skip, int take, TravelSearchDTO dto)
+        public TravelViewDTO GetTravelViewById(int travelid)
         {
-            var travels = repository
+            var travel = repository.GetViewById(travelid);
+            var dto = mapper.Map<TravelViewDTO>(travel);
+            dto.MovingDate = travel.MovingDate.ToShamsi();
+            dto.ArrivingDate = travel.ArrivingDate.ToShamsi();
+            dto.MovingTime = travel.MovingTime.ToString("HH:mm");
+            dto.ArrivingTime = travel.ArrivingTime.ToString("HH:mm");
+            dto.Price = travel.Price.ToString("N0");
+            return dto;
+        }
+
+        public GridResultDTO<TravelViewDTO> SearchTravel(int skip, int take, TravelSearchDTO dto)
+        {
+            var dtos = new List<TravelViewDTO>();
+            var travels = new List<TravelView>();
+            if (dto.OrderBy == "MovingTime" || dto.OrderBy == null)
+            {
+                travels = repository
                   .GetAll()
                   .Where(x =>
-                  x.OriginCityName == dto.Origin &&
-                  x.DestinationCityName == dto.Destination &&
+                  x.OriginCityName.Contains(dto.Origin) &&
+                  x.DestinationCityName.Contains(dto.Destination) &&
                   x.MovingDate == dto.MovingDate)
                   .Skip(skip)
                   .Take(take)
+                  .OrderBy(x => x.MovingTime)
                   .ToList();
-            var count = repository
+            }
+            if (dto.OrderBy == "PriceD")
+            {
+                travels = repository
                   .GetAll()
-                   .Where(x =>
-                  x.OriginCityName == dto.Origin &&
-                  x.DestinationCityName == dto.Destination &&
+                  .Where(x =>
+                  x.OriginCityName.Contains(dto.Origin) &&
+                  x.DestinationCityName.Contains(dto.Destination) &&
                   x.MovingDate == dto.MovingDate)
-                  .ToList().Count;
-            return new GridResultDTO<TravelView>(count, travels);
+                  .Skip(skip)
+                  .Take(take)
+                  .OrderByDescending(x => x.Price)
+                  .ToList();
+            }
+            if (dto.OrderBy == "PriceA")
+            {
+                travels = repository
+                  .GetAll()
+                  .Where(x =>
+                  x.OriginCityName.Contains(dto.Origin) &&
+                  x.DestinationCityName.Contains(dto.Destination) &&
+                  x.MovingDate == dto.MovingDate)
+                  .Skip(skip)
+                  .Take(take)
+                  .OrderBy(x => x.Price)
+                  .ToList();
+            }
+            foreach (var item in travels)
+            {
+                var tdto = mapper.Map<TravelViewDTO>(item);
+                tdto.MovingDate = item.MovingDate.ToShamsi();
+                tdto.ArrivingDate = item.ArrivingDate.ToShamsi();
+                tdto.MovingTime = item.MovingTime.ToString("HH:mm");
+                tdto.ArrivingTime = item.ArrivingTime.ToString("HH:mm");
+                tdto.Price = item.Price.ToString("N0");
+                dtos.Add(tdto);
+            }
+
+            var count = repository
+                 .GetAll()
+                 .Where(x =>
+                  x.OriginCityName.Contains(dto.Origin) &&
+                  x.DestinationCityName.Contains(dto.Destination) &&
+                  x.MovingDate == dto.MovingDate)
+                 .ToList().Count;
+            return new GridResultDTO<TravelViewDTO>(count, dtos);
         }
 
         public bool UpdateTravel(TravelUpdateDTO dto)
@@ -142,6 +185,5 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             }
             return result;
         }
-
     }
 }

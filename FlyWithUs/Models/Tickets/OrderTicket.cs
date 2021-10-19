@@ -1,23 +1,23 @@
-﻿using FlyWithUs.Hosted.Service.Models.Users;
+﻿using FlyWithUs.Hosted.Service.Models.Orders;
+using FlyWithUs.Hosted.Service.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlyWithUs.Hosted.Service.Models.Tickets
 {
-    public class UserTicket : BaseEntity
+    public class OrderTicket : BaseEntity
     {
-        [ForeignKey("User")]
+
+        [ForeignKey("Order")]
         [Required]
-        public string UserId { get; set; }
+        public int OrderId { get; set; }
 
         [Required]
         public int TicketId { get; set; }
 
-        public bool IsFinaly { get; set; }
-
-        public ApplicationUser User { get; set; }
-
         public Ticket Ticket { get; set; }
+
+        public Order Order { get; set; }
     }
 }

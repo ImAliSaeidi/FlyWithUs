@@ -11,7 +11,8 @@ using FlyWithUs.Hosted.Service.Models.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Models.World;
-
+using FlyWithUs.Hosted.Service.Models.Orders;
+using FlyWithUs.Hosted.Service.DTOs.Orders;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Common
 {
@@ -34,10 +35,12 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Common
             CreateMap<TravelUpdateDTO, Travel>();
             CreateMap<TravelUpdateDTO, Travel>().ReverseMap();
             CreateMap<Travel, TravelDTO>();
-
+            CreateMap<Travel, TravelView>();
+            CreateMap<TravelView, TravelViewDTO>();
 
             CreateMap<UserAddDTO, ApplicationUser>();
             CreateMap<UserUpdateDTO, ApplicationUser>();
+            CreateMap<CompleteUserInfoDTO, ApplicationUser>();
             CreateMap<UserUpdateDTO, ApplicationUser>().ReverseMap();
             CreateMap<ApplicationUser, UserDTO>();
             CreateMap<ApplicationUser, UserPanelDTO>();
@@ -60,6 +63,8 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Common
 
             CreateMap<RegisterDTO, ApplicationUser>();
             CreateMap<RegisterDTO, ApplicationUser>().ReverseMap();
+
+            CreateMap<PaymentResultView, PaymentResultDTO>();
 
         }
     }

@@ -81,6 +81,100 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.ToTable("Airplanes");
                 });
 
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Orders.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsFinaly")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TrackingCode")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Orders.PaymentResultView", b =>
+                {
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Destination")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("MovingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("MovingTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Origin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TicketCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrackingCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TicketId");
+
+                    b.ToView("PaymentResultViews");
+                });
+
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.OrderTicket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("OrderTickets");
+                });
+
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.Ticket", b =>
                 {
                     b.Property<int>("Id")
@@ -109,38 +203,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.ToTable("Tickets");
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.UserTicket", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsFinaly")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserTickets");
-                });
-
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Travels.Travel", b =>
                 {
                     b.Property<int>("Id")
@@ -148,7 +210,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AgancyId")
+                    b.Property<int>("AgancyId")
                         .HasColumnType("int");
 
                     b.Property<int>("AirplaneId")
@@ -244,6 +306,15 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<string>("AirplaneName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("ArrivingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ArrivingTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Class")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("DestinationAirportName")
                         .HasColumnType("nvarchar(max)");
 
@@ -253,7 +324,16 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<string>("DestinationCountryName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MaxCapacity")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("MovingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("MovingTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("OriginAirportName")
@@ -269,6 +349,9 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TravelCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -309,7 +392,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "78c4545c-497b-4fed-b962-97768c0a013d",
+                            ConcurrencyStamp = "0b20984f-f500-4dc7-8467-1374adfef710",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -317,7 +400,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "9c5fa2bb-42c5-4b36-9d14-dc9b12161652",
+                            ConcurrencyStamp = "dc5d9b3d-4019-4b84-858a-0d3efbef5034",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -555,6 +638,36 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Navigation("Agancy");
                 });
 
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Orders.Order", b =>
+                {
+                    b.HasOne("FlyWithUs.Hosted.Service.Models.Users.ApplicationUser", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.OrderTicket", b =>
+                {
+                    b.HasOne("FlyWithUs.Hosted.Service.Models.Orders.Order", "Order")
+                        .WithMany("OrderTickets")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FlyWithUs.Hosted.Service.Models.Tickets.Ticket", "Ticket")
+                        .WithMany("OrderTickets")
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Ticket");
+                });
+
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.Ticket", b =>
                 {
                     b.HasOne("FlyWithUs.Hosted.Service.Models.Travels.Travel", "Travel")
@@ -566,30 +679,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Navigation("Travel");
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.UserTicket", b =>
-                {
-                    b.HasOne("FlyWithUs.Hosted.Service.Models.Tickets.Ticket", "Ticket")
-                        .WithMany("UserTickets")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FlyWithUs.Hosted.Service.Models.Users.ApplicationUser", "User")
-                        .WithMany("Usertickets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ticket");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Travels.Travel", b =>
                 {
                     b.HasOne("FlyWithUs.Hosted.Service.Models.Airplanes.Agancy", "Agancy")
                         .WithMany("Travels")
-                        .HasForeignKey("AgancyId");
+                        .HasForeignKey("AgancyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FlyWithUs.Hosted.Service.Models.Airplanes.Airplane", "Airplane")
                         .WithMany("Travels")
@@ -703,9 +799,14 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Navigation("Travels");
                 });
 
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Orders.Order", b =>
+                {
+                    b.Navigation("OrderTickets");
+                });
+
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.Ticket", b =>
                 {
-                    b.Navigation("UserTickets");
+                    b.Navigation("OrderTickets");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Travels.Travel", b =>
@@ -722,7 +823,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 {
                     b.Navigation("ApplicationUserRoles");
 
-                    b.Navigation("Usertickets");
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.Airport", b =>

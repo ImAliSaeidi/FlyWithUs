@@ -44,16 +44,14 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
                 .Include(t => t.DestinationCountry)
                 .Include(t => t.OriginCity)
                 .Include(t => t.DestinationCity)
+                .Include(t => t.Tickets)
                 .IgnoreQueryFilters()
                 .First(t => t.Id == travelid);
         }
 
-        public TravelView GetTravel(int travelid)
+        public TravelView GetViewById(int travelid)
         {
-            return context.TravelViews
-                .IgnoreQueryFilters()
-                .AsNoTracking()
-                .First(t => t.Id == travelid);
+            return context.TravelViews.Find(travelid);
         }
 
         public int Save()

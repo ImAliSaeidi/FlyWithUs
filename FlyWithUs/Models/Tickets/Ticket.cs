@@ -1,4 +1,5 @@
-﻿using FlyWithUs.Hosted.Service.Models.Travels;
+﻿using FlyWithUs.Hosted.Service.Models.Orders;
+using FlyWithUs.Hosted.Service.Models.Travels;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,11 +7,9 @@ namespace FlyWithUs.Hosted.Service.Models.Tickets
 {
     public class Ticket : BaseEntity
     {
-        public Ticket(int travelId, string code)
+        public Ticket()
         {
-            TravelId = travelId;
-            Code = code;
-            UserTickets = new HashSet<UserTicket>();
+            OrderTickets = new HashSet<OrderTicket>();
         }
 
         [Required]
@@ -21,7 +20,7 @@ namespace FlyWithUs.Hosted.Service.Models.Tickets
         [Required]
         public int TravelId { get; set; }
 
-        public ICollection<UserTicket> UserTickets { get; set; }
+        public ICollection<OrderTicket> OrderTickets { get; set; }
 
         public Travel Travel { get; set; }
     }
