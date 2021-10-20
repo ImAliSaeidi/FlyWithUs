@@ -1,22 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FlyWithUs.Hosted.Service.DTOs.User
+namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class RegisterDTO
     {
-        [Required]
+        [Required(ErrorMessage = UserValidation.RequiredPhoneNumberError)]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserValidation.RequiredEmailError)]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserValidation.RequiredPasswordError)]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserValidation.RequiredRePasswordError)]
         public string RePassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserValidation.RequiredRulesError)]
         public bool Rules { get; set; }
     }
 }

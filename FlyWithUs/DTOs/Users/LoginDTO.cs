@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FlyWithUs.Hosted.Service.DTOs.User
+namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class LoginDTO
     {
-        [Required]
+        [Required(ErrorMessage = UserValidation.RequiredPhoneNumberError)]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = UserValidation.RequiredPasswordError)]
         public string Password { get; set; }
     }
 }

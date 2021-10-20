@@ -15,7 +15,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airports
         public string EnglishName { get; set; }
 
 
-        [Required(ErrorMessage = AirportValidation.RequiredSelectError)]
+        [Required(ErrorMessage = AirportValidation.RequiredSelectCityError)]
         public int CityId { get; set; }
     }
 }

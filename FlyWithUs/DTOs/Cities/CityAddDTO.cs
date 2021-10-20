@@ -15,7 +15,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Cities
         public string EnglishName { get; set; }
 
 
-        [Required(ErrorMessage = CityValidation.RequiredSelectError)]
+        [Required(ErrorMessage = CityValidation.RequiredSelectCountryError)]
         public int CountryId { get; set; }
 
 

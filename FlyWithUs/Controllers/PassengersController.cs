@@ -1,5 +1,4 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
-using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using FlyWithUs.Hosted.Service.Filter;
 using FlyWithUs.Hosted.Service.Infrastructure.Common;

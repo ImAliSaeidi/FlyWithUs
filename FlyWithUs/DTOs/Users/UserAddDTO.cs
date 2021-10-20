@@ -5,80 +5,66 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class UserAddDTO
     {
-        [Display(Name = "شماره موبایل")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(11, ErrorMessage = CustomDTOValidation.Length)]
-        [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}", ErrorMessage = CustomDTOValidation.InvalidInput)]
+        [Required(ErrorMessage = UserValidation.RequiredPhoneNumberError)]
+        [StringLength(11, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}", ErrorMessage = UserValidation.InvalidPhoneNumberError)]
         public string PhoneNumber { get; set; }
 
 
-        [Display(Name = "ایمیل")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
-        [EmailAddress(ErrorMessage = CustomDTOValidation.InvalidInput)]
+        [Required(ErrorMessage = UserValidation.RequiredEmailError)]
+        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
+        [EmailAddress(ErrorMessage = UserValidation.InvalidEmailError)]
         public string Email { get; set; }
 
 
-        [Display(Name = "رمزعبور")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
+        [Required(ErrorMessage = UserValidation.RequiredPasswordError)]
+        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
         public string Password { get; set; }
 
 
-        [Display(Name = "تکرار رمزعبور")]
-        [Required(ErrorMessage = CustomDTOValidation.RequiredInput)]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
-        [Compare("Password", ErrorMessage = "رمز عبور و تکرار آن یکسان نیست")]
+        [Required(ErrorMessage = UserValidation.RequiredRePasswordError)]
+        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
+        [Compare("Password", ErrorMessage = UserValidation.PasswordCompareError)]
         public string RePassword { get; set; }
 
 
-        [Display(Name = "ملیت")]
         public int? NationalityId { get; set; }
 
 
-        [Display(Name = "نام فارسی")]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = CustomDTOValidation.InvalidInput)]
+        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = UserValidation.InvalidFirstNameError)]
         public string FirstNamePersian { get; set; }
 
 
-        [Display(Name = "نام خانوادگی فارسی")]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = CustomDTOValidation.InvalidInput)]
+        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = UserValidation.InvalidLastNameError)]
         public string LastNamePersian { get; set; }
 
 
-        [Display(Name = "نام انگلیسی")]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = CustomDTOValidation.InvalidInput)]
+        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = UserValidation.InvalidFirstNameError)]
         public string FirstNameEnglish { get; set; }
 
 
-        [Display(Name = " نام خانوادگی انگلیسی")]
-        [StringLength(128, ErrorMessage = CustomDTOValidation.Length)]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = CustomDTOValidation.InvalidInput)]
+        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = UserValidation.InvalidLastNameError)]
         public string LastNameEnglish { get; set; }
 
 
-        [Display(Name = "کدملی")]
-        [StringLength(32, ErrorMessage = CustomDTOValidation.Length)]
-        [RegularExpression("^[0-9]{10}$", ErrorMessage = CustomDTOValidation.InvalidInput)]
+        [StringLength(32, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = UserValidation.InvalidNationalityCodeError)]
         public string NationalityCode { get; set; }
 
 
-        [Display(Name = " تاریخ تولد")]
         public DateTime? Birthdate { get; set; }
 
 
-        [Display(Name = "جنسیت")]
         public string Gender { get; set; }
 
 
-        [Display(Name = "شماره گذرنامه")]
-        [StringLength(32, ErrorMessage = CustomDTOValidation.Length)]
-        [RegularExpression("[A-Z|a-z][0-9]{8}$", ErrorMessage = CustomDTOValidation.InvalidInput)]
+        [StringLength(32, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("[A-Z|a-z][0-9]{8}$", ErrorMessage = UserValidation.InvalidPassportNumberError)]
         public string PassportNumber { get; set; }
-
 
 
         public DateTime? PassportIssunaceDate { get; set; }

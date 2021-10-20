@@ -1,5 +1,4 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs;
-using FlyWithUs.Hosted.Service.DTOs.User;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users

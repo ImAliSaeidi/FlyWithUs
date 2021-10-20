@@ -4,21 +4,21 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
 {
     public class AirplaneAddDTO
     {
-        [Required(ErrorMessage = AirplaneValidation.RequiredError)]
+        [Required(ErrorMessage = AirplaneValidation.RequiredNameError)]
         [StringLength(128, ErrorMessage = AirplaneValidation.LengthError)]
         public string Name { get; set; }
 
 
-        [Required(ErrorMessage = AirplaneValidation.RequiredError)]
+        [Required(ErrorMessage = AirplaneValidation.RequiredBrandError)]
         [StringLength(128, ErrorMessage = AirplaneValidation.LengthError)]
         public string Brand { get; set; }
 
 
-        [Required(ErrorMessage = AirplaneValidation.RequiredError)]
+        [Required(ErrorMessage = AirplaneValidation.RequiredMaxCapacityError)]
         public int MaxCapacity { get; set; }
 
 
-        [Required(ErrorMessage = AirplaneValidation.RequiredSelectError)]
+        [Required(ErrorMessage = AirplaneValidation.RequiredSelectAgancyError)]
         public int AgancyId { get; set; }
 
     }
