@@ -15,5 +15,7 @@
         public string MovingDate { get; set; }
 
         public string MovingTime { get; set; }
+
+        public bool Cancelable { get; set; }
     }
 }

@@ -18,5 +18,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
         bool IsExist(string persianName, int countryid);
 
         int Save();
+
+        IQueryable<PopularDestinationView> GetPopularDestinations();
     }
 }

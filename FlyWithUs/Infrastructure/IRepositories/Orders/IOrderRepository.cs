@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.Models.Orders;
+using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Orders
 {
@@ -17,5 +18,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Orders
         Order GetUserOpenOrder(string userid);
 
         int Save();
+
+        IQueryable<PaymentResultView> GetUserOrders(string userid); 
     }
 }

@@ -1,6 +1,8 @@
 ﻿using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets;
 using FlyWithUs.Hosted.Service.Models.Tickets;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets
 {
@@ -28,7 +30,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets
 
         public Ticket GetById(int ticketid)
         {
-            return context.Tickets.Find(ticketid);
+            return context.Tickets.Include(t => t.Travel).FirstOrDefault(t => t.Id == ticketid);
         }
 
         public int Save()

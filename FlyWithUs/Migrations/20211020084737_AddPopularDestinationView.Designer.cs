@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20211020084737_AddPopularDestinationView")]
+    partial class AddPopularDestinationView
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,9 +138,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<string>("TrackingCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("TicketId");
 
                     b.ToView("PaymentResultViews");
@@ -198,6 +197,26 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.HasIndex("TravelId");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Travels.PopularDestinationView", b =>
+                {
+                    b.Property<int>("CityId")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersianName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TravelCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("CityId");
+
+                    b.ToView("PopularDestinationViews");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Travels.Travel", b =>
@@ -381,7 +400,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "6892299d-b806-4f43-9c2b-df67b6e32937",
+                            ConcurrencyStamp = "f5a60098-594b-4428-98cf-570effb87ecc",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -389,7 +408,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "d430c943-7bea-47a5-a23d-e7b9a0044590",
+                            ConcurrencyStamp = "06091460-2a6e-420c-b31f-20876f2e6ab1",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -605,26 +624,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.PopularDestinationView", b =>
-                {
-                    b.Property<int>("CityId")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PersianName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TravelCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("CityId");
-
-                    b.ToView("PopularDestinationViews");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Airplane", b =>

@@ -1,5 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
+using System.Collections.Generic;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels
 {
@@ -20,5 +21,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels
         GridResultDTO<TravelViewDTO> SearchTravel(int skip, int take, TravelSearchDTO dto);
 
         TravelUpdateDTO GetTravelForUpdate(int travelid);
+
+        
     }
 }

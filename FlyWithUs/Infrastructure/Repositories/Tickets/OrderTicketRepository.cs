@@ -1,6 +1,7 @@
 ﻿using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets;
 using FlyWithUs.Hosted.Service.Models.Tickets;
+using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets
 {
@@ -23,6 +24,11 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets
         public OrderTicket GetById(int orderTicketId)
         {
             return context.OrderTickets.Find(orderTicketId);
+        }
+
+        public OrderTicket GetByTicketId(int ticketid)
+        {
+            return context.OrderTickets.FirstOrDefault(ot => ot.TicketId == ticketid);
         }
 
         public int Save()

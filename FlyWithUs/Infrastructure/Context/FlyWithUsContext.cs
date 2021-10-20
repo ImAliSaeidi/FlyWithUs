@@ -40,6 +40,8 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
         public DbSet<Travel> Travels { get; set; }
 
         public virtual DbSet<TravelView> TravelViews { get; set; }
+
+        public virtual DbSet<PopularDestinationView> PopularDestinationViews { get; set; }
         #endregion
 
         #region World
@@ -63,6 +65,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 
             modelBuilder.Entity<TravelView>().ToView("TravelViews").HasKey(t => t.Id);
             modelBuilder.Entity<PaymentResultView>().ToView("PaymentResultViews").HasKey(t => t.TicketId);
+            modelBuilder.Entity<PopularDestinationView>().ToView("PopularDestinationViews").HasKey(p => p.CityId);
 
             modelBuilder.Entity<ApplicationUser>().ToTable("User");
             modelBuilder.Entity<ApplicationUser>().HasKey(x => x.Id);

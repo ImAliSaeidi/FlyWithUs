@@ -35,22 +35,22 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = UserValidation.InvalidFirstNameError)]
+        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$", ErrorMessage = UserValidation.InvalidFirstNameError)]
         public string FirstNamePersian { get; set; }
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی]+$", ErrorMessage = UserValidation.InvalidLastNameError)]
+        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$", ErrorMessage = UserValidation.InvalidLastNameError)]
         public string LastNamePersian { get; set; }
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = UserValidation.InvalidFirstNameError)]
+        [RegularExpression("^[a-zA-Z\\s]*$", ErrorMessage = UserValidation.InvalidFirstNameError)]
         public string FirstNameEnglish { get; set; }
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = UserValidation.InvalidLastNameError)]
+        [RegularExpression("^[a-zA-Z\\s]*$", ErrorMessage = UserValidation.InvalidLastNameError)]
         public string LastNameEnglish { get; set; }
 
 

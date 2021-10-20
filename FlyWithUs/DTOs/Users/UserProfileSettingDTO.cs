@@ -1,6 +1,11 @@
-﻿namespace FlyWithUs.Hosted.Service.DTOs.Users
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
-    public class UserPanelDTO
+    public class UserProfileSettingDTO
     {
         public string Email { get; set; }
 

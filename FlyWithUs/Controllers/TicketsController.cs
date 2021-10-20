@@ -29,5 +29,23 @@ namespace FlyWithUs.Hosted.Service.Controllers
             return Created("", "");
         }
 
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpPatch("DeleteTickets")]
+        public IActionResult DeleteTickets()
+        {
+            var result = ticektService.DeleteTickets(userContext.UserId);
+            return Ok(result);
+        }
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpPatch("CancelTicket")]
+        public IActionResult CancelTicket(TicketCancelDTO dto)
+        {
+            dto.UserId = userContext.UserId;
+            var result = ticektService.CancelTicket(dto);
+            return Ok(result);
+        }
+
     }
 }

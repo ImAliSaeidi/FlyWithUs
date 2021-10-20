@@ -7,6 +7,8 @@ namespace FlyWithUs.Hosted.Service.Models.Orders
 {
     public class PaymentResultView
     {
+        public string UserId { get; set; }
+
         public int TicketId { get; set; }
 
         public string TicketCode { get; set; }

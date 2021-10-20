@@ -24,5 +24,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
         List<SelectListItem> GetAllCityAsSelectList(int? countryid);
 
         CityDTO GetCityById(int cityid);
+
+        List<PopularDestinationDTO> GetPopularDestinations();
     }
 }

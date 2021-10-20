@@ -5,6 +5,7 @@ using FlyWithUs.Hosted.Service.DTOs.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -185,5 +186,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             }
             return result;
         }
+
     }
 }

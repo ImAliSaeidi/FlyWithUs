@@ -166,5 +166,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
         }
 
+        public List<PopularDestinationDTO> GetPopularDestinations()
+        {
+            return mapper
+                .Map<List<PopularDestinationDTO>>
+                (repository.GetPopularDestinations()
+                .Skip(0)
+                .Take(6)
+                .OrderByDescending(p => p.TravelCount)
+                .ToList());
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.Models.Travels;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels
@@ -10,7 +11,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels
         int Delete(int travelid);
 
         int Update(Travel travel);
-               
+
         Travel GetById(int travelid);
 
         TravelView GetViewById(int travelid);
@@ -18,5 +19,6 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels
         IQueryable<TravelView> GetAll();
 
         int Save();
+               
     }
 }

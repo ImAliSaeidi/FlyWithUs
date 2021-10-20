@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
-    public class UserAddDTO
+    public class UserProfileUpdateDTO
     {
+        public string Id { get; set; }
+
+
         [Required(ErrorMessage = UserValidation.RequiredPhoneNumberError)]
         [StringLength(11, ErrorMessage = UserValidation.LengthError)]
         [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}", ErrorMessage = UserValidation.InvalidPhoneNumberError)]
@@ -15,17 +21,6 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
         [EmailAddress(ErrorMessage = UserValidation.InvalidEmailError)]
         public string Email { get; set; }
-
-
-        [Required(ErrorMessage = UserValidation.RequiredPasswordError)]
-        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        public string Password { get; set; }
-
-
-        [Required(ErrorMessage = UserValidation.RequiredRePasswordError)]
-        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [Compare("Password", ErrorMessage = UserValidation.PasswordCompareError)]
-        public string RePassword { get; set; }
 
 
         public int? NationalityId { get; set; }
@@ -71,6 +66,5 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
 
         public DateTime? PassportExpirationDate { get; set; }
-
     }
 }

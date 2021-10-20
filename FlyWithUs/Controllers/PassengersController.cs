@@ -39,7 +39,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
 
         [SecurityFilter(AuthorizationRoles.UserRole)]
         [HttpGet("GetUser")]
-        public IActionResult Get()
+        public IActionResult GetUser()
         {
             var user = userService.GetUserForUserPanel(userContext.UserId);
             return Ok(user);
@@ -47,11 +47,38 @@ namespace FlyWithUs.Hosted.Service.Controllers
 
 
         [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpPut("Update")]
-        public IActionResult Update([FromBody] UserUpdateDTO dto)
+        [HttpGet("LoginCheck")]
+        public IActionResult LoginCheck()
+        {
+            var result = userService.LoginCheck(userContext.UserId);
+            return Ok(result);
+        }
+
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpGet("GetUserCommonInfo")]
+        public IActionResult GetUserCommonInfo()
+        {
+            var user = userService.GetUserCommonInfo(userContext.UserId);
+            return Ok(user);
+        }
+
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpGet("GetUserProfileSetting")]
+        public IActionResult GetUserProfileSetting()
+        {
+            var user = userService.GetUserProfileSetting(userContext.UserId);
+            return Ok(user);
+        }
+
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpPut("UpdateProfile")]
+        public IActionResult UpdateProfile([FromBody] UserProfileUpdateDTO dto)
         {
             dto.Id = userContext.UserId;
-            var result = userService.UpdateUser(dto);
+            var result = userService.UpdateUserProfile(dto);
             return Ok(result);
         }
 

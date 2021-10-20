@@ -6,6 +6,7 @@ using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
+using FlyWithUs.Hosted.Service.Tools.Convertors;
 using FlyWithUs.Hosted.Service.Tools.Security;
 using System;
 using System.Collections.Generic;
@@ -294,6 +295,70 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
+        public bool UpdateUserProfile(UserProfileUpdateDTO dto)
+        {
+            bool result = false;
+            foreach (var item in dto.GetType().GetProperties())
+            {
+                if (item.GetValue(dto, null) != null)
+                {
+                    if (item.GetValue(dto, null).ToString() == "")
+                    {
+                        item.SetValue(dto, null);
+                    }
+                }
+            }
+            var user = mapper.Map<ApplicationUser>(dto);
+            user.PasswordHash = repository.GetById(dto.Id).PasswordHash;
+            user.NormalizedEmail = dto.Email.Trim().ToUpper();
+            int count = repository.Update(user);
+            if (count > 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public UserCommonInfoDTO GetUserCommonInfo(string userid)
+        {
+            var user = repository.GetById(userid);
+            var dto = mapper.Map<UserCommonInfoDTO>(user);
+            if (user.Birthdate != null)
+            {
+                dto.Birthdate = user.Birthdate.Value.ToShamsi();
+            }
+            return dto;
+        }
+
+        public UserProfileSettingDTO GetUserProfileSetting(string userid)
+        {
+            var user = repository.GetById(userid);
+            var dto = mapper.Map<UserProfileSettingDTO>(user);
+            if (user.Birthdate != null)
+            {
+                dto.Birthdate = user.Birthdate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+            }
+            if (user.PassportIssunaceDate != null)
+            {
+                dto.PassportIssunaceDate = user.PassportIssunaceDate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+            }
+            if (user.PassportExpirationDate != null)
+            {
+                dto.PassportExpirationDate = user.PassportExpirationDate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+            }
+            return dto;
+        }
+
+        public bool LoginCheck(string userid)
+        {
+            var result = false;
+            var user = repository.GetById(userid);
+            if (user != null)
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }
 

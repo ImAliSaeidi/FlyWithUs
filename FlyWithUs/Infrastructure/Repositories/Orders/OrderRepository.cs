@@ -56,7 +56,14 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Orders
         {
             return context.Orders
                 .Include(o => o.OrderTickets)
+                .ThenInclude(ot => ot.Ticket)
+                .ThenInclude(t => t.Travel)
                 .FirstOrDefault(o => o.UserId == userid && o.IsFinaly == false);
+        }
+
+        public IQueryable<PaymentResultView> GetUserOrders(string userid)
+        {
+            return context.PaymentResultViews.Where(p => p.UserId == userid);
         }
     }
 }

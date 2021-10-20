@@ -25,9 +25,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         UserPanelDTO GetUserForUserPanel(string userid);
 
+        UserCommonInfoDTO GetUserCommonInfo(string userid);
+
+        UserProfileSettingDTO GetUserProfileSetting(string userid);
+
         bool DeleteUser(string userid);
 
         bool UpdateUser(UserUpdateDTO dto);
+
+        bool UpdateUserProfile(UserProfileUpdateDTO dto);
 
         bool CompleteUserInfo(CompleteUserInfoDTO dto);
 
@@ -35,6 +41,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         bool ChangePassword(ChangePasswordDTO dto);
 
-      
+        bool LoginCheck(string userid);
+
+
     }
 }

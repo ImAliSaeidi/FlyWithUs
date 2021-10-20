@@ -35,5 +35,24 @@ namespace FlyWithUs.Hosted.Service.Controllers
             var result = orderService.DeleteNotFinalyOrders(userContext.UserId);
             return Ok(result);
         }
+
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpGet("GetOrderDetails")]
+        public IActionResult GetOrderDetails()
+        {
+            var result = orderService.GetOrderDetails(userContext.UserId);
+            return Ok(result);
+        }
+
+
+        [SecurityFilter(AuthorizationRoles.UserRole)]
+        [HttpGet("{skip}/{take}")]
+        public IActionResult GetUserOrders(int skip, int take)
+        {
+            var result = orderService.GetUserOrder(userContext.UserId, skip, take);
+            return Ok(result);
+        }
+
     }
 }

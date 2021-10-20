@@ -7,6 +7,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Tickets
     public interface ITicektService
     {
         bool AddTicket(TicketAddDTO dto, string userid);
-   
+
+        bool DeleteTickets(string userid);
+
+        bool CancelTicket(TicketCancelDTO dto);
     }
 }

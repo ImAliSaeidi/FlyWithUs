@@ -1,27 +1,35 @@
 ﻿using AutoMapper;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Orders;
+using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Orders;
+using FlyWithUs.Hosted.Service.DTOs.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Orders;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
+using FlyWithUs.Hosted.Service.Models.Orders;
+using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
 {
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository repository;
+        private readonly ITravelRepository travelRepository;
         private readonly IOrderTicketRepository orderTicketRepository;
         private readonly ITicketRepository ticketRepository;
         private readonly IMapper mapper;
 
-        public OrderService(IOrderRepository repository, IMapper mapper, IOrderTicketRepository orderTicketRepository, ITicketRepository ticketRepository)
+        public OrderService(IOrderRepository repository, IMapper mapper, IOrderTicketRepository orderTicketRepository, ITicketRepository ticketRepository, ITravelRepository travelRepository)
         {
             this.repository = repository;
             this.mapper = mapper;
             this.orderTicketRepository = orderTicketRepository;
             this.ticketRepository = ticketRepository;
+            this.travelRepository = travelRepository;
         }
 
         public List<PaymentResultDTO> Pay(string userid)
@@ -30,7 +38,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
             var order = repository.GetUserOpenOrder(userid);
             if (order != null)
             {
-                order.TrackingCode = (order.Id * 11) + Guid.NewGuid().ToString().Substring(0, 8 - (order.Id * 11).ToString().Length).ToUpper();
                 order.IsFinaly = true;
                 int count = repository.Update(order);
                 if (count > 0)
@@ -68,6 +75,42 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
                 }
             }
             return result;
+        }
+
+        public List<TravelViewDTO> GetOrderDetails(string userid)
+        {
+            var dtos = new List<TravelViewDTO>();
+            var order = repository.GetUserOpenOrder(userid);
+            foreach (var item in order.OrderTickets)
+            {
+                var dto = mapper.Map<TravelViewDTO>(travelRepository.GetViewById(item.Ticket.TravelId));
+                dto.MovingDate = item.Ticket.Travel.MovingDate.ToShamsi();
+                dto.ArrivingDate = item.Ticket.Travel.ArrivingDate.ToShamsi();
+                dto.MovingTime = item.Ticket.Travel.MovingTime.ToString("HH:mm");
+                dto.ArrivingTime = item.Ticket.Travel.ArrivingTime.ToString("HH:mm");
+                dto.Price = item.Ticket.Travel.Price.ToString("N0");
+                dtos.Add(dto);
+            }
+            return dtos;
+        }
+
+        public GridResultDTO<PaymentResultDTO> GetUserOrder(string userid, int skip, int take)
+        {
+            var resultViews = repository.GetUserOrders(userid).Skip(skip).Take(take).OrderByDescending(o => o.MovingDate).ToList();
+            var dtos = new List<PaymentResultDTO>();
+            foreach (var item in resultViews)
+            {
+                var dto = mapper.Map<PaymentResultDTO>(item);
+                dto.MovingDate = item.MovingDate.ToShamsi();
+                dto.MovingTime = item.MovingTime.ToString("HH:mm");
+                if (item.MovingDate > DateTime.Now)
+                {
+                    dto.Cancelable = true;
+                }
+                dtos.Add(dto);
+            }
+            int count = repository.GetUserOrders(userid).ToList().Count;
+            return new GridResultDTO<PaymentResultDTO>(count, dtos);
         }
     }
 }
