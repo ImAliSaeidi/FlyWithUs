@@ -7,6 +7,7 @@ using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
+using FlyWithUs.Hosted.Service.Tools.EmailSenders;
 using FlyWithUs.Hosted.Service.Tools.Security;
 using System;
 using System.Collections.Generic;
@@ -19,14 +20,15 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         private readonly IUserRepository repository;
         private readonly ICountryRepository countryRepository;
         private readonly IMapper mapper;
+        private readonly IViewRenderService viewRenderService;
 
-        public UserService(IUserRepository repository, IMapper mapper, ICountryRepository countryRepository)
+        public UserService(IUserRepository repository, IMapper mapper, ICountryRepository countryRepository, IViewRenderService viewRenderService)
         {
             this.repository = repository;
             this.mapper = mapper;
             this.countryRepository = countryRepository;
+            this.viewRenderService = viewRenderService;
         }
-
 
         public bool AddUser(UserAddDTO dto)
         {
@@ -85,25 +87,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             if (dto.NationalityId != null)
             {
                 dto.Nationality = countryRepository.GetCountryName(dto.NationalityId.Value);
-            }
-            return dto;
-        }
-
-        public UserPanelDTO GetUserForUserPanel(string userid)
-        {
-            var user = repository.GetById(userid);
-            var dto = mapper.Map<UserPanelDTO>(user);
-            if (user.Birthdate != null)
-            {
-                dto.Birthdate = user.Birthdate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
-            }
-            if (user.PassportIssunaceDate != null)
-            {
-                dto.PassportIssunaceDate = user.PassportIssunaceDate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
-            }
-            if (user.PassportExpirationDate != null)
-            {
-                dto.PassportExpirationDate = user.PassportExpirationDate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
             }
             return dto;
         }
@@ -268,46 +251,30 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        public bool CompleteUserInfo(CompleteUserInfoDTO dto)
+        private bool CompleteUserInfo(CompleteUserInfoDTO dto)
         {
             bool result = false;
-            var olduser = repository.GetById(dto.Id);
-            foreach (var item in dto.GetType().GetProperties())
+            if (ValidateCompleteUserInfoDTO(dto) == true)
             {
-                if (item.GetValue(dto, null) != null)
+                var olduser = repository.GetById(dto.Id);
+                var user = mapper.Map<ApplicationUser>(dto);
+                user.PasswordHash = olduser.PasswordHash;
+                user.Email = olduser.Email;
+                user.NormalizedEmail = olduser.Email.Trim().ToUpper();
+                user.PhoneNumber = olduser.PhoneNumber;
+                int count = repository.Update(user);
+                if (count > 0)
                 {
-                    if (item.GetValue(dto, null).ToString() == "")
-                    {
-                        item.SetValue(dto, null);
-                    }
+                    result = true;
                 }
-            }
-            var user = mapper.Map<ApplicationUser>(dto);
-            user.PasswordHash = olduser.PasswordHash;
-            user.Email = olduser.Email;
-            user.NormalizedEmail = olduser.Email.Trim().ToUpper();
-            user.PhoneNumber = olduser.PhoneNumber;
-            int count = repository.Update(user);
-            if (count > 0)
-            {
-                result = true;
             }
             return result;
         }
 
-        public bool UpdateUserProfile(UserProfileUpdateDTO dto)
+        private bool UpdateUserProfile(UserProfileUpdateDTO dto)
         {
             bool result = false;
-            foreach (var item in dto.GetType().GetProperties())
-            {
-                if (item.GetValue(dto, null) != null)
-                {
-                    if (item.GetValue(dto, null).ToString() == "")
-                    {
-                        item.SetValue(dto, null);
-                    }
-                }
-            }
+
             var user = mapper.Map<ApplicationUser>(dto);
             user.PasswordHash = repository.GetById(dto.Id).PasswordHash;
             user.NormalizedEmail = dto.Email.Trim().ToUpper();
@@ -316,24 +283,78 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             {
                 result = true;
             }
+
             return result;
         }
 
-        public UserCommonInfoDTO GetUserCommonInfo(string userid)
+        private static bool ValidateCompleteUserInfoDTO(CompleteUserInfoDTO dto)
         {
-            var user = repository.GetById(userid);
-            var dto = mapper.Map<UserCommonInfoDTO>(user);
-            if (user.Birthdate != null)
+            bool result = true;
+            if (dto.FirstNamePersian == null)
             {
-                dto.Birthdate = user.Birthdate.Value.ToShamsi();
+                result = false;
             }
-            return dto;
+            else if (dto.LastNamePersian == null)
+            {
+                result = false;
+            }
+            else if (dto.FirstNameEnglish == null)
+            {
+                result = false;
+            }
+            else if (dto.LastNameEnglish == null)
+            {
+                result = false;
+            }
+            else if (dto.NationalityCode == null)
+            {
+                result = false;
+            }
+            else if (dto.NationalityId == default)
+            {
+                result = false;
+            }
+            else if (dto.Gender == null)
+            {
+                result = false;
+            }
+            else if (dto.Birthdate == default)
+            {
+                result = false;
+            }
+            else if (dto.TravelType != null)
+            {
+                if (dto.PassportIssunaceDate == null)
+                {
+                    result = false;
+                }
+                else if (dto.PassportExpirationDate == null)
+                {
+                    result = false;
+                }
+                else if (dto.PassportNumber == null)
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
 
-        public UserProfileSettingDTO GetUserProfileSetting(string userid)
+        public bool LoginCheck(string userid)
+        {
+            var result = false;
+            var user = repository.GetById(userid);
+            if (user != null)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        public UserPanelDTO GetUserForUserPanel(string userid)
         {
             var user = repository.GetById(userid);
-            var dto = mapper.Map<UserProfileSettingDTO>(user);
+            var dto = mapper.Map<UserPanelDTO>(user);
             if (user.Birthdate != null)
             {
                 dto.Birthdate = user.Birthdate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
@@ -349,13 +370,67 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return dto;
         }
 
-        public bool LoginCheck(string userid)
+        public bool Update(UserProfileUpdateDTO dto)
         {
             var result = false;
-            var user = repository.GetById(userid);
+            var userByEmail = repository.GetUserByEmail(dto.Email);
+            var userByNumber = repository.GetUserByPhoneNumber(dto.PhoneNumber);
+            if (userByEmail.Id == dto.Id && userByNumber.Id == dto.Id)
+            {
+                if (dto.IsInbuy == false)
+                {
+                    if (dto.PhoneNumber == null || dto.Email == null)
+                    {
+                        result = false;
+                    }
+                    else
+                    {
+                        result = UpdateUserProfile(dto);
+                    }
+                }
+                else if (dto.IsInbuy == true)
+                {
+                    result = CompleteUserInfo(mapper.Map<CompleteUserInfoDTO>(dto));
+                }
+            }
+            return result;
+        }
+
+        public bool ForgotPassword(ForgotPasswordDTO dto)
+        {
+            var result = false;
+            var user = repository.GetUserByEmail(dto.Email);
             if (user != null)
             {
+                dto.FullNamePersian = user.FirstNamePersian + " " + user.LastNamePersian;
+                user.ActiveCode = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10).ToUpper();
+                dto.ActiveCode = user.ActiveCode;
+                repository.Update(user);
+                var to = user.Email;
+                var subject = "فراموشی رمز عبور";
+                var body = viewRenderService.RenderToStringAsync("_ForgotPassword", dto);
+                SendEmail.Send(to, subject, body);
                 result = true;
+            }
+            return result;
+        }
+
+        public bool ResetPassword(ResetPasswordDTO dto)
+        {
+            var result = false;
+            var user = repository.GetUserByEmail(dto.Email);
+            if (user != null)
+            {
+                if (user.ActiveCode == dto.ActiveCode)
+                {
+                    user.PasswordHash = HashGenerator.SalterHash(dto.NewPassword);
+                    user.ActiveCode = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10).ToUpper();
+                    int count = repository.Update(user);
+                    if (count > 0)
+                    {
+                        result = true;
+                    }
+                }
             }
             return result;
         }

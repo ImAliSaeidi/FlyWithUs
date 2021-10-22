@@ -29,5 +29,9 @@
         public const string InvalidNationalityCodeError = "کدملی وارد شده معتبر نیست";
         public const string InvalidFirstNameError = "نام وارد شده معتبر نیست";
         public const string InvalidLastNameError = "نام خانوادگی وارد شده معتبر نیست";
+        public const string PersianCharRegex = "^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$";
+        public const string EnglishCharRegex = "^[a-zA-Z\\s]*$";
+        public const string NationalityCodeRegex = "^[0-9]{10}$";
+        public const string PassportNumberRegex = "[A-Z|a-z][0-9]{8}$";
     }
 }

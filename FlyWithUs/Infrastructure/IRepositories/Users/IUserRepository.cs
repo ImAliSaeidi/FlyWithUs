@@ -23,5 +23,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 
         int DeleteUserRoles(string userid);
 
+        ApplicationUser GetUserByEmail(string email);
+
+        ApplicationUser GetUserByPhoneNumber(string phoennumber);
+
     }
 }

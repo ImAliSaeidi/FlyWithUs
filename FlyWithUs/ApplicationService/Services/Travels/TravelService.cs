@@ -5,7 +5,6 @@ using FlyWithUs.Hosted.Service.DTOs.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -107,7 +106,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
         {
             var dtos = new List<TravelViewDTO>();
             var travels = new List<TravelView>();
-            if (dto.OrderBy == "MovingTime" || dto.OrderBy == null)
+            if (dto.OrderBy == "MovingTime" || dto.OrderBy == "null")
             {
                 travels = repository
                   .GetAll()

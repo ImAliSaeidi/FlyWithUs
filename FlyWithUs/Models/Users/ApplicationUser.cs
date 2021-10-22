@@ -56,6 +56,8 @@ namespace FlyWithUs.Hosted.Service.Models.Users
 
         public DateTime? PassportExpirationDate { get; set; }
 
+        public string ActiveCode { get; set; }
+
         public bool IsDeleted { get; set; }
 
         public DateTime CreateDate { get; set; }

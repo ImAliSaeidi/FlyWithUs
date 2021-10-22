@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20211021124218_UpdatePaymentResultViewRODCandAODA")]
+    partial class UpdatePaymentResultViewRODCandAODA
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -384,7 +386,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "12b79f44-dd1e-4f6f-a706-0c7875e6657b",
+                            ConcurrencyStamp = "d6217c10-020f-4291-ac17-9c39570a1193",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -392,7 +394,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "ca0d2c30-2e61-4864-b6a0-d4d716bcb12b",
+                            ConcurrencyStamp = "0033d851-ed45-4824-9440-d2f6f0101986",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -406,9 +408,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("ActiveCode")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Birthdate")
                         .HasColumnType("datetime2");

@@ -14,7 +14,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
             this.countryService = countryService;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         public IActionResult GetAll()
         {
             var result = countryService.GetAllCountryForAPI();

@@ -36,7 +36,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             {
                 role.IsDeleted = true;
             }
-           return Save();
+            return Save();
         }
 
         public IQueryable<ApplicationUser> GetAll()
@@ -46,7 +46,17 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
 
         public ApplicationUser GetById(string userid)
         {
-            return context.Users.AsNoTracking().First(u => u.Id == userid);
+            return context.Users.AsNoTracking().FirstOrDefault(u => u.Id == userid);
+        }
+
+        public ApplicationUser GetUserByEmail(string email)
+        {
+            return context.Users.AsNoTracking().SingleOrDefault(u => u.Email == email);
+        }
+
+        public ApplicationUser GetUserByPhoneNumber(string phoennumber)
+        {
+            return context.Users.AsNoTracking().SingleOrDefault(u => u.PhoneNumber == phoennumber);
         }
 
         public bool IsEmailExist(string email)

@@ -37,8 +37,16 @@ namespace FlyWithUs.Hosted.Service.Controllers
         }
 
 
+        [HttpPost("ForgotPassword")]
+        public IActionResult ForgotPassword(ForgotPasswordDTO dto)
+        {
+            var result = userService.ForgotPassword(dto);
+            return Ok(result);
+        }
+
+
         [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpGet("GetUser")]
+        [HttpGet]
         public IActionResult GetUser()
         {
             var user = userService.GetUserForUserPanel(userContext.UserId);
@@ -56,39 +64,11 @@ namespace FlyWithUs.Hosted.Service.Controllers
 
 
         [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpGet("GetUserCommonInfo")]
-        public IActionResult GetUserCommonInfo()
-        {
-            var user = userService.GetUserCommonInfo(userContext.UserId);
-            return Ok(user);
-        }
-
-
-        [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpGet("GetUserProfileSetting")]
-        public IActionResult GetUserProfileSetting()
-        {
-            var user = userService.GetUserProfileSetting(userContext.UserId);
-            return Ok(user);
-        }
-
-
-        [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpPut("UpdateProfile")]
-        public IActionResult UpdateProfile([FromBody] UserProfileUpdateDTO dto)
+        [HttpPut]
+        public IActionResult Update([FromBody] UserProfileUpdateDTO dto)
         {
             dto.Id = userContext.UserId;
-            var result = userService.UpdateUserProfile(dto);
-            return Ok(result);
-        }
-
-
-        [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpPut("CompleteUserInfo")]
-        public IActionResult CompleteUserInfo([FromBody] CompleteUserInfoDTO dto)
-        {
-            dto.Id = userContext.UserId;
-            var result = userService.CompleteUserInfo(dto);
+            var result = userService.Update(dto);
             return Ok(result);
         }
 
@@ -99,6 +79,14 @@ namespace FlyWithUs.Hosted.Service.Controllers
         {
             dto.Id = userContext.UserId;
             var result = userService.ChangePassword(dto);
+            return Ok(result);
+        }
+
+
+        [HttpPatch("ResetPassword")]
+        public IActionResult ResetPassword([FromBody] ResetPasswordDTO dto)
+        {
+            var result = userService.ResetPassword(dto);
             return Ok(result);
         }
 

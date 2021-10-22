@@ -1,10 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FlyWithUs.Hosted.Service.Controllers
 {
@@ -19,7 +14,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
             this.cityService = cityService;
         }
 
-        [HttpGet("GetPopularDestinations")]
+        [HttpGet]
         public IActionResult GetPopularDestinations()
         {
             var result = cityService.GetPopularDestinations();

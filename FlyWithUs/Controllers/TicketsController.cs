@@ -22,7 +22,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
 
 
         [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpPost("AddTicket")]
+        [HttpPost]
         public IActionResult AddTicket([FromBody] TicketAddDTO dto)
         {
             ticektService.AddTicket(dto, userContext.UserId);

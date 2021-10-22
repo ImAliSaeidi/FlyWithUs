@@ -45,9 +45,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Common
             CreateMap<ApplicationUser, UserDTO>();
             CreateMap<ApplicationUser, UserPanelDTO>();
             CreateMap<UserProfileUpdateDTO, ApplicationUser>();
-            CreateMap<ApplicationUser, UserCommonInfoDTO>();
-            CreateMap<ApplicationUser, UserProfileSettingDTO>();
-
+            CreateMap<CompleteUserInfoDTO, ApplicationUser>();
+            CreateMap<UserProfileUpdateDTO, CompleteUserInfoDTO>();
+           
             CreateMap<AirportAddDTO, Airport>();
             CreateMap<AirportUpdateDTO, Airport>();
             CreateMap<AirportUpdateDTO, Airport>().ReverseMap();

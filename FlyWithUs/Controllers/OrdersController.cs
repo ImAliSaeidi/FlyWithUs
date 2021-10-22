@@ -21,7 +21,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
 
 
         [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpPost("Pay")]
+        [HttpPost]
         public IActionResult Pay()
         {
             var result = orderService.Pay(userContext.UserId);
@@ -29,7 +29,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
         }
 
         [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpPatch("DeleteNotFinalyOrders")]
+        [HttpPatch]
         public IActionResult DeleteNotFinalyOrders()
         {
             var result = orderService.DeleteNotFinalyOrders(userContext.UserId);
@@ -38,7 +38,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
 
 
         [SecurityFilter(AuthorizationRoles.UserRole)]
-        [HttpGet("GetOrderDetails")]
+        [HttpGet]
         public IActionResult GetOrderDetails()
         {
             var result = orderService.GetOrderDetails(userContext.UserId);

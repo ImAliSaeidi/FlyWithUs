@@ -26,6 +26,7 @@ using FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.Repositories.World;
 using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
+using FlyWithUs.Hosted.Service.Tools.Convertors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -49,8 +50,8 @@ namespace FlyWithUs.Hosted.Service
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllersWithViews().AddNewtonsoftJson();
+
 
 
 
@@ -86,6 +87,7 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IUserContext, UserContext>();
+            services.AddScoped<IViewRenderService, RenderViewToString>();
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<FlyWithUsContext>();
             configuration.GetSection("TokenConfig").Bind(new TokenConfig());

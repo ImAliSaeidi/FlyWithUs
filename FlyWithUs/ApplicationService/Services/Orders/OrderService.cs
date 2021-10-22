@@ -6,8 +6,6 @@ using FlyWithUs.Hosted.Service.DTOs.Travels;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Orders;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
-using FlyWithUs.Hosted.Service.Models.Orders;
-using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
 using System;
 using System.Collections.Generic;
@@ -96,7 +94,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
 
         public GridResultDTO<PaymentResultDTO> GetUserOrder(string userid, int skip, int take)
         {
-            var resultViews = repository.GetUserOrders(userid).Skip(skip).Take(take).OrderByDescending(o => o.MovingDate).ToList();
+            var resultViews = repository.GetUserOrders(userid).OrderByDescending(o => o.TicketCreateDate).Skip(skip).Take(take).ToList();
             var dtos = new List<PaymentResultDTO>();
             foreach (var item in resultViews)
             {

@@ -60,5 +60,8 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
 
         public DateTime? PassportExpirationDate { get; set; }
+
+
+        public string TravelType { get; set; }
     }
 }
