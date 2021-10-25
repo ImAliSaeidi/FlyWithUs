@@ -7,7 +7,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airports
         
         [Required(ErrorMessage = AirportValidation.RequiredPersianNameError)]
         [StringLength(128, ErrorMessage = AirportValidation.LengthError)]
-        public string Name { get; set; }
+        public string PersianName { get; set; }
 
 
         [Required(ErrorMessage = AirportValidation.RequiredEnglishNameError)]
