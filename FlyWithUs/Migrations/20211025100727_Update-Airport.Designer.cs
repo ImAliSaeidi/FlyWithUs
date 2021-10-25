@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    [Migration("20211019210646_UpdateModels2")]
-    partial class UpdateModels2
+    [Migration("20211025100727_Update-Airport")]
+    partial class UpdateAirport
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -120,7 +120,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Destination")
+                    b.Property<string>("DestinationAirport")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("MovingDate")
@@ -129,13 +129,19 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<DateTime>("MovingTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Origin")
+                    b.Property<string>("OriginAirport")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TicketCode")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("TicketCreateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("TrackingCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TicketId");
@@ -380,7 +386,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "60b972e4-46d0-4ab3-bb8d-397f19947fea",
+                            ConcurrencyStamp = "d09cb7b3-5685-4cd7-8108-d1c274fea4eb",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -388,7 +394,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "036d078b-8fc4-4883-ab00-2c0cdba9c167",
+                            ConcurrencyStamp = "9c7830df-4510-4eab-8136-c562e00c58ef",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -402,6 +408,9 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("ActiveCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Birthdate")
                         .HasColumnType("datetime2");
@@ -528,7 +537,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("PersianName")
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
@@ -604,6 +613,26 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.PopularDestinationView", b =>
+                {
+                    b.Property<int>("CityId")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersianName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TravelCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("CityId");
+
+                    b.ToView("PopularDestinationViews");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Airplane", b =>

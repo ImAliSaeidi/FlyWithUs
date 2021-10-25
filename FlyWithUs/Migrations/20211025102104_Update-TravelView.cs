@@ -2,7 +2,7 @@
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
-    public partial class UpdateTravelViewRTC2 : Migration
+    public partial class UpdateTravelView : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,8 +20,8 @@ T.ArrivingDate ArrivingDate,
 T.ArrivingTime ArrivingTime,
 AG.[Name] AgancyName,
 AP.[Name] AirplaneName,
-OAP.[Name] OriginAirportName,
-DOP.[Name] DestinationAirportName,
+OAP.PersianName OriginAirportName,
+DOP.PersianName DestinationAirportName,
 OC.PersianName OriginCityName,
 DC.PersianName DestinationCityName,
 OCI.[PersianName] OriginCountryName,
@@ -42,14 +42,14 @@ INNER JOIN Countries DCI ON T.DestinationCountryId=DCI.Id");
                 keyColumn: "Id",
                 keyValue: "1af962a6-d464-467f-8fea-8f6e9c4be780",
                 column: "ConcurrencyStamp",
-                value: "641509d9-14a0-4503-8dff-a2928bd8f382");
+                value: "f8e369ea-1c4e-4731-a2c3-9ad0702cd870");
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: "586faa77-67b7-477e-849f-e174c7924f95",
                 column: "ConcurrencyStamp",
-                value: "d49f41fc-18da-4c6d-b748-de8fa5066e8b");
+                value: "73802b38-d1c2-463a-a345-a93d1c30d75c");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -59,14 +59,14 @@ INNER JOIN Countries DCI ON T.DestinationCountryId=DCI.Id");
                 keyColumn: "Id",
                 keyValue: "1af962a6-d464-467f-8fea-8f6e9c4be780",
                 column: "ConcurrencyStamp",
-                value: "49b9f286-ac68-4859-b733-14e8630e32de");
+                value: "d09cb7b3-5685-4cd7-8108-d1c274fea4eb");
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: "586faa77-67b7-477e-849f-e174c7924f95",
                 column: "ConcurrencyStamp",
-                value: "7a734b24-0efd-4678-99b9-8a8b92777d07");
+                value: "9c7830df-4510-4eab-8136-c562e00c58ef");
         }
     }
 }

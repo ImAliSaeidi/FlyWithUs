@@ -20,12 +20,10 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
         public string Email { get; set; }
 
 
-        [Required(ErrorMessage = UserValidation.RequiredPasswordError)]
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
         public string Password { get; set; }
 
 
-        [Required(ErrorMessage = UserValidation.RequiredRePasswordError)]
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
         [Compare("Password", ErrorMessage = UserValidation.PasswordCompareError)]
         public string RePassword { get; set; }

@@ -16,7 +16,7 @@ namespace FlyWithUs.Hosted.Service.Models.World
 
         [Required]
         [StringLength(128)]
-        public string Name { get; set; }
+        public string PersianName { get; set; }
 
 
         [Required]

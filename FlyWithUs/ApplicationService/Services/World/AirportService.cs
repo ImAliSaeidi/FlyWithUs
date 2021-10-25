@@ -53,7 +53,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return repository.GetAll().Where(a => a.City.Id == cityid)
                .Select(c => new SelectListItem()
                {
-                   Text = c.Name,
+                   Text = c.PersianName,
                    Value = c.Id.ToString()
                }).ToList();
         }
@@ -83,7 +83,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             var airport = repository.GetById(airportid);
             if (repository.IsExist(name, cityid) == true)
             {
-                if (airport.Name == name && airport.City.Id == cityid)
+                if (airport.PersianName == name && airport.City.Id == cityid)
                 {
                     result = false;
                 }

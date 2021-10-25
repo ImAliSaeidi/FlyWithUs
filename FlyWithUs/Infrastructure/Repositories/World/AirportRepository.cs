@@ -40,7 +40,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
 
         public bool IsExist(string name, int cityid)
         {
-            return context.Airports.Include(a => a.City).Any(a => a.Name == name && a.City.Id == cityid);
+            return context.Airports.Include(a => a.City).Any(a => a.PersianName == name && a.City.Id == cityid);
         }
 
         public int Save()
