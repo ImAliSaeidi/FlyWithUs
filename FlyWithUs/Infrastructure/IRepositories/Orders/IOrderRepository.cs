@@ -9,16 +9,18 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Orders
 
         int Update(Order order);
 
-        int Delete(int orderid);
+        int Delete(int orderId);
 
-        Order GetById(int orderid);
+        Order GetById(int orderId);
 
-        PaymentResultView GetPaymentResult(int ticketid);
+        PaymentResultView GetPaymentResult(int ticketId);
 
-        Order GetUserOpenOrder(string userid);
+        Order GetUserOpenOrder(string userId);
 
         int Save();
 
-        IQueryable<PaymentResultView> GetUserOrders(string userid); 
+        IQueryable<PaymentResultView> GetUserOrders(string userId);
+
+        IQueryable<Order> GetAll();
     }
 }

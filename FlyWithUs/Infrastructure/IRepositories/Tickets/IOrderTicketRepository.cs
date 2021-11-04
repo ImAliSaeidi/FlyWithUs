@@ -7,7 +7,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets
 
         OrderTicket GetById(int orderTicketId);
 
-        OrderTicket GetByTicketId(int ticketid);
+        OrderTicket GetByTicketId(int ticketId);
 
         int Delete(int orderTicketId);
 

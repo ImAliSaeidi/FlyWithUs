@@ -1,19 +1,18 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Orders;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
-using FlyWithUs.Hosted.Service.Models.Travels;
 using System.Collections.Generic;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Orders
 {
     public interface IOrderService
     {
-        List<PaymentResultDTO> Pay(string userid);
+        List<PaymentResultDTO> Pay(string userId);
 
-        bool DeleteNotFinalyOrders(string userid);
+        bool DeleteNotFinalyOrders(string userId);
 
-        List<TravelViewDTO> GetOrderDetails(string userid);
+        List<TravelViewDTO> GetOrderDetails(string userId);
 
-        GridResultDTO<PaymentResultDTO> GetUserOrder(string userid,int skip, int take);
+        GridResultDTO<PaymentResultDTO> GetUserOrder(string userId, int skip, int take);
     }
 }

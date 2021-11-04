@@ -21,16 +21,16 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
             return Save();
         }
 
-        public int Delete(int agancyid)
+        public int Delete(int agancyId)
         {
-            var agancy = GetById(agancyid);
+            var agancy = GetById(agancyId);
             agancy.IsDeleted = true;
             return Update(agancy);
         }
 
-        public Agancy GetById(int agancyid)
+        public Agancy GetById(int agancyId)
         {
-            return context.Agancies.Include(a => a.Airplanes).AsNoTracking().First(a => a.Id == agancyid);
+            return context.Agancies.Include(a => a.Airplanes).AsNoTracking().First(a => a.Id == agancyId);
         }
 
         public IQueryable<Agancy> GetAll()

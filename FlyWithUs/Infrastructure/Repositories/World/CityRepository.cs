@@ -21,9 +21,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             return Save();
         }
 
-        public int Delete(int cityid)
+        public int Delete(int cityId)
         {
-            var city = GetById(cityid);
+            var city = GetById(cityId);
             city.IsDeleted = true;
             return Update(city);
         }
@@ -33,7 +33,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             return context.Cities.Include(c => c.Country).Include(c => c.Airports);
         }
 
-        public City GetById(int cityid)
+        public City GetById(int cityId)
         {
             return context.Cities
                 .Include(c => c.Country)
@@ -41,12 +41,12 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
                 .Include(c => c.IncomingTravels)
                 .Include(c => c.OutboundTravels)
                 .AsNoTracking()
-                .First(c => c.Id == cityid);
+                .First(c => c.Id == cityId);
         }
 
-        public bool IsExist(string persianName, int countryid)
+        public bool IsExist(string persianName, int countryId)
         {
-            return context.Cities.Include(c => c.Country).Any(c => c.PersianName == persianName && c.Country.Id == countryid);
+            return context.Cities.Include(c => c.Country).Any(c => c.PersianName == persianName && c.Country.Id == countryId);
         }
 
         public int Save()

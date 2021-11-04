@@ -7,19 +7,18 @@ namespace FlyWithUs.Hosted.Service.DTOs.Cities
     {
         [Required(ErrorMessage = CityValidation.RequiredPersianNameError)]
         [StringLength(128, ErrorMessage = CityValidation.LengthError)]
+        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$", ErrorMessage = CityValidation.InvalidPersianNameError)]
         public string PersianName { get; set; }
 
 
         [Required(ErrorMessage = CityValidation.RequiredEnglishNameError)]
         [StringLength(128, ErrorMessage = CityValidation.LengthError)]
+        [RegularExpression("^[a-zA-Z\\s]*$", ErrorMessage = CityValidation.InvalidEnglishNameError)]
         public string EnglishName { get; set; }
 
 
         [Required(ErrorMessage = CityValidation.RequiredSelectCountryError)]
         public int CountryId { get; set; }
 
-
-        [Required(ErrorMessage = CityValidation.RequiredImageError)]
-        public IFormFile Image { get; set; }
     }
 }

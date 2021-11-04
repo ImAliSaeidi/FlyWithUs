@@ -30,10 +30,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
             this.travelRepository = travelRepository;
         }
 
-        public List<PaymentResultDTO> Pay(string userid)
+        public List<PaymentResultDTO> Pay(string userId)
         {
             List<PaymentResultDTO> dtos = null;
-            var order = repository.GetUserOpenOrder(userid);
+            var order = repository.GetUserOpenOrder(userId);
             if (order != null)
             {
                 order.IsFinaly = true;
@@ -54,10 +54,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
             return dtos;
         }
 
-        public bool DeleteNotFinalyOrders(string userid)
+        public bool DeleteNotFinalyOrders(string userId)
         {
             var result = false;
-            var order = repository.GetUserOpenOrder(userid);
+            var order = repository.GetUserOpenOrder(userId);
             if (order != null)
             {
                 foreach (var item in order.OrderTickets)
@@ -75,10 +75,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
             return result;
         }
 
-        public List<TravelViewDTO> GetOrderDetails(string userid)
+        public List<TravelViewDTO> GetOrderDetails(string userId)
         {
             var dtos = new List<TravelViewDTO>();
-            var order = repository.GetUserOpenOrder(userid);
+            var order = repository.GetUserOpenOrder(userId);
             foreach (var item in order.OrderTickets)
             {
                 var dto = mapper.Map<TravelViewDTO>(travelRepository.GetViewById(item.Ticket.TravelId));
@@ -92,9 +92,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
             return dtos;
         }
 
-        public GridResultDTO<PaymentResultDTO> GetUserOrder(string userid, int skip, int take)
+        public GridResultDTO<PaymentResultDTO> GetUserOrder(string userId, int skip, int take)
         {
-            var resultViews = repository.GetUserOrders(userid).OrderByDescending(o => o.TicketCreateDate).Skip(skip).Take(take).ToList();
+            var resultViews = repository.GetUserOrders(userId).OrderByDescending(o => o.TicketCreateDate).Skip(skip).Take(take).ToList();
             var dtos = new List<PaymentResultDTO>();
             foreach (var item in resultViews)
             {
@@ -107,7 +107,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Orders
                 }
                 dtos.Add(dto);
             }
-            int count = repository.GetUserOrders(userid).ToList().Count;
+            int count = repository.GetUserOrders(userId).ToList().Count;
             return new GridResultDTO<PaymentResultDTO>(count, dtos);
         }
     }

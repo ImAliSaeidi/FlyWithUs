@@ -5,6 +5,7 @@ using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,18 +26,21 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
         public bool AddAirplane(AirplaneAddDTO dto)
         {
             bool result = false;
-            int count = repository.Add(mapper.Map<Airplane>(dto));
-            if (count > 0)
+            if (IsAirplaneExist(dto.Name, dto.Brand, dto.MaxCapacity, dto.AgancyId) == false)
             {
-                result = true;
+                int count = repository.Add(mapper.Map<Airplane>(dto));
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        public bool DeleteAirplane(int airplaneid)
+        public bool DeleteAirplane(int airplaneId)
         {
             bool result = false;
-            int count = repository.Delete(airplaneid);
+            int count = repository.Delete(airplaneId);
             if (count > 0)
             {
                 result = true;
@@ -46,45 +50,58 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
 
         public GridResultDTO<AirplaneDTO> GetAllAirplane(int skip, int take)
         {
-            var dtos = mapper.Map<List<AirplaneDTO>>(repository.GetAll().Skip(skip).Take(take).ToList());
-            var count = repository.GetAll().Count();
+            var dtos = mapper.Map<List<AirplaneDTO>>(repository.
+                GetAll()
+                .IgnoreQueryFilters()
+                .Where(a => a.IsDeleted == false)
+                .Skip(skip)
+                .Take(take)
+                .ToList());
+            var count = repository.
+                GetAll()
+                .IgnoreQueryFilters()
+                .Where(a => a.IsDeleted == false)
+                .Count();
             return new GridResultDTO<AirplaneDTO>(count, dtos);
         }
 
-        public AirplaneDTO GetAirplaneById(int airplaneid)
+        public AirplaneDTO GetAirplaneById(int airplaneId)
         {
-            return mapper.Map<AirplaneDTO>(repository.GetById(airplaneid));
+            return mapper.Map<AirplaneDTO>(repository.GetById(airplaneId));
         }
 
-        public AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneid)
+        public AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneId)
         {
-            return mapper.Map<AirplaneUpdateDTO>(repository.GetById(airplaneid));
+            return mapper.Map<AirplaneUpdateDTO>(repository.GetById(airplaneId));
         }
 
         public bool UpdateAirplane(AirplaneUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.Update(mapper.Map<Airplane>(dto));
-            if (count > 0)
+            if (IsAirplaneExist(dto.Name, dto.Brand, dto.MaxCapacity, dto.AgancyId, dto.Id) == false)
             {
-                result = true;
+                int count = repository.Update(mapper.Map<Airplane>(dto));
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        public bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid)
+        public bool IsAirplaneExist(string name, string brand, int maxCapacity, int agancyId)
         {
-            return repository.IsExist(name, brand, maxcapacity, agancyid);
+            return repository.IsExist(name, brand, maxCapacity, agancyId);
         }
 
-        public bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid, int airplaneid)
+        public bool IsAirplaneExist(string name, string brand, int maxCapacity, int agancyId, int airplaneId)
         {
             bool result = false;
-            var airplane = repository.GetById(airplaneid);
-            if (repository.IsExist(name, brand, maxcapacity, agancyid) == true)
+            var airplane = repository.GetById(airplaneId);
+            if (repository.IsExist(name, brand, maxCapacity, agancyId) == true)
             {
-                if (airplane.Name == name && airplane.Brand == brand && airplane.MaxCapacity == maxcapacity &&
-                airplane.Agancy.Id == agancyid)
+                if (airplane.Name == name && airplane.Brand == brand && airplane.MaxCapacity == maxCapacity &&
+                airplane.Agancy.Id == agancyId)
                 {
                     result = false;
                 }
@@ -96,9 +113,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return result;
         }
 
-        public List<SelectListItem> GetAllAirplaneAsSelectList(int agancyid)
+        public List<SelectListItem> GetAllAirplaneAsSelectList(int agancyId)
         {
-            return repository.GetAll().Where(a => a.Agancy.Id == agancyid)
+            return repository.GetAll().Where(a => a.Agancy.Id == agancyId)
                 .Select(c => new SelectListItem()
                 {
                     Text = c.Name,

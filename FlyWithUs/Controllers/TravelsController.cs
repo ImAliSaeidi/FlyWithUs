@@ -27,10 +27,10 @@ namespace FlyWithUs.Hosted.Service.Controllers
         }
 
 
-        [HttpGet("{travelid}")]
-        public IActionResult GetTravel([Required] int travelid)
+        [HttpGet("{travelId}")]
+        public IActionResult GetTravel([Required] int travelId)
         {
-            var result = travelService.GetTravelViewById(travelid);
+            var result = travelService.GetTravelViewById(travelId);
             return Ok(result);
         }
     }

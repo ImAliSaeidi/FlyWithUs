@@ -384,7 +384,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "4792fe16-99e6-4d56-b3d0-9d2b76f1ac48",
+                            ConcurrencyStamp = "6926bb4a-f978-443e-8d49-4ae38c840534",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -392,7 +392,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "ed050006-cc9b-4ab9-a75c-1167ae5770f2",
+                            ConcurrencyStamp = "c01f4575-0391-41e0-a9b7-2d6bf07383f8",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -564,11 +564,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("nvarchar(1024)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");

@@ -8,17 +8,17 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 
         int Add(Country country);
 
-        int Delete(int countryid);
+        int Delete(int countryId);
 
         int Update(Country country);
 
-        Country GetById(int countryid);
+        Country GetById(int countryId);
 
         IQueryable<Country> GetAll();
 
-        bool IsExist(string englishname,string persianname);
+        bool IsExist(string englishName,string persianName);
 
-        string GetCountryName(int nationalityid);
+        string GetCountryName(int nationalityId);
 
         int Save();
     }

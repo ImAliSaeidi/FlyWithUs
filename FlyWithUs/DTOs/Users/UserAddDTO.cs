@@ -19,6 +19,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         [Required(ErrorMessage = UserValidation.RequiredPasswordError)]
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("^(?=.*\\d)(?=.*[a-z]|[A-Z]).{6,128}$", ErrorMessage = UserValidation.InvalidPasswordError)]
         public string Password { get; set; }
 
 

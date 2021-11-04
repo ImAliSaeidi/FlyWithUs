@@ -24,7 +24,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Tickets
             this.orderTicketRepository = orderTicketRepository;
         }
 
-        public bool AddTicket(TicketAddDTO dto, string userid)
+        public bool AddTicket(TicketAddDTO dto, string userId)
         {
             bool result = false;
             var travel = travelRepository.GetById(dto.TravelId);
@@ -35,12 +35,12 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Tickets
                 Ticket ticket = new Ticket();
                 ticket.Code = code;
                 ticket.TravelId = dto.TravelId;
-                var order = orderRepository.GetUserOpenOrder(userid);
+                var order = orderRepository.GetUserOpenOrder(userId);
                 if (order == null)
                 {
                     order = new Order();
                     order.TrackingCode = (order.Id * 11) + Guid.NewGuid().ToString().Substring(0, 8 - (order.Id * 11).ToString().Length).ToUpper();
-                    order.UserId = userid;
+                    order.UserId = userId;
                     order.TotalPrice = travel.Price;
                     orderRepository.Add(order);
                 }
@@ -94,10 +94,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Tickets
             return result;
         }
 
-        public bool DeleteTickets(string userid)
+        public bool DeleteTickets(string userId)
         {
             var result = false;
-            var order = orderRepository.GetUserOpenOrder(userid);
+            var order = orderRepository.GetUserOpenOrder(userId);
             if (order != null)
             {
                 foreach (var item in order.OrderTickets)

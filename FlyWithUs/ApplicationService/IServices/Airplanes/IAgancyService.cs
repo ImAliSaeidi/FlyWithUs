@@ -13,16 +13,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 
         bool IsAgancyExist(string name);
 
-        bool IsAgancyExist(string name, int agancyid);
+        bool IsAgancyExist(string name, int agancyId);
 
-        bool DeleteAgancy(int agancyid);
+        bool DeleteAgancy(int agancyId);
 
-        AgancyUpdateDTO GetAgancyForUpdate(int agancyid);
+        AgancyUpdateDTO GetAgancyForUpdate(int agancyId);
 
         bool UpdateAgancy(AgancyUpdateDTO dto);
 
-        List<SelectListItem> GetAllAgancyAsSelectList();
+        List<AgancyDTO> GetAllAgancyAsSelectList();
 
-        AgancyDTO GetAgancyById(int agancyid);
+        AgancyDTO GetAgancyById(int agancyId);
     }
 }

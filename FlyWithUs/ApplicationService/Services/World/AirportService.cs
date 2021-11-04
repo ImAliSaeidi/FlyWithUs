@@ -24,18 +24,21 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool AddAirport(AirportAddDTO dto)
         {
             bool result = false;
-            int count = repository.Add(mapper.Map<Airport>(dto));
-            if (count > 0)
+            if (IsAirportExist(dto.PersianName, dto.CityId) == false)
             {
-                result = true;
+                int count = repository.Add(mapper.Map<Airport>(dto));
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        public bool DeleteAirport(int airportid)
+        public bool DeleteAirport(int airportId)
         {
             bool result = false;
-            int count = repository.Delete(airportid);
+            int count = repository.Delete(airportId);
             if (count > 0)
             {
                 result = true;
@@ -43,14 +46,17 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-        public AirportDTO GetAirportById(int airportid)
+        public AirportDTO GetAirportById(int airportId)
         {
-            return mapper.Map<AirportDTO>(repository.GetById(airportid));
+            var airport = repository.GetById(airportId);
+            var dto = mapper.Map<AirportDTO>(airport);
+            dto.CountryId = airport.City.CountryId;
+            return dto;
         }
 
-        public List<SelectListItem> GetAllAirportAsSelectList(int cityid)
+        public List<SelectListItem> GetAllAirportAsSelectList(int cityId)
         {
-            return repository.GetAll().Where(a => a.City.Id == cityid)
+            return repository.GetAll().Where(a => a.City.Id == cityId)
                .Select(c => new SelectListItem()
                {
                    Text = c.PersianName,
@@ -72,18 +78,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return new GridResultDTO<AirportDTO>(count, dtos);
         }
 
-        public bool IsAirportExist(string name, int cityid)
+        public bool IsAirportExist(string name, int cityId)
         {
-            return repository.IsExist(name, cityid);
+            return repository.IsExist(name, cityId);
         }
 
-        public bool IsAirportExist(string name, int cityid, int airportid)
+        public bool IsAirportExist(string name, int cityId, int airportId)
         {
             bool result = false;
-            var airport = repository.GetById(airportid);
-            if (repository.IsExist(name, cityid) == true)
+            var airport = repository.GetById(airportId);
+            if (repository.IsExist(name, cityId) == true)
             {
-                if (airport.PersianName == name && airport.City.Id == cityid)
+                if (airport.PersianName == name && airport.City.Id == cityId)
                 {
                     result = false;
                 }
@@ -98,17 +104,20 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool UpdateAirport(AirportUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.Update(mapper.Map<Airport>(dto));
-            if (count > 0)
+            if (IsAirportExist(dto.PersianName, dto.CityId, dto.Id) == false)
             {
-                result = true;
+                int count = repository.Update(mapper.Map<Airport>(dto));
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        public AirportUpdateDTO GetAirportForUpdate(int airportid)
+        public AirportUpdateDTO GetAirportForUpdate(int airportId)
         {
-            return mapper.Map<AirportUpdateDTO>(repository.GetById(airportid));
+            return mapper.Map<AirportUpdateDTO>(repository.GetById(airportId));
         }
 
     }

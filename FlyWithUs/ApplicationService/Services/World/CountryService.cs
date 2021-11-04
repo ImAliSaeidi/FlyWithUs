@@ -30,18 +30,21 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool AddCountry(CountryAddDTO dto)
         {
             bool result = false;
-            int count = repository.Add(mapper.Map<Country>(dto));
-            if (count > 0)
+            if (IsExistCountry(dto.EnglishName, dto.PersianName) == false)
             {
-                result = true;
+                int count = repository.Add(mapper.Map<Country>(dto));
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        public bool DeleteCountry(int countryid)
+        public bool DeleteCountry(int countryId)
         {
             bool result = false;
-            int count = repository.Delete(countryid);
+            int count = repository.Delete(countryId);
             if (count > 0)
             {
                 result = true;
@@ -67,9 +70,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-        public CountryDTO GetCountryById(int countryid)
+        public CountryDTO GetCountryById(int countryId)
         {
-            return Map(repository.GetById(countryid));
+            return Map(repository.GetById(countryId));
         }
 
         public GridResultDTO<CountryDTO> GetAllCountry(int skip, int take)
@@ -96,18 +99,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return dto;
         }
 
-        public bool IsExistCountry(string englishname, string persianname)
+        public bool IsExistCountry(string englishName, string persianName)
         {
-            return repository.IsExist(englishname, persianname);
+            return repository.IsExist(englishName, persianName);
         }
 
-        public bool IsExistCountry(string englishname, string persianname, int countryid)
+        public bool IsExistCountry(string englishName, string persianName, int countryId)
         {
             bool result = false;
-            var country = repository.GetById(countryid);
-            if (repository.IsExist(englishname, persianname) == true)
+            var country = repository.GetById(countryId);
+            if (repository.IsExist(englishName, persianName) == true)
             {
-                if (country.EnglishName == englishname && country.PersianName == persianname)
+                if (country.EnglishName == englishName && country.PersianName == persianName)
                 {
                     result = false;
                 }
@@ -119,18 +122,21 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-        public CountryUpdateDTO GetCountryForUpdate(int countryid)
+        public CountryUpdateDTO GetCountryForUpdate(int countryId)
         {
-            return mapper.Map<CountryUpdateDTO>(repository.GetById(countryid));
+            return mapper.Map<CountryUpdateDTO>(repository.GetById(countryId));
         }
 
         public bool UpdateCountry(CountryUpdateDTO dto)
         {
             bool result = false;
-            int count = repository.Update(mapper.Map<Country>(dto));
-            if (count > 0)
+            if (IsExistCountry(dto.EnglishName, dto.PersianName, dto.Id) == false)
             {
-                result = true;
+                int count = repository.Update(mapper.Map<Country>(dto));
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
@@ -138,6 +144,36 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public List<CountryListDTO> GetAllCountryForAPI()
         {
             return mapper.Map<List<CountryListDTO>>(repository.GetAll().ToList());
+        }
+
+        public List<CountryDTO> GetAllWithoutPaging()
+        {
+            var countries = repository.GetAll().ToList();
+            var dtos = new List<CountryDTO>();
+            foreach (var country in countries)
+            {
+                var dto = mapper.Map<CountryDTO>(country);
+                foreach (var city in country.Cities)
+                {
+                    dto.CityDTOs.Add(Map(city));
+                    foreach (var airport in city.Airports)
+                    {
+                        dto.AirportDTOs.Add(mapper.Map<AirportDTO>(airport));
+                    }
+                }
+                dtos.Add(dto);
+            }
+            return dtos;
+        }
+
+        private CityDTO Map(City city)
+        {
+            var dto = mapper.Map<CityDTO>(city);
+            foreach (var airport in city.Airports)
+            {
+                dto.AirportDTOs.Add(mapper.Map<AirportDTO>(airport));
+            }
+            return dto;
         }
     }
 }

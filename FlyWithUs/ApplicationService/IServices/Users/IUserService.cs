@@ -13,29 +13,31 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         GridResultDTO<UserDTO> GetAllUser(int skip, int take);
 
-        bool IsPhoneNumberExist(string phonenumber);
+        bool IsPhoneNumberExist(string phoneNumber);
 
-        bool IsPhoneNumberExist(string phonenumber, string userid);
+        bool IsPhoneNumberExist(string phoneNumber, string userId);
 
         bool IsEmailExist(string email);
 
-        bool IsEmailExist(string email, string userid);
+        bool IsEmailExist(string email, string userId);
 
-        UserDTO GetUserById(string userid);
+        UserDTO GetUserById(string userId);
 
-        bool DeleteUser(string userid);
+        bool DeleteUser(string userId);
 
         bool UpdateUser(UserUpdateDTO dto);
 
-        UserUpdateDTO GetUserForUpdate(string userid);
+        UserUpdateDTO GetUserForUpdate(string userId);
 
         bool ChangePassword(ChangePasswordDTO dto);
 
-        bool LoginCheck(string userid);
+        bool LoginCheck(string userId);
 
-        UserPanelDTO GetUserForUserPanel(string userid);
+        UserPanelDTO GetUserForUserPanel(string userId);
 
         bool Update(UserProfileUpdateDTO dto);
+
+        bool ForgotPassword(ResetPasswordEmailDTO dto);
 
         bool ForgotPassword(ForgotPasswordDTO dto);
 

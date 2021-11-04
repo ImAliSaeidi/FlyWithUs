@@ -9,14 +9,14 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes
 
         int Update(Airplane airplane);
 
-        int Delete(int airplaneid);
+        int Delete(int airplaneId);
 
-        Airplane GetById(int airplaneid);
+        Airplane GetById(int airplaneId);
 
         IQueryable<Airplane> GetAll();
 
         int Save();
 
-        bool IsExist(string name, string brand, int maxcapacity, int agancyid);
+        bool IsExist(string name, string brand, int maxCapacity, int agancyId);
     }
 }

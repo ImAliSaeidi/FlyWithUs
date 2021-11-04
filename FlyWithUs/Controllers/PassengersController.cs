@@ -38,7 +38,7 @@ namespace FlyWithUs.Hosted.Service.Controllers
 
 
         [HttpPost("ForgotPassword")]
-        public IActionResult ForgotPassword(ForgotPasswordDTO dto)
+        public IActionResult ForgotPassword(ResetPasswordEmailDTO dto)
         {
             var result = userService.ForgotPassword(dto);
             return Ok(result);

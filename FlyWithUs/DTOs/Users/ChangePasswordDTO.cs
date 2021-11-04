@@ -8,11 +8,14 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
         [Required(ErrorMessage = UserValidation.RequiredCurrentPasswordError)]
+        [RegularExpression("^(?=.*\\d)(?=.*[a-z]|[A-Z]).{6,128}$", ErrorMessage = UserValidation.InvalidPasswordError)]
         public string CurrentPassword { get; set; }
+
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
         [Required(ErrorMessage = UserValidation.RequiredNewPasswordError)]
+        [RegularExpression("^(?=.*\\d)(?=.*[a-z]|[A-Z]).{6,128}$", ErrorMessage = UserValidation.InvalidPasswordError)]
         public string NewPassword { get; set; }
 
 

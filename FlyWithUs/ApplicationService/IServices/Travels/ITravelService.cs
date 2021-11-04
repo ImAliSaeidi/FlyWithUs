@@ -1,6 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
-using System.Collections.Generic;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels
 {
@@ -8,19 +7,19 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels
     {
         bool AddTravel(TravelAddDTO dto);
 
-        bool DeleteTravel(int travelid);
+        bool DeleteTravel(int travelId);
 
         bool UpdateTravel(TravelUpdateDTO dto);
 
-        TravelDTO GetTravelById(int travelid);
+        TravelDTO GetTravelById(int travelId);
 
-        TravelViewDTO GetTravelViewById(int travelid);
+        TravelViewDTO GetTravelViewById(int travelId);
 
         GridResultDTO<TravelViewDTO> GetAllTravel(int skip, int take);
 
         GridResultDTO<TravelViewDTO> SearchTravel(int skip, int take, TravelSearchDTO dto);
 
-        TravelUpdateDTO GetTravelForUpdate(int travelid);
+        TravelUpdateDTO GetTravelForUpdate(int travelId);
 
         
     }

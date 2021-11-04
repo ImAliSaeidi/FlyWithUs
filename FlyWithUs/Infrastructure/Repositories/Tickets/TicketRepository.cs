@@ -21,16 +21,16 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets
             return Save();
         }
 
-        public int Delete(int ticketid)
+        public int Delete(int ticketId)
         {
-            var ticket = GetById(ticketid);
+            var ticket = GetById(ticketId);
             ticket.IsDeleted = true;
             return Update(ticket);
         }
 
-        public Ticket GetById(int ticketid)
+        public Ticket GetById(int ticketId)
         {
-            return context.Tickets.Include(t => t.Travel).FirstOrDefault(t => t.Id == ticketid);
+            return context.Tickets.Include(t => t.Travel).FirstOrDefault(t => t.Id == ticketId);
         }
 
         public int Save()

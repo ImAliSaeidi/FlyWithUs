@@ -26,9 +26,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Tickets
             return context.OrderTickets.Find(orderTicketId);
         }
 
-        public OrderTicket GetByTicketId(int ticketid)
+        public OrderTicket GetByTicketId(int ticketId)
         {
-            return context.OrderTickets.FirstOrDefault(ot => ot.TicketId == ticketid);
+            return context.OrderTickets.FirstOrDefault(ot => ot.TicketId == ticketId);
         }
 
         public int Save()

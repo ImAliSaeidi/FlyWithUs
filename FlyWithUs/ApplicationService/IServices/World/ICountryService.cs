@@ -15,16 +15,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         bool AddCountry(CountryAddDTO dto);
 
-        bool DeleteCountry(int countryid);
+        bool DeleteCountry(int countryId);
 
         bool UpdateCountry(CountryUpdateDTO dto);
 
-        CountryDTO GetCountryById(int countryid);
+        CountryDTO GetCountryById(int countryId);
 
-        bool IsExistCountry(string englishname, string persianname);
+        bool IsExistCountry(string englishName, string persianName);
 
-        bool IsExistCountry(string englishname, string persianname, int countryid);
+        bool IsExistCountry(string englishName, string persianName, int countryId);
 
-        CountryUpdateDTO GetCountryForUpdate(int countryid);
+        CountryUpdateDTO GetCountryForUpdate(int countryId);
+
+        List<CountryDTO> GetAllWithoutPaging();
     }
 }

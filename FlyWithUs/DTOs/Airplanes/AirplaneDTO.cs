@@ -11,5 +11,7 @@
         public int MaxCapacity { get; set; }
 
         public string AgancyName { get; set; }
+
+        public int AgancyId { get; set; }
     }
 }

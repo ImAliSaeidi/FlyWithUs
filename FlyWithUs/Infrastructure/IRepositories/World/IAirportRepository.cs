@@ -9,13 +9,13 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
 
         int Update(Airport airport);
 
-        int Delete(int airportid);
+        int Delete(int airportId);
 
-        Airport GetById(int airportid);
+        Airport GetById(int airportId);
 
         IQueryable<Airport> GetAll();
 
-        bool IsExist(string name, int cityid);
+        bool IsExist(string name, int cityId);
 
         int Save();
     }

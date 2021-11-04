@@ -30,41 +30,42 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
         public bool AddCity(CityAddDTO dto)
         {
             var result = false;
-            var city = mapper.Map<City>(dto);
-            city.ImagePath = ImagePaths.CityImagePath + dto.EnglishName + "\\" + dto.Image.FileName;
-            SaveCityImage(dto.EnglishName, dto.Image);
-            int count = repository.Add(city);
-            if (count > 0)
+            if (IsCityExist(dto.PersianName, dto.CountryId) == false)
             {
-                result = true;
+                var city = mapper.Map<City>(dto);
+                int count = repository.Add(city);
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        private static void SaveCityImage(string directoryName, IFormFile image)
-        {
-            var destinationPath = CreateDirectory(directoryName);
-            destinationPath = destinationPath + "\\" + image.FileName;
-            using (Stream stream = new FileStream(destinationPath, FileMode.Create))
-            {
-                image.CopyTo(stream);
-            }
-        }
+        //private static void SaveCityImage(string directoryName, IFormFile image)
+        //{
+        //    var destinationPath = CreateDirectory(directoryName);
+        //    destinationPath = destinationPath + "\\" + image.FileName;
+        //    using (Stream stream = new FileStream(destinationPath, FileMode.Create))
+        //    {
+        //        image.CopyTo(stream);
+        //    }
+        //}
 
-        private static string CreateDirectory(string directoryName)
-        {
-            var directoryPath = CDNConfiguration.FileUrl + ImagePaths.CityImagePath + directoryName;
-            if (!Directory.Exists(directoryPath))
-            {
-                Directory.CreateDirectory(directoryPath);
-            }
-            return directoryPath;
-        }
+        //private static string CreateDirectory(string directoryName)
+        //{
+        //    var directoryPath = CDNConfiguration.FileUrl + ImagePaths.CityImagePath + directoryName;
+        //    if (!Directory.Exists(directoryPath))
+        //    {
+        //        Directory.CreateDirectory(directoryPath);
+        //    }
+        //    return directoryPath;
+        //}
 
-        public bool DeleteCity(int cityid)
+        public bool DeleteCity(int cityId)
         {
             bool result = false;
-            int count = repository.Delete(cityid);
+            int count = repository.Delete(cityId);
             if (count > 0)
             {
                 result = true;
@@ -84,9 +85,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return new GridResultDTO<CityDTO>(count, dtos);
         }
 
-        public CityDTO GetCityById(int cityid)
+        public CityDTO GetCityById(int cityId)
         {
-            return Map(repository.GetById(cityid));
+            return Map(repository.GetById(cityId));
         }
 
         private CityDTO Map(City city)
@@ -99,40 +100,38 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return dto;
         }
 
-        public CityUpdateDTO GetCityForUpdate(int cityid)
+        public CityUpdateDTO GetCityForUpdate(int cityId)
         {
-            return mapper.Map<CityUpdateDTO>(repository.GetById(cityid));
+            return mapper.Map<CityUpdateDTO>(repository.GetById(cityId));
         }
 
         public bool UpdateCity(CityUpdateDTO dto)
         {
             bool result = false;
-            var city = mapper.Map<City>(dto);
-            if (dto.Image != null)
+            if (IsCityExist(dto.PersianName, dto.CountryId, dto.Id) == false)
             {
-                city.ImagePath = ImagePaths.CityImagePath + dto.EnglishName + "\\" + dto.Image.FileName;
-                SaveCityImage(dto.EnglishName, dto.Image);
-            }
-            int count = repository.Update(city);
-            if (count > 0)
-            {
-                result = true;
+                var city = mapper.Map<City>(dto);
+                int count = repository.Update(city);
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        public bool IsCityExist(string persianName, int countryid)
+        public bool IsCityExist(string persianName, int countryId)
         {
-            return repository.IsExist(persianName, countryid);
+            return repository.IsExist(persianName, countryId);
         }
 
-        public bool IsCityExist(string persianName, int countryid, int cityid)
+        public bool IsCityExist(string persianName, int countryId, int cityId)
         {
             bool result = false;
-            var city = repository.GetById(cityid);
-            if (repository.IsExist(persianName, countryid) == true)
+            var city = repository.GetById(cityId);
+            if (repository.IsExist(persianName, countryId) == true)
             {
-                if (city.PersianName == persianName && city.Country.Id == countryid)
+                if (city.PersianName == persianName && city.Country.Id == countryId)
                 {
                     result = false;
                 }
@@ -144,27 +143,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             return result;
         }
 
-        public List<SelectListItem> GetAllCityAsSelectList(int? countryid)
+        public List<CityDTO> GetAllCityAsSelectList(int countryId)
         {
-            if (countryid != null)
-            {
-                return repository.GetAll().Where(c => c.Country.Id == countryid)
-                .Select(c => new SelectListItem()
-                {
-                    Text = c.PersianName,
-                    Value = c.Id.ToString()
-                }).ToList();
-            }
-            else
-            {
-                return repository.GetAll()
-                .Select(c => new SelectListItem()
-                {
-                    Text = c.PersianName,
-                    Value = c.Id.ToString()
-                }).ToList();
-            }
+            return mapper.Map<List<CityDTO>>(repository
+                         .GetAll()
+                         .Where(c => c.Country.Id == countryId)
+                         .ToList());
         }
+
 
         public List<PopularDestinationDTO> GetPopularDestinations()
         {

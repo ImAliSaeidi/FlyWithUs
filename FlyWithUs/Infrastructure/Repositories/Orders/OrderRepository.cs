@@ -21,24 +21,24 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Orders
             return Save();
         }
 
-        public int Delete(int orderid)
+        public int Delete(int orderId)
         {
-            var order = GetById(orderid);
+            var order = GetById(orderId);
             order.IsDeleted = true;
             return Update(order);
         }
 
-        public Order GetById(int orderid)
+        public Order GetById(int orderId)
         {
             return context.Orders
                 .Include(o => o.OrderTickets)
                 .ThenInclude(ot => ot.Ticket)
-                .FirstOrDefault(o => o.Id == orderid);
+                .FirstOrDefault(o => o.Id == orderId);
         }
 
-        public PaymentResultView GetPaymentResult(int ticketid)
+        public PaymentResultView GetPaymentResult(int ticketId)
         {
-            return context.PaymentResultViews.Find(ticketid);
+            return context.PaymentResultViews.Find(ticketId);
         }
 
         public int Save()
@@ -52,18 +52,23 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Orders
             return Save();
         }
 
-        public Order GetUserOpenOrder(string userid)
+        public Order GetUserOpenOrder(string userId)
         {
             return context.Orders
                 .Include(o => o.OrderTickets)
                 .ThenInclude(ot => ot.Ticket)
                 .ThenInclude(t => t.Travel)
-                .FirstOrDefault(o => o.UserId == userid && o.IsFinaly == false);
+                .FirstOrDefault(o => o.UserId == userId && o.IsFinaly == false);
         }
 
-        public IQueryable<PaymentResultView> GetUserOrders(string userid)
+        public IQueryable<PaymentResultView> GetUserOrders(string userId)
         {
-            return context.PaymentResultViews.Where(p => p.UserId == userid);
+            return context.PaymentResultViews.Where(p => p.UserId == userId);
+        }
+
+        public IQueryable<Order> GetAll()
+        {
+            return context.Orders.Where(o => o.IsFinaly == true);
         }
     }
 }

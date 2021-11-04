@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class ForgotPasswordDTO
     {
-        public string FullNamePersian { get; set; }
-
-
-        public string ActiveCode { get; set; }
+        [Required(ErrorMessage = UserValidation.RequiredPhoneNumberError)]
+        [StringLength(11, ErrorMessage = UserValidation.LengthError)]
+        [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}", ErrorMessage = UserValidation.InvalidPhoneNumberError)]
+        public string PhoneNumber { get; set; }
 
 
         [Required(ErrorMessage = UserValidation.RequiredEmailError)]
+        [StringLength(128, ErrorMessage = UserValidation.LengthError)]
+        [EmailAddress(ErrorMessage = UserValidation.InvalidEmailError)]
         public string Email { get; set; }
     }
 }

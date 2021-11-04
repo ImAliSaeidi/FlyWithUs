@@ -7,15 +7,15 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World
     {
         int Add(City city);
 
-        int Delete(int cityid);
+        int Delete(int cityId);
 
         int Update(City city);
 
-        City GetById(int cityid);
+        City GetById(int cityId);
 
         IQueryable<City> GetAll();
 
-        bool IsExist(string persianName, int countryid);
+        bool IsExist(string persianName, int countryId);
 
         int Save();
 

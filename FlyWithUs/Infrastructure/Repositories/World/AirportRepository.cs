@@ -21,26 +21,31 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             return Save();
         }
 
-        public int Delete(int airportid)
+        public int Delete(int airportId)
         {
-            var airport = GetById(airportid);
+            var airport = GetById(airportId);
             airport.IsDeleted = true;
             return Update(airport);
         }
 
-        public Airport GetById(int airportid)
+        public Airport GetById(int airportId)
         {
-            return context.Airports.Include(a => a.City).AsNoTracking().First(a => a.Id == airportid);
+            return context.Airports
+                .Include(a => a.City)
+                .AsNoTracking()
+                .IgnoreQueryFilters()
+                .Where(a => a.IsDeleted == false)
+                .First(a => a.Id == airportId);
         }
 
         public IQueryable<Airport> GetAll()
         {
-            return context.Airports.Include(a => a.City);
+            return context.Airports.Include(a => a.City).IgnoreQueryFilters().Where(a => a.IsDeleted == false);
         }
 
-        public bool IsExist(string name, int cityid)
+        public bool IsExist(string name, int cityId)
         {
-            return context.Airports.Include(a => a.City).Any(a => a.PersianName == name && a.City.Id == cityid);
+            return context.Airports.Include(a => a.City).Any(a => a.PersianName == name && a.City.Id == cityId);
         }
 
         public int Save()

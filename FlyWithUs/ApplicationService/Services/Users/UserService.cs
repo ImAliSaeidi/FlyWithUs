@@ -33,31 +33,34 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         public bool AddUser(UserAddDTO dto)
         {
             bool result = false;
-            var lstUserRoles = new List<ApplicationUserRole>();
-            var userRoles = new ApplicationUserRole()
+            if (IsPhoneNumberExist(dto.PhoneNumber) == false && IsEmailExist(dto.Email) == false)
             {
-                RoleId = AuthorizationRoles.UserRoleId
-            };
-            lstUserRoles.Add(userRoles);
-            var user = mapper.Map<ApplicationUser>(dto);
-            user.PasswordHash = HashGenerator.SalterHash(dto.Password);
-            user.NormalizedEmail = dto.Email.Trim().ToUpper();
-            user.ApplicationUserRoles = lstUserRoles;
-            int count = repository.Add(user);
-            if (count > 0)
-            {
-                result = true;
+                var lstUserRoles = new List<ApplicationUserRole>();
+                var userRoles = new ApplicationUserRole()
+                {
+                    RoleId = AuthorizationRoles.UserRoleId
+                };
+                lstUserRoles.Add(userRoles);
+                var user = mapper.Map<ApplicationUser>(dto);
+                user.PasswordHash = HashGenerator.SalterHash(dto.Password);
+                user.NormalizedEmail = dto.Email.Trim().ToUpper();
+                user.ApplicationUserRoles = lstUserRoles;
+                int count = repository.Add(user);
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        public bool DeleteUser(string userid)
+        public bool DeleteUser(string userId)
         {
             bool result = false;
-            int count = repository.Delete(userid);
+            int count = repository.Delete(userId);
             if (count > 0)
             {
-                count = repository.DeleteUserRoles(userid);
+                count = repository.DeleteUserRoles(userId);
                 if (count > 0)
                 {
                     result = true;
@@ -68,32 +71,52 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
 
         public GridResultDTO<UserDTO> GetAllUser(int skip, int take)
         {
-            var dtos = mapper.Map<List<UserDTO>>(repository.GetAll().Skip(skip).Take(take).ToList());
+            var users = repository.GetAll().Skip(skip).Take(take).ToList();
+            var dtos = new List<UserDTO>();
             var count = repository.GetAll().Count();
-            foreach (var dto in dtos)
+            foreach (var item in users)
             {
-                if (dto.NationalityId != null)
+                var dto = mapper.Map<UserDTO>(item);
+                dto.CreateDate = item.CreateDate.ToShamsi();
+                if (item.NationalityId != null)
                 {
-                    dto.Nationality = countryRepository.GetCountryName(dto.NationalityId.Value);
+                    dto.Nationality = countryRepository.GetCountryName(item.NationalityId.Value);
                 }
+                dtos.Add(dto);
             }
             return new GridResultDTO<UserDTO>(count, dtos);
         }
 
-        public UserDTO GetUserById(string userid)
+        public UserDTO GetUserById(string userId)
         {
-            var user = repository.GetById(userid);
+            var user = repository.GetById(userId);
             var dto = mapper.Map<UserDTO>(user);
-            if (dto.NationalityId != null)
+            if (user.NationalityId != null)
             {
-                dto.Nationality = countryRepository.GetCountryName(dto.NationalityId.Value);
+                dto.Nationality = countryRepository.GetCountryName(user.NationalityId.Value);
             }
+            if (user.Birthdate != null)
+            {
+                dto.Birthdate = user.Birthdate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+                dto.ShamsiBirthdate = user.Birthdate.Value.ToShamsi();
+            }
+            if (user.PassportIssunaceDate != null)
+            {
+                dto.PassportIssunaceDate = user.PassportIssunaceDate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+            }
+            if (user.PassportExpirationDate != null)
+            {
+                dto.PassportExpirationDate = user.PassportExpirationDate.Value.ToString("yyyy/MM/dd").Replace("/", "-");
+            }
+            dto.CreateDate = user.CreateDate.ToShamsi();
             return dto;
         }
 
-        public UserUpdateDTO GetUserForUpdate(string userid)
+        public UserUpdateDTO GetUserForUpdate(string userId)
         {
-            var dto = mapper.Map<UserUpdateDTO>(repository.GetById(userid));
+            var user = repository.GetById(userId);
+            var dto = mapper.Map<UserUpdateDTO>(user);
+
             dto.Password = "";
             return dto;
         }
@@ -101,30 +124,23 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         public bool UpdateUser(UserUpdateDTO dto)
         {
             bool result = false;
-            foreach (var item in dto.GetType().GetProperties())
+            if (IsPhoneNumberExist(dto.PhoneNumber, dto.Id) == false && IsEmailExist(dto.Email, dto.Id) == false)
             {
-                if (item.GetValue(dto, null) != null)
+                var user = mapper.Map<ApplicationUser>(dto);
+                if (dto.Password != null && dto.RePassword != null)
                 {
-                    if (item.GetValue(dto, null).ToString() == "")
-                    {
-                        item.SetValue(dto, null);
-                    }
+                    user.PasswordHash = HashGenerator.SalterHash(dto.Password);
                 }
-            }
-            var user = mapper.Map<ApplicationUser>(dto);
-            if (dto.Password != null && dto.RePassword != null)
-            {
-                user.PasswordHash = HashGenerator.SalterHash(dto.Password);
-            }
-            else
-            {
-                user.PasswordHash = repository.GetById(dto.Id).PasswordHash;
-            }
-            user.NormalizedEmail = dto.Email.Trim().ToUpper();
-            int count = repository.Update(user);
-            if (count > 0)
-            {
-                result = true;
+                else
+                {
+                    user.PasswordHash = repository.GetById(dto.Id).PasswordHash;
+                }
+                user.NormalizedEmail = dto.Email.Trim().ToUpper();
+                int count = repository.Update(user);
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
@@ -134,10 +150,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return repository.IsEmailExist(email);
         }
 
-        public bool IsEmailExist(string email, string userid)
+        public bool IsEmailExist(string email, string userId)
         {
             bool result = false;
-            var user = repository.GetById(userid);
+            var user = repository.GetById(userId);
             if (repository.IsEmailExist(email) == true && user.Email != email)
             {
                 result = true;
@@ -145,16 +161,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        public bool IsPhoneNumberExist(string phonenumber)
+        public bool IsPhoneNumberExist(string phoneNumber)
         {
-            return repository.IsPhoneNumberExist(phonenumber);
+            return repository.IsPhoneNumberExist(phoneNumber);
         }
 
-        public bool IsPhoneNumberExist(string phonenumber, string userid)
+        public bool IsPhoneNumberExist(string phoneNumber, string userId)
         {
             bool result = false;
-            var user = repository.GetById(userid);
-            if (repository.IsPhoneNumberExist(phonenumber) == true && user.PhoneNumber != phonenumber)
+            var user = repository.GetById(userId);
+            if (repository.IsPhoneNumberExist(phoneNumber) == true && user.PhoneNumber != phoneNumber)
             {
                 result = true;
             }
@@ -340,10 +356,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        public bool LoginCheck(string userid)
+        public bool LoginCheck(string userId)
         {
             var result = false;
-            var user = repository.GetById(userid);
+            var user = repository.GetById(userId);
             if (user != null)
             {
                 result = true;
@@ -351,9 +367,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        public UserPanelDTO GetUserForUserPanel(string userid)
+        public UserPanelDTO GetUserForUserPanel(string userId)
         {
-            var user = repository.GetById(userid);
+            var user = repository.GetById(userId);
             var dto = mapper.Map<UserPanelDTO>(user);
             if (user.Birthdate != null)
             {
@@ -396,7 +412,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        public bool ForgotPassword(ForgotPasswordDTO dto)
+        public bool ForgotPassword(ResetPasswordEmailDTO dto)
         {
             var result = false;
             var user = repository.GetUserByEmail(dto.Email);
@@ -405,10 +421,32 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 dto.FullNamePersian = user.FirstNamePersian + " " + user.LastNamePersian;
                 user.ActiveCode = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10).ToUpper();
                 dto.ActiveCode = user.ActiveCode;
+                dto.RedirectUrl = "http://localhost:4000/auth-reset-password.html";
                 repository.Update(user);
                 var to = user.Email;
                 var subject = "فراموشی رمز عبور";
-                var body = viewRenderService.RenderToStringAsync("_ForgotPassword", dto);
+                var body = viewRenderService.RenderToStringAsync("_ResetPasswordEmail", dto);
+                SendEmail.Send(to, subject, body);
+                result = true;
+            }
+            return result;
+        }
+
+        public bool ForgotPassword(ForgotPasswordDTO dto)
+        {
+            var result = false;
+            var user = repository.GetUserByEmail(dto.Email);
+            if (user != null)
+            {
+                var edto = new ResetPasswordEmailDTO();
+                edto.FullNamePersian = user.FirstNamePersian + " " + user.LastNamePersian;
+                user.ActiveCode = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10).ToUpper();
+                edto.ActiveCode = user.ActiveCode;
+                edto.RedirectUrl = "http://localhost:3000/reset-password.html";
+                repository.Update(user);
+                var to = user.Email;
+                var subject = "فراموشی رمز عبور";
+                var body = viewRenderService.RenderToStringAsync("_ResetPasswordEmail", edto);
                 SendEmail.Send(to, subject, body);
                 result = true;
             }
@@ -434,6 +472,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             }
             return result;
         }
+
     }
 }
 

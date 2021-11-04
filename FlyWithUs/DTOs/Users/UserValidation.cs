@@ -22,7 +22,7 @@
         public const string RequiredSelectBirthdateError = "لطفا تاریخ تولد را انتخاب کنید";
         public const string RequiredSelectNationalityError = "لطفا ملیت را انتخاب کنید";
         public const string LengthError = "طول مقدار ورودی مجاز نیست";
-        public const string InvalidInputError = "آن وارد شده معتبر نیست";
+        public const string InvalidPasswordError = "رمزعبور وارد شده معتبر نیست";
         public const string InvalidEmailError = "ایمیل وارد شده معتبر نیست";
         public const string InvalidPhoneNumberError = "شماره موبایل وارد شده معتبر نیست";
         public const string InvalidPassportNumberError = "شماره پاسپورت وارد شده معتبر نیست";

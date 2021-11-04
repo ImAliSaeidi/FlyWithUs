@@ -2,7 +2,9 @@
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Travels;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels;
+using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models.Travels;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
 using System;
@@ -15,17 +17,29 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
     public class TravelService : ITravelService
     {
         private readonly ITravelRepository repository;
+        private readonly IAirportRepository airportRepository;
+        private readonly IAirplaneRepository airplaneRepository;
         private readonly IMapper mapper;
 
-        public TravelService(ITravelRepository repository, IMapper mapper)
+        public TravelService(ITravelRepository repository, IMapper mapper, IAirportRepository airportRepository, IAirplaneRepository airplaneRepository)
         {
             this.repository = repository;
             this.mapper = mapper;
+            this.airportRepository = airportRepository;
+            this.airplaneRepository = airplaneRepository;
         }
 
         public bool AddTravel(TravelAddDTO dto)
         {
             bool result = false;
+            var orgAirport = airportRepository.GetById(dto.OriginAirportId);
+            dto.OriginCountryId = orgAirport.City.CountryId;
+            dto.OriginCityId = orgAirport.CityId;
+            var destAirport = airportRepository.GetById(dto.DestinationAirportId);
+            dto.DestinationCountryId = destAirport.City.CountryId;
+            dto.DestinationCityId = destAirport.CityId;
+            var airplane = airplaneRepository.GetById(dto.AirplaneId);
+            dto.AgancyId = airplane.AgancyId;
             dto.Code = dto.OriginAirportId.ToString() + dto.DestinationAirportId.ToString() + Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
             if (dto.OriginCountryId != dto.DestinationCountryId)
             {
@@ -44,10 +58,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             return result;
         }
 
-        public bool DeleteTravel(int travelid)
+        public bool DeleteTravel(int travelId)
         {
             bool result = false;
-            int count = repository.Delete(travelid);
+            int count = repository.Delete(travelId);
             if (count > 0)
             {
                 result = true;
@@ -72,27 +86,33 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
             return new GridResultDTO<TravelViewDTO>(count, dtos);
         }
 
-        public TravelDTO GetTravelById(int travelid)
+        public TravelDTO GetTravelById(int travelId)
         {
-            var travel = repository.GetById(travelid);
-            var dto = mapper.Map<TravelDTO>(repository.GetById(travelid));
+            var travel = repository.GetById(travelId);
+            var dto = mapper.Map<TravelDTO>(repository.GetById(travelId));
             dto.AgancyName = travel.Agancy.Name;
             dto.OriginCityName = travel.OriginCity.PersianName;
             dto.DestinationCityName = travel.DestinationCity.PersianName;
+            dto.OriginAirportName = travel.OriginAirport.PersianName;
+            dto.DestinationAirportName = travel.DestinationAirport.PersianName;
             dto.SoldTicket = travel.Tickets.Where(t => t.IsDeleted == false).ToList().Count;
+            dto.MovingDate = travel.MovingDate.ToString("yyyy/MM/dd").Replace("/", "-");
+            dto.ArrivingDate = travel.ArrivingDate.ToString("yyyy/MM/dd").Replace("/", "-");
+            dto.MovingTime = travel.MovingTime.ToString("HH:mm");
+            dto.ArrivingTime = travel.ArrivingTime.ToString("HH:mm");
             return dto;
         }
 
-        public TravelUpdateDTO GetTravelForUpdate(int travelid)
+        public TravelUpdateDTO GetTravelForUpdate(int travelId)
         {
-            var dto = mapper.Map<TravelUpdateDTO>(repository.GetById(travelid));
-            dto.AgancyId = repository.GetById(travelid).Airplane.Agancy.Id;
+            var dto = mapper.Map<TravelUpdateDTO>(repository.GetById(travelId));
+            dto.AgancyId = repository.GetById(travelId).Airplane.Agancy.Id;
             return dto;
         }
 
-        public TravelViewDTO GetTravelViewById(int travelid)
+        public TravelViewDTO GetTravelViewById(int travelId)
         {
-            var travel = repository.GetViewById(travelid);
+            var travel = repository.GetViewById(travelId);
             var dto = mapper.Map<TravelViewDTO>(travel);
             dto.MovingDate = travel.MovingDate.ToShamsi();
             dto.ArrivingDate = travel.ArrivingDate.ToShamsi();
@@ -169,6 +189,16 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Travels
         public bool UpdateTravel(TravelUpdateDTO dto)
         {
             bool result = false;
+            var travel = repository.GetById(dto.Id);
+            dto.SoldTicket = travel.MaxCapacity - travel.Tickets.Count;
+            var orgAirport = airportRepository.GetById(dto.OriginAirportId);
+            dto.OriginCountryId = orgAirport.City.CountryId;
+            dto.OriginCityId = orgAirport.CityId;
+            var destAirport = airportRepository.GetById(dto.DestinationAirportId);
+            dto.DestinationCountryId = destAirport.City.CountryId;
+            dto.DestinationCityId = destAirport.CityId;
+            var airplane = airplaneRepository.GetById(dto.AirplaneId);
+            dto.AgancyId = airplane.AgancyId;
             dto.Code = dto.OriginAirportId.ToString() + dto.DestinationAirportId.ToString() + Guid.NewGuid().ToString().Substring(0, 8).ToUpper();
             if (dto.OriginCountryId != dto.DestinationCountryId)
             {

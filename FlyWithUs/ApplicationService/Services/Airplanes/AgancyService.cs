@@ -6,6 +6,7 @@ using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,11 +27,14 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
         public bool AddAgancy(AgancyAddDTO dto)
         {
             bool result = false;
-            dto.Name = dto.Name.ToLower().Trim();
-            int count = repository.Add(mapper.Map<Agancy>(dto));
-            if (count > 0)
+            if (IsAgancyExist(dto.Name.ToLower().Trim()) == false)
             {
-                result = true;
+                dto.Name = dto.Name.ToLower().Trim();
+                int count = repository.Add(mapper.Map<Agancy>(dto));
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
@@ -42,9 +46,9 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return new GridResultDTO<AgancyDTO>(count, dtos);
         }
 
-        public AgancyDTO GetAgancyById(int agancyid)
+        public AgancyDTO GetAgancyById(int agancyId)
         {
-            var agancy = repository.GetById(agancyid);
+            var agancy = repository.GetById(agancyId);
             var agancydto = mapper.Map<AgancyDTO>(agancy);
             foreach (var item in agancy.Airplanes)
             {
@@ -58,10 +62,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return repository.IsExist(name);
         }
 
-        public bool IsAgancyExist(string name, int agancyid)
+        public bool IsAgancyExist(string name, int agancyId)
         {
             bool result = false;
-            var agancy = repository.GetById(agancyid);
+            var agancy = repository.GetById(agancyId);
             if (repository.IsExist(name) == true && agancy.Name != name)
             {
                 result = true;
@@ -69,10 +73,10 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return result;
         }
 
-        public bool DeleteAgancy(int agancyid)
+        public bool DeleteAgancy(int agancyId)
         {
             bool result = false;
-            int count = repository.Delete(agancyid);
+            int count = repository.Delete(agancyId);
             if (count > 0)
             {
                 result = true;
@@ -80,31 +84,40 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return result;
         }
 
-        public AgancyUpdateDTO GetAgancyForUpdate(int agancyid)
+        public AgancyUpdateDTO GetAgancyForUpdate(int agancyId)
         {
-            return mapper.Map<AgancyUpdateDTO>(repository.GetById(agancyid));
+            return mapper.Map<AgancyUpdateDTO>(repository.GetById(agancyId));
         }
 
         public bool UpdateAgancy(AgancyUpdateDTO dto)
         {
             bool result = false;
-            dto.Name = dto.Name.ToLower().Trim();
-            int count = repository.Update(mapper.Map<Agancy>(dto));
-            if (count > 0)
+            if (IsAgancyExist(dto.Name.ToLower().Trim(), dto.Id) == false)
             {
-                result = true;
+                dto.Name = dto.Name.ToLower().Trim();
+                int count = repository.Update(mapper.Map<Agancy>(dto));
+                if (count > 0)
+                {
+                    result = true;
+                }
             }
             return result;
         }
 
-        public List<SelectListItem> GetAllAgancyAsSelectList()
+        public List<AgancyDTO> GetAllAgancyAsSelectList()
         {
-            return repository.GetAll()
-                .Select(a => new SelectListItem
+            var agancies = repository.GetAll().ToList();
+            var dtos = new List<AgancyDTO>();
+            foreach (var agancy in agancies)
+            {
+                var dto = mapper.Map<AgancyDTO>(agancy);
+                foreach (var airplane in agancy.Airplanes)
                 {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                }).ToList();
+                    dto.AirplaneDTOs.Add(mapper.Map<AirplaneDTO>(airplane));
+                }
+                dtos.Add(dto);
+            }
+            return dtos;
         }
 
     }

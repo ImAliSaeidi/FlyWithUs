@@ -9,6 +9,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
 
         [Required(ErrorMessage = AirplaneValidation.RequiredNameError)]
         [StringLength(128, ErrorMessage = AirplaneValidation.LengthError)]
+        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$", ErrorMessage = AirplaneValidation.InvalidNameError)]
         public string Name { get; set; }
 
 

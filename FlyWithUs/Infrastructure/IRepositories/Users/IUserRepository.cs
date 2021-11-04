@@ -9,23 +9,23 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users
 
         int Update(ApplicationUser user);
 
-        int Delete(string userid);
+        int Delete(string userId);
 
-        ApplicationUser GetById(string userid);
+        ApplicationUser GetById(string userId);
 
         int Save();
 
         IQueryable<ApplicationUser> GetAll();
 
-        bool IsPhoneNumberExist(string phonenumber);
+        bool IsPhoneNumberExist(string phoneNumber);
 
         bool IsEmailExist(string email);
 
-        int DeleteUserRoles(string userid);
+        int DeleteUserRoles(string userId);
 
         ApplicationUser GetUserByEmail(string email);
 
-        ApplicationUser GetUserByPhoneNumber(string phoennumber);
+        ApplicationUser GetUserByPhoneNumber(string phoneNumber);
 
     }
 }

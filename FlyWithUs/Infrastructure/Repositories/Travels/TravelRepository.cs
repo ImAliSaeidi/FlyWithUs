@@ -22,19 +22,19 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
             return Save();
         }
 
-        public int Delete(int travelid)
+        public int Delete(int travelId)
         {
-            var travel = GetById(travelid);
+            var travel = GetById(travelId);
             travel.IsDeleted = true;
             return Update(travel);
         }
 
         public IQueryable<TravelView> GetAll()
         {
-            return context.TravelViews;
+            return context.TravelViews.Where(t=>t.IsDeleted==false);
         }
 
-        public Travel GetById(int travelid)
+        public Travel GetById(int travelId)
         {
             return context.Travels
                 .Include(t => t.Airplane)
@@ -47,12 +47,14 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
                 .Include(t => t.DestinationCity)
                 .Include(t => t.Tickets)
                 .IgnoreQueryFilters()
-                .First(t => t.Id == travelid);
+                .Where(t=>t.IsDeleted==false)
+                .AsNoTracking()
+                .First(t => t.Id == travelId);
         }
 
-        public TravelView GetViewById(int travelid)
+        public TravelView GetViewById(int travelId)
         {
-            return context.TravelViews.Find(travelid);
+            return context.TravelViews.Find(travelId);
         }
 
         public int Save()
@@ -65,7 +67,5 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Travels
             context.Travels.Update(travel);
             return Save();
         }
-
-
     }
 }

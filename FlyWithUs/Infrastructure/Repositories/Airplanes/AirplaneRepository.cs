@@ -21,9 +21,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
             return Save();
         }
 
-        public int Delete(int airplaneid)
+        public int Delete(int airplaneId)
         {
-            var airplane = GetById(airplaneid);
+            var airplane = GetById(airplaneId);
             airplane.IsDeleted = true;
             return Update(airplane);
         }
@@ -34,9 +34,14 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
             return Save();
         }
 
-        public Airplane GetById(int airplaneid)
+        public Airplane GetById(int airplaneId)
         {
-            return context.Airplanes.Include(a => a.Agancy).AsNoTracking().First(a => a.Id == airplaneid);
+            return context.Airplanes
+                .Include(a => a.Agancy)
+                .AsNoTracking()
+                .IgnoreQueryFilters()
+                .Where(a => a.IsDeleted == false)
+                .First(a => a.Id == airplaneId);
         }
 
         public IQueryable<Airplane> GetAll()
@@ -49,13 +54,13 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Airplanes
             return context.SaveChanges();
         }
 
-        public bool IsExist(string name, string brand, int maxcapacity, int agancyid)
+        public bool IsExist(string name, string brand, int maxCapacity, int agancyId)
         {
             return context.Airplanes.Include(a => a.Agancy).Any(a =>
               a.Name == name
               && a.Brand == brand
-              && a.MaxCapacity == maxcapacity
-              && a.Agancy.Id == agancyid);
+              && a.MaxCapacity == maxCapacity
+              && a.Agancy.Id == agancyId);
         }
     }
 }

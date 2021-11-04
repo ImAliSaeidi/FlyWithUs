@@ -16,6 +16,8 @@ namespace FlyWithUs.Hosted.Service.DTOs.Countries
 
         public string PersianName { get; set; }
 
+        public string EnglishName { get; set; }
+
         public List<CityDTO> CityDTOs { get; set; }
 
         public List<AirportDTO> AirportDTOs { get; set; }

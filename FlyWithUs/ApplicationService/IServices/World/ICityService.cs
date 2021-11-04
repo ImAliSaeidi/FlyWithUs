@@ -11,19 +11,19 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         bool UpdateCity(CityUpdateDTO dto);
 
-        bool DeleteCity(int cityid);
+        bool DeleteCity(int cityId);
 
         GridResultDTO<CityDTO> GetAllCity(int skip, int take);
 
-        CityUpdateDTO GetCityForUpdate(int cityid);
+        CityUpdateDTO GetCityForUpdate(int cityId);
 
-        bool IsCityExist(string name, int countryid);
+        bool IsCityExist(string name, int countryId);
 
-        bool IsCityExist(string name, int countryid, int cityid);
+        bool IsCityExist(string name, int countryId, int cityId);
 
-        List<SelectListItem> GetAllCityAsSelectList(int? countryid);
+        List<CityDTO> GetAllCityAsSelectList(int countryId);
 
-        CityDTO GetCityById(int cityid);
+        CityDTO GetCityById(int cityId);
 
         List<PopularDestinationDTO> GetPopularDestinations();
     }

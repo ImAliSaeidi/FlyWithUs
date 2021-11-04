@@ -1,11 +1,13 @@
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Orders;
+using FlyWithUs.Hosted.Service.ApplicationService.IServices.Statistics;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Tickets;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.ApplicationService.IServices.World;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Orders;
+using FlyWithUs.Hosted.Service.ApplicationService.Services.Statistics;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Tickets;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Travels;
 using FlyWithUs.Hosted.Service.ApplicationService.Services.Users;
@@ -57,10 +59,10 @@ namespace FlyWithUs.Hosted.Service
 
             services.AddCors(options =>
                 {
-                    options.AddPolicy("CorsPolicy", builder =>
+                    options.AddPolicy("FrontPolicy", builder =>
                     {
                         builder
-                       .WithOrigins(configuration["FlyWithUsOrigin"])
+                       .WithOrigins(configuration["FlyWithUsOrigin"], configuration["AdminOrigin"])
                        .AllowAnyMethod()
                        .AllowAnyHeader()
                        .AllowCredentials();
@@ -86,6 +88,7 @@ namespace FlyWithUs.Hosted.Service
             services.AddScoped<IAirportService, AirportService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IUserContext, UserContext>();
             services.AddScoped<IViewRenderService, RenderViewToString>();
             services.AddAutoMapper(typeof(MappingProfile));
@@ -142,7 +145,7 @@ namespace FlyWithUs.Hosted.Service
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseCors("CorsPolicy");
+            app.UseCors("FrontPolicy");
             app.UseStaticFiles();
 
             app.UseRouting();

@@ -11,18 +11,18 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.World
 
         bool UpdateAirport(AirportUpdateDTO dto);
 
-        bool DeleteAirport(int airportid);
+        bool DeleteAirport(int airportId);
 
-        AirportDTO GetAirportById(int airportid);
+        AirportDTO GetAirportById(int airportId);
 
         GridResultDTO<AirportDTO> GetAllAirport(int skip, int take);
 
-        bool IsAirportExist(string name, int cityid);
+        bool IsAirportExist(string name, int cityId);
 
-        bool IsAirportExist(string name, int cityid, int airportid);
+        bool IsAirportExist(string name, int cityId, int airportId);
 
-        AirportUpdateDTO GetAirportForUpdate(int airportid);
+        AirportUpdateDTO GetAirportForUpdate(int airportId);
 
-        List<SelectListItem> GetAllAirportAsSelectList(int cityid);
+        List<SelectListItem> GetAllAirportAsSelectList(int cityId);
     }
 }

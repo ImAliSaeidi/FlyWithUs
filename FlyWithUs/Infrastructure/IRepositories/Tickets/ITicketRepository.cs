@@ -6,9 +6,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Tickets
     {
         int Add(Ticket ticket);
 
-        int Delete(int ticketid);
+        int Delete(int ticketId);
 
-        Ticket GetById(int ticketid);
+        Ticket GetById(int ticketId);
 
         int Update(Ticket ticket);
 

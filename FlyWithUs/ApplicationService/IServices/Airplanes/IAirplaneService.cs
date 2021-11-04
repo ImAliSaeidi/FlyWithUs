@@ -11,19 +11,19 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
 
         bool UpdateAirplane(AirplaneUpdateDTO dto);
 
-        bool DeleteAirplane(int airplaneid);
+        bool DeleteAirplane(int airplaneId);
 
         GridResultDTO<AirplaneDTO> GetAllAirplane(int skip, int take);
 
-        AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneid);
+        AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneId);
 
-        bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid);
+        bool IsAirplaneExist(string name, string brand, int maxCapacity, int agancyId);
 
-        bool IsAirplaneExist(string name, string brand, int maxcapacity, int agancyid, int airplaneid);
+        bool IsAirplaneExist(string name, string brand, int maxCapacity, int agancyId, int airplaneId);
 
         List<SelectListItem> GetAllAirplaneAsSelectList(int agancyid);
 
-        AirplaneDTO GetAirplaneById(int airplaneid);
+        AirplaneDTO GetAirplaneById(int airplaneId);
 
     }
 }

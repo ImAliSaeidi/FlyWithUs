@@ -22,16 +22,16 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return Save();
         }
 
-        public int Delete(string userid)
+        public int Delete(string userId)
         {
-            var user = GetById(userid);
+            var user = GetById(userId);
             user.IsDeleted = true;
             return Update(user);
         }
 
-        public int DeleteUserRoles(string userid)
+        public int DeleteUserRoles(string userId)
         {
-            var roles = context.UserRoles.Where(ur => ur.UserId == userid).ToList();
+            var roles = context.UserRoles.Where(ur => ur.UserId == userId).ToList();
             foreach (var role in roles)
             {
                 role.IsDeleted = true;
@@ -44,9 +44,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return context.Users.Include(u => u.ApplicationUserRoles).ThenInclude(u => u.Role);
         }
 
-        public ApplicationUser GetById(string userid)
+        public ApplicationUser GetById(string userId)
         {
-            return context.Users.AsNoTracking().FirstOrDefault(u => u.Id == userid);
+            return context.Users.AsNoTracking().FirstOrDefault(u => u.Id == userId);
         }
 
         public ApplicationUser GetUserByEmail(string email)
@@ -54,9 +54,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return context.Users.AsNoTracking().SingleOrDefault(u => u.Email == email);
         }
 
-        public ApplicationUser GetUserByPhoneNumber(string phoennumber)
+        public ApplicationUser GetUserByPhoneNumber(string phoneNumber)
         {
-            return context.Users.AsNoTracking().SingleOrDefault(u => u.PhoneNumber == phoennumber);
+            return context.Users.AsNoTracking().SingleOrDefault(u => u.PhoneNumber == phoneNumber);
         }
 
         public bool IsEmailExist(string email)
@@ -64,9 +64,9 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.Users
             return context.Users.Any(u => u.Email == email);
         }
 
-        public bool IsPhoneNumberExist(string phonenumber)
+        public bool IsPhoneNumberExist(string phoneNumber)
         {
-            return context.Users.Any(u => u.PhoneNumber == phonenumber);
+            return context.Users.Any(u => u.PhoneNumber == phoneNumber);
         }
 
         public int Save()
