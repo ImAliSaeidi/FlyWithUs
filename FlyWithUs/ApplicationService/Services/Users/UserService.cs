@@ -111,16 +111,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             dto.CreateDate = user.CreateDate.ToShamsi();
             return dto;
         }
-
-        public UserUpdateDTO GetUserForUpdate(string userId)
-        {
-            var user = repository.GetById(userId);
-            var dto = mapper.Map<UserUpdateDTO>(user);
-
-            dto.Password = "";
-            return dto;
-        }
-
+                
         public bool UpdateUser(UserUpdateDTO dto)
         {
             bool result = false;
@@ -267,7 +258,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        private bool CompleteUserInfo(CompleteUserInfoDTO dto)
+        private  bool CompleteUserInfo(CompleteUserInfoDTO dto)
         {
             bool result = false;
             if (ValidateCompleteUserInfoDTO(dto) == true)

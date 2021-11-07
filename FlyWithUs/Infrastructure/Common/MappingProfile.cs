@@ -36,7 +36,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Common
             CreateMap<Travel, TravelDTO>();
             CreateMap<Travel, TravelView>();
             CreateMap<TravelView, TravelViewDTO>();
-            CreateMap<PopularDestinationView, PopularDestinationDTO>();
+           
 
             CreateMap<UserAddDTO, ApplicationUser>();
             CreateMap<UserUpdateDTO, ApplicationUser>();

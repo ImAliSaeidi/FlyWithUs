@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FlyWithUs.Hosted.Service.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.Context
@@ -9,7 +10,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
         {
             var optionsBuilder = new DbContextOptionsBuilder<FlyWithUsContext>();
 
-            optionsBuilder.UseSqlServer("Data Source =LAPTOP-VIV37RCJ\\SQL2019;Initial Catalog=FlyWithUsDB;Integrated Security=true");
+            optionsBuilder.UseSqlServer(ConnectionStringConfig.ConnectionString);
             return new FlyWithUsContext(optionsBuilder.Options);
         }
     }

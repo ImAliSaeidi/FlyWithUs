@@ -4,14 +4,16 @@ using FlyWithUs.Hosted.Service.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    partial class FlyWithUsContextModelSnapshot : ModelSnapshot
+    [Migration("20211107180139_InitFinalDB")]
+    partial class InitFinalDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -384,7 +386,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "fa805ad5-d36c-4f43-a4d5-713f22dde527",
+                            ConcurrencyStamp = "a3a19c3c-e29a-41d3-bd74-6733f4b768d6",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -392,7 +394,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "67bb9a8c-9dde-436c-97d0-3da6ab6454ad",
+                            ConcurrencyStamp = "f352f0f9-a10d-4847-a417-de4552d68f63",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"

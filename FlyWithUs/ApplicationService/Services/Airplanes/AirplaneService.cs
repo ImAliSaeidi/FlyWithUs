@@ -4,7 +4,6 @@ using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,11 +69,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             return mapper.Map<AirplaneDTO>(repository.GetById(airplaneId));
         }
 
-        public AirplaneUpdateDTO GetAirplaneForUpdate(int airplaneId)
-        {
-            return mapper.Map<AirplaneUpdateDTO>(repository.GetById(airplaneId));
-        }
-
         public bool UpdateAirplane(AirplaneUpdateDTO dto)
         {
             bool result = false;
@@ -112,16 +106,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
             }
             return result;
         }
-
-        public List<SelectListItem> GetAllAirplaneAsSelectList(int agancyId)
-        {
-            return repository.GetAll().Where(a => a.Agancy.Id == agancyId)
-                .Select(c => new SelectListItem()
-                {
-                    Text = c.Name,
-                    Value = c.Id.ToString()
-                }).ToList();
-        }
-
+               
     }
 }

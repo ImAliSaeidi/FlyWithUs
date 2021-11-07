@@ -1,5 +1,4 @@
 ﻿using FlyWithUs.Hosted.Service.Models.Travels;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Travels

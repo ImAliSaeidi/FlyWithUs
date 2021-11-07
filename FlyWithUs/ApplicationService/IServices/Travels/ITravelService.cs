@@ -18,9 +18,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Travels
         GridResultDTO<TravelViewDTO> GetAllTravel(int skip, int take);
 
         GridResultDTO<TravelViewDTO> SearchTravel(int skip, int take, TravelSearchDTO dto);
-
-        TravelUpdateDTO GetTravelForUpdate(int travelId);
-
-        
+                      
     }
 }

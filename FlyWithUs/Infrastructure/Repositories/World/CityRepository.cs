@@ -59,10 +59,5 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Repositories.World
             context.Cities.Update(city);
             return Save();
         }
-
-        public IQueryable<PopularDestinationView> GetPopularDestinations()
-        {
-            return context.PopularDestinationViews;
-        }
     }
 }

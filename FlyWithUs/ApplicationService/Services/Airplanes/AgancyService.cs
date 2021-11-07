@@ -5,8 +5,6 @@ using FlyWithUs.Hosted.Service.DTOs.Agancies;
 using FlyWithUs.Hosted.Service.DTOs.Airplanes;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Airplanes;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -82,11 +80,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Airplanes
                 result = true;
             }
             return result;
-        }
-
-        public AgancyUpdateDTO GetAgancyForUpdate(int agancyId)
-        {
-            return mapper.Map<AgancyUpdateDTO>(repository.GetById(agancyId));
         }
 
         public bool UpdateAgancy(AgancyUpdateDTO dto)

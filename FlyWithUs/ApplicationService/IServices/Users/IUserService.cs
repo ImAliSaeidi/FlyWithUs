@@ -27,8 +27,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Users
 
         bool UpdateUser(UserUpdateDTO dto);
 
-        UserUpdateDTO GetUserForUpdate(string userId);
-
         bool ChangePassword(ChangePasswordDTO dto);
 
         bool LoginCheck(string userId);

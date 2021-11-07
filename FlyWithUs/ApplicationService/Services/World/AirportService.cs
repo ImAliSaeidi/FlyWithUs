@@ -4,7 +4,6 @@ using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Airports;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,17 +52,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             dto.CountryId = airport.City.CountryId;
             return dto;
         }
-
-        public List<SelectListItem> GetAllAirportAsSelectList(int cityId)
-        {
-            return repository.GetAll().Where(a => a.City.Id == cityId)
-               .Select(c => new SelectListItem()
-               {
-                   Text = c.PersianName,
-                   Value = c.Id.ToString()
-               }).ToList();
-        }
-
+                
         public GridResultDTO<AirportDTO> GetAllAirport(int skip, int take)
         {
             var airports = repository.GetAll().Skip(skip).Take(take).ToList();
@@ -113,11 +102,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
                 }
             }
             return result;
-        }
-
-        public AirportUpdateDTO GetAirportForUpdate(int airportId)
-        {
-            return mapper.Map<AirportUpdateDTO>(repository.GetById(airportId));
         }
 
     }

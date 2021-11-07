@@ -25,11 +25,6 @@ namespace FlyWithUs.Hosted.Service.Models.World
         public string EnglishName { get; set; }
 
 
-        //[Required]
-        //[StringLength(1024)]
-        //public string ImagePath { get; set; }
-
-
         [Required]
         public int CountryId { get; set; }
 

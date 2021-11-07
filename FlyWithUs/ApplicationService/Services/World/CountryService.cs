@@ -6,7 +6,6 @@ using FlyWithUs.Hosted.Service.DTOs.Cities;
 using FlyWithUs.Hosted.Service.DTOs.Countries;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
 using FlyWithUs.Hosted.Service.Models.World;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,25 +50,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
             return result;
         }
-
-        public List<SelectListItem> GetAllCountryAsSelectList()
-        {
-            var result = new List<SelectListItem>() {
-                new SelectListItem
-                {
-                    Text="انتخاب کنید",
-                    Value=""
-                }};
-            var countries = repository.GetAll()
-                .Select(c => new SelectListItem()
-                {
-                    Text = c.PersianName,
-                    Value = c.Id.ToString()
-                }).ToList();
-            result.AddRange(countries);
-            return result;
-        }
-
+              
         public CountryDTO GetCountryById(int countryId)
         {
             return Map(repository.GetById(countryId));
@@ -121,12 +102,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.World
             }
             return result;
         }
-
-        public CountryUpdateDTO GetCountryForUpdate(int countryId)
-        {
-            return mapper.Map<CountryUpdateDTO>(repository.GetById(countryId));
-        }
-
+                
         public bool UpdateCountry(CountryUpdateDTO dto)
         {
             bool result = false;

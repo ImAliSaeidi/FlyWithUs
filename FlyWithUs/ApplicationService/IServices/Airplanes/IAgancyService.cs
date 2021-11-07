@@ -1,6 +1,5 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Agancies;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
@@ -16,8 +15,6 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.IServices.Airplanes
         bool IsAgancyExist(string name, int agancyId);
 
         bool DeleteAgancy(int agancyId);
-
-        AgancyUpdateDTO GetAgancyForUpdate(int agancyId);
 
         bool UpdateAgancy(AgancyUpdateDTO dto);
 

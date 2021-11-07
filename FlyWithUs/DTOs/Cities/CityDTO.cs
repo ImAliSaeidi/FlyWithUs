@@ -21,15 +21,6 @@ namespace FlyWithUs.Hosted.Service.DTOs.Cities
 
         public string CountryName { get; set; }
 
-        private string imagePath;
-
-        public string ImagePath
-        {
-            get { return CDNConfiguration.HttpUrl + imagePath; }
-            set { imagePath = value; }
-        }
-
-
         public List<AirportDTO> AirportDTOs { get; set; }
     }
 }
