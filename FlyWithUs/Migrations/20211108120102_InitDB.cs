@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
-    public partial class InitFinalDB : Migration
+    public partial class InitDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Agancies",
                 columns: table => new
                 {
@@ -339,12 +339,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDeleted", "Name", "NormalizedName" },
-                values: new object[] { "1af962a6-d464-467f-8fea-8f6e9c4be780", "a3a19c3c-e29a-41d3-bd74-6733f4b768d6", false, "User", "USER" });
+                values: new object[] { "1af962a6-d464-467f-8fea-8f6e9c4be780", "58b8fe1e-5c42-4c2a-a1b3-e247ae048194", false, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDeleted", "Name", "NormalizedName" },
-                values: new object[] { "586faa77-67b7-477e-849f-e174c7924f95", "f352f0f9-a10d-4847-a417-de4552d68f63", false, "Admin", "ADMIN" });
+                values: new object[] { "586faa77-67b7-477e-849f-e174c7924f95", "739e6968-e2d1-4db7-9efc-d1e3c1e86f01", false, "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airplanes_AgancyId",

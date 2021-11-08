@@ -73,14 +73,14 @@ TI.IsDeleted=0
                 keyColumn: "Id",
                 keyValue: "1af962a6-d464-467f-8fea-8f6e9c4be780",
                 column: "ConcurrencyStamp",
-                value: "fa805ad5-d36c-4f43-a4d5-713f22dde527");
+                value: "1e9e2d2d-bc32-4508-abd1-a55ef9a028ec");
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: "586faa77-67b7-477e-849f-e174c7924f95",
                 column: "ConcurrencyStamp",
-                value: "67bb9a8c-9dde-436c-97d0-3da6ab6454ad");
+                value: "a77af80e-86d3-4c32-823e-2337d622c3b8");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -90,14 +90,14 @@ TI.IsDeleted=0
                 keyColumn: "Id",
                 keyValue: "1af962a6-d464-467f-8fea-8f6e9c4be780",
                 column: "ConcurrencyStamp",
-                value: "a3a19c3c-e29a-41d3-bd74-6733f4b768d6");
+                value: "58b8fe1e-5c42-4c2a-a1b3-e247ae048194");
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: "586faa77-67b7-477e-849f-e174c7924f95",
                 column: "ConcurrencyStamp",
-                value: "f352f0f9-a10d-4847-a417-de4552d68f63");
+                value: "739e6968-e2d1-4db7-9efc-d1e3c1e86f01");
         }
     }
 }

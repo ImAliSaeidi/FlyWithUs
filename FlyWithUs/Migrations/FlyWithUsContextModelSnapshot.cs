@@ -384,7 +384,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "fa805ad5-d36c-4f43-a4d5-713f22dde527",
+                            ConcurrencyStamp = "1e9e2d2d-bc32-4508-abd1-a55ef9a028ec",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -392,7 +392,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "67bb9a8c-9dde-436c-97d0-3da6ab6454ad",
+                            ConcurrencyStamp = "a77af80e-86d3-4c32-823e-2337d622c3b8",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
