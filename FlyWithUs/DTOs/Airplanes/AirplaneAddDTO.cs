@@ -6,12 +6,13 @@ namespace FlyWithUs.Hosted.Service.DTOs.Airplanes
     {
         [Required(ErrorMessage = AirplaneValidation.RequiredNameError)]
         [StringLength(128, ErrorMessage = AirplaneValidation.LengthError)]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$", ErrorMessage = AirplaneValidation.InvalidNameError)]
+        [RegularExpression("[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیa-zA-Z0-9\\s]+$", ErrorMessage = AirplaneValidation.InvalidNameError)]
         public string Name { get; set; }
 
 
         [Required(ErrorMessage = AirplaneValidation.RequiredBrandError)]
         [StringLength(128, ErrorMessage = AirplaneValidation.LengthError)]
+        [RegularExpression("[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیa-zA-Z0-9\\s]+$", ErrorMessage = AirplaneValidation.InvalidNameError)]
         public string Brand { get; set; }
 
 

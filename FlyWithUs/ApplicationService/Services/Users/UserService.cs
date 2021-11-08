@@ -412,7 +412,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
                 dto.FullNamePersian = user.FirstNamePersian + " " + user.LastNamePersian;
                 user.ActiveCode = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10).ToUpper();
                 dto.ActiveCode = user.ActiveCode;
-                dto.RedirectUrl = "http://localhost:4000/auth-reset-password.html";
+                dto.RedirectUrl = "https://imalisaeidi.ir/auth-reset-password.html";
                 repository.Update(user);
                 var to = user.Email;
                 var subject = "فراموشی رمز عبور";
