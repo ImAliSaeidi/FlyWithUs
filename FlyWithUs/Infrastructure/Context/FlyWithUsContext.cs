@@ -53,7 +53,6 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
             optionsBuilder.EnableSensitiveDataLogging();
         }
 
@@ -63,7 +62,7 @@ namespace FlyWithUs.Hosted.Service.Infrastructure.Context
 
             modelBuilder.Entity<TravelView>().ToView("TravelViews").HasKey(t => t.Id);
             modelBuilder.Entity<PaymentResultView>().ToView("PaymentResultViews").HasKey(t => t.TicketId);
-         
+
             modelBuilder.Entity<ApplicationUser>().ToTable("User");
             modelBuilder.Entity<ApplicationUser>().HasKey(x => x.Id);
             modelBuilder.Entity<ApplicationUser>().HasMany(x => x.ApplicationUserRoles).WithOne(x => x.User).HasForeignKey(x => x.UserId);

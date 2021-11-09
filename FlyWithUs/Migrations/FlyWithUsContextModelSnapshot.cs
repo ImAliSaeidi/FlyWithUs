@@ -15,8 +15,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Agancy", b =>
@@ -34,8 +34,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.HasKey("Id");
 
@@ -54,8 +54,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("Brand")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -68,8 +68,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.HasKey("Id");
 
@@ -98,8 +98,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TrackingCode")
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("nvarchar(512)")
+                        .HasMaxLength(512);
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -110,41 +110,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Orders.PaymentResultView", b =>
-                {
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("DestinationAirport")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("MovingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("MovingTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OriginAirport")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TicketCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("TicketCreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TrackingCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TicketId");
-
-                    b.ToView("PaymentResultViews");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.OrderTicket", b =>
@@ -184,8 +149,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("nvarchar(512)")
+                        .HasMaxLength(512);
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -224,8 +189,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("Class")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime2");
@@ -265,8 +230,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
 
                     b.HasKey("Id");
 
@@ -289,68 +254,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.ToTable("Travels");
                 });
 
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Travels.TravelView", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AgancyName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AirplaneName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ArrivingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ArrivingTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Class")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DestinationAirportName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DestinationCityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DestinationCountryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("MaxCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("MovingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("MovingTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OriginAirportName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OriginCityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OriginCountryName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToView("TravelViews");
-                });
-
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -364,18 +267,18 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
+                        .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Role");
@@ -384,7 +287,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "1e9e2d2d-bc32-4508-abd1-a55ef9a028ec",
+                            ConcurrencyStamp = "93260817-03d4-448e-b356-59896e011272",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -392,7 +295,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "a77af80e-86d3-4c32-823e-2337d622c3b8",
+                            ConcurrencyStamp = "5102da8e-6045-4dfc-9caf-9ee018ac2a33",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"
@@ -417,34 +320,34 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstNameEnglish")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("FirstNamePersian")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Gender")
-                        .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasColumnType("nvarchar(16)")
+                        .HasMaxLength(16);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastNameEnglish")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("LastNamePersian")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -453,15 +356,15 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NationalityCode")
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
 
                     b.Property<int?>("NationalityId")
                         .HasColumnType("int");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
 
                     b.Property<DateTime?>("PassportExpirationDate")
                         .HasColumnType("datetime2");
@@ -470,8 +373,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PassportNumber")
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -491,7 +394,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
+                        .HasName("EmailIndex");
 
                     b.ToTable("User");
                 });
@@ -529,16 +432,16 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("EnglishName")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("PersianName")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.HasKey("Id");
 
@@ -562,16 +465,16 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("EnglishName")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("PersianName")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.HasKey("Id");
 
@@ -592,16 +495,16 @@ namespace FlyWithUs.Hosted.Service.Migrations
 
                     b.Property<string>("EnglishName")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("PersianName")
                         .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.HasKey("Id");
 
@@ -615,8 +518,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("AgancyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Agancy");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Orders.Order", b =>
@@ -626,8 +527,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.OrderTicket", b =>
@@ -643,10 +542,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.Ticket", b =>
@@ -656,8 +551,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("TravelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Travel");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Travels.Travel", b =>
@@ -709,22 +602,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("OriginCountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Agancy");
-
-                    b.Navigation("Airplane");
-
-                    b.Navigation("DestinationAirport");
-
-                    b.Navigation("DestinationCity");
-
-                    b.Navigation("DestinationCountry");
-
-                    b.Navigation("OriginAirport");
-
-                    b.Navigation("OriginCity");
-
-                    b.Navigation("OriginCountry");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationUserRole", b =>
@@ -740,10 +617,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.Airport", b =>
@@ -753,8 +626,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.City", b =>
@@ -764,72 +635,6 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Agancy", b =>
-                {
-                    b.Navigation("Airplanes");
-
-                    b.Navigation("Travels");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Airplanes.Airplane", b =>
-                {
-                    b.Navigation("Travels");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Orders.Order", b =>
-                {
-                    b.Navigation("OrderTickets");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Tickets.Ticket", b =>
-                {
-                    b.Navigation("OrderTickets");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Travels.Travel", b =>
-                {
-                    b.Navigation("Tickets");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationRole", b =>
-                {
-                    b.Navigation("ApplicationUserRoles");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.Users.ApplicationUser", b =>
-                {
-                    b.Navigation("ApplicationUserRoles");
-
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.Airport", b =>
-                {
-                    b.Navigation("IncomingTravels");
-
-                    b.Navigation("OutboundTravels");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.City", b =>
-                {
-                    b.Navigation("Airports");
-
-                    b.Navigation("IncomingTravels");
-
-                    b.Navigation("OutboundTravels");
-                });
-
-            modelBuilder.Entity("FlyWithUs.Hosted.Service.Models.World.Country", b =>
-                {
-                    b.Navigation("Cities");
-
-                    b.Navigation("IncomingTravels");
-
-                    b.Navigation("OutboundTravels");
                 });
 #pragma warning restore 612, 618
         }

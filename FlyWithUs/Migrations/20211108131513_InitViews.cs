@@ -2,7 +2,7 @@
 
 namespace FlyWithUs.Hosted.Service.Migrations
 {
-    public partial class AddViews : Migration
+    public partial class InitViews : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -73,14 +73,14 @@ TI.IsDeleted=0
                 keyColumn: "Id",
                 keyValue: "1af962a6-d464-467f-8fea-8f6e9c4be780",
                 column: "ConcurrencyStamp",
-                value: "1e9e2d2d-bc32-4508-abd1-a55ef9a028ec");
+                value: "93260817-03d4-448e-b356-59896e011272");
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: "586faa77-67b7-477e-849f-e174c7924f95",
                 column: "ConcurrencyStamp",
-                value: "a77af80e-86d3-4c32-823e-2337d622c3b8");
+                value: "5102da8e-6045-4dfc-9caf-9ee018ac2a33");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -90,14 +90,14 @@ TI.IsDeleted=0
                 keyColumn: "Id",
                 keyValue: "1af962a6-d464-467f-8fea-8f6e9c4be780",
                 column: "ConcurrencyStamp",
-                value: "58b8fe1e-5c42-4c2a-a1b3-e247ae048194");
+                value: "3d19f418-8daf-47c5-843b-f12fb8c13188");
 
             migrationBuilder.UpdateData(
                 table: "Role",
                 keyColumn: "Id",
                 keyValue: "586faa77-67b7-477e-849f-e174c7924f95",
                 column: "ConcurrencyStamp",
-                value: "739e6968-e2d1-4db7-9efc-d1e3c1e86f01");
+                value: "8bae9ee5-79c0-425e-9870-6b11b1dcaebc");
         }
     }
 }

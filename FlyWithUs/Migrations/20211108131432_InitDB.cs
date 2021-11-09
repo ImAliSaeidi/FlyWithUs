@@ -11,11 +11,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Agancies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,12 +26,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Countries",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EnglishName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    PersianName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    EnglishName = table.Column<string>(maxLength: 128, nullable: false),
+                    PersianName = table.Column<string>(maxLength: 128, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,11 +42,11 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Role",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,32 +57,32 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    NationalityId = table.Column<int>(type: "int", nullable: true),
-                    FirstNamePersian = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    LastNamePersian = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    FirstNameEnglish = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    LastNameEnglish = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
-                    NationalityCode = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
-                    Birthdate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: true),
-                    PassportNumber = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
-                    PassportIssunaceDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PassportExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ActiveCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    NationalityId = table.Column<int>(nullable: true),
+                    FirstNamePersian = table.Column<string>(maxLength: 128, nullable: true),
+                    LastNamePersian = table.Column<string>(maxLength: 128, nullable: true),
+                    FirstNameEnglish = table.Column<string>(maxLength: 128, nullable: true),
+                    LastNameEnglish = table.Column<string>(maxLength: 128, nullable: true),
+                    NationalityCode = table.Column<string>(maxLength: 32, nullable: true),
+                    Birthdate = table.Column<DateTime>(nullable: true),
+                    Gender = table.Column<string>(maxLength: 16, nullable: true),
+                    PassportNumber = table.Column<string>(maxLength: 32, nullable: true),
+                    PassportIssunaceDate = table.Column<DateTime>(nullable: true),
+                    PassportExpirationDate = table.Column<DateTime>(nullable: true),
+                    ActiveCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,14 +93,14 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Airplanes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Brand = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    MaxCapacity = table.Column<int>(type: "int", nullable: false),
-                    AgancyId = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    Brand = table.Column<string>(maxLength: 128, nullable: false),
+                    MaxCapacity = table.Column<int>(nullable: false),
+                    AgancyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,13 +117,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Cities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PersianName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    EnglishName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    PersianName = table.Column<string>(maxLength: 128, nullable: false),
+                    EnglishName = table.Column<string>(maxLength: 128, nullable: false),
+                    CountryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,14 +140,14 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    TotalPrice = table.Column<int>(type: "int", nullable: false),
-                    IsFinaly = table.Column<bool>(type: "bit", nullable: false),
-                    TrackingCode = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
+                    TotalPrice = table.Column<int>(nullable: false),
+                    IsFinaly = table.Column<bool>(nullable: false),
+                    TrackingCode = table.Column<string>(maxLength: 512, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -164,9 +164,9 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "UserRole",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    UserId = table.Column<string>(nullable: false),
+                    RoleId = table.Column<string>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -189,13 +189,13 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Airports",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PersianName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    EnglishName = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    CityId = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    PersianName = table.Column<string>(maxLength: 128, nullable: false),
+                    EnglishName = table.Column<string>(maxLength: 128, nullable: false),
+                    CityId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -212,26 +212,26 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Travels",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MaxCapacity = table.Column<int>(type: "int", nullable: false),
-                    MovingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ArrivingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MovingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ArrivingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
-                    Class = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    AirplaneId = table.Column<int>(type: "int", nullable: false),
-                    AgancyId = table.Column<int>(type: "int", nullable: false),
-                    OriginAirportId = table.Column<int>(type: "int", nullable: false),
-                    DestinationAirportId = table.Column<int>(type: "int", nullable: false),
-                    OriginCityId = table.Column<int>(type: "int", nullable: false),
-                    DestinationCityId = table.Column<int>(type: "int", nullable: false),
-                    OriginCountryId = table.Column<int>(type: "int", nullable: false),
-                    DestinationCountryId = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    MaxCapacity = table.Column<int>(nullable: false),
+                    MovingTime = table.Column<DateTime>(nullable: false),
+                    ArrivingTime = table.Column<DateTime>(nullable: false),
+                    MovingDate = table.Column<DateTime>(nullable: false),
+                    ArrivingDate = table.Column<DateTime>(nullable: false),
+                    Type = table.Column<string>(maxLength: 32, nullable: false),
+                    Class = table.Column<string>(maxLength: 32, nullable: false),
+                    Price = table.Column<int>(nullable: false),
+                    AirplaneId = table.Column<int>(nullable: false),
+                    AgancyId = table.Column<int>(nullable: false),
+                    OriginAirportId = table.Column<int>(nullable: false),
+                    DestinationAirportId = table.Column<int>(nullable: false),
+                    OriginCityId = table.Column<int>(nullable: false),
+                    DestinationCityId = table.Column<int>(nullable: false),
+                    OriginCountryId = table.Column<int>(nullable: false),
+                    DestinationCountryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -255,20 +255,8 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Travels_Airports_OriginAirportId",
-                        column: x => x.OriginAirportId,
-                        principalTable: "Airports",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
                         name: "FK_Travels_Cities_DestinationCityId",
                         column: x => x.DestinationCityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Travels_Cities_OriginCityId",
-                        column: x => x.OriginCityId,
                         principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
@@ -276,6 +264,18 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         name: "FK_Travels_Countries_DestinationCountryId",
                         column: x => x.DestinationCountryId,
                         principalTable: "Countries",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Travels_Airports_OriginAirportId",
+                        column: x => x.OriginAirportId,
+                        principalTable: "Airports",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Travels_Cities_OriginCityId",
+                        column: x => x.OriginCityId,
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
@@ -290,12 +290,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
-                    TravelId = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    Code = table.Column<string>(maxLength: 512, nullable: false),
+                    TravelId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -312,12 +312,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "OrderTickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    TicketId = table.Column<int>(type: "int", nullable: false),
-                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false),
+                    TicketId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -339,12 +339,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDeleted", "Name", "NormalizedName" },
-                values: new object[] { "1af962a6-d464-467f-8fea-8f6e9c4be780", "58b8fe1e-5c42-4c2a-a1b3-e247ae048194", false, "User", "USER" });
+                values: new object[] { "1af962a6-d464-467f-8fea-8f6e9c4be780", "3d19f418-8daf-47c5-843b-f12fb8c13188", false, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDeleted", "Name", "NormalizedName" },
-                values: new object[] { "586faa77-67b7-477e-849f-e174c7924f95", "739e6968-e2d1-4db7-9efc-d1e3c1e86f01", false, "Admin", "ADMIN" });
+                values: new object[] { "586faa77-67b7-477e-849f-e174c7924f95", "8bae9ee5-79c0-425e-9870-6b11b1dcaebc", false, "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airplanes_AgancyId",
