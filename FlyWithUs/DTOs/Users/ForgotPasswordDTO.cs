@@ -6,7 +6,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
     {
         [Required(ErrorMessage = UserValidation.RequiredPhoneNumberError)]
         [StringLength(11, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}", ErrorMessage = UserValidation.InvalidPhoneNumberError)]
+        [RegularExpression(UserValidation.PhoneNumberRegex, ErrorMessage = UserValidation.InvalidPhoneNumberError)]
         public string PhoneNumber { get; set; }
 
 

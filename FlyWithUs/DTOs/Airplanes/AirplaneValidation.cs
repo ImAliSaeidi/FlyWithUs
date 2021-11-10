@@ -8,5 +8,8 @@
         public const string RequiredSelectAgancyError = "لطفا آژانس هواپیمایی را انتخاب کنید";
         public const string LengthError = "طول مقدار ورودی مجاز نیست";
         public const string InvalidNameError = "نام وارد شده معتبر نیست";
+        public const string InvalidBrandError = "برند وارد شده معتبر نیست";
+        public const string NameRegex = "[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیa-zA-Z0-9\\s]+$";
+        public const string BrandRegex = "[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیa-zA-Z0-9\\s]+$";
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Cities
 {
@@ -7,13 +6,13 @@ namespace FlyWithUs.Hosted.Service.DTOs.Cities
     {
         [Required(ErrorMessage = CityValidation.RequiredPersianNameError)]
         [StringLength(128, ErrorMessage = CityValidation.LengthError)]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$", ErrorMessage = CityValidation.InvalidPersianNameError)]
+        [RegularExpression(CityValidation.PersianNameRegex, ErrorMessage = CityValidation.InvalidPersianNameError)]
         public string PersianName { get; set; }
 
 
         [Required(ErrorMessage = CityValidation.RequiredEnglishNameError)]
         [StringLength(128, ErrorMessage = CityValidation.LengthError)]
-        [RegularExpression("^[a-zA-Z\\s]*$", ErrorMessage = CityValidation.InvalidEnglishNameError)]
+        [RegularExpression(CityValidation.EnglishNameRegex, ErrorMessage = CityValidation.InvalidEnglishNameError)]
         public string EnglishName { get; set; }
 
 

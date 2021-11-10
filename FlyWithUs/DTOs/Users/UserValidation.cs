@@ -31,7 +31,9 @@
         public const string InvalidLastNameError = "نام خانوادگی وارد شده معتبر نیست";
         public const string PersianCharRegex = "^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$";
         public const string EnglishCharRegex = "^[a-zA-Z\\s]*$";
+        public const string PasswordRegex = "^(?=.*\\d)(?=.*[a-z]|[A-Z]).{6,128}$";
         public const string NationalityCodeRegex = "^[0-9]{10}$";
         public const string PassportNumberRegex = "[A-Z|a-z][0-9]{8}$";
+        public const string PhoneNumberRegex = "09(0[0-9]|1[0-9]|2[0-9]|3[0-9])[0-9]{3}[0-9]{4}";
     }
 }
