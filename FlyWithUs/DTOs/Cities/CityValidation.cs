@@ -9,5 +9,7 @@
         public const string LengthError = "طول مقدار ورودی مجاز نیست";
         public const string InvalidPersianNameError = "نام فارسی وارد شده معتبر نیست";
         public const string InvalidEnglishNameError = "نام انگلیسی وارد شده معتبر نیست";
+        public const string PersianNameRegex = "^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$";
+        public const string EnglishNameRegex = "^[a-zA-Z\\s]*$";
     }
 }

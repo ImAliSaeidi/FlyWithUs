@@ -1,5 +1,4 @@
 ﻿using FlyWithUs.Hosted.Service.DTOs.Airports;
-using FlyWithUs.Hosted.Service.Models;
 using System.Collections.Generic;
 
 namespace FlyWithUs.Hosted.Service.DTOs.Cities

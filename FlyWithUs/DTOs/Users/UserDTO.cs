@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FlyWithUs.Hosted.Service.DTOs.Users
+﻿namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class UserDTO
     {

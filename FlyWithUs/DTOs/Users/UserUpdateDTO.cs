@@ -10,7 +10,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
         [Required(ErrorMessage = UserValidation.RequiredPhoneNumberError)]
         [StringLength(11, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("09(1[0-9]|3[1-9])[0-9]{3}[0-9]{4}", ErrorMessage = UserValidation.InvalidPhoneNumberError)]
+        [RegularExpression(UserValidation.PhoneNumberRegex, ErrorMessage = UserValidation.InvalidPhoneNumberError)]
         public string PhoneNumber { get; set; }
 
 
@@ -21,7 +21,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^(?=.*\\d)(?=.*[a-z]|[A-Z]).{6,128}$", ErrorMessage = UserValidation.InvalidPasswordError)]
+        [RegularExpression(UserValidation.PasswordRegex, ErrorMessage = UserValidation.InvalidPasswordError)]
         public string Password { get; set; }
 
 
@@ -34,27 +34,27 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$", ErrorMessage = UserValidation.InvalidFirstNameError)]
+        [RegularExpression(UserValidation.PersianCharRegex, ErrorMessage = UserValidation.InvalidFirstNameError)]
         public string FirstNamePersian { get; set; }
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[آابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی\\s]+$", ErrorMessage = UserValidation.InvalidLastNameError)]
+        [RegularExpression(UserValidation.PersianCharRegex, ErrorMessage = UserValidation.InvalidLastNameError)]
         public string LastNamePersian { get; set; }
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[a-zA-Z\\s]*$", ErrorMessage = UserValidation.InvalidFirstNameError)]
+        [RegularExpression(UserValidation.EnglishCharRegex, ErrorMessage = UserValidation.InvalidFirstNameError)]
         public string FirstNameEnglish { get; set; }
 
 
         [StringLength(128, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[a-zA-Z\\s]*$", ErrorMessage = UserValidation.InvalidLastNameError)]
+        [RegularExpression(UserValidation.EnglishCharRegex, ErrorMessage = UserValidation.InvalidLastNameError)]
         public string LastNameEnglish { get; set; }
 
 
         [StringLength(32, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("^[0-9]{10}$", ErrorMessage = UserValidation.InvalidNationalityCodeError)]
+        [RegularExpression(UserValidation.NationalityCodeRegex, ErrorMessage = UserValidation.InvalidNationalityCodeError)]
         public string NationalityCode { get; set; }
 
 
@@ -65,7 +65,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 
 
         [StringLength(32, ErrorMessage = UserValidation.LengthError)]
-        [RegularExpression("[A-Z|a-z][0-9]{8}$", ErrorMessage = UserValidation.InvalidPassportNumberError)]
+        [RegularExpression(UserValidation.PassportNumberRegex, ErrorMessage = UserValidation.InvalidPassportNumberError)]
         public string PassportNumber { get; set; }
 
 
