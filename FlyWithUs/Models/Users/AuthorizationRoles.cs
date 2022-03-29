@@ -1,4 +1,4 @@
-﻿namespace FlyWithUs.Hosted.Service.Models
+﻿namespace FlyWithUs.Hosted.Service.Models.Users
 {
     public class AuthorizationRoles
     {

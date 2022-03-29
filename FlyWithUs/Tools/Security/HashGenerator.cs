@@ -10,7 +10,7 @@ namespace FlyWithUs.Hosted.Service.Tools.Security
         {
             byte[] bytes = Encoding.Unicode.GetBytes(plaintext);
             byte[] hashed = HashAlgorithm.Create(hashtype).ComputeHash(bytes);
-            return Convert.ToBase64String(hashed);
+            return Convert.ToBase64String(hashed);  
         }
 
         public static string SalterHash(string plaintext)

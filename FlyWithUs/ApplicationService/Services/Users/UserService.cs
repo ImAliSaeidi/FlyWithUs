@@ -4,7 +4,6 @@ using FlyWithUs.Hosted.Service.DTOs;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.Users;
 using FlyWithUs.Hosted.Service.Infrastructure.IRepositories.World;
-using FlyWithUs.Hosted.Service.Models;
 using FlyWithUs.Hosted.Service.Models.Users;
 using FlyWithUs.Hosted.Service.Tools.Convertors;
 using FlyWithUs.Hosted.Service.Tools.EmailSenders;
@@ -111,7 +110,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             dto.CreateDate = user.CreateDate.ToShamsi();
             return dto;
         }
-                
+
         public bool UpdateUser(UserUpdateDTO dto)
         {
             bool result = false;
@@ -258,7 +257,7 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
             return result;
         }
 
-        private  bool CompleteUserInfo(CompleteUserInfoDTO dto)
+        private bool CompleteUserInfo(CompleteUserInfoDTO dto)
         {
             bool result = false;
             if (ValidateCompleteUserInfoDTO(dto) == true)
@@ -380,9 +379,8 @@ namespace FlyWithUs.Hosted.Service.ApplicationService.Services.Users
         public bool Update(UserProfileUpdateDTO dto)
         {
             var result = false;
-            var userByEmail = repository.GetUserByEmail(dto.Email);
-            var userByNumber = repository.GetUserByPhoneNumber(dto.PhoneNumber);
-            if (userByEmail.Id == dto.Id && userByNumber.Id == dto.Id)
+            var user = repository.GetById(dto.Id);
+            if (user != null)
             {
                 if (dto.IsInbuy == false)
                 {

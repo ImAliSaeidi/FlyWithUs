@@ -1,6 +1,6 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Statistics;
 using FlyWithUs.Hosted.Service.Filter;
-using FlyWithUs.Hosted.Service.Models;
+using FlyWithUs.Hosted.Service.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlyWithUs.Hosted.Service.Controllers

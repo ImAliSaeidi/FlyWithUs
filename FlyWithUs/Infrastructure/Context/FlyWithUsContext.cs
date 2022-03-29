@@ -1,5 +1,4 @@
-﻿using FlyWithUs.Hosted.Service.Models;
-using FlyWithUs.Hosted.Service.Models.Airplanes;
+﻿using FlyWithUs.Hosted.Service.Models.Airplanes;
 using FlyWithUs.Hosted.Service.Models.Orders;
 using FlyWithUs.Hosted.Service.Models.Tickets;
 using FlyWithUs.Hosted.Service.Models.Travels;

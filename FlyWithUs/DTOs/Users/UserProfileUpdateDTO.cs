@@ -5,7 +5,7 @@ namespace FlyWithUs.Hosted.Service.DTOs.Users
 {
     public class UserProfileUpdateDTO
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
 
         [StringLength(11, ErrorMessage = UserValidation.LengthError)]

@@ -124,6 +124,7 @@ namespace FlyWithUs.Hosted.Service
                     }
                 });
             });
+            services.AddMetrics();
 
         }
 

@@ -1,7 +1,7 @@
 ﻿using FlyWithUs.Hosted.Service.ApplicationService.IServices.Users;
 using FlyWithUs.Hosted.Service.DTOs.Users;
 using FlyWithUs.Hosted.Service.Filter;
-using FlyWithUs.Hosted.Service.Models;
+using FlyWithUs.Hosted.Service.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 

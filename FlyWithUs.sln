@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31624.102
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyWithUs.Hosted.Service", "FlyWithUs\FlyWithUs.Hosted.Service.csproj", "{7213A3F6-D483-4002-BDF5-5E34A4551456}"
 EndProject
