@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyWithUs.Hosted.Service.Migrations
 {
     [DbContext(typeof(FlyWithUsContext))]
-    [Migration("20211211213358_InitDBOnSQLDev")]
-    partial class InitDBOnSQLDev
+    [Migration("20220401154505_InitDB")]
+    partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -289,7 +289,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "1af962a6-d464-467f-8fea-8f6e9c4be780",
-                            ConcurrencyStamp = "f34b00d5-3889-413b-b6d7-8a839db6a53f",
+                            ConcurrencyStamp = "6ef8a7f3-4b88-4496-8422-bd63dc65fa21",
                             IsDeleted = false,
                             Name = "User",
                             NormalizedName = "USER"
@@ -297,7 +297,7 @@ namespace FlyWithUs.Hosted.Service.Migrations
                         new
                         {
                             Id = "586faa77-67b7-477e-849f-e174c7924f95",
-                            ConcurrencyStamp = "d1e25dc5-43b5-494b-98da-d48345eb6331",
+                            ConcurrencyStamp = "e8a7d67f-500c-4c07-84fe-dffa005f2b8e",
                             IsDeleted = false,
                             Name = "Admin",
                             NormalizedName = "ADMIN"

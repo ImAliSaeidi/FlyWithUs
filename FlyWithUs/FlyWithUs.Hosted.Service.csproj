@@ -3,6 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20211108131432_InitDB.cs" />
+    <Compile Remove="Migrations\20211108131432_InitDB.Designer.cs" />
+    <Compile Remove="Migrations\20211108131513_InitViews.cs" />
+    <Compile Remove="Migrations\20211108131513_InitViews.Designer.cs" />
+    <Compile Remove="Migrations\20211211213358_InitDBOnSQLDev.cs" />
+    <Compile Remove="Migrations\20211211213358_InitDBOnSQLDev.Designer.cs" />
+    <Compile Remove="Migrations\20220401154317_InitDB2.cs" />
+    <Compile Remove="Migrations\20220401154317_InitDB2.Designer.cs" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.21" />

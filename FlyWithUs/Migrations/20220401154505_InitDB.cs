@@ -339,12 +339,12 @@ namespace FlyWithUs.Hosted.Service.Migrations
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDeleted", "Name", "NormalizedName" },
-                values: new object[] { "1af962a6-d464-467f-8fea-8f6e9c4be780", "3d19f418-8daf-47c5-843b-f12fb8c13188", false, "User", "USER" });
+                values: new object[] { "1af962a6-d464-467f-8fea-8f6e9c4be780", "6ef8a7f3-4b88-4496-8422-bd63dc65fa21", false, "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "Role",
                 columns: new[] { "Id", "ConcurrencyStamp", "IsDeleted", "Name", "NormalizedName" },
-                values: new object[] { "586faa77-67b7-477e-849f-e174c7924f95", "8bae9ee5-79c0-425e-9870-6b11b1dcaebc", false, "Admin", "ADMIN" });
+                values: new object[] { "586faa77-67b7-477e-849f-e174c7924f95", "e8a7d67f-500c-4c07-84fe-dffa005f2b8e", false, "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Airplanes_AgancyId",
@@ -437,6 +437,68 @@ namespace FlyWithUs.Hosted.Service.Migrations
                 name: "IX_UserRole_RoleId",
                 table: "UserRole",
                 column: "RoleId");
+
+            migrationBuilder.Sql(@"CREATE OR ALTER VIEW TravelViews
+AS
+SELECT 
+T.Id Id,
+T.Price Price,
+T.MaxCapacity MaxCapacity,
+T.[Type] [Type],
+T.Class Class,
+T.MovingDate MovingDate,
+T.MovingTime MovingTime,
+T.ArrivingDate ArrivingDate,
+T.ArrivingTime ArrivingTime,
+AG.[Name] AgancyName,
+AP.[Name] AirplaneName,
+OAP.PersianName OriginAirportName,
+DOP.PersianName DestinationAirportName,
+OC.PersianName OriginCityName,
+DC.PersianName DestinationCityName,
+OCI.[PersianName] OriginCountryName,
+DCI.[PersianName] DestinationCountryName,
+T.IsDeleted IsDeleted
+FROM Travels  T 
+INNER JOIN Agancies AG 
+ON T.AgancyId=AG.Id
+INNER JOIN Airplanes AP  
+ON T.AirplaneId=AP.Id 
+INNER JOIN Airports OAP 
+ON T.OriginAirportId=OAP.Id
+INNER JOIN Airports DOP 
+ON T.DestinationAirportId=DOP.Id
+INNER JOIN Cities OC 
+ON T.OriginCityId=OC.Id
+INNER JOIN Cities DC 
+ON T.DestinationCityId=DC.Id
+INNER JOIN Countries OCI 
+ON T.OriginCountryId=OCI.Id
+INNER JOIN Countries DCI 
+ON T.DestinationCountryId=DCI.Id");
+
+            migrationBuilder.Sql(@"CREATE OR ALTER VIEW PaymentResultViews
+AS
+SELECT 
+U.Id UserId,
+TI.Id TicketId,
+TI.Code TicketCode,
+O.TrackingCode TrackingCode,
+OA.PersianName OriginAirport,
+DA.PersianName DestinationAirport,
+TR.MovingDate MovingDate,
+TR.MovingTime MovingTime,
+TI.CreateDate TicketCreateDate
+FROM Orders O 
+INNER JOIN [User] U ON O.UserId=U.Id
+INNER JOIN OrderTickets OT ON O.Id=OT.OrderId
+INNER JOIN Tickets TI ON OT.TicketId=TI.Id
+INNER JOIN Travels TR ON TI.TravelId=TR.Id
+INNER JOIN Airports OA ON TR.OriginAirportId=OA.Id
+INNER JOIN Airports DA ON TR.DestinationAirportId=DA.Id
+WHERE
+TI.IsDeleted=0
+");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
